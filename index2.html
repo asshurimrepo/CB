@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+    box-sizing: border-box;
+}
+.row:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+}
+html {
+    font-family: "Lucida Sans", sans-serif;
+}
+h2 {
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+}
+div {
+	padding: 0px;
+	margin: 0px;
+}
+input[type="text"] {
+  margin: 10;
+  width: 90%;
+  font-family: sans-serif;
+  font-size: 18px;
+}
+textarea {
+  margin: 10;
+  width: 90%;
+  font-family: sans-serif;
+  font-size: 18px;
+}
+.header {
+    background-color: #9933cc;
+    color: #ffffff;
+    padding: 15px;
+}
+.menu {
+	font-size: 22px;
+	color: #666666;
+	cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+.menu:hover {
+	color: #f8b922;
+}
+.aside {
+    background-color: #33b5e5;
+    padding: 15px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.footer {
+    background-color: #0099cc;
+    color: #ffffff;
+    text-align: center;
+    font-size: 12px;
+    padding: 15px;
+}
+.fixed-height {
+	display: block;
+	width: 100%;
+	height: 9px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+.fixed-height1 {
+	display: block;
+	width: 100%;
+	height: 9px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+.intouch {
+	margin: 5px;
+	padding: 10px;
+	border: none;
+	box-shadow: inset 1px 1px 2px 0 #707070;
+}
+.inTouchSubmit {
+	width: 90%;
+	height: 62px;
+	border: none;
+	color:white;
+    font-size: 18px;
+	font-weight: bold;
+	background-image: url('images2/buttonBG.png');
+}
+/* Responsiveness */
+[class*="col-"] {
+    width: 100%;
+}
+@media only screen and (max-width: 599px) {
+	.fixed-height1 { visibility: hidden; }
+    
+    .button-onimg {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		width: 150px;
+		height: 44px;
+	}
+    
+    .main1 {
+		overflow:hidden;
+		width: 100%;
+		padding: 0px;
+		margin-top: -5px;
+		color: white;
+		background-color: #338899;
+	}
+	
+	.slider {
+		height: 0px;
+		display: none;
+	}
+    
+    .main2 {
+		overflow:hidden;
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+		color: white;
+		background-color: #338899;
+	}
+    
+    .main3 {
+		overflow: hidden;
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+		color: white;
+		background-color: #338899;
+	}
+    
+    .footer1 {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		max-width: 1280px;
+		padding: 20px;
+		margin: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		color: #b3b3b3;
+		background-color: #252525;
+	}
+    
+    .footer2 {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		max-width: 1280px;
+		padding: 0px;
+		margin: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		color: #b3b3b3;
+		background-image: url('images2/footer2.png');
+		background-repeat: repeat-x;
+	}
+}
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .col-m-1 {width: 8.33%;}
+    .col-m-2 {width: 16.66%;}
+    .col-m-3 {width: 25%;}
+    .col-m-4 {width: 33.33%;}
+    .col-m-5 {width: 41.66%;}
+    .col-m-6 {width: 50%;}
+    .col-m-7 {width: 58.33%;}
+    .col-m-8 {width: 66.66%;}
+    .col-m-9 {width: 75%;}
+    .col-m-10 {width: 83.33%;}
+    .col-m-11 {width: 91.66%;}
+    .col-m-12 {width: 100%;}
+    
+    .button-onimg {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+	}
+    
+    .main1 {
+		overflow: hidden;
+		width: 100%;
+		padding: 0px;
+		margin-top: -5px;
+		color: white;
+		background-color: #338899;
+	}
+    
+    .main2 {
+		overflow: hidden;
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+		color: white;
+		background-color: #338899;
+	}
+    
+    .main3 {
+		overflow:hidden;
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+		color: white;
+		background-color: #338899;
+	}
+    
+    .footer1 {
+		display: flex;
+		width: 100%;
+		max-width: 1280px;
+		padding: 20px;
+		margin: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		color: #b3b3b3;
+		background-image: url('images2/footer1.png');
+		background-repeat: repeat-x;
+	}
+    
+    .footer2 {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		max-width: 1280px;
+		height: 64px;
+		padding-top: 10px;
+		margin: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		color: #b3b3b3;
+		background-image: url('images2/footer2.png');
+		background-repeat: repeat-x;
+	}
+}
+@media only screen and (max-width: 999px) {
+	.slider {
+		height: 0px;
+		display: none;
+	}
+    .main2 {
+		width: 100%;
+		max-width: 1280px;
+		margin-top: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		
+		background-color: #338899;
+	}
+}
+@media only screen and (min-width: 1000px) {
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+    
+    .button-onimg {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+	}
+	
+    .main1 {
+		width: 100%;
+		max-width: 1280px;
+		height: 606px;
+		padding-top: 20%;
+		margin-top: -5px;
+		margin-left: auto;
+		margin-right: auto;
+		
+		background-image: url('images2/main1.jpg');
+		background-size: 100% 100%;
+	}
+	
+	.slider {
+		width: 100%;
+		max-width: 1280px;
+		height: 350px;
+		padding-top: 20px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+    
+    .main2 {
+		width: 100%;
+		max-width: 1280px;
+		height: 606px;
+		margin: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		
+		background-image: url('images2/main2.jpg');
+		background-size: 100% 100%;
+	}
+    
+    .main3 {
+		width: 100%;
+		height: auto;
+		max-width: 1280px;
+		margin: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		
+		background-image: url('images2/main3.jpg');
+		background-size: 100% 100%;
+	}
+    
+    .footer1 {
+		display: inline-block;
+		width: 100%;
+		max-width: 1280px;
+		padding: 20px;
+		margin: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		color: #b3b3b3;
+		background-image: url('images2/footer1.png');
+		background-repeat: repeat-x;
+	}
+    
+    .footer2 {
+		width: 100%;
+		max-width: 1280px;
+		height: 64px;
+		margin: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		color: #b3b3b3;
+		background-image: url('images2/footer2.png');
+		background-repeat: repeat-x;
+	}
+}
+</style>
+<script>
+function imgHover(e) {
+	document.getElementById('mark').style.left=e.parentNode.offsetLeft+'px';
+}
+function imgOut() {
+	imgHover(document.getElementById('markHere'));
+}
+window.onload=function (){
+	imgHover(document.getElementById('markHere'));
+}
+</script>
+<body style='text-align: center;'>
+
+<!-- Header -->
+<div class="row" style="padding: 0px; margin: 0px; background-image: url('images2/headerBG.png'); height: 110px;">
+
+<!-- Menu -->
+<div class='col-5 col-m-12' style='padding: 0px; margin: 0px; line-height: 2px;'><img src='images2/logo.png'><br/></div>
+<div class='col-1 col-m-2' style='padding: 0px; margin: 0px;'><span id='markHere' class='menu' onMouseOver="imgHover(this);"><br/><br/>Home</span></div>
+<div class='col-1 col-m-2' style='padding: 0px; margin: 0px;'><span class='menu' onMouseOver="imgHover(this);" onMouseOut="imgOut();"><br/><br/>Work</span></div>
+<div class='col-1 col-m-2' style='padding: 0px; margin: 0px;'><span class='menu' onMouseOver="imgHover(this);" onMouseOut="imgOut();"><br/><br/>Services</span></div>
+<div class='col-1 col-m-2' style='padding: 0px; margin: 0px;'><span class='menu' onMouseOver="imgHover(this);" onMouseOut="imgOut();"><br/><br/>Contact</span></div>
+<div class='col-1 col-m-2' style='padding: 0px; margin: 0px;'><span class='menu' onMouseOver="imgHover(this);" onMouseOut="imgOut();"><br/><br/>Login</span></div>
+<div class='col-12 col-m-12' style='padding: 0px; margin: 0px; position:relative;'>
+	<img class='fixed-height' src='images2/yellowLine.png'/>
+	<img class='fixed-height1' style='width: 100px;' id='mark' src='images2/mark.png'/>
+</div>
+
+</div>
+<div style="clear: both;"></div>
+
+<div style='position: relative; padding: 0px; margin-top: 5px;'>
+	<img src='images2/main.jpg' style='margin-top: 5px; width: 100%; max-width: 1280px;'/>
+	<a href="javascript: alert('Learn more');"><img src='images2/button-orange.png' class='button-onimg'/></a>
+</div>
+
+<!-- What - Why - How -->
+<div class='main1'>
+	<div class='col-4 col-m-12'>
+		<img src='images2/what.png'><br/>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+	</div>
+	<div class='col-4 col-m-12'>
+		<img src='images2/why.png'><br/>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+	</div>
+	<div class='col-4 col-m-12'>
+		<img src='images2/how.png'><br/>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+	</div>
+</div>
+
+<!-- Slider -->
+<div id='slider' class='slider'>
+	<h2>Some of our work</h2>
+	<div class='col-12' style='padding: 0px; margin: 0px;'>
+	bla bla bla...
+	</div>
+	<img src='images2/arrowL.png' onClick='slide(-1);'/>
+	<a href='javascript: void(0);' onClick='sampleClicked(sliderPos);'><img id='sample1' src='images2/sample1.png'/></a>
+	<a href='javascript: void(0);' onClick='sampleClicked(sliderPos+1);'><img id='sample2' src='images2/sample2.png'/></a>
+	<a href='javascript: void(0);' onClick='sampleClicked(sliderPos+2);'><img id='sample3' src='images2/sample3.png'/></a>
+	<a href='javascript: void(0);' onClick='sampleClicked(sliderPos+3);'><img id='sample4' src='images2/sample4.png'/></a>
+	<img src='images2/arrowR.png' onClick='slide(+1);'/>
+</div>
+<script>
+var sliderPos=1;
+var sliderMax=10;
+function slide(v) {
+	if(v>0) {
+		if(sliderPos>=(sliderMax-3)) return;
+		sliderPos++;
+	} else {
+		if(sliderPos<=1) return;
+		sliderPos--;
+	}
+	for(i=1; i<5; i++) {
+		document.getElementById('sample'+i).src="images2/sample"+(sliderPos+i-1)+".png";
+	}
+}
+function sampleClicked(v) {
+	alert(v);
+}
+</script>
+
+<!-- Team -->
+<div class='main2'>
+	<div class='col-12 col-m-12'>
+		<img src='images2/team0.png'><br/>
+		Name Surname<br/>Marketing manager
+	</div>
+	<div class='col-3 col-m-12'>
+		<img src='images2/team1.png'><br/>
+		Name Surname<br/>Graphic designer
+	</div>
+	<div class='col-3 col-m-12'>
+		<img src='images2/team2.png'><br/>
+		Name Surname<br/>Customer manager
+	</div>
+	<div class='col-3 col-m-12'>
+		<img src='images2/team3.png'><br/>
+		Name Surname<br/>PHP expert
+	</div>
+	<div class='col-3 col-m-12'>
+		<img src='images2/team4.png'><br/>
+		Name Surname<br/>PHP expert
+	</div>
+</div>
+
+<!-- Get in touch -->
+<div class='main3'>
+<h2>GET IN TOUCH</h2>
+<div class='col-12'>
+bla bla bla...<br/><br/><br/>
+</div>
+
+<div class='col-4 col-m-12' style='padding: 0px; margin: 0px;'>
+<input class='intouch' type='text' placeholder='Name' id='inTouchName'><br/>
+<input class='intouch' type='text' placeholder='e-mail address' id='inTouchMail'><br/>
+<input class='intouch' type='text' placeholder='Phone number' id='inTouchPhone'>
+</div>
+
+<div class='col-8 col-m-12' style='padding: 0px; margin: 0px;'>
+<textarea class='intouch' style='height: 146px;' placeholder='Message' id='inTouchMessage'></textarea>
+</div>
+
+<div class='col-12'>
+<input type='submit' class='inTouchSubmit' value='SEND MESSAGE'>
+</div>
+<div style="clear: both;"></div>
+</div>
+
+<!-- Footer -->
+<div style='display: block; font-size: 0px;'>
+
+<div class='footer1'>
+<div class='col-4 col-m-12' style='padding: 0px; margin: 0px; font-size: 14px;'>
+<h3>ABOUT US</h3>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</div>
+<div class='col-4 col-m-12' style='padding: 0px; margin: 0px; font-size: 14px;'>
+<h3>QUICK LINKS</h3>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</div>
+<div class='col-4 col-m-12' style='padding: 0px; margin: 0px; font-size: 14px;'>
+<h3>GET IN TOUCH</h3>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</div>
+</div>
+<div class='footer2'>
+<div class='col-8 col-m-12' style='padding: 20px; margin: 0px; text-align: left; font-size: 12px;'>
+&copy;CasterBuddy 2016 | All rights reserved
+</div>
+<div class='col-4 col-m-12' style='padding: 0px; margin: 0px;'>
+<img src='images2/social.png'>
+</div>
+<div style="clear: both;"></div>
+</div>
+
+</div>
+
+</body>
+</html>
