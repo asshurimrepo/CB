@@ -15,5 +15,3 @@ if(isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > $
 $_SESSION['LAST_ACTIVITY'] = time();
 
 $_VALIDATION_PREFIX="CasterBuddy_valid_a1b2c3_";
-
-?>
