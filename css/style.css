@@ -358,10 +358,21 @@ ul.sidebar-menu li a.active i {
 }
 
 a.logo {
+    /*added by rigz*/
+    width: 149px;
+    height: 40px;
+    background: url('../images/new_logo.png') no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-indent: -9999px;
+    overflow: hidden;
+    /*added by rigz*/
     font-size: 21px;
     color: #2e2e2e;
     float: left;
-    margin-top: 15px;
+    margin-top: 10px;
     text-transform: uppercase;
 }
 
@@ -6220,3 +6231,4 @@ header.blue-bg .search:focus {
 .note-editor .note-editable ul li {
     list-style: disc;
 }
+
