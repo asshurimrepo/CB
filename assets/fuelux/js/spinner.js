@@ -68,7 +68,7 @@
 			if(newVal/1){
 				this.options.value = newVal/1;
 			}else{
-				newVal = newVal.replace(/[^0-9]/g,'');
+				newVal = newVal.replace(/[^0-9\-]/g,'');
 				this.$input.val(newVal);
 				this.options.value = newVal/1;
 			}

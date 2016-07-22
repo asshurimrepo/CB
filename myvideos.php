@@ -120,98 +120,199 @@
 																  <li><a data-toggle="tab" href="#menu2"><i class="fa fa-video-camera"></i> External Video</a></li>
 																</ul>
 		                                          			</section>
-				                                          	<form class="text-left">
-																<div class="form-group options-form">
-																	  <label for="title"><strong>Title: </strong></label>
-																	  <input type="text" class="form-control m-bot15" id="propertyTitle" value="<?php echo $prj['Title']; ?>" placeholder="Enter Title">
-																</div>
-																<div class="form-group options-form">
-																	<label for="active"><strong>Active: </strong></label>
-										   							<select id='propertyActive' class="form-control m-bot15">
-																		<option <?php if ($prj['Active'] == 0){ ?> selected <?php } ?> value=0>Plan Free</option>
-																		<option <?php if ($prj['Active'] == 1){ ?> selected <?php } ?> value=1>Plan Paid</option>
-						                                          	</select>											
-																</div>
-																<div class="form-group options-form">
-																	<div class="row">
-																		<div class="col-md-4">
-																			<label for="position"><strong>Position: </strong></label>
-																		   	<select id='propertyPosition' class="form-control m-bot15">
+				                                          	<section class="panel">
+				                                          		<form class="form-horizontal tasi-form text-left">
+																	<div class="form-group">
+																		<div class="col-lg-12 col-md-12">
+																		  <label for="title" class="control-label"><strong>Title: </strong></label>
+																		  	<input type="text" class="form-control m-bot15" id="propertyTitle" value="<?php echo $prj['Title']; ?>" placeholder="Enter Title">
+																		</div>
+																	</div> <!-- 1st form-group -->
+																	<div class="form-group">
+																		<div class="col-lg-12 col-md-12">
+																			<label for="active" class="control-label"><strong>Active: </strong></label><select id='propertyActive' class="form-control m-bot15">
+																				<option <?php if ($prj['Active'] == 0){ ?> selected <?php } ?> value=0>Plan Free</option>
+																				<option <?php if ($prj['Active'] == 1){ ?> selected <?php } ?> value=1>Plan Paid</option>
+								                                          	</select>
+							                                          	</div>						
+																	</div> <!-- 2nd form-group -->
+																	<div class="form-group">
+																		<div class="col-lg-4 col-sm-4">
+																			<label for="position" class="control-label"><strong>Position: </strong></label>
+								                                          	<select id='propertyPosition' class="form-control m-bot15">
 																				<option <?php if ($prj['Position'] == 0){ ?> selected <?php } ?> value=0>Centered</option>
 																				<option <?php if ($prj['Position'] == 1){ ?> selected <?php } ?> value=1>Top left</option>
 																				<option <?php if ($prj['Position'] == 2){ ?> selected <?php } ?> value=2>Top right</option>
 																				<option <?php if ($prj['Position'] == 3){ ?> selected <?php } ?> value=3>Bottom left</option>
 																				<option <?php if ($prj['Position'] == 4){ ?> selected <?php } ?> value=4>Bottom right</option>
-								                                          	</select>								
-								                                        </div>
-																		<div class="col-md-4">									
-																			<label for="offsetx"><strong>Offset X: </strong></label>
-																			<input id='propertyOffsetX' type='number' value="<?php echo $prj['OffsetX']; ?>" class="form-control m-bot15" placeholder="0">
-																		</div>
-																		<div class="col-md-4">
-																				<label for="offsety"><strong>Offset Y: </strong></label>
-																				<input id='propertyOffsetY' type='number' value="<?php echo $prj['OffsetY']; ?>" class="form-control m-bot15" placeholder="0">
-																		</div>
-																	</div>
-																</div>															
-																<div class="form-group options-form">
-																	<div class="row">
-																		<div class="col-md-4">
-									                                      	<label for="displayautomaticall">
-									                                      	  <strong> Display Automatically: </strong>
-									                                      	</label>
-										                                    <label class="checkbox m-bot15">
-										                                        <input id='propertyDisplayAutomatically' <?php if ($prj['DisplayAutomatically'] == 1){ ?> checked <?php } ?> type="checkbox"> Activate
-										                                    </label>									
-										                                </div>
-										                                <div class="col-md-8">
-				                                  							<div class="aftersec">
-										                                      	<label for="afterseconds">
+									                                        </select>
+							                                          	</div>
+							                                          	<div class="col-lg-4 col-sm-4">
+																			<label for="offsetx" class="control-label"><strong>Offset X: </strong></label>
+																			<div class="spinner">
+								                                                <div class="input-group input-small">
+								                                                      <input type="text" id='propertyOffsetX' class="spinner-input form-control" value="<?php echo $prj['OffsetX']; ?>" placeholder="0">
+								                                                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
+								                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
+								                                                              <i class="fa fa-angle-up"></i>
+								                                                          </button>
+								                                                          <button type="button" class="btn spinner-down btn-xs btn-default">
+								                                                              <i class="fa fa-angle-down"></i>
+								                                                          </button>
+									                                                    </div>
+									                                            </div>
+									                                        </div>
+									                                    </div>
+								                                        <div class="col-lg-4 col-sm-4">
+																			<label for="offsety" class="control-label"><strong>Offset Y: </strong></label>
+																				<div class="spinner">
+								                                                  <div class="input-group input-small">
+								                                                      <input type="text" id='propertyOffsetY' class="spinner-input form-control" value="<?php echo $prj['OffsetY']; ?>" placeholder="0">
+								                                                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
+								                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
+								                                                              <i class="fa fa-angle-up"></i>
+								                                                          </button>
+								                                                          <button type="button" class="btn spinner-down btn-xs btn-default">
+								                                                              <i class="fa fa-angle-down"></i>
+								                                                          </button>
+									                                                    </div>
+									                                                </div>
+									                                            </div>
+																		 </div>
+							                                        </div> <!-- 3rd form-group -->
+							                                        <div class="form-group">
+																		<div class="col-lg-4 col-sm-4">
+																			<label for="automatically" class="control-label">
+										                                      	  <strong> Display Automatically: </strong>
+										                                    </label>
+										                                      <div class="row m-bot15">
+										                                          <div class="col-sm-6 text-center">
+										                                          	<div class="switch" 
+										                                          		 data-on-label="<i class=' fa fa-check'></i>"
+                                                   										 data-off-label="<i class='fa fa-times'></i>">
+										                                              <input type="checkbox" id='propertyDisplayAutomatically' <?php if ($prj['DisplayAutomatically'] == 1){ ?> checked <?php } ?> />
+										                                            </div>
+										                                          </div>
+										                                      </div>
+							                                        	</div>
+							                                        	<div class="col-lg-8 col-sm-8">
+								                                        	<div class="aftersec">
+										                                      	<label for="afterseconds" class="control-label">
 										                                      	  <strong> After (Seconds): </strong>
 										                                      	</label>		                          		
-																				  	<input type="number" class="form-control m-bot15" id="propertyDisplayAfter" value="<?php echo $prj['DisplayAfter']; ?>" placeholder="0" min="0">				
-				                                  							</div>								
-				                                  						</div>
-																	</div> 											
-		                          		                        </div>
-																<div class="form-group options-form">
-																	<div class="row">
-																		<div class="col-md-12">
-																			<label for="backgrounds">
-										                                      	  <strong> Background: </strong>
+																				<div class="spinner">
+									                                                <div class="input-group input-small">
+									                                                      <input type="text" id='propertyDisplayAfter' class="spinner-input form-control" value="<?php echo $prj['DisplayAfter']; ?>" placeholder="0">
+									                                                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
+									                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
+									                                                              <i class="fa fa-angle-up"></i>
+									                                                          </button>
+									                                                          <button type="button" class="btn spinner-down btn-xs btn-default">
+									                                                              <i class="fa fa-angle-down"></i>
+									                                                          </button>
+										                                                    </div>
+										                                            </div>
+										                                        </div>
+																			</div>
+							                                        	</div>
+							                                        </div> <!-- 4th form-group -->
+							                                        <div class="form-group">
+							                                        	<div class="col-lg-12 col-sm-12 row">
+																			<label for="dimmed" class="control-label col-md-4 col-sm-4">
+										                                      	  <strong> Dimmed Background: </strong>
 										                                    </label>
-									                                    </div>
-																		<div class="col-md-6">
-																			<label class="checkbox m-bot15">
-										                                          <input id='propertyDimmedBG' <?php if ($prj['DimmedBG'] == 1){ ?> checked <?php } ?> type="checkbox"> Dimmed
-										                                    </label>								
-										                                </div>
-										                                <div class="col-md-6">
-										                                    <label class="checkbox m-bot15">
-										                                        <input id='propertyGlass' <?php if ($prj['GlassBG'] == 1){ ?> checked <?php } ?> type="checkbox"> Glass
-										                                    </label>			
-										                                </div>
-																	</div> 											
-		                                  						</div>
-																<div class="form-group options-form"> 
-																	<div class="row">
-																		<div class="col-md-8">
-																			<label for="cookielife"><strong>Cookie Life: </strong></label>
-																			<input id='propertyCookieLife' type='number' value="<?php echo $prj['CookieLife']; ?>" class="form-control m-bot15" placeholder="0" min="0">
+										                                      <div class="row m-bot15 col-md-6 col-sm-6">
+										                                          <div class="col-sm-6 text-center">
+										                                          	<div class="switch" 
+										                                          		 data-on-label="<i class=' fa fa-check'></i>"
+                                                   										 data-off-label="<i class='fa fa-times'></i>">
+										                                              <input type="checkbox" id='propertyDimmedBG' <?php if ($prj['DimmedBG'] == 1){ ?> checked <?php } ?> />
+										                                            </div>
+										                                          </div>
+										                                      </div>
+							                                        	</div>
+							                                        	<div class="col-lg-12 col-sm-12 row">
+																			<label for="glass" class="control-label col-md-4 col-sm-4">
+										                                      	  <strong> Glass Background: </strong>
+										                                    </label>
+										                                      <div class="row m-bot15 col-md-6 col-sm-6">
+										                                          <div class="col-sm-6 text-center">
+										                                          	<div class="switch" 
+										                                          		 data-on-label="<i class=' fa fa-check'></i>"
+                                                   										 data-off-label="<i class='fa fa-times'></i>">
+										                                              <input type="checkbox" id='propertyGlass' <?php if ($prj['GlassBG'] == 1){ ?> checked <?php } ?> />
+										                                            </div>
+										                                          </div>
+										                                      </div>
+							                                        	</div>
+							                                        	<div class="col-lg-12 col-sm-12 row">
+																			<label for="exitonend" class="control-label col-md-4 col-sm-4">
+										                                      	  <strong> Exit On End: </strong>
+										                                    </label>
+										                                      <div class="row m-bot15 col-md-6 col-sm-6">
+										                                          <div class="col-sm-6 text-center">
+										                                          	<div class="switch" 
+										                                          		 data-on-label="<i class=' fa fa-check'></i>"
+                                                   										 data-off-label="<i class='fa fa-times'></i>">
+										                                              <input type="checkbox" id='propertyExitOnEnd' <?php if ($prj['ExitOnEnd'] == 1){ ?> checked <?php } ?> />
+										                                            </div>
+										                                          </div>
+										                                      </div>
+							                                        	</div>
+							                                        	<div class="col-lg-12 col-sm-12 row">
+							                                        		<label for="stopshowing" class="control-label col-md-4 col-sm-4"> 
+							                                        			Stop Showing When: 
+							                                        		</label>
+							                                        	</div>
+							                                        	<div class="col-lg-12 col-sm-12 row">
+																			<label for="exitonend" class="control-label col-md-4 col-sm-4">
+										                                      	  <strong> Clicked: </strong>
+										                                    </label>
+										                                      <div class="row m-bot15 col-md-6 col-sm-6">
+										                                          <div class="col-sm-6 text-center">
+										                                          	<div class="switch" 
+										                                          		 data-on-label="<i class=' fa fa-check'></i>"
+                                                   										 data-off-label="<i class='fa fa-times'></i>">
+										                                              <input type="checkbox" id='propertyClicked' <?php if ($prj['ExitOnEnd'] == 1){ ?> checked <?php } ?> />
+										                                            </div>
+										                                          </div>
+										                                      </div>
+							                                        	</div>
+							                                        	<div class="col-lg-12 col-sm-12 row">
+																			<label for="exitonend" class="control-label col-md-4 col-sm-4">
+										                                      	  <strong> Closed: </strong>
+										                                    </label>
+										                                      <div class="row m-bot15 col-md-6 col-sm-6">
+										                                          <div class="col-sm-6 text-center">
+										                                          	<div class="switch" 
+										                                          		 data-on-label="<i class=' fa fa-check'></i>"
+                                                   										 data-off-label="<i class='fa fa-times'></i>">
+										                                              <input type="checkbox" id='propertyClosed' <?php if ($prj['ExitOnEnd'] == 1){ ?> checked <?php } ?> />
+										                                            </div>
+										                                          </div>
+										                                      </div>
+							                                        	</div>
+							                                        </div> <!-- 5th form-group -->
+							                                        <div class="form-group">
+							                                        	<div class="col-lg-8 col-md-8">
+																		  <label for="cookielife" class="control-label"><strong>Cookie Life: </strong></label>
+																			<div class="spinner">
+								                                                <div class="input-group input-small">
+								                                                      <input type="text" id='propertyCookieLife' class="spinner-input form-control" value="<?php echo $prj['CookieLife']; ?>" placeholder="0">
+								                                                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
+								                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
+								                                                              <i class="fa fa-angle-up"></i>
+								                                                          </button>
+								                                                          <button type="button" class="btn spinner-down btn-xs btn-default">
+								                                                              <i class="fa fa-angle-down"></i>
+								                                                          </button>
+									                                                    </div>
+									                                            </div>
+									                                        </div>  	
 																		</div>
-																		<div class="col-md-4">
-									                                      	<label for="exitonend">
-									                                      	  <strong> Exit On End: </strong>
-									                                      	</label>
-									                                      	<label class="checkbox m-bot15">
-									                                          <input id='propertyExitOnEnd' <?php if ($prj['ExitOnEnd'] == 1){ ?> checked <?php } ?> type="checkbox"> Activate
-									                                     	</label>
-																		</div>
-																	</div>												
-		                                  						</div>
-
-
-															</form>
+																	</div> <!-- 6th form-group -->
+				                                          		</form>
+				                                          	</section>	
 														</div>
 													</div>
 		                                          </div>

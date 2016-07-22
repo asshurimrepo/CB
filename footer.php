@@ -9,6 +9,9 @@
     <script src="js/jquery.customSelect.min.js" ></script>
     <script src="js/respond.min.js" ></script>
 
+    <!--custom switch-->
+    <script src="js/bootstrap-switch.js"></script>
+
     <!--right slidebar-->
     <script src="js/slidebars.min.js"></script>
 
@@ -16,6 +19,7 @@
     <!--common script for all pages-->
     <script src="js/common-scripts.js"></script>
 
+    <script type="text/javascript" src="assets/fuelux/js/spinner.js"></script>
     <!-- tweaks added by rigz -->
 
     <script type="text/javascript">
@@ -43,10 +47,14 @@
                 }
             });
 
+        // Switch
+        $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+        //Spinner
+            $('.spinner').spinner({
+                min: -9999
+            });
         });
     </script>
-
-
 
 <!--footer start-->
 <footer class="site-footer">

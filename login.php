@@ -22,4 +22,3 @@ if(isset($_POST['un'], $_POST['pw'])) {
 usleep(1000*1000);
 
 echo $m;
-?>
