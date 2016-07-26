@@ -1,3 +1,14 @@
+   
+<!--footer start-->
+<footer class="site-footer">
+    <div class="text-center">
+        2016 &copy; Casterbuddy. All Rights Reserved.
+        <a href="#" class="go-top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </div>
+</footer>
+<!--footer end--> 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
@@ -9,21 +20,22 @@
     <script src="js/jquery.customSelect.min.js" ></script>
     <script src="js/respond.min.js" ></script>
 
+    <script type="text/javascript" src="assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
     <!--custom switch-->
     <script src="js/bootstrap-switch.js"></script>
 
     <!--right slidebar-->
     <script src="js/slidebars.min.js"></script>
 
-
     <!--common script for all pages-->
     <script src="js/common-scripts.js"></script>
-
+    
     <script type="text/javascript" src="assets/fuelux/js/spinner.js"></script>
     <!-- tweaks added by rigz -->
 
     <script type="text/javascript">
         $(document).ready(function(){
+            $('.colorpicker-rgba').colorpicker();
             $('.modal').on('show.bs.modal', function () {
                 if ($(document).height() > $(window).height()) {
                     // no-scroll
@@ -47,22 +59,15 @@
                 }
             });
 
-        // Switch
-        $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
-        //Spinner
+            // Switch
+            $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+            //Spinner
+            $('#fontsize').spinner({
+                min: 10,
+                max: 40
+            });               
             $('.spinner').spinner({
                 min: -9999
-            });
+            });                 
         });
     </script>
-
-<!--footer start-->
-<footer class="site-footer">
-    <div class="text-center">
-        2016 &copy; Casterbuddy. All Right Reserves
-        <a href="#" class="go-top">
-            <i class="fa fa-angle-up"></i>
-        </a>
-    </div>
-</footer>
-<!--footer end-->

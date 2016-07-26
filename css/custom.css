@@ -1,11 +1,11 @@
 body.modal-open-noscroll
 {
-    margin-right: 0 !important;
-    overflow: auto;
+    margin-right: 14px !important;
+    /*overflow: auto;*/
 }
 .modal-open-noscroll .header, .modal-open .navbar-header
 {
-    margin-right: 0 !important;
+    margin-right: 14px !important;
 }
 
 .modal-body{
@@ -16,7 +16,9 @@ body.modal-open-noscroll
 .aftersec{
 	display: none;
 }
-
+.colorpicker{
+    z-index: 1200 !important;
+}
 /*.options-tab li.active a{
 	background-color: #f1f2f7 !important;
 }*/

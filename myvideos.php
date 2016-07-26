@@ -1,3 +1,10 @@
+<style type="text/css">
+	ul.nav-tabs>li.active> a[data-toggle='tab']
+	,ul.nav-tabs>li> a[data-toggle='tab']:hover{
+		color: #47596f;
+    	background: #fff;
+	}
+</style>
 <div class="row">
 	<div class="col-md-12">
 		<div class="row product-list">
@@ -195,20 +202,8 @@
 						                                          </div>
 						                                      </div>
 			                                        	</div>
-			                                        	<div class="col-lg-12 col-sm-12 row">
-															<label for="exitonend" class="control-label col-md-4 col-sm-4">
-						                                      	  <strong> Exit On End: </strong>
-						                                    </label>
-						                                      <div class="row m-bot15 col-md-6 col-sm-6">
-						                                          <div class="col-sm-6 text-center">
-						                                          	<div class="switch" 
-						                                          		 data-on-label="<i class=' fa fa-check'></i>"
-                                   										 data-off-label="<i class='fa fa-times'></i>">
-						                                              <input type="checkbox" id='propertyExitOnEnd' <?php if ($prj['ExitOnEnd'] == 1){ ?> checked <?php } ?> />
-						                                            </div>
-						                                          </div>
-						                                      </div>
-			                                        	</div>
+			                                        </div>
+			                                       	<div class="form-group">
 			                                        	<div class="col-lg-12 col-sm-12 row">
 			                                        		<label for="stopshowing" class="control-label col-md-4 col-sm-4"> 
 			                                        			Stop Showing When: 
@@ -242,7 +237,21 @@
 						                                          </div>
 						                                      </div>
 			                                        	</div>
-			                                        </div> <!-- 5th form-group -->
+			                                        	<div class="col-lg-12 col-sm-12 row">
+															<label for="exitonend" class="control-label col-md-4 col-sm-4">
+						                                      	  <strong> Exit On End: </strong>
+						                                    </label>
+						                                      <div class="row m-bot15 col-md-6 col-sm-6">
+						                                          <div class="col-sm-6 text-center">
+						                                          	<div class="switch" 
+						                                          		 data-on-label="<i class=' fa fa-check'></i>"
+                                   										 data-off-label="<i class='fa fa-times'></i>">
+						                                              <input type="checkbox" id='propertyExitOnEnd' <?php if ($prj['ExitOnEnd'] == 1){ ?> checked <?php } ?> />
+						                                            </div>
+						                                          </div>
+						                                      </div>
+			                                        	</div>
+			                                        </div> <!-- 6th form-group -->
 			                                        <div class="form-group">
 			                                        	<div class="col-lg-8 col-md-8">
 														  <label for="cookielife" class="control-label"><strong>Cookie Life: </strong></label>
@@ -325,12 +334,12 @@
 	                      <div class="modal-body">
 	                      	<div class="row">
 	                      		<div class="col-md-12">
-                      			    <section class="panel">
+                      			    <section class="panel">                     			    	
                               			<ul class="nav nav-tabs actions-tab">
 										  <li class="active"><a data-toggle="tab" href="#linkurl<?php echo $prj['id']; ?>"><i class="fa fa-link"></i> Link URL &amp; Text Overlay</a></li>
 										  <li><a data-toggle="tab" href="#clicktocall<?php echo $prj['id']; ?>"><i class="fa fa-hand-o-up"></i> Click to Call</a></li>
 										  <li><a data-toggle="tab" href="#formoverlay<?php echo $prj['id']; ?>"><i class="fa fa-file-text"></i> Form &amp; Button Overlay</a></li>
-										</ul>
+										</ul>	
                           			</section>
 									<div class="tab-content">
                               			<div id="linkurl<?php echo $prj['id']; ?>" class="tab-pane fade in active">
@@ -338,17 +347,17 @@
                                           		<form class="form-horizontal tasi-form text-left">
                                           			<div class="form-group">
 														<div class="col-lg-12 col-md-12">
-														  <label for="linkurl" class="control-label"><strong> Link URL: <strong></label>
+														  <label for="linkurl" class="control-label"><strong> Link URL: </strong></label>
 														  	<input type="text" class="form-control m-bot15" id="linkURL" >
 														</div>
 													</div> <!-- 1st form-group -->
                                           			<div class="form-group">
 														<div class="col-lg-12 col-md-12">
-														  <label for="textpverlay" class="control-label"><strong> Text Overlay: </strong></label>
+														  <label for="textpverlay" class="control-label"> Text Overlay: </label>
 														</div>
 														<div class="col-lg-12 col-sm-12 row">
 															<label for="line1" class="control-label col-md-3 col-sm-3">
-						                                      	   Line1: 
+						                                      	  <strong> Line1: </strong>
 						                                    </label>
 						                                    <div class="row m-bot15 col-md-9 col-sm-9">
 						                                    	<input type="text" class="form-control m-bot15" id="textLine1" >
@@ -356,7 +365,7 @@
 						                                </div>
 														<div class="col-lg-12 col-sm-12 row">
 															<label for="line2" class="control-label col-md-3 col-sm-3">
-						                                      	   Line2: 
+						                                      	  <strong> Line2: </strong>
 						                                    </label>
 						                                    <div class="row m-bot15 col-md-9 col-sm-9">
 						                                    	<input type="text" class="form-control m-bot15" id="textLine2" >
@@ -364,7 +373,7 @@
 						                                </div>	
 						                                <div class="col-lg-12 col-sm-12 row">
 															<label for="valignment" class="control-label col-md-3 col-sm-3">
-						                                      	   Vertical Alignment: 
+						                                      	   <strong> Vertical Alignment: </strong>
 						                                    </label>
 						                                    <div class="row m-bot15 col-md-3 col-sm-3">
 					                                          	<select id='textPosition' class="form-control m-bot15">
@@ -374,14 +383,14 @@
 																</select>						                                    
 						                                    </div>
 						                                </div>
-						                                 <div class="col-lg-12 col-sm-12 row">
+						                                <div class="col-lg-12 col-sm-12 row">
 						                                   <label for="starttime" class="control-label col-md-3 col-sm-3">
-						                                      	   Start Time: 
+						                                      	   <strong> Start Time: </strong>
 						                                    </label>
 						                                    <div class="row m-bot15 col-md-3 col-sm-3">
 																<div class="spinner">
 				                                                  <div class="input-group input-small">
-				                                                      <input type="text" id='textShowSec' class="spinner-input form-control" placeholder="0">
+				                                                      <input type="text" id='textShowSec' class="spinner-input form-control" value="0">
 				                                                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
 				                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
 				                                                              <i class="fa fa-angle-up"></i>
@@ -393,13 +402,175 @@
 					                                                </div>
 					                                            </div>		
 						                                    </div>
-															<label for="duration" class="control-label col-md-3 col-sm-3">
-						                                      	   Duration: 
+															<label for="textduration" class="control-label col-md-3 col-sm-3">
+						                                      	   <strong> Duration: </strong>
 						                                    </label>
 						                                    <div class="row m-bot15 col-md-3 col-sm-3">
 																<div class="spinner">
 				                                                  <div class="input-group input-small">
-				                                                      <input type="text" id='textShowDuration' class="spinner-input form-control" placeholder="0">
+				                                                      <input type="text" id='textShowDuration' class="spinner-input form-control" value="0">
+				                                                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
+				                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
+				                                                              <i class="fa fa-angle-up"></i>
+				                                                          </button>
+				                                                          <button type="button" class="btn spinner-down btn-xs btn-default">
+				                                                              <i class="fa fa-angle-down"></i>
+				                                                          </button>
+					                                                    </div>
+					                                              </div>
+					                                            </div>		
+						                                    </div>						                                    
+						                                </div> <!-- end of col-lg-12 -->
+													</div> <!-- 2nd form-group -->
+													<div class="form-group">
+														<div class="col-lg-12 col-md-12">
+															<div class="panel-group" id="accordion">
+									                          <div class="panel panel-success">
+									                              <div class="panel-heading">
+									                                  <h4 class="panel-title">
+									                                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $prj['id']; ?>">
+									                                          <i class="fa fa-pencil"></i>  Advance <i class="fa fa-caret-down pull-right"></i></span>
+									                                      </a>
+									                                  </h4>
+									                              </div>
+									                              <div id="collapse<?php echo $prj['id']; ?>" class="panel-collapse collapse in">
+									                                <div class="panel-body">
+									                                	<div class="form-group">				                            	
+								                                  			<div class="well">
+								                                  				<p> The quick brown fox...</p>
+								                                  			</div>
+							                                  			</div>
+							                                  			<div class="form-group">
+																			<label for="fontstyle" class="control-label col-md-3 col-sm-3 row">
+										                                      	   <strong> Font Style: </strong>
+										                                    </label>
+										                                    <div class="row m-bot15 col-md-4 col-sm-4">
+									                                          	<select id='textFontProperty' class="form-control m-bot15">
+																					<option value="Helvetica">Arial</option>
+																					<option value="Arial Black">Arial Black</option>
+																					<option value="Comic Sans MS">Comic Sans MS</option>
+																					<option value="Impact">Impact</option>
+																					<option value="Lucida">Lucida</option>
+																					<option value="Tahoma">Tahoma</option>
+																					<option value="Verdana">Verdana</option>
+																					<option value="Georgia">Georgia</option>
+																					<option value="Times New Roman">Times New Roman</option>
+																					<option value="Courier New">Courier New</option>
+																					<option value="Lucida Console">Lucida Console</option>
+																				</select>	                               	
+																			</div>
+																			<label for="fontsize" class="control-label col-md-3 col-sm-3">
+						                                      	   				<strong> Font Size: </strong>
+						                                    				</label>
+										                                    <div class="row m-bot15 col-md-3 col-sm-3">
+																				<div id="fontsize" class="spinner">
+								                                                  <div class="input-group input-small">
+								                                                      <input type="text" id='textShowDuration' class="spinner-input form-control" value="10">
+								                                                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
+								                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
+								                                                              <i class="fa fa-angle-up"></i>
+								                                                          </button>
+								                                                          <button type="button" class="btn spinner-down btn-xs btn-default">
+								                                                              <i class="fa fa-angle-down"></i>
+								                                                          </button>
+									                                                    </div>
+									                                              </div>
+									                                            </div>		
+										                                    </div>				
+										                                </div>
+										                                <div class="form-group">
+																			<label for="boldtext" class="control-label col-md-2 col-sm-2 row">
+										                                      	  <strong> Bold: </strong>
+										                                    </label>
+										                                    <div class="row m-bot15 col-md-4 col-sm-4">
+										                                        <div class="col-sm-6 text-center">
+										                                          	<div class="switch" 
+										                                          		 data-on-label="<i class=' fa fa-check'></i>"
+				                                   										 data-off-label="<i class='fa fa-times'></i>">
+										                                              <input type="checkbox" id='textWeightProperty' />
+										                                            </div>
+										                                        </div>
+										                                    </div>
+																			<label for="italictext" class="control-label col-md-2 col-sm-2 row">
+										                                      	  <strong> Italic: </strong>
+										                                    </label>
+										                                    <div class="row m-bot15 col-md-4 col-sm-4">
+										                                        <div class="col-sm-6 text-center">
+										                                          	<div class="switch" 
+										                                          		 data-on-label="<i class=' fa fa-check'></i>"
+				                                   										 data-off-label="<i class='fa fa-times'></i>">
+										                                              <input type="checkbox" id='textStyleProperty' />
+										                                            </div>
+										                                        </div>
+										                                    </div>											                 	
+										                                </div>
+										                                <div class="form-group">
+																			<label for="textalignment" class="control-label col-md-3 col-sm-3 row">
+										                                      	  <strong> Alignment: </strong>
+										                                    </label>
+										                                    <div class="row col-md-3 col-sm-3">
+									                                          	<select id='textFontProperty' class="form-control m-bot15">
+																					<option value="left">Left</option>
+																					<option value="center">Center</option>
+																					<option value="right">Right</option>
+																				</select>	                               	
+																			</div>
+																		</div>
+																		<div class="form-group">
+																			<label for="textpverlay" class="m-bot15 control-label col-md-6 col-sm-6 row"><strong> Text Color: </strong></label>				
+										                                    <label for="rgba" class="control-label col-md-2 col-sm-2 row">
+										                                    	  RGB 
+										                                    </label>
+										                                   <div class="row m-bot15 col-md-4 col-sm-4">
+										                                        <input type="text" class="colorpicker-rgba form-control" value="rgb(0,0,0)" data-color-format="rgb" />
+										                                    </div>                               
+										                               	</div>
+										                               	<div class="form-group">
+																			<label for="textpverlay" class="m-bot15 control-label col-md-6 col-sm-6 row"><strong> Background Color: </strong></label>				
+										                                    <label for="rgba" class="control-label col-md-2 col-sm-2 row">
+										                                    	  RGBA 
+										                                    </label>
+										                                   <div class="row m-bot15 col-md-4 col-sm-4">
+										                                        <input type="text" class="colorpicker-rgba form-control" value="rgba(0,0,0,0)" data-color-format="rgba" />
+										                                    </div>                               
+										                                </div>												
+									                                </div><!--  end of panel-body -->
+									                              </div>
+									                          </div>
+									                        </div>
+								                        </div>													
+													</div> <!-- 3rd form-group -->
+                                          		</form>
+                                          	</section>	                              			
+                              			</div> <!-- end of linkurl -->
+                              			<div id="clicktocall<?php echo $prj['id']; ?>" class="tab-pane fade">
+                                          	<section class="panel">
+                                          		<form class="form-horizontal tasi-form text-left">
+                                          			<div class="form-group">
+														<div class="col-lg-12 col-md-12">
+														  <label for="phonenumber" class="control-label"><strong> Phone Number: </strong></label>
+														  <input type="text" class="form-control m-bot15" id="phoneNumber" >
+														</div>
+														<div class="col-lg-12 col-sm-12 row">
+															<label for="valignment" class="control-label col-md-3 col-sm-3">
+						                                      	   <strong> Vertical Alignment: </strong>
+						                                    </label>
+						                                    <div class="row m-bot15 col-md-3 col-sm-3">
+					                                          	<select id='phonePosition' class="form-control m-bot15">
+																	<option <?php if ($prj['Position'] == 0){ ?> selected <?php } ?> value=0>Bottom</option>
+																	<option <?php if ($prj['Position'] == 1){ ?> selected <?php } ?> value=1>Middle</option>
+																	<option <?php if ($prj['Position'] == 2){ ?> selected <?php } ?> value=2>Top</option>
+																</select>						                                    
+						                                    </div>
+						                                </div>
+						                                <div class="col-lg-12 col-sm-12 row">
+															<label for="phoneshow" class="control-label col-md-3 col-sm-3">
+						                                      	   <strong> Start Time: </strong>
+						                                    </label>
+						                                    <div class="row m-bot15 col-md-3 col-sm-3">
+																<div class="spinner">
+				                                                  <div class="input-group input-small">
+				                                                      <input type="text" id='phoneShowSec' class="spinner-input form-control" value="0">
 				                                                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
 				                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
 				                                                              <i class="fa fa-angle-up"></i>
@@ -410,12 +581,29 @@
 					                                                    </div>
 					                                                </div>
 					                                            </div>		
-						                                    </div>						                                    
-						                                </div> <!-- end of col-lg-12 -->
-													</div> <!-- 2nd form-group -->
-                                          		</form>
-                                          	</section>	                              			
-                              			</div>
+						                                    </div>
+															<label for="phoneduration" class="control-label col-md-3 col-sm-3">
+						                                      	   <strong> Duration: </strong>
+						                                    </label>
+						                                    <div class="row m-bot15 col-md-3 col-sm-3">
+																<div class="spinner">
+				                                                  <div class="input-group input-small">
+				                                                      <input type="text" id='phoneShowDuration' class="spinner-input form-control" value="0">
+				                                                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
+				                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
+				                                                              <i class="fa fa-angle-up"></i>
+				                                                          </button>
+				                                                          <button type="button" class="btn spinner-down btn-xs btn-default">
+				                                                              <i class="fa fa-angle-down"></i>
+				                                                          </button>
+					                                                    </div>
+					                                              </div>
+					                                            </div>		
+						                                    </div>											                                
+						                                </div>
+													</div> <!-- 1st form-group -->                                          		
+                                          	</section>
+                                        </div>  <!-- end of clicktocall -->
                               		</div>	
 	                      		</div>
 	                      	</div>

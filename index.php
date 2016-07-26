@@ -50,8 +50,10 @@ if($user!="") {
 	    <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
 	    <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
 
+	    <link rel="stylesheet" type="text/css" href="assets/bootstrap-colorpicker/css/colorpicker.css" />
 	    <!--right slidebar-->
 	    <link href="css/slidebars.css" rel="stylesheet">
+
 
       	<!-- Custom styles for this template -->
 	    <link href="css/style.css" rel="stylesheet">
