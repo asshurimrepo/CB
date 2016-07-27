@@ -1,4 +1,6 @@
 data/
 old/
 casterbuddy.old/
-
+vendor/
+composer.lock
+phpunit.xml
