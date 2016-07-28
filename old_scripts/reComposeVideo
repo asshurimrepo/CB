@@ -1,7 +1,0 @@
-#!/bin/bash
-
-ffmpeg -r 10 -i data/$1/out/%5d.png -i data/$1/out/sound.mp3 -vcodec libx264 -vpre baseline -vpre fast -acodec libfaac data/$1/done/$2/video.mp4
-
-cd data/$1/images
-
-gimp --verbose -i -d -f -b '(create-thumb "00010.png")' -b '(gimp-quit 0)'

@@ -55,9 +55,9 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'asshurimlarita@gmail.com', 'name' => 'Asshurim Joy O. Larita'],
 
-    /*
+    /*a
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol
     |--------------------------------------------------------------------------
