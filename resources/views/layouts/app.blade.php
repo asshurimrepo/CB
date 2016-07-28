@@ -1,82 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-    <title>Caster Buddy</title>
+    <head>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+        <!-- Bootstrap core CSS -->
+        <link href="/css/bootstrap.css" rel="stylesheet">
+        <link href="/css/bootstrap-reset.css" rel="stylesheet">
+        <!--external css-->
+        <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="/css/owl.carousel.css" type="text/css">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+        <link rel="stylesheet" type="text/css" href="/assets/bootstrap-colorpicker/css/colorpicker.css" />
+        <!--right slidebar-->
+        <link href="/css/slidebars.css" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Lato';
-        }
 
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
-</head>
-<body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
+        <!-- Custom styles for this template -->
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="/css/style-responsive.css" rel="stylesheet" />
 
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+        <!-- custom by rigz -->
+        <link href="/css/custom.css" rel="stylesheet" />
 
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Caster<b>Buddy</b>
-                </a>
-            </div>
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+        <!--[if lt IE 9]>
+          <script src="/js/html5shiv.js"></script>
+          <script src="/js/respond.min.js"></script>
+        <![endif]-->
+        <!-- <link rel="stylesheet" type="text/css" href="style.css"/> -->
+                    
+        <title>
+            @yield('title', 'CasterBuddy')
+        </title>
+               
+    </head>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
+<body class="full-width">
+<header class="header white-bg">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="fa fa-bars"></span>
+            </button>
+
+            <!--logo start-->
+            <a href="index.html" class="logo">Caster<span>Buddy</span></a>
+            <!--logo end-->
+            <div class="horizontal-menu navbar-collapse collapse ">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
-                        </li>
-                    @endif
+                    <li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="#">Work</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
                 </ul>
             </div>
+            <div class="top-nav ">
+                <ul class="nav pull-right top-menu">
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="" src="img/avatar1_small.jpg">
+                            <span class="username">{{ auth()->user()->name }}</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <li><a href="/logout"><i class="fa fa-key"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+            </div>
+
         </div>
-    </nav>
 
-    @yield('content')
+</header>
 
-    <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-</body>
-</html>
+<section id="container">
+    <section id="main-content">
+      <section class="wrapper">
+         
+         @yield('content')
+
+      </section>
+    </section>
+</section>
+   
+<!--footer start-->
+<footer class="site-footer">
+    <div class="text-center">
+        2016 &copy; Casterbuddy. All Rights Reserved.
+        <a href="#" class="go-top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </div>
+</footer>
+<!--footer end--> 
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="/js/jquery.scrollTo.min.js"></script>
+    <script src="/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="/js/jquery.sparkline.js" type="text/javascript"></script>
+    <script src="/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+    <script src="/js/owl.carousel.js" ></script>
+    <script src="/js/jquery.customSelect.min.js" ></script>
+    <script src="/js/respond.min.js" ></script>
+
+    <script type="text/javascript" src="/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+    <!--custom switch-->
+    <script src="/js/bootstrap-switch.js"></script>
+
+    <!--right slidebar-->
+    <script src="/js/slidebars.min.js"></script>
+
+    <!--common script for all pages-->
+    <script src="/js/common-scripts.js"></script>
+    
+    <script type="text/javascript" src="/assets/fuelux/js/spinner.js"></script>
+    <!-- tweaks added by rigz -->
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.colorpicker-rgba').colorpicker();
+            $('.modal').on('show.bs.modal', function () {
+                if ($(document).height() > $(window).height()) {
+                    // no-scroll
+                    $('body').addClass("modal-open-noscroll");
+                }
+                else {
+                    $('body').removeClass("modal-open-noscroll");
+                }
+                if($('#propertyDisplayAutomatically').is(':checked')){
+                    $('.aftersec').show();
+                }
+            })
+            $('.modal').on('hide.bs.modal', function () {
+                $('body').removeClass("modal-open-noscroll");
+            })
+            $("#propertyDisplayAutomatically").change(function() {
+                if(this.checked) {
+                    $('.aftersec').show();
+                }else{
+                    $('.aftersec').hide();
+                }
+            });
+
+            // Switch
+            $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+            //Spinner
+            $('#fontsize').spinner({
+                min: 10,
+                max: 40
+            });               
+            $('.spinner').spinner({
+                min: -9999
+            });                 
+        });
+    </script>
+    </body>
+    </html>
