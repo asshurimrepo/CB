@@ -4,26 +4,16 @@
     <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-        <!-- Bootstrap core CSS -->
-        <link href="/css/bootstrap.css" rel="stylesheet">
-        <link href="/css/bootstrap-reset.css" rel="stylesheet">
+        {{-- Core Css --}}
+        <link rel="stylesheet" href="/css/app.css" />
+
         <!--external css-->
         <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
         <link href="/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link rel="stylesheet" href="/css/owl.carousel.css" type="text/css">
-
         <link rel="stylesheet" type="text/css" href="/assets/bootstrap-colorpicker/css/colorpicker.css" />
-        <!--right slidebar-->
-        <link href="/css/slidebars.css" rel="stylesheet">
-
-
-        <!-- Custom styles for this template -->
-        <link href="/css/style.css" rel="stylesheet">
-        <link href="/css/style-responsive.css" rel="stylesheet" />
-
-        <!-- custom by rigz -->
-        <link href="/css/custom.css" rel="stylesheet" />
+      
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
@@ -38,7 +28,7 @@
                
     </head>
 
-<body class="full-width">
+<body id="caster-app" class="full-width">
 <header class="header white-bg">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -159,5 +149,8 @@
             });                 
         });
     </script>
+
+    {{-- Main Core Script --}}
+    <script src="/js/main.js"></script>
     </body>
     </html>
