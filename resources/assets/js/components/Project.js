@@ -12,6 +12,12 @@ export default {
 	methods: {
 		showOptions() {
 			console.log('Showing Options for ' + this.title);
+			this.setActive();
+
+			$("#project-options").modal('show');
+		},
+
+		setActive() {
 			this.$parent.active_project = this.data;
 		},
 

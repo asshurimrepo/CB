@@ -5,8 +5,6 @@
 <div class="row">
     <div class="col-md-12">
       <div class="row product-list">
-
-        <pre>@{{ active_project | json }}</pre>
                       
             <project v-for="project in projects" 
                      :data="project"
@@ -17,5 +15,7 @@
     </div>
 </div>
 
+
+<project-options :project="active_project"></project-options>
 
 @endsection

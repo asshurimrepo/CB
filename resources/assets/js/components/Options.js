@@ -1,9 +1,15 @@
 export default {
 	template: require('../templates/options.html'),
 
-	props: ['data'],
+	props: ['project'],
 
-	ready(){
-		this.$data = this.data;
+	watch: {
+		project() {
+			this.$data = this.project;
+		}
+	},
+
+	data(){
+		return {}
 	}
 }
