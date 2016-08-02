@@ -4,4 +4,4 @@ casterbuddy.old/
 vendor/
 composer.lock
 phpunit.xml
-project-data/*
+project-data/*.*
