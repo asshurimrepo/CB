@@ -843,6 +843,9 @@ require.register("dropzone/lib/dropzone.js", function(exports, require, module){
       progressObj.onprogress = function(e) {
         return _this.emit("uploadprogress", file, Math.max(0, Math.min(100, (e.loaded / e.total) * 100)));
       };
+
+      console.log(file);
+
       xhr.setRequestHeader("Accept", "application/json");
       xhr.setRequestHeader("Cache-Control", "no-cache");
       xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
@@ -868,6 +871,7 @@ require.register("dropzone/lib/dropzone.js", function(exports, require, module){
       }
       this.emit("sending", file, xhr, formData);
       formData.append(this.options.paramName, file);
+      xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="csrf-token"]').attr('content'));
       return xhr.send(formData);
     };
 

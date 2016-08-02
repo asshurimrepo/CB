@@ -11661,7 +11661,10 @@ new _vue2.default({
 	data: {
 		projects: [],
 		active_project: {
-			options: {}
+			options: {
+				stop_showing: {},
+				external_video: {}
+			}
 		}
 	},
 

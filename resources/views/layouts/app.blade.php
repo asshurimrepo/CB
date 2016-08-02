@@ -16,6 +16,8 @@
 
         {{-- Sweet Alert --}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
+
+        @yield('styles')
       
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
@@ -159,5 +161,8 @@
 
     {{-- Main Core Script --}}
     <script src="/js/main.js"></script>
+
+    @yield('scripts')
+    
     </body>
     </html>

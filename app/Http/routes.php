@@ -20,5 +20,8 @@ Route::auth();
 Route::group(['middleware' => 'auth'], function(){
 	Route::get('/home', 'HomeController@index');
 	Route::resource('project','ProjectsController');
+
+	// Handles Uploads
 	Route::get('/upload', 'UploadProjectsController@create');
+	Route::post('/upload', 'UploadProjectsController@store');
 });
