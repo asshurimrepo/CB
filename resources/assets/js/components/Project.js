@@ -22,8 +22,25 @@ export default {
 		},
 
 		deleteMe() {
-			this.$http.delete('/project/' + this.id)
-					  .then(() => this.$parent.loadProjects());
+			swal({ title: "Are you sure?",   
+			   text: "You will not be able to recover this Project file!",   
+			   type: "warning",   
+			   showCancelButton: true,   
+			   confirmButtonColor: "#DD6B55",   
+			   confirmButtonText: "Yes, delete it!",   
+			   cancelButtonText: "No, cancel please!",   
+			   closeOnConfirm: false,   
+			   closeOnCancel: false }, 
+			   (isConfirm) => {   
+			   		if (isConfirm) {     
+				  		swal("Deleted!", "Your Project file has been deleted.", "success");
+
+			   			this.$http.delete('/project/' + this.id)
+				  			.then(() => this.$parent.loadProjects());  
+			   		} else {    
+			   			swal("Cancelled", "Your Project file is safe :)", "error");   
+			   		} 
+				});
 		}
 	}
 

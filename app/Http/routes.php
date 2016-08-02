@@ -12,10 +12,13 @@
 */
 
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/home');
 });
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
-Route::resource('project','ProjectsController');
+Route::group(['middleware' => 'auth'], function(){
+	Route::get('/home', 'HomeController@index');
+	Route::resource('project','ProjectsController');
+	Route::get('/upload', 'UploadProjectsController@create');
+});

@@ -18,7 +18,9 @@ new Vue({
 
 	data: {
 		projects: [],
-		active_project: {}
+		active_project: {
+			options: {}
+		}
 	},
 
 	components: {

@@ -7,6 +7,10 @@ body.modal-open
 {
     margin-right: 14px !important;
 }
+.options-tab,
+.actions-tab{
+    padding-left: 10px;
+}
 
 .modal-body{
 	max-height: 400px;
@@ -28,12 +32,16 @@ ul.nav-tabs>li.active> a[data-toggle='tab']
 .col-no-float {
     float:none;
 }
+
+.advance-panel{
+    background-color: #f5f5f5;
+}
 .tab-inverse-bg,
 .panel-inverse{
     color: #fff !important;
     background-color: #7087A3 !important;
     border-color: #7087A3 !important;
-    border-radius: 0px;
+    border-radius: 0px !important;
 }
 .tab-inverse-bg>li{
     margin-bottom: 0;
@@ -46,4 +54,11 @@ ul.nav-tabs>li.active> a[data-toggle='tab']
 .tab-inverse-bg>li.active a{
     color: #fff !important;
     background-color:#61748d !important;
+}
+
+.fade-transition {
+  transition: opacity .3s ease;
+}
+.fade-enter, .fade-leave {
+  opacity: 0;
 }

@@ -11,11 +11,13 @@ class ProjectsController extends Controller
 {
     public function index(Project $project)
     {
-    	return $project->all();
+    	return auth()->user()
+    				 ->projects()
+    				 ->get();
     }
 
     public function destroy(Project $project)
     {
     	$project->delete();
-    }
+    }	
 }

@@ -13,6 +13,9 @@
         <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
         <link href="/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
         <link rel="stylesheet" type="text/css" href="/assets/bootstrap-colorpicker/css/colorpicker.css" />
+
+        {{-- Sweet Alert --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
       
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
@@ -36,16 +39,28 @@
             </button>
 
             <!--logo start-->
-            <a href="index.html" class="logo">Caster<span>Buddy</span></a>
+            <a href="/" class="logo">Caster<span>Buddy</span></a>
             <!--logo end-->
             <div class="horizontal-menu navbar-collapse collapse ">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.php">Home</a></li>
+                    <li class="active"><a href="/">Home</a></li>
                     <li><a href="#">Work</a></li>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
             </div>
+    
+            <div class="top-nav">
+                <ul class="nav pull-left top-menu">
+                    <li>
+                        <span><a href="/upload" class="btn btn-danger navbar-btn btn-sm" id="upload-hover"><i class="fa fa-upload"></i> Upload</a></span>
+                    </li>
+                    <li>
+                        <span><a href="#" class="btn btn-warning navbar-btn btn-sm" id="premade-hover"><i class="fa fa-plus"></i> Premade Video</a></span>
+                    </li>
+                </ul>
+            </div>
+
             <div class="top-nav ">
                 <ul class="nav pull-right top-menu">
                     <!-- user login dropdown start-->
@@ -78,7 +93,7 @@
 </section>
    
 <!--footer start-->
-<footer class="site-footer">
+<footer class="site-footer always-bottom">
     <div class="text-center">
         2016 &copy; Casterbuddy. All Rights Reserved.
         <a href="#" class="go-top">
@@ -111,6 +126,9 @@
     <script type="text/javascript" src="/assets/fuelux/js/spinner.js"></script>
     <!-- tweaks added by rigz -->
 
+    {{-- Sweet Alert --}}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function(){
             $('.colorpicker-rgba').colorpicker();
@@ -135,18 +153,7 @@
                 }else{
                     $('.aftersec').hide();
                 }
-            });
-
-            // Switch
-            $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
-            //Spinner
-            $('#fontsize').spinner({
-                min: 10,
-                max: 40
-            });               
-            $('.spinner').spinner({
-                min: -9999
-            });                 
+            });                
         });
     </script>
 
