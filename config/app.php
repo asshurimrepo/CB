@@ -158,6 +158,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
+        /**
+         * Caster Buddy Providers
+         */
+        App\Providers\WhenProjectIsUploaded::class,
+
     ],
 
     /*

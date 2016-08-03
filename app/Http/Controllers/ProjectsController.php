@@ -13,6 +13,7 @@ class ProjectsController extends Controller
     {
     	return auth()->user()
     				 ->projects()
+                     ->orderBy('updated_at', 'desc')
     				 ->get();
     }
 

@@ -9,6 +9,17 @@ export default {
 		this.$data = this.data;
 	},
 
+	filters: {
+	    truncate: function(string, limit) {
+	    	if(string == undefined)
+			{
+				return string;
+			}
+
+			return string.length > limit ? string.substr(0, limit) + '...' : string;
+	    }
+  	},
+
 	methods: {
 		showOptions() {
 			console.log('Showing Options for ' + this.title);
