@@ -12,4 +12,9 @@ class Project extends Model
 	{
 		return json_decode($options ?: "{}");
 	}
+
+	public function getActionsAttribute($actions)
+	{
+		return json_decode($actions ?: "{}");
+	}
 }

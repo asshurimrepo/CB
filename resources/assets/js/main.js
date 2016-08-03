@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 import Project from './components/Project.js';
 import ProjectOptions from './components/Options.js';
+import ProjectActions from './components/Actions.js';
 
 Vue.use(require('vue-resource'));
 
@@ -27,7 +28,7 @@ new Vue({
 	},
 
 	components: {
-		Project, ProjectOptions
+		Project, ProjectOptions, ProjectActions
 	},
 
 	methods: {
