@@ -14,7 +14,7 @@
 	
 	<section class="panel">
       <header class="panel-heading">
-          Dropzone File Upload
+          Start Uploading Your Project
       </header>
       <div class="panel-body">
           <form action="/upload" class="dropzone" id="project-dropzone"></form>

@@ -28,7 +28,7 @@ class UploadProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        $filename = $request->file('file')->getClientOriginalName();
+        $filename = str_random(10) . $request->file('file')->getClientOriginalName();
 
         return $request->file('file')
                        ->move('../project-data/', $filename);

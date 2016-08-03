@@ -5,3 +5,4 @@ vendor/
 composer.lock
 phpunit.xml
 project-data/*.*
+node_modules/
