@@ -14,26 +14,27 @@
         <!-- Actions -->
         <div class="panel-body text-center">
             <div class="col-md-12">
-                
+
                 <br/>
 
-                <button type="button" 
-                		class="btn btn-primary btn-sm" 
+                <button type="button"
+                		class="btn btn-primary btn-sm"
                 		data-toggle="modal"
                 		@click="showOptions"
                 >
                 		<i class="fa fa-gears"></i> Options
                 </button>
-                
+
                 <div class="btn-group">
                     <button data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle" type="button"> More <span class="caret"></span></button>
                     <ul role="menu" class="dropdown-menu">
                       <li>
 
-                      	<a href="#" 
+                      	<a href="#"
                       	   data-toggle="modal"
+                      	   @click="showActions"
                       	>
-                      	   	<span class="text-primary"><i class="fa fa-share-square-o"></i> Action </span>
+                      	   	<span class="text-primary"><i class="fa fa-share-square-o"></i> Actions </span>
                       	</a>
 
                       </li>
@@ -51,5 +52,5 @@
             </div> <!-- /col-md-12 -->
         </div>
 
-	</section>                    
+	</section>
 </div>

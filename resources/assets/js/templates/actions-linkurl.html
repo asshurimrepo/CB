@@ -1,0 +1,215 @@
+<div id="linkurl" class="tab-pane fade in active">
+  	<section class="panel">
+  		<form class="form-horizontal tasi-form text-left">
+  			<div class="form-group">
+				<div class="col-lg-12 col-md-12 row">
+				  <label for="linkurl" class="control-label col-md-3 col-sm-3"><strong> Link URL: </strong></label>
+				  <div class="row col-md-9 col-sm-9">
+				  	<input type="text" class="form-control m-bot15" id="linkURL" v-model="project.actions.link_url" placeholder="http://">
+				  </div>
+				</div>
+			</div> <!-- 1st form-group -->
+  			<div class="form-group">
+				<div class="col-lg-12 col-md-12">
+					<label for="textoverlay" class="control-label">
+				  		Text Overlay
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-12 col-sm-12 row">
+					<label for="line1" class="control-label col-md-3 col-sm-3">
+              <strong> Line1: </strong>
+          </label>
+          <div class="row m-bot15 col-md-9 col-sm-9">
+            <input type="text" class="form-control m-bot15" id="textLine1" v-model="project.actions.textoverlay_line_1" >
+          </div>
+        </div>
+				<div class="col-lg-12 col-sm-12 row">
+					<label for="line2" class="control-label col-md-3 col-sm-3">
+            <strong> Line2: </strong>
+          </label>
+          <div class="row m-bot15 col-md-9 col-sm-9">
+          	<input type="text" class="form-control m-bot15" id="textLine2" v-model="project.actions.textoverlay_line_2">
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 row">
+					<label for="valignment" class="control-label col-md-3 col-sm-3">
+            <strong> Vertical Alignment: </strong>
+          </label>
+          <div class="row m-bot15 col-md-3 col-sm-3">
+            <select id='textPosition' class="form-control m-bot15" v-model="project.actions.textoverlay_valignment">
+							<option value="0">Bottom</option>
+							<option value="1">Middle</option>
+							<option value="2">Top</option>
+						</select>
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 row">
+          <label for="starttime" class="control-label col-md-3 col-sm-3">
+            	   <strong> Start Time: </strong>
+          </label>
+          <div class="row m-bot15 col-md-3 col-sm-3">
+						<div class="spinner">
+              <div class="input-group input-small">
+                <input type="text" id='textShowSec' class="spinner-input form-control" value="0" v-model="project.actions.textoverlay_start">
+              	<div class="spinner-buttons input-group-btn btn-group-vertical">
+                  <button type="button" class="btn spinner-up btn-xs btn-default">
+                      <i class="fa fa-angle-up"></i>
+                  </button>
+                  <button type="button" class="btn spinner-down btn-xs btn-default">
+                      <i class="fa fa-angle-down"></i>
+                  </button>
+                </div>
+                </div>
+             </div>
+            </div>
+					<label for="textduration" class="control-label col-md-3 col-sm-3">
+            <strong> Duration: </strong>
+          </label>
+          <div class="row m-bot15 col-md-3 col-sm-3">
+						<div class="spinner">
+              <div class="input-group input-small">
+                <input type="text" id='textShowDuration' class="spinner-input form-control" value="0" v-model="project.actions.textoverlay_duration">
+                    <div class="spinner-buttons input-group-btn btn-group-vertical">
+                      <button type="button" class="btn spinner-up btn-xs btn-default">
+                          <i class="fa fa-angle-up"></i>
+                      </button>
+                      <button type="button" class="btn spinner-down btn-xs btn-default">
+                          <i class="fa fa-angle-down"></i>
+                      </button>
+                    </div>
+                </div>
+            </div>
+           </div>
+        </div> <!-- end of col-lg-12 -->
+			</div> <!-- 2nd form-group -->
+			<div class="form-group">
+				<div class="col-lg-12 col-md-12">
+					<div class="panel-group" id="accordion">
+            <div class="panel advance-panel">
+                <div class="panel-heading panel-inverse">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            <i class="fa fa-pencil"></i>  Advance (Text Overlay)<i class="fa fa-caret-down pull-right"></i></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                  <div class="panel-body">
+                  	<div class="form-group">
+                  		<div class="col-lg-12 col-md-12">
+                    			<div class="well">
+                    				<p> The quick brown fox...</p>
+                    			</div>
+                    		</div>
+            			    </div>
+                    <div class="form-group">
+                      <div class="col-lg-12 col-md-12">
+										    <label for="fontstyle" class="control-label col-md-3 col-sm-3">
+	                         <strong> Font Family: </strong>
+	                      </label>
+	                     <div class="row m-bot15 col-md-4 col-sm-4">
+                          <select id='textFontProperty' class="form-control m-bot15" v-model="project.actions.textoverlay_fontfamily">
+    												<option value="Helvetica">Arial</option>
+    												<option value="Arial Black">Arial Black</option>
+    												<option value="Comic Sans MS">Comic Sans MS</option>
+    												<option value="Impact">Impact</option>
+    												<option value="Lucida">Lucida</option>
+    												<option value="Tahoma">Tahoma</option>
+    												<option value="Verdana">Verdana</option>
+    												<option value="Georgia">Georgia</option>
+    												<option value="Times New Roman">Times New Roman</option>
+    												<option value="Courier New">Courier New</option>
+    												<option value="Lucida Console">Lucida Console</option>
+											     </select>
+										    </div>
+										    <label for="fontsize" class="control-label col-md-3 col-sm-3">
+                            <strong> Font Size: </strong>
+                        </label>
+	                      <div class="row m-bot15 col-md-3 col-sm-3">
+											     <div id="fontsize" class="spinner">
+                              <div class="input-group input-small">
+                                 <input type="text" id='textShowDuration' class="spinner-input form-control" value="10" v-model="project.actions.textoverlay_fontsize" placeholder="10">
+                                	<div class="spinner-buttons input-group-btn btn-group-vertical">
+                                    <button type="button" class="btn spinner-up btn-xs btn-default">
+                                        <i class="fa fa-angle-up"></i>
+                                    </button>
+                                    <button type="button" class="btn spinner-down btn-xs btn-default">
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                  </div>
+                              </div>
+                            </div>
+	                       </div>
+                      </div>
+                    </div>
+                <div class="form-group">
+                  <div class="col-lg-12 col-md-12">
+										<label for="boldtext" class="control-label col-md-2 col-sm-2">
+                      	<strong> Bold: </strong>
+                    </label>
+                    <div class="row m-bot15 col-md-4 col-sm-4">
+                        <div class="col-sm-6 text-center">
+                          	<div class="switch" data-on-label="<i class=' fa fa-check'></i>" data-off-label="<i class='fa fa-times'></i>">
+                              <input type="checkbox" id='linkurl_bold_text' v-model="project.actions.textoverlay_bold" class="actions-ref"/>
+                            </div>
+                        </div>
+                    </div>
+										<label for="italictext" class="control-label col-md-2 col-sm-2">
+	                     <strong> Italic: </strong>
+	                  </label>
+                    <div class="row m-bot15 col-md-4 col-sm-4">
+                        <div class="col-sm-6 text-center">
+                          	<div class="switch" data-on-label="<i class=' fa fa-check'></i>" data-off-label="<i class='fa fa-times'></i>">
+                              <input type="checkbox" id='linkurl_italic_text' v-model="project.actions.textoverlay_italic" class="actions-ref"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="form-group">
+              	<div class="col-lg-12 col-md-12">
+										<label for="textalignment" class="control-label col-md-3 col-sm-3">
+	                     <strong> Alignment: </strong>
+	                  </label>
+	                  <div class="row col-md-3 col-sm-3">
+                      <select id='textAlignment' class="form-control m-bot15" v-model="project.actions.textoverlay_alignment">
+												<option value="left">Left</option>
+												<option value="center">Center</option>
+												<option value="right">Right</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-lg-12 col-md-12">
+										<label for="textpverlay" class="m-bot15 control-label col-md-6 col-sm-6"><strong> Text Color: </strong></label>
+                      <label for="rgba" class="control-label col-md-2 col-sm-2 row">
+                      	  RGB
+                      </label>
+                     <div class="row m-bot15 col-md-4 col-sm-4">
+                          <input type="text" class="colorpicker-rgba form-control" value="rgb(0,0,0)" data-color-format="rgb" v-model="project.actions.textoverlay_textcolor"/>
+                      </div>
+                  </div>
+               	</div>
+               	<div class="form-group">
+               		<div class="col-lg-12 col-md-12">
+										<label for="textpverlay" class="m-bot15 control-label col-md-6 col-sm-6"><strong> Background Color: </strong></label>
+	                   <label for="rgba" class="control-label col-md-2 col-sm-2 row">
+                    	  RGBA
+                    </label>
+                   <div class="row m-bot15 col-md-4 col-sm-4">
+                        <input type="text" class="colorpicker-rgba form-control" value="rgba(0,0,0,0)" data-color-format="rgba" v-model="project.actions.textoverlay_backgroundcolor"/>
+                    </div>
+                    </div>
+                  </div>
+              </div><!--  end of panel-body -->
+            </div>
+        </div>
+      </div>
+  </div>
+	</div> <!-- 3rd form-group -->
+	</form>
+</section>
+</div> <!-- end of linkurl -->
