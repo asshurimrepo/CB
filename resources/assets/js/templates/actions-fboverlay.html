@@ -15,7 +15,7 @@
 					<div class="form-group">
 						<div class="col-lg-12 col-md-12">
 							<label for="buttonlabel" class="control-label col-md-3 col-sm-3"><strong> Label: </strong></label>
-                            <div class="m-bot15 col-md-9 col-sm-9">
+                            <div class="m-bot15 col-md-9 col-sm-9 row">
                             	<input type="text" class="form-control m-bot15" id="buttonLabel"  v-model="project.actions.buttonoverlay_label">
                             </div>
 						</div>
@@ -25,9 +25,9 @@
                             </label>
                             <div class="row m-bot15 col-md-3 col-sm-3">
                               	<select id='buttonPosition' class="form-control m-bot15"  v-model="project.actions.buttonoverlay_valignment">
-									<option value=0>Bottom</option>
-									<option value=1>Middle</option>
-									<option value=2>Top</option>
+									<option value="0">Bottom</option>
+									<option value="1">Middle</option>
+									<option value="2">Top</option>
 								</select>
 							</div>
                         </div>
@@ -86,7 +86,24 @@
 	                                	<div class="form-group">
 	                                		<div class="col-lg-12 col-md-12">
 	                                  			<div class="well">
-	                                  				<p> The quick brown fox...</p>
+	                                  				<div class="clicktocall-container"
+		                              					:style="{
+		                              					 	textAlign: project.actions.buttonoverlay_alignment
+		                              					}"
+                              						>
+		                              					<button type="button" class="btn btn-default"
+		                              						:style="{
+		                              					 		fontFamily: project.actions.buttonoverlay_fontfamily,
+		                              					 		fontSize: project.actions.buttonoverlay_fontsize + 'px',
+		                              					 		fontWeight: project.actions.buttonoverlay_bold ? 'bold' : null,
+		                              					 		fontStyle: project.actions.buttonoverlay_italic ? 'italic': null,
+		                              					 		color: project.actions.buttonoverlay_textcolor,
+		                              					 		backgroundColor: project.actions.buttonoverlay_backgroundcolor
+		                              					 	}"
+		                              					>
+		                              						{{ project.actions.buttonoverlay_label ? project.actions.buttonoverlay_label: 'Default'}}
+		                              					</button>
+                              						</div>
 	                                  			</div>
                                   			</div>
                               			</div>
@@ -175,11 +192,11 @@
 										<div class="form-group">
 											<div class="col-lg-12 col-md-12">
 												<label for="textpverlay" class="m-bot15 control-label col-md-6 col-sm-6 row"><strong> Text Color: </strong></label>
-			                                    <label for="rgba" class="control-label col-md-2 col-sm-2 row">
+			                                    <label for="rgb" class="control-label col-md-2 col-sm-2 row">
 			                                    	  RGB
 			                                    </label>
 			                                   <div class="row m-bot15 col-md-4 col-sm-4">
-			                                        <input type="text" class="colorpicker-rgba form-control" value="rgb(0,0,0)" data-color-format="rgb" v-model="project.actions.buttonoverlay_textcolor"/>
+			                                        <input type="text" class="colorpicker-rgba form-control" data-color-format="rgb" v-model="project.actions.buttonoverlay_textcolor"/>
 			                                    </div>
 			                                </div>
 		                               	</div>
@@ -190,7 +207,7 @@
 			                                    	  RGBA
 			                                    </label>
 			                                   <div class="row m-bot15 col-md-4 col-sm-4">
-			                                        <input type="text" class="colorpicker-rgba form-control" value="rgba(0,0,0,1)" data-color-format="rgba" v-model="project.actions.buttonoverlay_backgroundcolor"/>
+			                                        <input type="text" class="colorpicker-rgba form-control" data-color-format="rgba" v-model="project.actions.buttonoverlay_backgroundcolor"/>
 			                                   </div>
 			                                </div>
 		                                </div>
@@ -262,15 +279,43 @@
 			                               				<div class="well">
 			                               					<section id="formStyle" class="panel">
 				                                				<header class="panel-heading text-center">
-				                                  					<h4><strong> Form Title </strong></h4>
+				                                  					<h4
+				                                  						:style="{
+		                              					 					fontFamily: project.actions.formoverlay_titlefontfamily,
+		                              					 					fontSize: formoverlay_titlesize,
+		                              					 					fontWeight: project.actions.formoverlay_titlebold ? 'bold' : null,
+                              					 							fontStyle: project.actions.formoverlay_titleitalic ? 'italic': null,
+                              					 							color: project.actions.formoverlay_titlecolor
+		                              					 				}"
+				                                  					>
+				                                  						{{ project.actions.formoverlay_title }} 
+
+				                                  					</h4>
 				                                				</header>
 				                                				<div class="panel-body">
 				                                					<form class="form-horizontal tasi-form text-left">
 				                                    					<div class="form-group">
 				                                     						<div class="col-lg-12 col-md-12">
-				                                      							<input type="text" class="form-control m-bot15" id="usernameField" placeholder="Enter your name.." v-model="project.actions.formoverlay_name">
-				                                      							<input type="email" class="form-control m-bot15" id="emailField" placeholder="Enter your email.." v-model="project.actions.formoverlay_email">
-				                                      							<button type="button" class="btn btn-success btn-sm center-block">Subscribe</button>
+				                                      							<input type="text" class="form-control m-bot15 {{formoverlay_fieldsize}}" id="usernameField" placeholder="Enter your name.." v-model="project.actions.formoverlay_name" :style="{
+			                              					 							borderWidth: project.actions.formoverlay_fieldbordersize + 'px',
+			                              					 							borderColor: project.actions.formoverlay_fieldbordercolor
+			                              					 						}"
+				                                      							>
+				                                      							<input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}" id="emailField" placeholder="Enter your email.." v-model="project.actions.formoverlay_email" :style="{
+			                              					 							borderWidth: project.actions.formoverlay_fieldbordersize + 'px',
+			                              					 							borderColor: project.actions.formoverlay_fieldbordercolor
+			                              					 						}"
+			                              					 					>
+				                                      							<button type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}" 
+				                                      								:style="{
+			                              					 							borderWidth: project.actions.formoverlay_buttonbordersize + 'px',
+			                              					 							color: project.actions.formoverlay_buttoncolor,
+			                              					 							borderColor: project.actions.formoverlay_buttoncolor,
+			                              					 							backgroundColor: project.actions.formoverlay_buttonbackgroundcolor
+			                              					 						}"
+			                              					 					> 
+				                                      								{{ project.actions.formoverlay_buttontext }}
+				                                      							</button>
 				                                     						</div>
 				                                    					</div>
 				                                  					</form>
@@ -308,7 +353,7 @@
 				                                            <strong> Font Family: </strong>
 				                                      	</label>
 				                                      	<div class="row m-bot15 col-md-3 col-sm-3">
-				                                        	 <select id='textFontProperty' class="form-control m-bot15" v-model="project.actions.formoverlay_fontfamily">
+				                                        	 <select id='textFontProperty' class="form-control m-bot15" v-model="project.actions.formoverlay_titlefontfamily">
 											                    <option value="Arial">Arial</option>
 										                      	<option value="Arial Black">Arial Black</option>
 										                      	<option value="Comic Sans MS">Comic Sans MS</option>
@@ -330,7 +375,7 @@
 			                                            <div class="row m-bot15 col-md-3 col-sm-3">
 			                                                <div class="col-sm-6 text-center">
 			                                                    <div class="switch" data-on-label="<i class=' fa fa-check'></i>" data-off-label="<i class='fa fa-times'></i>">
-			                                                         <input type="checkbox" id='formoverlay_bold' v-model="project.actions.formoverlay_bold" class="actions-ref"/>
+			                                                         <input type="checkbox" id='formoverlay_titlebold' v-model="project.actions.formoverlay_titlebold" class="actions-ref"/>
 			                                                    </div>
 			                                                </div>
 			                                            </div>
@@ -340,7 +385,7 @@
 			                                            <div class="row m-bot15 col-md-3 col-sm-3">
 			                                                <div class="col-sm-6 text-center">
 			                                                    <div class="switch" data-on-label="<i class=' fa fa-check'></i>" data-off-label="<i class='fa fa-times'></i>">
-			                                                        <input type="checkbox" id='formoverlay_italic' v-model="project.actions.formoverlay_italic" class="actions-ref"/>
+			                                                        <input type="checkbox" id='formoverlay_titleitalic' v-model="project.actions.formoverlay_titleitalic" class="actions-ref"/>
 			                                                    </div>
 			                                                </div>
 			                                            </div>
@@ -349,38 +394,38 @@
 			                   							<label for="titletextcolor" class="m-bot15 control-label col-md-3 col-sm-3 row">
 			                   								<strong> Text Color: </strong>
 			                   							</label>
-			                                            <label for="rgba" class="control-label col-md-2 col-sm-2 row">
+			                                            <label for="rgb" class="control-label col-md-2 col-sm-2 row">
 			                                                  RGB
 														</label>
 			                                            <div class="row m-bot15 col-md-7 col-sm-7">
-			                                                <input type="text" class="colorpicker-rgba form-control" value="rgb(0,0,0)" data-color-format="rgb" v-model="project.actions.formoverlay_textcolor" />
+			                                                <input type="text" class="colorpicker-rgba form-control" value="rgb(0,0,0)" data-color-format="rgb" v-model="project.actions.formoverlay_titlecolor" />
 			                                            </div>
 			                    					</div>
 			                  					</div><!--  end form-group title style -->
 			                  					<div class="form-group">
 			                                        <div class="col-lg-12 col-md-12">
-			                    						<label for="formtitle" class="control-label">
+			                    						<label for="fieldtitle" class="control-label">
 			                    							 Form Input Fields Style
 			                    						</label>
 			                   						</div>
 			                  					</div>
 			                  					<div class="form-group">
 			                   						<div class="col-lg-12 col-md-12">
-				                    					<label for="titlesize" class="control-label col-md-3 col-sm-3 row">
+				                    					<label for="fieldsize" class="control-label col-md-3 col-sm-3 row">
 				                                            <strong> Size: </strong>
 				                                      	</label>
 				                                      	<div class="row m-bot15 col-md-3 col-sm-3">
-					                                        <select id='titleSize' class="form-control m-bot15" v-model="project.actions.formoverlay_fieldsize">
+					                                        <select id='fieldsize' class="form-control m-bot15" v-model="project.actions.formoverlay_fieldsize">
 											                    <option value="Small">Small</option>
 											                    <option value="Medium">Medium</option>
 											                    <option value="Large">Large</option>
 					                     					</select>
 				                    					</div>
-			                    						<label for="titlesize" class="control-label col-md-3 col-sm-3">
+			                    						<label for="fieldbordersize" class="control-label col-md-3 col-sm-3">
 			                                            	<strong> Border size: </strong>
 			                                      		</label>
 			                                      		<div class="row m-bot15 col-md-3 col-sm-3">
-			                                        		<select id='titleSize' class="form-control m-bot15" v-model="project.actions.formoverlay_bordersize">
+			                                        		<select id='fieldbordersize' class="form-control m-bot15" v-model="project.actions.formoverlay_fieldbordersize">
 											                    <option value="1">1px</option>
 											                 	<option value="2">2px</option>
 											                    <option value="3">3px</option>
@@ -388,14 +433,60 @@
 			                    						</div>
 			                   						</div>
 			                   						<div class="col-lg-12 col-md-12 m-bot15">
-			                    						<label for="buttontextcolor" class="m-bot15 control-label col-md-3 col-sm-3 row">
-			                    							<strong> Foreground Color: </strong>
-			                    						</label>
-			                                            <label for="rgba" class="control-label col-md-2 col-sm-2 row">
+			                   							<label for="bordercolor" class="m-bot15 control-label col-md-3 col-sm-3 row">
+			                   								<strong> Border Color: </strong>
+			                   							</label>
+			                                            <label for="rgb" class="control-label col-md-2 col-sm-2 row">
 			                                                RGB
 			                                            </label>
 			                                            <div class="row m-bot15 col-md-7 col-sm-7">
-			                                                <input type="text" class="colorpicker-rgba form-control" value="rgb(0,0,0)" data-color-format="rgb" v-model="project.actions.formoverlay_foregroundcolor"/>
+			                                                <input type="text" class="colorpicker-rgba form-control" data-color-format="rgb" v-model="project.actions.formoverlay_fieldbordercolor"/>
+			                                            </div>
+			                   						</div>
+			                  					</div> <!-- end of form group input fields style -->
+			                  					<div class="form-group">
+			                                        <div class="col-lg-12 col-md-12">
+			                    						<label for="buttontitle" class="control-label">
+			                    							 Form Button Style
+			                    						</label>
+			                   						</div>
+			                  					</div>
+			                  					<div class="form-group">
+			                   						<div class="col-lg-12 col-md-12">
+			                    						<label for="buttontext" class="control-label col-md-3 col-sm-3 row"><strong> Button Text: </strong></label>
+		                                               <div class="row m-bot15 col-md-9 col-sm-9">
+		                                                	<input type="text" class="form-control m-bot15" id="titleText" maxlength="25" v-model="project.actions.formoverlay_buttontext">
+		                                               </div>				                    					
+				                    					<label for="buttonsize" class="control-label col-md-3 col-sm-3 row">
+				                                            <strong> Size: </strong>
+				                                      	</label>
+				                                      	<div class="row m-bot15 col-md-3 col-sm-3">
+					                                        <select id='buttonsize' class="form-control m-bot15" v-model="project.actions.formoverlay_buttonsize">
+											                    <option value="Small">Small</option>
+											                    <option value="Medium">Medium</option>
+											                    <option value="Large">Large</option>
+					                     					</select>
+				                    					</div>
+			                    						<label for="buttonbordersize" class="control-label col-md-3 col-sm-3">
+			                                            	<strong> Border size: </strong>
+			                                      		</label>
+			                                      		<div class="row m-bot15 col-md-3 col-sm-3">
+			                                        		<select id='titleSize' class="form-control m-bot15" v-model="project.actions.formoverlay_buttonbordersize">
+											                    <option value="1">1px</option>
+											                 	<option value="2">2px</option>
+											                    <option value="3">3px</option>
+			                    							</select>
+			                    						</div>
+			                   						</div>
+			                   						<div class="col-lg-12 col-md-12 m-bot15">
+			                    						<label for="buttoncolor" class="m-bot15 control-label col-md-3 col-sm-3 row">
+			                    							<strong> Foreground Color: </strong>
+			                    						</label>
+			                                            <label for="rgb" class="control-label col-md-2 col-sm-2 row">
+			                                                RGB
+			                                            </label>
+			                                            <div class="row m-bot15 col-md-7 col-sm-7">
+			                                                <input type="text" class="colorpicker-rgba form-control" data-color-format="rgb" v-model="project.actions.formoverlay_buttoncolor"/>
 			                                            </div>
 			                   						</div>
 			                   						<div class="col-lg-12 col-md-12 m-bot15">
@@ -406,10 +497,10 @@
 			                                                RGBA
 			                                            </label>
 			                                            <div class="row m-bot15 col-md-7 col-sm-7">
-			                                                <input type="text" class="colorpicker-rgba form-control" value="rgba(0,0,0,1)" data-color-format="rgba" v-model="project.actions.formoverlay_backgroundcolor"/>
+			                                                <input type="text" class="colorpicker-rgba form-control"  data-color-format="rgba" v-model="project.actions.formoverlay_buttonbackgroundcolor"/>
 			                                            </div>
 			                   						</div>
-			                  					</div> <!-- end of form group input fields style -->
+			                   					</div>
 			                  					<div class="form-group">
 			                                        <div class="col-lg-12 col-md-12">
 			                    						<label for="autoresponder" class="control-label">
