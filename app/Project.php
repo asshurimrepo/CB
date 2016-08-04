@@ -10,11 +10,21 @@ class Project extends Model
 
     public function getOptionsAttribute($options)
 	{
+		if(is_array($options))
+		{
+			$options = json_encode($options);
+		}
+
 		return json_decode($options ?: "{}");
 	}
 
 	public function getActionsAttribute($actions)
 	{
+		if(is_array($actions))
+		{
+			$actions = json_encode($actions);
+		}
+		
 		return json_decode($actions ?: "{}");
 	}
 }
