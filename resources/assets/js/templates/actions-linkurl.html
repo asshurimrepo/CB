@@ -111,7 +111,7 @@
 	                      </label>
 	                     <div class="row m-bot15 col-md-4 col-sm-4">
                           <select id='textFontProperty' class="form-control m-bot15" v-model="project.actions.textoverlay_fontfamily">
-    												<option value="Helvetica">Arial</option>
+    												<option value="Arial">Arial</option>
     												<option value="Arial Black">Arial Black</option>
     												<option value="Comic Sans MS">Comic Sans MS</option>
     												<option value="Impact">Impact</option>
@@ -152,7 +152,7 @@
                     <div class="row m-bot15 col-md-4 col-sm-4">
                         <div class="col-sm-6 text-center">
                           	<div class="switch" data-on-label="<i class=' fa fa-check'></i>" data-off-label="<i class='fa fa-times'></i>">
-                              <input type="checkbox" id='linkurl_bold_text' v-model="project.actions.textoverlay_bold" class="actions-ref"/>
+                              <input type="checkbox" id='linkurl_bold' v-model="project.actions.textoverlay_bold" class="actions-ref"/>
                             </div>
                         </div>
                     </div>
@@ -162,7 +162,7 @@
                     <div class="row m-bot15 col-md-4 col-sm-4">
                         <div class="col-sm-6 text-center">
                           	<div class="switch" data-on-label="<i class=' fa fa-check'></i>" data-off-label="<i class='fa fa-times'></i>">
-                              <input type="checkbox" id='linkurl_italic_text' v-model="project.actions.textoverlay_italic" class="actions-ref"/>
+                              <input type="checkbox" id='linkurl_italic' v-model="project.actions.textoverlay_italic" class="actions-ref"/>
                             </div>
                         </div>
                     </div>
@@ -200,7 +200,7 @@
                     	  RGBA
                     </label>
                    <div class="row m-bot15 col-md-4 col-sm-4">
-                        <input type="text" class="colorpicker-rgba form-control" value="rgba(0,0,0,0)" data-color-format="rgba" v-model="project.actions.textoverlay_backgroundcolor"/>
+                        <input type="text" class="colorpicker-rgba form-control" value="rgba(0,0,0,1)" data-color-format="rgba" v-model="project.actions.textoverlay_backgroundcolor"/>
                     </div>
                     </div>
                   </div>
