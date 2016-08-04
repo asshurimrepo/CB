@@ -5,6 +5,12 @@ export default {
 
 	props: ['project'],
 
+	data() {
+		return {
+			is_saving: false
+		}
+	},
+
 	components: {
 		Properties
 	},
@@ -17,5 +23,11 @@ export default {
 
 	data(){
 		return {}
+	},
+
+	methods: {
+		save() {
+			this.$http.put('/project/' + this.project.id, this.project);
+		}
 	}
 }
