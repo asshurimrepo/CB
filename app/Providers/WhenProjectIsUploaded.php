@@ -17,8 +17,8 @@ class WhenProjectIsUploaded extends ServiceProvider
     public function boot()
     {
         Project::created(function ($project) {
-            $project->options = File::get('../data/default/options.json');
-            $project->actions = File::get('../data/default/actions.json');
+            $project->options = File::get('../resources/default/options.json');
+            $project->actions = File::get('../resources/default/actions.json');
             $project->save();
         });
     }
