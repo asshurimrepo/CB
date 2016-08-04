@@ -15,19 +15,14 @@ export default {
 		Properties
 	},
 
-	watch: {
-		project() {
-			this.$data = this.project;
-		}
-	},
-
-	data(){
-		return {}
-	},
-
 	methods: {
 		save() {
-			this.$http.put('/project/' + this.project.id, this.project);
+			this.is_saving = true;
+			
+			this.$http.put('/project/' + this.project.id, this.project).then(() => {
+				swal("Good job!", "You have successfully save your project settings!", "success");
+				this.is_saving = false;
+			});
 		}
 	}
 }
