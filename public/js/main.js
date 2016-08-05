@@ -11548,18 +11548,28 @@ exports.default = {
 
 	props: ['project'],
 
+	data: function data() {
+		return {
+			is_saving: false
+		};
+	},
+
+
 	components: {
 		Linkurl: _ActionsLinkURL2.default, Clicktocall: _ActionsClickToCall2.default, Fboverlay: _ActionsFBOverlay2.default
 	},
 
-	watch: {
-		project: function project() {
-			this.$data = this.project;
-		}
-	},
+	methods: {
+		save: function save() {
+			var _this = this;
 
-	data: function data() {
-		return {};
+			this.is_saving = true;
+
+			this.$http.put('/project/' + this.project.id, this.project).then(function () {
+				swal("Good job!", "You have successfully save your project settings!", "success");
+				_this.is_saving = false;
+			});
+		}
 	}
 };
 

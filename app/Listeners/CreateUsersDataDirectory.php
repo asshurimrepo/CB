@@ -6,6 +6,7 @@ use App\Events\UserRegistered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Storage;
+use File;
 
 class CreateUsersDataDirectory
 {
@@ -28,6 +29,11 @@ class CreateUsersDataDirectory
     public function handle(UserRegistered $event)
     {
         $email = $event->user->email;
+
+        if(File::exists("../data/{$email}"))
+        {
+            return;
+        }
 
         mkdir("../data/".$email);
         mkdir("../data/".$email."/videos");

@@ -16,6 +16,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserRegistered' => [
             'App\Listeners\CreateUsersDataDirectory',
         ],
+
+        'App\Events\Project\VideoWasUploaded' => [
+            'App\Listeners\Project\DistillVideo',
+            'App\Listeners\Project\ProcessFrames',
+            
+        ]
     ];
 
     /**
