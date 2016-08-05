@@ -156,6 +156,7 @@
                     $('.aftersec').hide();
                 }
             });
+
             $('#upload-hover').pulsate({
                 color: "#ec6459",
                 repeat: false,
