@@ -109,7 +109,7 @@
                               			</div>
                               			<div class="form-group">
                               				<div class="col-lg-12 col-md-12">
-												<label for="fontstyle" class="control-label col-md-3 col-sm-3 row">
+												<label for="fontstyle" class="control-label col-md-3 col-sm-3">
 			                                      	   <strong> Font Family: </strong>
 			                                    </label>
 			                                    <div class="row m-bot15 col-md-4 col-sm-4">
@@ -149,7 +149,7 @@
 		                                </div>
 		                                <div class="form-group">
 		                                	<div class="col-lg-12 col-md-12">
-												<label for="boldtext" class="control-label col-md-2 col-sm-2 row">
+												<label for="boldtext" class="control-label col-md-2 col-sm-2">
 			                                      	  <strong> Bold: </strong>
 			                                    </label>
 			                                    <div class="row m-bot15 col-md-4 col-sm-4">
@@ -161,7 +161,7 @@
 			                                            </div>
 			                                        </div>
 			                                    </div>
-												<label for="italictext" class="control-label col-md-2 col-sm-2 row">
+												<label for="italictext" class="control-label col-md-2 col-sm-2">
 			                                      	  <strong> Italic: </strong>
 			                                    </label>
 			                                    <div class="row m-bot15 col-md-4 col-sm-4">
@@ -177,7 +177,7 @@
 		                                </div>
 		                                <div class="form-group">
 		                                	<div class="col-lg-12 col-md-12">
-												<label for="textalignment" class="control-label col-md-3 col-sm-3 row">
+												<label for="textalignment" class="control-label col-md-3 col-sm-3">
 			                                      	  <strong> Alignment: </strong>
 			                                    </label>
 			                                    <div class="row col-md-3 col-sm-3">
@@ -191,23 +191,25 @@
 										</div>
 										<div class="form-group">
 											<div class="col-lg-12 col-md-12">
-												<label for="textpverlay" class="m-bot15 control-label col-md-6 col-sm-6 row"><strong> Text Color: </strong></label>
+												<label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4">
+													<strong> Text Color: </strong></label>
 			                                    <label for="rgb" class="control-label col-md-2 col-sm-2 row">
 			                                    	  RGB
 			                                    </label>
-			                                   <div class="row m-bot15 col-md-4 col-sm-4">
-			                                        <input type="text" class="colorpicker-rgba form-control" data-color-format="rgb" v-model="project.actions.buttonoverlay_textcolor"/>
+			                                   <div class="row m-bot15 col-md-46 col-sm-6">
+													<color-picker :color.sync="project.actions.buttonoverlay_textcolor"></color-picker>
 			                                    </div>
 			                                </div>
 		                               	</div>
 		                               	<div class="form-group">
 		                               		<div class="col-lg-12 col-md-12">
-												<label for="textpverlay" class="m-bot15 control-label col-md-6 col-sm-6 row"><strong> Background Color: </strong></label>
+												<label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4">
+													<strong> Background Color: </strong></label>
 			                                    <label for="rgba" class="control-label col-md-2 col-sm-2 row">
 			                                    	  RGBA
 			                                    </label>
-			                                   <div class="row m-bot15 col-md-4 col-sm-4">
-			                                        <input type="text" class="colorpicker-rgba form-control" data-color-format="rgba" v-model="project.actions.buttonoverlay_backgroundcolor"/>
+			                                   <div class="row m-bot15 col-md-6 col-sm-6">
+													<color-picker :color.sync="project.actions.buttonoverlay_backgroundcolor" format="rgba"></color-picker>
 			                                   </div>
 			                                </div>
 		                                </div>
@@ -288,7 +290,7 @@
                               					 							color: project.actions.formoverlay_titlecolor
 		                              					 				}"
 				                                  					>
-				                                  						{{ project.actions.formoverlay_title }} 
+				                                  						{{ project.actions.formoverlay_title }}
 
 				                                  					</h4>
 				                                				</header>
@@ -306,14 +308,14 @@
 			                              					 							borderColor: project.actions.formoverlay_fieldbordercolor
 			                              					 						}"
 			                              					 					>
-				                                      							<button type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}" 
+				                                      							<button type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"
 				                                      								:style="{
 			                              					 							borderWidth: project.actions.formoverlay_buttonbordersize + 'px',
 			                              					 							color: project.actions.formoverlay_buttoncolor,
 			                              					 							borderColor: project.actions.formoverlay_buttoncolor,
 			                              					 							backgroundColor: project.actions.formoverlay_buttonbackgroundcolor
 			                              					 						}"
-			                              					 					> 
+			                              					 					>
 				                                      								{{ project.actions.formoverlay_buttontext }}
 				                                      							</button>
 				                                     						</div>
@@ -327,19 +329,19 @@
 			                  					<div class="form-group">
 			                                        <div class="col-lg-12 col-md-12">
 			                    						<label for="formtitle" class="control-label">
-			                   								Form Title Style
+			                   								<strong>Form Title Style</strong>
 			                    						</label>
 			                   						</div>
 			                  					</div>
 			                  					<div class="form-group">
 			                   						<div class="col-lg-12 col-md-12">
-			                    						<label for="titletext" class="control-label col-md-3 col-sm-3 row"><strong> Title Text: </strong></label>
+			                    						<label for="titletext" class="control-label col-md-3 col-sm-3"><strong> Title Text: </strong></label>
 			                                               <div class="row m-bot15 col-md-9 col-sm-9">
 			                                                	<input type="text" class="form-control m-bot15" id="titleText" maxlength="25" v-model="project.actions.formoverlay_title">
 			                                               </div>
 			                						</div>
 			                						<div class="col-lg-12 col-md-12">
-			                    						<label for="titlesize" class="control-label col-md-3 col-sm-3 row">
+			                    						<label for="titlesize" class="control-label col-md-3 col-sm-3">
 			                                            	<strong> Size: </strong>
 			                                      		</label>
 				                                    	<div class="row m-bot15 col-md-3 col-sm-3">
@@ -368,8 +370,8 @@
 				                    						</select>
 				                    					</div>
 			                   						</div>
-			                   						<div class="col-lg-12 col-md-12">
-			                    						<label for="boldtext" class="control-label col-md-3 col-sm-3 row">
+			                   						<div class="col-lg-12 col-md-12 m-bot15">
+			                    						<label for="boldtext" class="control-label col-md-3 col-sm-3">
 			                                                <strong> Bold: </strong>
 			                                            </label>
 			                                            <div class="row m-bot15 col-md-3 col-sm-3">
@@ -391,14 +393,14 @@
 			                                            </div>
 			                   						</div>
 			                   						<div class="col-lg-12 col-md-12">
-			                   							<label for="titletextcolor" class="m-bot15 control-label col-md-3 col-sm-3 row">
+			                   							<label for="titletextcolor" class="m-bot15 control-label col-md-4 col-sm-4">
 			                   								<strong> Text Color: </strong>
 			                   							</label>
 			                                            <label for="rgb" class="control-label col-md-2 col-sm-2 row">
 			                                                  RGB
 														</label>
-			                                            <div class="row m-bot15 col-md-7 col-sm-7">
-			                                                <input type="text" class="colorpicker-rgba form-control" value="rgb(0,0,0)" data-color-format="rgb" v-model="project.actions.formoverlay_titlecolor" />
+			                                            <div class="row m-bot15 col-md-6 col-sm-6">
+			                                                <color-picker :color.sync="project.actions.formoverlay_titlecolor"></color-picker>
 			                                            </div>
 			                    					</div>
 			                  					</div><!--  end form-group title style -->
@@ -411,7 +413,7 @@
 			                  					</div>
 			                  					<div class="form-group">
 			                   						<div class="col-lg-12 col-md-12">
-				                    					<label for="fieldsize" class="control-label col-md-3 col-sm-3 row">
+				                    					<label for="fieldsize" class="control-label col-md-3 col-sm-3">
 				                                            <strong> Size: </strong>
 				                                      	</label>
 				                                      	<div class="row m-bot15 col-md-3 col-sm-3">
@@ -433,14 +435,14 @@
 			                    						</div>
 			                   						</div>
 			                   						<div class="col-lg-12 col-md-12 m-bot15">
-			                   							<label for="bordercolor" class="m-bot15 control-label col-md-3 col-sm-3 row">
+			                   							<label for="bordercolor" class="m-bot15 control-label col-md-4 col-sm-4">
 			                   								<strong> Border Color: </strong>
 			                   							</label>
 			                                            <label for="rgb" class="control-label col-md-2 col-sm-2 row">
 			                                                RGB
 			                                            </label>
-			                                            <div class="row m-bot15 col-md-7 col-sm-7">
-			                                                <input type="text" class="colorpicker-rgba form-control" data-color-format="rgb" v-model="project.actions.formoverlay_fieldbordercolor"/>
+			                                            <div class="row m-bot15 col-md-6 col-sm-6">
+			                                               <color-picker :color.sync="project.actions.formoverlay_fieldbordercolor"></color-picker>
 			                                            </div>
 			                   						</div>
 			                  					</div> <!-- end of form group input fields style -->
@@ -453,11 +455,13 @@
 			                  					</div>
 			                  					<div class="form-group">
 			                   						<div class="col-lg-12 col-md-12">
-			                    						<label for="buttontext" class="control-label col-md-3 col-sm-3 row"><strong> Button Text: </strong></label>
+			                    						<label for="buttontext" class="control-label col-md-3 col-sm-3">
+			                    							<strong> Button Text: </strong>
+			                    						</label>
 		                                               <div class="row m-bot15 col-md-9 col-sm-9">
 		                                                	<input type="text" class="form-control m-bot15" id="titleText" maxlength="25" v-model="project.actions.formoverlay_buttontext">
-		                                               </div>				                    					
-				                    					<label for="buttonsize" class="control-label col-md-3 col-sm-3 row">
+		                                               </div>
+				                    					<label for="buttonsize" class="control-label col-md-3 col-sm-3">
 				                                            <strong> Size: </strong>
 				                                      	</label>
 				                                      	<div class="row m-bot15 col-md-3 col-sm-3">
@@ -479,25 +483,26 @@
 			                    						</div>
 			                   						</div>
 			                   						<div class="col-lg-12 col-md-12 m-bot15">
-			                    						<label for="buttoncolor" class="m-bot15 control-label col-md-3 col-sm-3 row">
+			                    						<label for="buttoncolor" class="m-bot15 control-label col-md-4 col-sm-4">
 			                    							<strong> Foreground Color: </strong>
 			                    						</label>
 			                                            <label for="rgb" class="control-label col-md-2 col-sm-2 row">
 			                                                RGB
 			                                            </label>
-			                                            <div class="row m-bot15 col-md-7 col-sm-7">
-			                                                <input type="text" class="colorpicker-rgba form-control" data-color-format="rgb" v-model="project.actions.formoverlay_buttoncolor"/>
+			                                                <div class="row m-bot15 col-md-6 col-sm-6">
+			                                               <color-picker :color.sync="project.actions.formoverlay_buttoncolor"></color-picker>
 			                                            </div>
+
 			                   						</div>
 			                   						<div class="col-lg-12 col-md-12 m-bot15">
-			                   							<label for="buttonbackgroundcolor" class="m-bot15 control-label col-md-3 col-sm-3 row">
+			                   							<label for="buttonbackgroundcolor" class="m-bot15 control-label col-md-4 col-sm-4">
 			                   								<strong> Background Color: </strong>
 			                   							</label>
 			                                            <label for="rgba" class="control-label col-md-2 col-sm-2 row">
 			                                                RGBA
 			                                            </label>
-			                                            <div class="row m-bot15 col-md-7 col-sm-7">
-			                                                <input type="text" class="colorpicker-rgba form-control"  data-color-format="rgba" v-model="project.actions.formoverlay_buttonbackgroundcolor"/>
+			                                            <div class="row m-bot15 col-md-6 col-sm-6">
+			                                                <color-picker :color.sync="project.actions.formoverlay_buttonbackgroundcolor" format="rgba"></color-picker>
 			                                            </div>
 			                   						</div>
 			                   					</div>
@@ -510,7 +515,7 @@
 			                  					</div>
 			                  					<div class="form-group">
 			                   						<div class="col-lg-12 col-md-12">
-				                   						<label for="autoresponderservice" class="control-label col-md-3 col-sm-3 row">
+				                   						<label for="autoresponderservice" class="control-label col-md-3 col-sm-3">
 				                                            <strong> Service: </strong>
 				                                      	</label>
 			                                      		<div class="row m-bot15 col-md-5 col-sm-5">
@@ -525,7 +530,7 @@
 			                    						</div>
 			                   						</div>
 			                   						<div class="col-lg-12 col-md-12">
-			                    						<label for="titletext" class="control-label col-md-3 col-sm-3 row">
+			                    						<label for="titletext" class="control-label col-md-3 col-sm-3">
 			                    							<strong> User ID: </strong>
 			                    						</label>
 			                                            <div class="row m-bot15 col-md-9 col-sm-9">

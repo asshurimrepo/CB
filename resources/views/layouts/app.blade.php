@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
 
         @yield('styles')
-      
+
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
@@ -26,11 +26,11 @@
           <script src="/js/respond.min.js"></script>
         <![endif]-->
         <!-- <link rel="stylesheet" type="text/css" href="style.css"/> -->
-                    
+
         <title>
             @yield('title', 'CasterBuddy')
         </title>
-               
+
     </head>
 
 <body id="caster-app" class="full-width">
@@ -51,7 +51,7 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
             </div>
-    
+
             <div class="top-nav">
                 <ul class="nav pull-left top-menu">
                     <li>
@@ -87,13 +87,13 @@
 <section id="container">
     <section id="main-content">
       <section class="wrapper">
-         
+
          @yield('content')
 
       </section>
     </section>
 </section>
-   
+
 <!--footer start-->
 <footer class="site-footer always-bottom">
     <div class="text-center">
@@ -103,7 +103,7 @@
         </a>
     </div>
 </footer>
-<!--footer end--> 
+<!--footer end-->
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="/js/jquery.dcjqaccordion.2.7.js"></script>
@@ -113,6 +113,7 @@
     <script src="/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
     <script src="/js/owl.carousel.js" ></script>
     <script src="/js/jquery.customSelect.min.js" ></script>
+    <script src="/js/jquery.pulsate.min.js" type="text/javascript"></script>
     <script src="/js/respond.min.js" ></script>
 
     <script type="text/javascript" src="/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
@@ -124,7 +125,7 @@
 
     <!--common script for all pages-->
     <script src="/js/common-scripts.js"></script>
-    
+
     <script type="text/javascript" src="/assets/fuelux/js/spinner.js"></script>
     <!-- tweaks added by rigz -->
 
@@ -133,7 +134,6 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('.colorpicker-rgba').colorpicker();
             $('.modal').on('show.bs.modal', function () {
                 if ($(document).height() > $(window).height()) {
                     // no-scroll
@@ -155,7 +155,18 @@
                 }else{
                     $('.aftersec').hide();
                 }
-            });                
+            });
+
+            $('#upload-hover').pulsate({
+                color: "#ec6459",
+                repeat: false,
+                onHover: true
+            });
+            $('#premade-hover').pulsate({
+                color: "#e4ba00",
+                repeat: false,
+                onHover: true
+            });
         });
     </script>
 
@@ -163,6 +174,6 @@
     <script src="/js/main.js"></script>
 
     @yield('scripts')
-    
+
     </body>
     </html>

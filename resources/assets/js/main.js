@@ -14,6 +14,9 @@ new Vue({
 
 	ready() {
 		console.log('Ready to KickAss!!');
+
+        $('.colorpicker-default').colorpicker();
+
 		this.loadProjects();
 	},
 
@@ -23,7 +26,9 @@ new Vue({
 			options: {
 				stop_showing: {},
 				external_video: {}
-			}
+			},
+
+			actions: {}
 		}
 	},
 
@@ -33,7 +38,9 @@ new Vue({
 
 	methods: {
 		loadProjects() {
-			this.$http.get('/project').then(response => this.projects = response.data);
+			this.$http.get('/project').then(response => {
+				this.projects = response.data;
+			});
 		}
 	}
 

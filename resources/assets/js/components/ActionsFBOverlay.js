@@ -1,8 +1,14 @@
+import ColorPicker from '../components/ColorPicker.js';
+
 export default {
 	template: require('../templates/actions-fboverlay.html'),
 
 	ready() {
        $(".actions-ref").change(this.updateSwitchable);
+    },
+
+    components: {
+        ColorPicker
     },
 
 	props: ['project'],
@@ -33,7 +39,7 @@ export default {
     		if(this.project.actions.formoverlay_buttonsize === 'Medium') return '';
     		if(this.project.actions.formoverlay_buttonsize === 'Large') return 'btn-lg';
 
-    		return 'btn-sm';    		
+    		return 'btn-sm';
     	}
     },
 
