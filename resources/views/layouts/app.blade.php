@@ -113,6 +113,7 @@
     <script src="/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
     <script src="/js/owl.carousel.js" ></script>
     <script src="/js/jquery.customSelect.min.js" ></script>
+    <script src="/js/jquery.pulsate.min.js" type="text/javascript"></script>
     <script src="/js/respond.min.js" ></script>
 
     <script type="text/javascript" src="/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
@@ -133,7 +134,6 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('.colorpicker-default').colorpicker();
             $('.modal').on('show.bs.modal', function () {
                 if ($(document).height() > $(window).height()) {
                     // no-scroll
@@ -155,6 +155,16 @@
                 }else{
                     $('.aftersec').hide();
                 }
+            });
+            $('#upload-hover').pulsate({
+                color: "#ec6459",
+                repeat: false,
+                onHover: true
+            });
+            $('#premade-hover').pulsate({
+                color: "#e4ba00",
+                repeat: false,
+                onHover: true
             });
         });
     </script>

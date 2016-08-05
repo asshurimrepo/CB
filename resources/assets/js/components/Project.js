@@ -37,7 +37,7 @@ export default {
 
 		setActive() {
 			this.$parent.active_project = this.data;
-			$('.colorpicker-default').colorpicker('update');
+			setTimeout(() => $('.colorpicker-default').colorpicker('update'), 300);
 		},
 
 		deleteMe() {

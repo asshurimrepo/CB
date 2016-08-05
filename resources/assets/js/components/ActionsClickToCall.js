@@ -1,8 +1,14 @@
+import ColorPicker from '../components/ColorPicker.js';
+
 export default {
 	template: require('../templates/actions-clicktocall.html'),
 
 	ready() {
        $(".actions-ref").change(this.updateSwitchable);
+    },
+
+    components: {
+        ColorPicker
     },
 
 	props: ['project'],
