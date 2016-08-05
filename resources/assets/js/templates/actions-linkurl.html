@@ -106,7 +106,7 @@
                               					 	backgroundColor: project.actions.textoverlay_backgroundcolor
                               					}"
                     				>
-                    					<p 
+                    					<p
                     						:style="{
                               					 		fontFamily: project.actions.textoverlay_fontfamily,
                               					 		fontSize: project.actions.textoverlay_fontsize + 'px',
@@ -114,18 +114,18 @@
                               					 		fontStyle: project.actions.textoverlay_italic ? 'italic': null,
                               					 		color: project.actions.textoverlay_textcolor
                               					 	}"
-                    					> 
+                    					>
                     						{{ project.actions.textoverlay_line_1 ? project.actions.textoverlay_line_1: 'The quick brown fox...'}}
                     					</p>
-                    					<p 
+                    					<p
                     						:style="{
                               					 		fontFamily: project.actions.textoverlay_fontfamily,
                               					 		fontSize: project.actions.textoverlay_fontsize + 'px',
                               					 		fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
                               					 		fontStyle: project.actions.textoverlay_italic ? 'italic': null,
-                              					 		color: project.actions.textoverlay_textcolor	
+                              					 		color: project.actions.textoverlay_textcolor
                               					 	}"
-                    					> 
+                    					>
                     						{{ project.actions.textoverlay_line_2 }}
                     					</p>
                     				</div>
@@ -212,26 +212,48 @@
 			  </div>
 				<div class="form-group">
 				  <div class="col-lg-12 col-md-12">
-					  <label for="textpverlay" class="m-bot15 control-label col-md-6 col-sm-6"><strong> Text Color: </strong></label>
-                      <label for="rgba" class="control-label col-md-2 col-sm-2 row">
-                      	  RGB
-                      </label>
-                     <div class="row m-bot15 col-md-4 col-sm-4">
-                          <input type="text" class="colorpicker-rgba form-control" data-color-format="rgb" v-model="project.actions.textoverlay_textcolor"/>
-                      </div>
-                  </div>
-               	</div>
-               	<div class="form-group">
-               		<div class="col-lg-12 col-md-12">
-										<label for="textpverlay" class="m-bot15 control-label col-md-6 col-sm-6"><strong> Background Color: </strong></label>
-	                   <label for="rgba" class="control-label col-md-2 col-sm-2 row">
-                    	  RGBA
-                    </label>
-                   <div class="row m-bot15 col-md-4 col-sm-4">
-                        <input type="text" class="colorpicker-rgba form-control" data-color-format="rgba" v-model="project.actions.textoverlay_backgroundcolor"/>
-                    </div>
-                    </div>
-                  </div>
+					  <label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4"><strong> Text Color: </strong></label>
+              <label for="rgba" class="control-label col-md-2 col-sm-2 row">
+              	  RGB
+              </label>
+              <div class="row m-bot15 col-md-6 col-sm-6">
+                <div data-color-format="rgb" data-color="{{project.actions.textoverlay_textcolor}}" class="input-append colorpicker-default color">
+                  <input type="text" readonly="" class="form-control" v-model="project.actions.textoverlay_textcolor">
+                    <span class=" input-group-btn add-on">
+                      <button class="btn btn-white" type="button" style="padding: 8px">
+                      <i
+                        :style="{
+                          backgroundColor:project.actions.textoverlay_textcolor
+                        }"
+                      ></i>
+                      </button>
+                    </span>
+                </div>
+              </div>
+          </div>
+        </div>
+       	<div class="form-group">
+       		<div class="col-lg-12 col-md-12">
+						<label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4"><strong> Background Color: </strong></label>
+             <label for="rgba" class="control-label col-md-2 col-sm-2 row">
+            	  RGBA
+             </label>
+              <div class="row m-bot15 col-md-6 col-sm-6">
+                <div data-color-format="rgba" data-color="{{project.actions.textoverlay_backgroundcolor}}" class="input-append colorpicker-default color">
+                  <input type="text" readonly=""  class="form-control" v-model="project.actions.textoverlay_backgroundcolor">
+                    <span class=" input-group-btn add-on">
+                      <button class="btn btn-white" type="button" style="padding: 8px">
+                      <i
+                        :style="{
+                          backgroundColor:project.actions.textoverlay_backgroundcolor
+                        }"
+                      ></i>
+                      </button>
+                    </span>
+                </div>
+              </div>
+          </div>
+        </div>
               </div><!--  end of panel-body -->
             </div>
         </div>
