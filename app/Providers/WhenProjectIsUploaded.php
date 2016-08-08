@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Events\Project\VideoWasUploaded;
 use App\Project;
 use File;
 use Log;
@@ -20,6 +21,8 @@ class WhenProjectIsUploaded extends ServiceProvider
             $project->options = File::get('../resources/default/options.json');
             $project->actions = File::get('../resources/default/actions.json');
             $project->save();
+
+            event(new VideoWasUploaded($project));
         });
     }
 

@@ -5,6 +5,7 @@ export default {
 
 	ready() {
        $(".actions-ref").change(this.updateSwitchable);
+       $(".fontsize").change(this.updateFont);
     },
 
     components: {
@@ -50,6 +51,12 @@ export default {
 
         isBelongsTo(ref){
             return this.project.actions.autoresponder == ref;
+        },
+
+        updateFont($this) {
+            font = $(".fontsize").val();
+            console.log(font);
+            // this.$set('project.actions.'+ $this.target.id, $this.target.)
         }
     }
 

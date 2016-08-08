@@ -1,14 +1,14 @@
 #!/bin/bash
 
-rm data/$1/images/*
-rm data/$1/out/*
+rm ../data/$1/images/*
+rm ../data/$1/out/*
 
-ffmpeg -t 240 -i data/$1/videos/$2 data/$1/out/sound.mp3
+ffmpeg -t 240 -i ../data/$1/videos/$2 ../data/$1/out/sound.mp3
 
 if [ $# -eq 2 ]; then
-	ffmpeg -t 240 -i data/$1/videos/$2 -r 10 data/$1/images/%05d.png
+	ffmpeg -t 240 -i ../data/$1/videos/$2 -r 10 ../data/$1/images/%05d.png
 fi
 
 if [ $# -eq 4 ]; then
-	ffmpeg -t 240 -i data/$1/videos/$2 -r 10 -s $3x$4 data/$1/images/%05d.png
+	ffmpeg -t 240 -i ../data/$1/videos/$2 -r 10 -s $3x$4 ../data/$1/images/%05d.png
 fi
