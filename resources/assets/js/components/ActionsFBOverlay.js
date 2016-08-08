@@ -46,6 +46,10 @@ export default {
     methods: {
         updateSwitchable($this) {
             this.$set('project.actions.' + $this.target.id, $this.target.checked);
+        },
+
+        isBelongsTo(ref){
+            return this.project.actions.autoresponder == ref;
         }
     }
 
