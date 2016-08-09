@@ -135,8 +135,8 @@
 			                                    <div class="row m-bot15 col-md-3 col-sm-3">
 													<div class="spinner">
 	                                                  <div class="input-group input-small">
-	                                                      <input type="text" id='buttonoverlay_fontsize' class="spinner-input form-control fontsize" value="10"  v-model="project.actions.buttonoverlay_fontsize">
-	                                                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
+	                                                      	<input type="text" class="spinner-input form-control fontsize" value="10"  v-model="project.actions.buttonoverlay_fontsize">
+	                                                      	<div id='buttonoverlay_fontsize' class="spinner-buttons input-group-btn btn-group-vertical fontsize-buttons">
 	                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
 	                                                              <i class="fa fa-angle-up"></i>
 	                                                          </button>
@@ -550,9 +550,12 @@
 							<label for="authorizationkey_aweber" class="control-label col-md-3 col-sm-3">
 								<strong> Authorization Key: </strong>
 							</label>
-	                        <div class="row m-bot15 col-md-9 col-sm-9">
-	                            <input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_aweberkey">
-	                        </div>
+                        	<div class="input-group m-bot15 col-md-9 col-sm-9">
+                              	<input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_aweberkey">
+                              	<span class="input-group-btn">
+                                	<button class="btn btn-info" type="button"><i class="fa fa-key"></i></button>
+                              	</span>
+                        	</div>
 						</div>
 						<!-- AWeber Authorization Key -->
 						<!-- MailChimp API Key -->
@@ -560,9 +563,12 @@
 							<label for="apikey_mailchimp" class="control-label col-md-3 col-sm-3">
 								<strong> MailChimp API Key: </strong>
 							</label>
-	                        <div class="row m-bot15 col-md-9 col-sm-9">
-	                            <input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_mailchimpkey">
-	                        </div>
+	                        <div class="input-group m-bot15 col-md-9 col-sm-9">
+                              	<input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_mailchimpkey">
+                              	<span class="input-group-btn">
+                                	<button class="btn btn-info" type="button"><i class="fa fa-key"></i></button>
+                              	</span>
+                        	</div>
 						</div>
 						<!-- MailChimp API Key -->
 						<!-- GetResponse API Key -->
@@ -570,9 +576,12 @@
 							<label for="apikey_getresponse" class="control-label col-md-3 col-sm-3">
 								<strong> GetResponse API Key: </strong>
 							</label>
-	                        <div class="row m-bot15 col-md-9 col-sm-9">
-	                            <input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_getresponsekey">
-	                        </div>
+	                        <div class="input-group m-bot15 col-md-9 col-sm-9">
+                              	<input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_getresponsekey">
+                              	<span class="input-group-btn">
+                                	<button class="btn btn-info" type="button"><i class="fa fa-key"></i></button>
+                              	</span>
+                        	</div>
 						</div>
 						<!-- GetResponse API Key -->
 	                </div> <!-- end of form group autoresponder -->

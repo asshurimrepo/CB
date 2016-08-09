@@ -5,7 +5,7 @@ export default {
 
 	ready() {
        $(".actions-ref").change(this.updateSwitchable);
-       $(".fontsize").change(this.updateFont);
+       $(".fontsize-buttons").click(this.updateFont);
     },
 
     components: {
@@ -54,9 +54,10 @@ export default {
         },
 
         updateFont($this) {
-            font = $(".fontsize").val();
-            console.log(font);
-            // this.$set('project.actions.'+ $this.target.id, $this.target.)
+
+            // let fontsize = $($this.target).parents(".fontsize-buttons").siblings().val();
+            let fontsize = $($this.currentTarget).parent().find('input').val();
+            this.$set('project.actions.'+ $this.currentTarget.id, fontsize);
         }
     }
 
