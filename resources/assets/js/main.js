@@ -4,6 +4,8 @@ import Project from './components/Project.js';
 import ProjectOptions from './components/Options.js';
 import ProjectActions from './components/Actions.js';
 
+var seeThru = require('seethru');
+
 Vue.use(require('vue-resource'));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
@@ -18,6 +20,7 @@ new Vue({
         $('.colorpicker-default').colorpicker();
 
 		this.loadProjects();
+		seeThru.create('video', {start : 'autoplay' , end : 'stop'});
 	},
 
 	data: {

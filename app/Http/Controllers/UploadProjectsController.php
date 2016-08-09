@@ -40,6 +40,8 @@ class UploadProjectsController extends Controller
         $user = auth()->user();
 
         $filename = str_random(10) . $request->file('file')->getClientOriginalName();
+        $filename = studly_case($filename);
+
         $request->file('file')->move("../data/{$user->email}/videos", $filename);
 
         $project = new Project;

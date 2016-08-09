@@ -20,7 +20,8 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Project\VideoWasUploaded' => [
             'App\Listeners\Project\DistillVideo',
             'App\Listeners\Project\ProcessFrames',
-            
+            'App\Listeners\Project\RecomposeVideo',
+            'App\Listeners\Project\CleanUpVideo',
         ]
     ];
 

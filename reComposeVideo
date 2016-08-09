@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ffmpeg -r 10 -i ../data/$1/out/%5d.png -i ../data/$1/out/sound.mp3 -vcodec libx264 -vpre baseline -vpre fast -acodec libfaac ../data/$1/done/$2/video.mp4
+ffmpeg -r 10 -i ../data/$1/out/%5d.png -i ../data/$1/out/sound.mp3 -vcodec libx264 -preset baseline -preset fast -acodec aac ../data/$1/done/$2
 
 cd ../data/$1/images
 

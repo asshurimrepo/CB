@@ -5,10 +5,9 @@ namespace App\Listeners\Project;
 use App\Events\Project\VideoWasUploaded;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+use File;
 
-class ProcessFrames
+class CleanUpVideo
 {
     /**
      * Create the event listener.
@@ -28,11 +27,9 @@ class ProcessFrames
      */
     public function handle(VideoWasUploaded $event)
     {
-        $process = new Process(
-            "sh ../processFrames {$event->user->email} 300 0",
-            null, null, null, null
-        );
-
-        $process->run();
+        File::cleanDirectory("../data/{$event->user->email}/images");
+        File::cleanDirectory("../data/{$event->user->email}/out");
+        File::cleanDirectory("../data/{$event->user->email}/tmp");
+        File::cleanDirectory("../data/{$event->user->email}/videos");
     }
 }

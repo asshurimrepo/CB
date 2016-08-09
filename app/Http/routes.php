@@ -24,4 +24,9 @@ Route::group(['middleware' => 'auth'], function(){
 	// Handles Uploads
 	Route::get('/upload', 'UploadProjectsController@create');
 	Route::post('/upload', 'UploadProjectsController@store');
+
+	// Handles Showing Image
+	Route::get('/image/{filename}', 'ImagesController@show');
+	// Handles Showing Videos
+	Route::get('/video/{filename}', 'VideosController@show');
 });

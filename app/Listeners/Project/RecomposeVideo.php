@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
-class DistillVideo
+class RecomposeVideo
 {
     /**
      * Create the event listener.
@@ -28,17 +28,14 @@ class DistillVideo
      */
     public function handle(VideoWasUploaded $event)
     {
-        \Log::info('Video Was Uploaded');
-        \Log::info("Running ".public_path("../distillVideo {$event->user->email} {$event->project->filename}"));
-
-        $process = new Process("sh ../distillVideo {$event->user->email} {$event->project->filename}");
+        $process = new Process("sh ../reComposeVideo {$event->user->email} {$event->project->filename}");
         $process->run();
+
+        copy("../data/{$event->user->email}/out/thumb.png", "../data/{$event->user->email}/done/{$event->project->filename}.png");
 
         // executes after the command finishes
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
-        
-        sleep(1);
     }
 }
