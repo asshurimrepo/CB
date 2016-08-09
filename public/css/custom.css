@@ -62,3 +62,10 @@ ul.nav-tabs>li.active> a[data-toggle='tab']
 .fade-enter, .fade-leave {
   opacity: 0;
 }
+
+.actions-modal{
+    background-color: #31b0d5 !important;
+}
+.embed-modal{
+    background-color: #e4ba00 !important;
+}

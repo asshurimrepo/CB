@@ -29,4 +29,8 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/image/{filename}', 'ImagesController@show');
 	// Handles Showing Videos
 	Route::get('/video/{filename}', 'VideosController@show');
+
+	// Handles Autorespoders
+	Route::post('/autoresponder/mailchimp', 'AutoResponderController@mailchimp');
+	Route::post('/autoresponder/getresponse', 'AutoResponderController@getresponse');
 });

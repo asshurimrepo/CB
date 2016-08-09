@@ -52,6 +52,9 @@
 	"formoverlay_buttonbordersize": "1",
 	"formoverlay_buttoncolor": "rgb(255,255,255)",
 	"formoverlay_buttonbackgroundcolor": "rgba(120,205,81,1)",
-	"autoresponder": "1",
-	"autoresponder_userid": ""
+	"autoresponder_name": "",
+	"autoresponder": "aweber",
+	"autoresponder_aweberkey": "",
+	"autoresponder_mailchimpkey": "",
+	"autoresponder_getresponsekey": ""
 }

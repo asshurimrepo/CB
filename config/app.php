@@ -164,6 +164,8 @@ return [
          */
         App\Providers\WhenProjectIsUploaded::class,
 
+        Heonozis\AR\ArServiceProvider::class,
+
     ],
 
     /*
