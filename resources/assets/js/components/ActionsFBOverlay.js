@@ -6,6 +6,7 @@ export default {
 	ready() {
        $(".actions-ref").change(this.updateSwitchable);
        $(".fontsize-buttons").click(this.updateFont);
+
     },
 
     components: {
@@ -14,9 +15,27 @@ export default {
 
 	props: ['project'],
 
+    data() {
+        return {
+            mailchimp: {
+                lists: []
+            },
+            getresponse: {
+                lists: []
+            },
+            isLoading: false
+        }
+    },
+
     watch: {
         project() {
             $(".actions-ref").change();
+        }
+    },
+
+    events: {
+        project_change() {
+            this.processAutoResponder();
         }
     },
 
@@ -41,7 +60,15 @@ export default {
     		if(this.project.actions.formoverlay_buttonsize === 'Large') return 'btn-lg';
 
     		return 'btn-sm';
-    	}
+    	},
+        mailchimp_list_count(){
+            let keys = Object.keys(this.mailchimp.lists);
+            return keys.length;
+        },
+        getresponse_list_count(){
+            let keys = Object.keys(this.getresponse.lists);
+            return keys.length;
+        }
     },
 
     methods: {
@@ -54,11 +81,22 @@ export default {
         },
 
         updateFont($this) {
-
-            // let fontsize = $($this.target).parents(".fontsize-buttons").siblings().val();
             let fontsize = $($this.currentTarget).parent().find('input').val();
             this.$set('project.actions.'+ $this.currentTarget.id, fontsize);
+        },
+
+        processAutoResponder() {
+            this.isLoading = true;
+            let data = this.$get('project.actions.autoresponder_data.' + this.project.actions.autoresponder);
+
+            this.$http.post('/autoresponder/' + this.project.actions.autoresponder, data).then(
+                response => {
+                     this.$set(this.project.actions.autoresponder + '.lists', response.data);
+                    this.isLoading = false;
+                }
+            );
         }
+
     }
 
 }

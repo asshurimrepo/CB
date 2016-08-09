@@ -24,4 +24,9 @@ Route::group(['middleware' => 'auth'], function(){
 	// Handles Uploads
 	Route::get('/upload', 'UploadProjectsController@create');
 	Route::post('/upload', 'UploadProjectsController@store');
+
+
+	// Handles Autorespoders
+	Route::post('/autoresponder/mailchimp', 'AutoResponderController@mailchimp');
+	Route::post('/autoresponder/getresponse', 'AutoResponderController@getresponse');
 });

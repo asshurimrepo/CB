@@ -550,38 +550,76 @@
 							<label for="authorizationkey_aweber" class="control-label col-md-3 col-sm-3">
 								<strong> Authorization Key: </strong>
 							</label>
-                        	<div class="input-group m-bot15 col-md-9 col-sm-9">
-                              	<input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_aweberkey">
-                              	<span class="input-group-btn">
-                                	<button class="btn btn-info" type="button"><i class="fa fa-key"></i></button>
-                              	</span>
+							<div class="row m-bot15 col-md-9 col-sm-9">
+	                        	<div class="input-group m-bot15">
+	                              	<input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_aweberkey">
+	                              	<span class="input-group-btn">
+	                                	<button class="btn btn-info" type="button"><i class="fa fa-key"></i></button>
+	                              	</span>
+	                        	</div>
                         	</div>
 						</div>
 						<!-- AWeber Authorization Key -->
 						<!-- MailChimp API Key -->
-						<div v-if="isBelongsTo('mailchimp')" class="col-lg-12 col-md-12 mailchimp">
+
+						<div v-if="isBelongsTo('mailchimp')" class="col-lg-12 col-md-12">
 							<label for="apikey_mailchimp" class="control-label col-md-3 col-sm-3">
 								<strong> MailChimp API Key: </strong>
 							</label>
-	                        <div class="input-group m-bot15 col-md-9 col-sm-9">
-                              	<input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_mailchimpkey">
-                              	<span class="input-group-btn">
-                                	<button class="btn btn-info" type="button"><i class="fa fa-key"></i></button>
-                              	</span>
-                        	</div>
+	                  		<div class="row m-bot15 col-md-9 col-sm-9">
+		                        <div class="input-group m-bot15">
+	                              	<input type="text" class="m-bot15 form-control" :readonly="isLoading" v-model="project.actions.autoresponder_data.mailchimp.key" @keyup.enter="processAutoResponder">
+	                              	<span class="input-group-btn">
+	                                	<button class="btn btn-info" :disabled="isLoading" type="button" @click="processAutoResponder">
+	                                		<i class="fa fa-key"></i>
+	                                	</button>
+	                              	</span>
+	                        	</div>
+							</div>
+                        	<!-- MC Mailing Lists -->
+                		    <div v-if="mailchimp_list_count > 0">
+                		    	<label for="mailchimplist" class="control-label col-md-3 col-sm-3">
+                            		<strong> Mailing List: </strong>
+	                      		</label>
+	                      		<div class="row m-bot15 col-md-5 col-sm-5">
+	                        		<select class="form-control m-bot15" v-model="project.actions.autoresponder_data.mailchimp.list" :disabled="isLoading">
+					                    <option v-for="list in mailchimp.lists" :value="list">
+					                    	{{ list }}
+					                    </option>
+	    							</select>
+	    						</div>
+                		    </div>
 						</div>
 						<!-- MailChimp API Key -->
+
 						<!-- GetResponse API Key -->
-						<div v-if="isBelongsTo('getresponse')" class="col-lg-12 col-md-12 getresponse">
+						<div v-if="isBelongsTo('getresponse')" class="col-lg-12 col-md-12">
 							<label for="apikey_getresponse" class="control-label col-md-3 col-sm-3">
 								<strong> GetResponse API Key: </strong>
 							</label>
-	                        <div class="input-group m-bot15 col-md-9 col-sm-9">
-                              	<input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_getresponsekey">
-                              	<span class="input-group-btn">
-                                	<button class="btn btn-info" type="button"><i class="fa fa-key"></i></button>
-                              	</span>
+							<div class="row m-bot15 col-md-9 col-sm-9">
+		                        <div class="input-group m-bot15">
+	                              	<input type="text" class="form-control m-bot15" :readonly="isLoading" v-model="project.actions.autoresponder_data.getresponse.key" @keyup.enter="processAutoResponder">
+	                              	<span class="input-group-btn">
+	                                	<button class="btn btn-info" :disabled="isLoading" type="button" @click="processAutoResponder">
+	                                		<i class="fa fa-key"></i>
+	                                	</button>
+	                              	</span>
+	                        	</div>
                         	</div>
+                        	<!-- GR Mailing Lists -->
+                		    <div v-if="getresponse_list_count > 0">
+                		    	<label for="getresponselist" class="control-label col-md-3 col-sm-3">
+                            		<strong> Campaign List: </strong>
+	                      		</label>
+	                      		<div class="row m-bot15 col-md-5 col-sm-5">
+	                        		<select class="form-control m-bot15" v-model="project.actions.autoresponder_data.getresponse.list" :disabled="isLoading">
+					                    <option v-for="list in getresponse.lists" :value="list">
+					                    	{{ list }}
+					                    </option>
+	    							</select>
+	    						</div>
+                		    </div>
 						</div>
 						<!-- GetResponse API Key -->
 	                </div> <!-- end of form group autoresponder -->
