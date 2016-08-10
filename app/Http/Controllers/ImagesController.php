@@ -16,16 +16,26 @@ class ImagesController extends Controller
     	$user = auth()->user();
     	$path = "../data/{$user->email}/done/{$filename}.png";
 
-    	// dd($path,File::exists($path));
+	    if(!File::exists($path)) {
+	    	return $this->defaultImage();
+	    };
 
-	    if(!File::exists($path)) abort(404);
+	    return $this->renderImage($path);
+    }	
 
-	    $file = File::get($path);
+    public function defaultImage()
+    {
+    	return $this->renderImage('img/default.png');
+    }
+
+    public function renderImage($path)
+    {
+    	$file = File::get($path);
 	    $type = File::mimeType($path);
 
 	    $response = Response::make($file, 200);
 	    $response->header("Content-Type", $type);
 
 	    return $response;
-    }	
+    }
 }
