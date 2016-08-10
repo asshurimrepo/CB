@@ -12242,6 +12242,9 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
 .embed-modal {
   background-color: #e4ba00 !important; }
 
+.help-block a {
+  cursor: pointer; }
+
 .always-bottom {
   position: fixed !important; }
 

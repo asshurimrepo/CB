@@ -20,6 +20,7 @@ new Vue({
         $('.colorpicker-default').colorpicker();
 
 		this.loadProjects();
+		this.getAWeberAuthorizationURL();
 		seeThru.create('video', {start : 'autoplay' , end : 'stop'});
 	},
 
@@ -44,6 +45,11 @@ new Vue({
 			this.$http.get('/project').then(response => {
 				this.projects = response.data;
 			});
+		},
+		getAWeberAuthorizationURL(){
+			this.$http.get('/autoresponder/aweber/authorize').then(
+				response => this.$broadcast('aweber_authorization_url', response.data)
+			);
 		}
 	}
 

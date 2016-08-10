@@ -49,21 +49,27 @@
                     <li><a href="#">Work</a></li>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Contact</a></li>
+                    <li class="visible-xs">
+                        <a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a>
+                    </li>
+                    <li class="visible-xs">
+                        <a href="#" class="btn btn-warning navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="top-nav hidden-xs">
+                <ul class="nav pull-left top-menu">
+                    <li>
+                        <span><a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a></span>
+                    </li>
+                    <li>
+                        <span><a href="#" class="btn btn-warning navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a></span>
+                    </li>
                 </ul>
             </div>
 
             <div class="top-nav">
-                <ul class="nav pull-left top-menu">
-                    <li>
-                        <span><a href="/upload" class="btn btn-danger navbar-btn btn-sm" id="upload-hover"><i class="fa fa-upload"></i> Upload</a></span>
-                    </li>
-                    <li>
-                        <span><a href="#" class="btn btn-warning navbar-btn btn-sm" id="premade-hover"><i class="fa fa-plus"></i> Premade Video</a></span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="top-nav ">
                 <ul class="nav pull-right top-menu">
                     <!-- user login dropdown start-->
                     <li class="dropdown">
@@ -157,12 +163,12 @@
                 }
             });
 
-            $('#upload-hover').pulsate({
+            $('.upload-hover').pulsate({
                 color: "#ec6459",
                 repeat: false,
                 onHover: true
             });
-            $('#premade-hover').pulsate({
+            $('.premade-hover').pulsate({
                 color: "#e4ba00",
                 repeat: false,
                 onHover: true

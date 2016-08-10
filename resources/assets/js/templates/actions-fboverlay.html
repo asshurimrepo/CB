@@ -548,7 +548,7 @@
 						<!-- AWeber Authorization Key -->
 						<div v-if="isBelongsTo('aweber')" class="col-lg-12 col-md-12 aweber">
 							<label for="authorizationkey_aweber" class="control-label col-md-3 col-sm-3">
-								<strong> Authorization Code: </strong>
+								<strong> Verifier Code: </strong>
 							</label>
 							<div class="row m-bot15 col-md-9 col-sm-9">
 	                        	<div class="input-group">
@@ -557,7 +557,7 @@
 	                                	<button class="btn btn-info" type="button"><i class="fa fa-key"></i></button>
 	                              	</span>
 	                        	</div>
-	                        	<p class="help-block text-info">Get your AWeber authorization code: <a href="https://auth.aweber.com/1.0/oauth/authorize_app/3d5420ad" class="text-danger" target="_blank">Click here</a></p>
+	                        	<p class="help-block text-info">Get your AWeber verifier code: <a :href="aweber.authorization_url" class="text-danger" target="_blank">Click here</a></p>
                         	</div>
 						</div>
 						<!-- AWeber Authorization Key -->

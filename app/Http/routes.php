@@ -33,4 +33,6 @@ Route::group(['middleware' => 'auth'], function(){
 	// Handles Autorespoders
 	Route::post('/autoresponder/mailchimp', 'AutoResponderController@mailchimp');
 	Route::post('/autoresponder/getresponse', 'AutoResponderController@getresponse');
+	Route::get('/autoresponder/aweber/authorize', 'AutoResponderController@aweberAuthorize');
+	Route::get('/autoresponder/aweber', 'AutoResponderController@aweber');
 });

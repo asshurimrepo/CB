@@ -23,6 +23,10 @@ export default {
             getresponse: {
                 lists: []
             },
+            aweber: {
+                lists: [],
+                authorization_url: null
+            },
             isLoading: false
         }
     },
@@ -36,6 +40,10 @@ export default {
     events: {
         project_change() {
             this.processAutoResponder();
+        },
+
+        aweber_authorization_url(url) {
+            this.aweber.authorization_url = url;
         }
     },
 
@@ -91,10 +99,10 @@ export default {
 
             this.$http.post('/autoresponder/' + this.project.actions.autoresponder, data).then(
                 response => {
-                     this.$set(this.project.actions.autoresponder + '.lists', response.data);
+                    this.$set(this.project.actions.autoresponder + '.lists', response.data);
                     this.isLoading = false;
                 }
-            );
+            ).catch(() => this.isLoading = false);
         }
 
     }
