@@ -51,7 +51,7 @@ class AutoResponderController extends Controller
 
     	$application->user->requestToken = session()->get('request_token');
 		$application->user->tokenSecret = session()->get('token_secret');
-		$application->user->verifier = $request->get('code');
+		$application->user->verifier = $request->get('key');
 
 		list($accessToken, $accessSecret) = $application->getAccessToken();
 

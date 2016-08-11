@@ -76,6 +76,10 @@ export default {
         getresponse_list_count(){
             let keys = Object.keys(this.getresponse.lists);
             return keys.length;
+        },
+        aweber_list_count(){
+            let keys = Object.keys(this.aweber.lists);
+            return keys.length;
         }
     },
 
@@ -104,7 +108,6 @@ export default {
                 }
             ).catch(() => this.isLoading = false);
         }
-
     }
 
 }
