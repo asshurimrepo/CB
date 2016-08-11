@@ -29,7 +29,7 @@ class ProcessFrames
     public function handle(VideoWasUploaded $event)
     {
         $process = new Process(
-            "sh ../processFrames {$event->user->email} 300 0",
+            "sh ../processFrames {$event->user->email} 400 0",
             null, null, null, null
         );
 

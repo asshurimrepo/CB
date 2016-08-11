@@ -43,6 +43,12 @@ export default {
 			setTimeout(() => $('.colorpicker-default').colorpicker('update'), 300);
 		},
 
+		showPreview() {
+			this.setActive();
+
+			this.$parent.$broadcast('show_preview');
+		},
+
 		deleteMe() {
 			swal({ title: "Are you sure?",
 			   text: "You will not be able to recover this Project file!",

@@ -3,8 +3,7 @@ import Vue from 'vue';
 import Project from './components/Project.js';
 import ProjectOptions from './components/Options.js';
 import ProjectActions from './components/Actions.js';
-
-var seeThru = require('seethru');
+import ProjectPlayer from './components/ProjectPlayer.js';
 
 Vue.use(require('vue-resource'));
 
@@ -21,8 +20,13 @@ new Vue({
 
 		this.loadProjects();
 		this.getAWeberAuthorizationURL();
+<<<<<<< HEAD
 		//seeThru.create('video', {start : 'autoplay' , end : 'stop'});
 
+=======
+
+		// seeThru.create('video', {start : 'autoplay' , end : 'stop'});
+>>>>>>> 22270dcb885a9c795216b1a1caedf4f9819942e0
 	},
 
 	data: {
@@ -38,7 +42,7 @@ new Vue({
 	},
 
 	components: {
-		Project, ProjectOptions, ProjectActions
+		Project, ProjectOptions, ProjectActions, ProjectPlayer
 	},
 
 	methods: {

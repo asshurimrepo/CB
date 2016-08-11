@@ -30,6 +30,6 @@ class CleanUpVideo
         File::cleanDirectory("../data/{$event->user->email}/images");
         File::cleanDirectory("../data/{$event->user->email}/out");
         File::cleanDirectory("../data/{$event->user->email}/tmp");
-        File::cleanDirectory("../data/{$event->user->email}/videos");
+        // File::cleanDirectory("../data/{$event->user->email}/videos");
     }
 }
