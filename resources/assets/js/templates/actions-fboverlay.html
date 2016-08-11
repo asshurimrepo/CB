@@ -555,7 +555,7 @@
 	                        	<div class="input-group">
 	                              	<input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_data.aweber.key">
 	                              	<span class="input-group-btn">
-	                                	<button class="btn btn-info" :disabled="isLoading" type="button" @click="processAutoResponder"><i class="fa fa-key" ></i></button>
+	                                	<button class="btn btn-info" :disabled="isLoading" type="button" @click="getAweberAccessToken"><i class="fa fa-key" ></i></button>
 	                              	</span>
 	                        	</div>
 	                        	<p class="help-block text-info">Get your AWeber verifier code: <a :href="aweber.authorization_url" class="text-danger" target="_blank">Click here</a></p>

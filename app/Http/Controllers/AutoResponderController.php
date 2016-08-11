@@ -32,11 +32,6 @@ class AutoResponderController extends Controller
 
 		list($requestToken, $tokenSecret) = $application->getRequestToken('oob');
 
-		AweberSettings::saveSettings([
-			'customer_key' => $this->consumerKey,
-			'customer_secret' => $this->consumerSecret
-		]);
-
 		session()->forget(['request_token', 'token_secret']);
 
 		session()->put('request_token', $requestToken);
@@ -45,17 +40,28 @@ class AutoResponderController extends Controller
 		return $application->getAuthorizeUrl();
     }
 
-    public function aweber(Request $request)
+    public function aweberAccessToken(Request $request)
     {
-		$application = new \AWeberAPI($this->consumerKey, $this->consumerSecret);
+    	$application = new \AWeberAPI($this->consumerKey, $this->consumerSecret);
 
     	$application->user->requestToken = session()->get('request_token');
 		$application->user->tokenSecret = session()->get('token_secret');
 		$application->user->verifier = $request->get('key');
 
-		list($accessToken, $accessSecret) = $application->getAccessToken();
+		list($access_token, $access_secret) = $application->getAccessToken();
 
-		return Aweber::lists($application, $accessToken, $accessSecret);
+		return compact('access_token', 'access_secret');
+    }
+
+    public function aweber(Request $request)
+    {
+		$application = new \AWeberAPI($this->consumerKey, $this->consumerSecret);
+
+		return Aweber::lists(
+			$application, 
+			$request->get('access_token'), 
+			$request->get('access_secret')
+		);
 
     }
 

@@ -84,6 +84,22 @@ export default {
     },
 
     methods: {
+        valid_autoresponder(){
+            if(this.isBelongsTo('mailchimp')) {
+                return this.project.actions.autoresponder_data.mailchimp.key.length > 0;
+            }
+
+            if(this.isBelongsTo('getresponse')) {
+                return this.project.actions.autoresponder_data.getresponse.key.length > 0;
+            }
+
+            if(this.isBelongsTo('aweber')) {
+                return this.project.actions.autoresponder_data.aweber.access_token.length > 0;
+            }
+
+            return false;
+        },
+
         updateSwitchable($this) {
             this.$set('project.actions.' + $this.target.id, $this.target.checked);
         },
@@ -97,7 +113,21 @@ export default {
             this.$set('project.actions.'+ $this.currentTarget.id, fontsize);
         },
 
+        getAweberAccessToken() {
+            this.$http.post('/autoresponder/aweber/access_token', this.project.actions.autoresponder_data.aweber).then(
+                response => { 
+                    Object.assign(this.project.actions.autoresponder_data.aweber, response.data); 
+                    this.processAutoResponder();
+                }
+            );
+        },
+
         processAutoResponder() {
+
+            if(!this.valid_autoresponder()) {
+                return;
+            }
+
             this.isLoading = true;
             let data = this.$get('project.actions.autoresponder_data.' + this.project.actions.autoresponder);
 
