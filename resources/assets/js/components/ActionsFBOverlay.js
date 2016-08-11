@@ -25,7 +25,9 @@ export default {
             },
             aweber: {
                 lists: [],
-                authorization_url: null
+                authorization_url: null,
+                access_token: null,
+                access_secret: null
             },
             isLoading: false
         }
