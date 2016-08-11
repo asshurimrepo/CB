@@ -1,39 +1,37 @@
-		<div class="modal fade" id="project-options" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header text-center">
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                              <h4 class="modal-title"><i class="fa fa-gears"></i>  Options</h4>
-                          </div>
-                          <div class="modal-body">
-                          	<div class="row">
-                          		<div class="col-md-12">
-                              			<section class="panel row">
-                                  			<ul class="nav nav-tabs options-tab">
-											  <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-pencil-square-o"></i> Properties</a></li>
-											  <li><a data-toggle="tab" href="#iframe"><i class="fa fa-code"></i> IFrame</a></li>
-											  <li><a data-toggle="tab" href="#externalvideo"><i class="fa fa-video-camera"></i> External Video</a></li>
-											</ul>
-                              			</section>
-                              		<div class="tab-content">
-                              			
-                              			<properties :project="project"></properties>
-
-                              		</div>
-								</div>
+<div class="modal fade" id="project-options" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header text-center">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title"><i class="fa fa-gears"></i>  Options</h4>
+          </div>
+          <div class="modal-body">
+          	<div class="row">
+          		<div class="col-md-12">
+              			<section class="panel row">
+                  			<ul class="nav nav-tabs options-tab">
+  											  <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-pencil-square-o"></i> Properties</a></li>
+  											  <li><a data-toggle="tab" href="#iframe"><i class="fa fa-code"></i> IFrame</a></li>
+  											  <li><a data-toggle="tab" href="#externalvideo"><i class="fa fa-video-camera"></i> External Video</a></li>
+  											</ul>
+                    </section>
+                    <div class="tab-content">
+                        <properties :project="project"></properties>
+                    </div>
 							</div>
-                          </div>
-                          <div class="modal-footer">
-                              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>
-                              <button class="btn btn-primary" 
-                                      type="button"
-                                      :disabled="is_saving"
-                                      @click="save"
-                              >
-                                      <i class="fa fa-save"></i> {{ is_saving ? 'Saving...' : 'Save' }} 
-                              </button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            <!-- Options modal -->
+						</div>
+          </div>
+          <div class="modal-footer">
+              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>
+              <button class="btn btn-primary"
+                      type="button"
+                      :disabled="is_saving"
+                      @click="save"
+              >
+                      <i class="fa fa-save"></i> {{ is_saving ? 'Saving...' : 'Save' }}
+              </button>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Options modal -->

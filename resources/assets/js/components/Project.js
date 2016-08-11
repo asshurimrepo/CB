@@ -7,6 +7,9 @@ export default {
 	ready(){
 		console.log('Project Component is Ready!');
 		this.$data = this.data;
+
+
+		setTimeout(() => $('.tooltips').tooltip(), 300);
 	},
 
 	filters: {

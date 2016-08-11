@@ -131,12 +131,8 @@ var Script = function () {
 
     $('.tooltips').tooltip();
 
-//    popovers
-
+//     popover
     $('.popovers').popover();
-
-
-
 // custom bar chart
 
     if ($(".custom-bar-chart")) {

@@ -34,6 +34,7 @@
     </head>
 
 <body id="caster-app" class="full-width">
+<div class="loader"></div>
 <header class="header white-bg">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -46,9 +47,8 @@
             <div class="horizontal-menu navbar-collapse collapse ">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/">Home</a></li>
-                    <li><a href="#">Work</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">Support</a></li>
                     <li class="visible-xs">
                         <a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a>
                     </li>
@@ -60,10 +60,10 @@
 
             <div class="top-nav hidden-xs">
                 <ul class="nav pull-left top-menu">
-                    <li>
+                    <li class="popovers" data-content="Upload your green screen video here!" data-placement="bottom" data-trigger="hover" data-delay="500">
                         <span><a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a></span>
                     </li>
-                    <li>
+                    <li class="popovers" data-content="Choose from premade videos!" data-placement="bottom" data-trigger="hover" data-delay="500">
                         <span><a href="#" class="btn btn-warning navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a></span>
                     </li>
                 </ul>
@@ -140,6 +140,10 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
+            $(window).on("load", function() {
+                $(".loader").fadeOut("slow");
+            });
+
             $('.modal').on('show.bs.modal', function () {
                 if ($(document).height() > $(window).height()) {
                     // no-scroll

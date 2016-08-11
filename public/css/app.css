@@ -12180,6 +12180,16 @@ header.blue-bg .search:focus {
     height: 70px;
     line-height: 70px; } }
 
+.loader {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url("../img/hourglass.gif") 50% 50% no-repeat #f9f9f9; }
+
++
 body.modal-open {
   margin-right: 14px !important;
   /*overflow: auto;*/ }
@@ -12244,6 +12254,13 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
 
 .help-block a {
   cursor: pointer; }
+
+.pro-img-box > .vid-thumbnail {
+  max-height: 200px;
+  overflow: hidden; }
+
+.help-tip {
+  color: #bec3c7; }
 
 .always-bottom {
   position: fixed !important; }

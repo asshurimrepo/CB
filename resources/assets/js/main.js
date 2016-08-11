@@ -21,7 +21,8 @@ new Vue({
 
 		this.loadProjects();
 		this.getAWeberAuthorizationURL();
-		seeThru.create('video', {start : 'autoplay' , end : 'stop'});
+		//seeThru.create('video', {start : 'autoplay' , end : 'stop'});
+
 	},
 
 	data: {

@@ -20,6 +20,7 @@
                             <div class="m-bot15 col-md-9 col-sm-9 row">
                             	<input type="text" class="form-control m-bot15" id="buttonLabel"  v-model="project.actions.buttonoverlay_label">
                             </div>
+                            <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Label of the button overlay in the video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
 						</div>
 						<div class="col-lg-12 col-sm-12">
 							<label for="valignment" class="control-label col-md-3 col-sm-3">
@@ -31,6 +32,7 @@
 									<option value="1">Middle</option>
 									<option value="2">Top</option>
 								</select>
+								<span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Vertical positioning of the button overlay in the video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
 							</div>
                         </div>
                     	<div class="col-lg-12 col-sm-12">
@@ -553,7 +555,7 @@
 							</label>
 							<div class="row m-bot15 col-md-9 col-sm-9">
 	                        	<div class="input-group">
-	                              	<input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_data.aweber.key">
+	                              	<input type="text" class="form-control m-bot15" :readonly="isLoading" v-model="project.actions.autoresponder_data.aweber.key">
 	                              	<span class="input-group-btn">
 	                                	<button class="btn btn-info" :disabled="isLoading" type="button" @click="getAweberAccessToken"><i class="fa fa-key" ></i></button>
 	                              	</span>
