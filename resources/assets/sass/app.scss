@@ -1,0 +1,25 @@
+@import "./public/css/bootstrap";
+@import "./public/css/bootstrap-reset";
+@import "./public/css/owl.carousel";
+@import "./public/css/slidebars";
+@import "./public/css/style";
+@import "./public/css/style-responsive";
+@import "./public/css/custom";
+
+
+.always-bottom {
+	position: fixed !important;
+}
+
+body#caster-app > section#container {
+	padding-bottom: 20px;
+}
+
+#project-video-modal .modal-body{
+	text-align:center;
+	overflow: hidden;
+}
+
+#project-video-modal .modal-content {
+	background-color: transparent;
+}

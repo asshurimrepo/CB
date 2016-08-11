@@ -1,0 +1,94 @@
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('../img/hourglass.gif') 50% 50% no-repeat rgb(249,249,249);
+}+
+
+body.modal-open
+{
+    margin-right: 14px !important;
+    /*overflow: auto;*/
+}
+.modal-open .header, .modal-open .navbar-header
+{
+    margin-right: 14px !important;
+}
+.options-tab,
+.actions-tab{
+    padding-left: 10px;
+}
+
+.modal-body{
+	max-height: 400px;
+    overflow-y: scroll;
+}
+
+.aftersec{
+	display: none;
+}
+.colorpicker{
+    z-index: 1200 !important;
+}
+ul.nav-tabs>li.active> a[data-toggle='tab']
+,ul.nav-tabs>li> a[data-toggle='tab']:hover{
+    color: #47596f;
+    background: #fff;
+}
+/* centered columns styles */
+.col-no-float {
+    float:none;
+}
+
+.advance-panel{
+    background-color: #f5f5f5;
+}
+.tab-inverse-bg,
+.panel-inverse{
+    color: #fff !important;
+    background-color: #7087A3 !important;
+    border-color: #7087A3 !important;
+    border-radius: 0px !important;
+}
+.tab-inverse-bg>li{
+    margin-bottom: 0;
+}
+
+.panel-inverse h4 a{
+    color: #fff;
+}
+
+.tab-inverse-bg>li.active a{
+    color: #fff !important;
+    background-color:#61748d !important;
+}
+
+.fade-transition {
+  transition: opacity .3s ease;
+}
+.fade-enter, .fade-leave {
+  opacity: 0;
+}
+
+.actions-modal{
+    background-color: #31b0d5 !important;
+}
+.embed-modal{
+    background-color: #e4ba00 !important;
+}
+
+.help-block a{
+    cursor: pointer;
+}
+
+.pro-img-box>.vid-thumbnail{
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.help-tip{
+    color: #bec3c7;
+}

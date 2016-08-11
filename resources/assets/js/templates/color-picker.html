@@ -1,0 +1,12 @@
+<div :data-color-format="format" :data-color="color" class="input-append colorpicker-default color">
+  <input type="text" readonly="" class="form-control" v-model="color">
+    <span class=" input-group-btn add-on">
+      <button class="btn btn-white" type="button" style="padding: 8px">
+      <i
+        :style="{
+          backgroundColor:color
+        }"
+      ></i>
+      </button>
+    </span>
+</div>

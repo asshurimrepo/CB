@@ -1,0 +1,255 @@
+<!-- Properties Tab -->
+<div id="home" class="tab-pane fade in active">
+  	<section class="panel">
+  		<form class="form-horizontal tasi-form text-left">
+			<div class="form-group">
+				<div class="col-lg-12 col-md-12">
+          <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Title field for this video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+				  <label for="title" class="control-label"><strong>Title: </strong></label>
+				  	<input type="text" class="form-control m-bot15" id="propertyTitle" v-model="project.title" placeholder="Enter Title">
+				</div>
+			</div> <!-- 1st form-group -->
+
+			<div class="form-group">
+              <div class="col-lg-12 col-md-12">
+                <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Video positioning for this video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+              </div>
+				        <div class="col-lg-4 col-sm-4">
+					          <label for="position" class="control-label"><strong>Position: </strong></label>
+                  	<select id='propertyPosition' v-model="project.options.position" class="form-control m-bot15">
+            						<option value="'centered'">Centered</option>
+            						<option value="top-left">Top left</option>
+            						<option value="top-right">Top right</option>
+            						<option value="bottom-left">Bottom left</option>
+            						<option value="bottom-right">Bottom right</option>
+                    </select>
+              	</div>
+              	<div class="col-lg-4 col-sm-4">
+	                 <label for="offsetx" class="control-label"><strong>Offset X: </strong></label>
+	                  <div class="spinner">
+                      <div class="input-group input-small">
+                        <input type="text" id='propertyOffsetX' class="spinner-input form-control" v-model="project.options.offset_x" placeholder="0">
+                      	<div class="spinner-buttons input-group-btn btn-group-vertical">
+                          <button type="button" class="btn spinner-up btn-xs btn-default">
+                              <i class="fa fa-angle-up"></i>
+                          </button>
+                          <button type="button" class="btn spinner-down btn-xs btn-default">
+                              <i class="fa fa-angle-down"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-lg-4 col-sm-4">
+        					<label for="offsety" class="control-label"><strong>Offset Y: </strong></label>
+        						<div class="spinner">
+                      <div class="input-group input-small">
+                          <input type="text" id='propertyOffsetY' class="spinner-input form-control" v-model="project.options.offset_y" placeholder="0">
+                          	<div class="spinner-buttons input-group-btn btn-group-vertical">
+                              <button type="button" class="btn spinner-up btn-xs btn-default">
+                                  <i class="fa fa-angle-up"></i>
+                              </button>
+                              <button type="button" class="btn spinner-down btn-xs btn-default">
+                                  <i class="fa fa-angle-down"></i>
+                              </button>
+                            </div>
+                        </div>
+                    </div>
+		              </div>
+              </div> <!-- 3rd form-group -->
+
+            <div class="form-group">
+             <div class="col-lg-12 col-md-12">
+                <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Delay options for this video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+              </div>
+				      <div class="col-lg-4 col-sm-4">
+  		          <label for="automatically" class="control-label">
+                  	  <strong> Display Automatically: </strong>
+                </label>
+                <div class="row m-bot15">
+                    <div class="col-sm-6 text-center">
+                      <div class="switch" data-on-label="<i class=' fa fa-check'></i>" data-off-label="<i class='fa fa-times'></i>">
+                        <input type="checkbox" id="auto_display" v-model="project.options.auto_display" class="options-ref" />
+                      </div>
+                    </div>
+                </div>
+            	</div>
+            	<div class="col-lg-8 col-sm-8">
+                	<div v-show="project.options.auto_display">
+                      	<label for="afterseconds" class="control-label">
+                      	  <strong> After (Seconds): </strong>
+                      	</label>
+						            <div class="spinner">
+                            <div class="input-group input-small">
+                                  <input type="text" id='propertyDisplayAfter' v-model="project.options.auto_display_after" class="spinner-input form-control" placeholder="0">
+                                  	<div class="spinner-buttons input-group-btn btn-group-vertical">
+                                      <button type="button" class="btn spinner-up btn-xs btn-default">
+                                          <i class="fa fa-angle-up"></i>
+                                      </button>
+                                      <button type="button" class="btn spinner-down btn-xs btn-default">
+                                          <i class="fa fa-angle-down"></i>
+                                      </button>
+                                    </div>
+                            </div>
+                        </div>
+					</div>
+            	</div>
+            </div> <!-- 4th form-group -->
+            <div class="form-group">
+              <div class="col-lg-12 col-md-12">
+                <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Background options for this video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+              </div>
+            	<div class="col-lg-12 col-sm-12 row">
+					          <label for="dimmed" class="control-label col-md-4 col-sm-4">
+                      	  <strong> Dimmed Background: </strong>
+                    </label>
+                      <div class="row m-bot15 col-md-6 col-sm-6">
+                          <div class="col-sm-6 text-center">
+                          	<div class="switch"
+                          		 data-on-label="<i class=' fa fa-check'></i>"
+									 data-off-label="<i class='fa fa-times'></i>">
+                              <input type="checkbox" id='dimmed_background' v-model="project.options.dimmed_background" class="options-ref" />
+                            </div>
+                          </div>
+                      </div>
+            	</div>
+            	    <div class="col-lg-12 col-sm-12 row">
+					          <label for="glass" class="control-label col-md-4 col-sm-4">
+                      	  <strong> Glass Background: </strong>
+                    </label>
+                      <div class="row m-bot15 col-md-6 col-sm-6">
+                          <div class="col-sm-6 text-center">
+                          	<div class="switch"
+                          		 data-on-label="<i class=' fa fa-check'></i>"
+									 data-off-label="<i class='fa fa-times'></i>">
+                              <input type="checkbox" id='glass_background' v-model="project.options.glass_background" class="options-ref" />
+                            </div>
+                          </div>
+                      </div>
+            	     </div>
+            </div>
+           	<div class="form-group">
+              <div class="col-lg-12 col-md-12">
+                <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="After events for this video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+              </div>
+            	<div class="m-bot15 col-lg-12 col-sm-12 row">
+            		<label for="stopshowing" class="control-label col-md-4 col-sm-4">
+            			Stop Showing When
+            		</label>
+            	</div>
+            	<div class="col-lg-12 col-sm-12 row">
+					          <label for="exitonend" class="control-label col-md-4 col-sm-4">
+                      	  <strong> Clicked: </strong>
+                    </label>
+                      <div class="row m-bot15 col-md-6 col-sm-6">
+                          <div class="col-sm-6 text-center">
+                          	<div class="switch"
+                          		 data-on-label="<i class=' fa fa-check'></i>"
+									 data-off-label="<i class='fa fa-times'></i>">
+                              <input type="checkbox" id='stop_showing.clicked' v-model="project.options.stop_showing.clicked" class="options-ref" />
+                            </div>
+                          </div>
+                      </div>
+            	     </div>
+            	<div class="col-lg-12 col-sm-12 row">
+					         <label for="exitonend" class="control-label col-md-4 col-sm-4">
+                      	  <strong> Closed: </strong>
+                    </label>
+                      <div class="row m-bot15 col-md-6 col-sm-6">
+                          <div class="col-sm-6 text-center">
+                          	<div class="switch"
+                          		 data-on-label="<i class=' fa fa-check'></i>"
+									 data-off-label="<i class='fa fa-times'></i>">
+                              <input type="checkbox" id='stop_showing.closed' v-model="project.options.stop_showing.closed" class="options-ref" />
+                            </div>
+                          </div>
+                      </div>
+            	</div>
+            	<div class="col-lg-12 col-sm-12 row">
+					         <label for="exitonend" class="control-label col-md-4 col-sm-4">
+                      	  <strong> Exit On End: </strong>
+                    </label>
+                      <div class="row m-bot15 col-md-6 col-sm-6">
+                          <div class="col-sm-6 text-center">
+                          	<div class="switch"
+                          		 data-on-label="<i class=' fa fa-check'></i>"
+									 data-off-label="<i class='fa fa-times'></i>">
+                              <input type="checkbox" id='stop_showing.exit_on_end' v-model="project.options.stop_showing.exit_on_end" class="options-ref" />
+                            </div>
+                          </div>
+                      </div>
+            	</div>
+            </div> <!-- 6th form-group -->
+            <div class="form-group">
+              <div class="col-lg-12 col-md-12">
+                <span class="pull-right tooltips help-tip" data-toggle="tooltip" data-original-title="Cookie life for this video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+              </div>
+            	<div class="col-lg-8 col-md-8">
+				  <label for="cookielife" class="control-label"><strong>Cookie Life: </strong></label>
+					<div class="spinner">
+                        <div class="input-group input-small">
+                              <input type="text" id='propertyCookieLife' class="spinner-input form-control" v-model="project.options.cookie_life" placeholder="0">
+                              	<div class="spinner-buttons input-group-btn btn-group-vertical">
+                                  <button type="button" class="btn spinner-up btn-xs btn-default">
+                                      <i class="fa fa-angle-up"></i>
+                                  </button>
+                                  <button type="button" class="btn spinner-down btn-xs btn-default">
+                                      <i class="fa fa-angle-down"></i>
+                                  </button>
+                                </div>
+                        </div>
+                    </div>
+				</div>
+			</div> <!-- 6th form-group -->
+  		</form>
+  	</section>
+</div>
+
+
+<!-- IFrame Tab -->
+<div id="iframe" class="tab-pane fade">
+    <section class="panel">
+    <form class="form-horizontal tasi-form text-left">
+      <div class="form-group">
+        <div class="col-lg-12 col-md-12">
+          <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Show another page in the background when playing this video instead of the background set e.g dimmed" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+          <label for="iframeurl" class="control-label"><strong>URL: </strong></label>
+            <input type="text" class="form-control m-bot15" v-model="project.options.iframe" id="IframeURL" placeholder="http://">
+        </div>
+      </div> <!-- 1st form-group -->
+    </form>
+    </section>
+</div>
+
+<!-- External Video -->
+<div id="externalvideo" class="tab-pane fade">
+    <section class="panel">
+      <form class="form-horizontal tasi-form text-left">
+        <div class="form-group">
+        <div class="col-lg-12 col-md-12">
+          <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="External video that will play after this video & duration of the external video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <label for="duration" class="control-label"><strong>Duration: </strong></label>
+            <div class="spinner">
+            <div class="input-group input-small">
+                          <input type="text" id='propertyExtVideoDuration' v-model="project.options.external_video.duration" class="spinner-input form-control" >
+                          <div class="spinner-buttons input-group-btn btn-group-vertical">
+                            <button type="button" class="btn spinner-up btn-xs btn-default">
+                                <i class="fa fa-angle-up"></i>
+                            </button>
+                            <button type="button" class="btn spinner-down btn-xs btn-default">
+                                <i class="fa fa-angle-down"></i>
+                            </button>
+                          </div>
+                      </div>
+                    </div>
+            </div>
+        <div class="col-lg-8 col-md-8">
+          <label for="embed" class="control-label"><strong>Embed Code: </strong></label>
+            <input type="text" class="form-control m-bot15" v-model="project.options.external_video.embed_code" id="propertyExtVideoURL" >
+        </div>
+      </div> <!-- 2nd form-group -->
+    </form>
+    </section>
+</div>

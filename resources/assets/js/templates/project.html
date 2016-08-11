@@ -1,0 +1,63 @@
+<div id="project-1" class="col-md-3 col-sm-6">
+	<section class="panel">
+		<!-- Title & Preview Image -->
+		    <div class="pro-img-box text-center">
+              <h3>
+                  <a href="#" class="pro-title">{{ title | truncate '20' }}</a>
+              </h3>
+<<<<<<< HEAD
+              <div class="vid-thumbnail">
+                 <img src="/image/{{ filename }}" class="img-responsive" />
+              </div>
+              <a href="#" class="adtocart popovers" data-content="Upload your green screen video here!" data-placement="top" data-trigger="hover"><i class="fa fa-play-circle"></i></a>
+=======
+
+              <img src="/image/{{ filename }}" />
+
+              <a href="#" class="adtocart" @click="showPreview"><i class="fa fa-play-circle"></i></a>
+>>>>>>> 22270dcb885a9c795216b1a1caedf4f9819942e0
+        </div>
+
+        <!-- Actions -->
+        <div class="panel-body text-center">
+            <div class="col-md-12">
+
+                <br/>
+
+                <button type="button"
+                		class="btn btn-primary btn-sm"
+                		data-toggle="modal"
+                		@click="showOptions"
+                >
+                		<i class="fa fa-gears"></i> Options
+                </button>
+
+                <div class="btn-group">
+                    <button data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle" type="button"> More <span class="caret"></span></button>
+                    <ul role="menu" class="dropdown-menu">
+                      <li>
+
+                      	<a href="#"
+                      	   data-toggle="modal"
+                      	   @click="showActions"
+                      	>
+                      	   	<span class="text-primary"><i class="fa fa-share-square-o"></i> Actions </span>
+                      	</a>
+
+                      </li>
+                      <li>
+                      	<a href="#delete"
+						   @click="deleteMe"
+                      	>
+                      		<span class="text-danger"><i class="fa fa-trash-o"></i> Delete </span>
+                      	</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li><a href="#"><span class="text-warning"><i class="fa fa-link"></i> Embed </span></a></li>
+                    </ul>
+                </div><!-- /btn-group -->
+            </div> <!-- /col-md-12 -->
+        </div>
+
+	</section>
+</div>

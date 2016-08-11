@@ -1,4 +1,9 @@
-data/
 old/
 casterbuddy.old/
-
+vendor/
+composer.lock
+phpunit.xml
+project-data/*.*
+node_modules/
+data/*
+.env
