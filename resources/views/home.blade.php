@@ -4,12 +4,9 @@
 
 <div class="row">
     <div class="col-md-12">
-	
-	  {{-- <video>
-	  	 <source src="/video/OTeXAf2OqmShort.mp4" type="video/mp4">
-	  </video> --}}
 
       <div class="row product-list">
+            <project-player :project="active_project"></project-player>
 
             <project v-for="project in projects"
                      :data="project"

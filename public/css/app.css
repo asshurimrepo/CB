@@ -12251,4 +12251,11 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
 body#caster-app > section#container {
   padding-bottom: 20px; }
 
+#project-video-modal .modal-body {
+  text-align: center;
+  overflow: hidden; }
+
+#project-video-modal .modal-content {
+  background-color: transparent; }
+
 /*# sourceMappingURL=app.css.map */
