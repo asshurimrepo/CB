@@ -20,4 +20,5 @@
 
 <project-options :project="active_project"></project-options>
 <project-actions :project="active_project"></project-actions>
+<project-player :project="active_project"></project-player>
 @endsection
