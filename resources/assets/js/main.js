@@ -20,13 +20,6 @@ new Vue({
 
 		this.loadProjects();
 		this.getAWeberAuthorizationURL();
-<<<<<<< HEAD
-		//seeThru.create('video', {start : 'autoplay' , end : 'stop'});
-
-=======
-
-		// seeThru.create('video', {start : 'autoplay' , end : 'stop'});
->>>>>>> 22270dcb885a9c795216b1a1caedf4f9819942e0
 	},
 
 	data: {
