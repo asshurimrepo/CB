@@ -32,8 +32,10 @@
 									<option value="1">Middle</option>
 									<option value="2">Top</option>
 								</select>
-								<span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Vertical positioning of the button overlay in the video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
 							</div>
+							<div class="col-md-3 col-sm-3">
+              					<span class="pull-left tooltips help-tip" data-toggle="tooltip"  data-original-title="Vertical alignment of button overlay" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+             				</div>
                         </div>
                     	<div class="col-lg-12 col-sm-12">
 							<label for="buttonshow" class="control-label col-md-3 col-sm-3">
@@ -72,6 +74,7 @@
                                   </div>
                                 </div>
                             </div>
+                            <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Start time and duration of button overlay" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
                         </div>
 					</div> <!-- end of 1st form group -->
 					<div class="form-group">
@@ -81,7 +84,7 @@
 	                              <div class="panel-heading panel-inverse">
 	                                  <h4 class="panel-title">
 	                                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-	                                          <i class="fa fa-pencil"></i>  Advance (Button Overlay)<i class="fa fa-caret-down pull-right"></i></span>
+	                                          <i class="fa fa-pencil"></i>  Advance (Button Overlay)  <span class="tooltips help-tip" data-toggle="tooltip"  data-original-title="Button overlay appearance options" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span><i class="fa fa-caret-down pull-right"></i></span>
 	                                      </a>
 	                                  </h4>
 	                              </div>
@@ -229,7 +232,7 @@
 		 		<form class="form-horizontal tasi-form text-left">
 		 			<div class="form-group">
 		 				<div class="col-lg-12 col-md-12">
-							<label for="buttonshow" class="control-label col-md-3 col-sm-3">
+							<label for="formshow" class="control-label col-md-3 col-sm-3">
 									<strong> Start Time: </strong>
 							</label>
 							<div class="row m-bot15 col-md-3 col-sm-3">
@@ -247,7 +250,7 @@
 	     							</div>
  								</div>
 							</div>
-							<label for="buttonduration" class="control-label col-md-3 col-sm-3">
+							<label for="formduration" class="control-label col-md-3 col-sm-3">
 								<strong> Duration: </strong>
 							</label>
 							<div class="row m-bot15 col-md-3 col-sm-3">
@@ -265,6 +268,7 @@
        								</div>
      							</div>
 							</div>
+							<span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Start time and duration of form overlay" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
 						</div> <!-- end of col-lg-12 -->
 		 			</div><!--  end of form group -->
 		 			<div class="form-group">
@@ -274,7 +278,7 @@
 		                           <div class="panel-heading panel-inverse">
 		                               <h4 class="panel-title">
 		                                   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-		                                       <i class="fa fa-pencil"></i>  Advance (Form Overlay)<i class="fa fa-caret-down pull-right"></i></span>
+		                                       <i class="fa fa-pencil"></i>  Advance (Form Overlay)  <span class="tooltips help-tip" data-toggle="tooltip"  data-original-title="Form overlay appearance options" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span><i class="fa fa-caret-down pull-right"></i></span>
 		                                   </a>
 		                               </h4>
 		                           </div>
@@ -535,6 +539,7 @@
 	                        <div class="row m-bot15 col-md-9 col-sm-9">
 	                            <input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_name">
 	                        </div>
+	                        <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Label for the autoresponder that you will choose" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
 						</div>
 						<div class="col-lg-12 col-md-12">
 	   						<label for="autoresponderservice" class="control-label col-md-3 col-sm-3">
@@ -547,6 +552,9 @@
 				                    <option value="getresponse">GetResponse</option>
 	 							</select>
 							</div>
+							<div class="col-md-4 col-sm-4">
+				            	<span class="pull-left tooltips help-tip" data-toggle="tooltip"  data-original-title="Choose your autoresponder service" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+				            </div>
 						</div>
 						<!-- AWeber Authorization Key -->
 						<div v-if="isBelongsTo('aweber')" class="col-lg-12 col-md-12 aweber">
@@ -562,7 +570,9 @@
 	                        	</div>
 	                        	<p class="help-block text-info">Get your AWeber verifier code: <a :href="aweber.authorization_url" class="text-danger" target="_blank">Click here</a></p>
                         	</div>
-                        	<tooltip class="pull-right" title="Testing" placement="left"></tooltip>
+                        	
+                        	<tooltip class="pull-right" title="Get your verifier code by clicking the word 'Click here' below and activate it by clicking the blue button to retrieve your mailing list" placement="left"></tooltip>
+
                         	<!-- AW Mailing Lists -->
                 		    <div v-if="aweber_list_count > 0">
                 		    	<label for="aweberlist" class="control-label col-md-3 col-sm-3">

@@ -5,10 +5,13 @@
               <h3>
                   <a href="#" class="pro-title">{{ title | truncate '20' }}</a>
               </h3>
+
               <div class="vid-thumbnail">
-                 <img src="/image/{{ filename }}" class="img-responsive" />
+                 <img :src="'/image/' + filename" class="img-responsive" />
               </div>
-              <a href="#preview" @click="showPreview" class="adtocart popovers" data-content="Upload your green screen video here!" data-placement="top" data-trigger="hover"><i class="fa fa-play-circle"></i></a>
+
+              <a href="#preview" @click="showPreview" class="adtocart"><i class="fa fa-play-circle"></i></a>
+
         </div>
 
         <!-- Actions -->

@@ -12260,7 +12260,8 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
   overflow: hidden; }
 
 .help-tip {
-  color: #bec3c7; }
+  color: #bec3c7;
+  margin-top: 4px; }
 
 .always-bottom {
   position: fixed !important; }
