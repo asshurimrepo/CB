@@ -38,6 +38,12 @@ new Vue({
 		Project, ProjectOptions, ProjectActions, ProjectPlayer
 	},
 
+	computed: {
+  		has_projects(){
+  			return this.projects.length > 0;
+  		}
+	},
+
 	methods: {
 		loadProjects() {
 			this.$http.get('/project').then(response => {

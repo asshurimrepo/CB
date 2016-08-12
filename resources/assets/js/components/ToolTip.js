@@ -1,6 +1,6 @@
 export default {
-	template: `<span class="tooltips help-tip" 
-					data-toggle="tooltip"  
+	template: `<span class="tooltips help-tip"
+					data-toggle="tooltip"
 					@mouseover="show"
 					:data-original-title="title" :data-placement="placement" data-trigger="hover" data-delay="500">
 					<i class="fa fa-question-circle"></i>

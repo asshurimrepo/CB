@@ -12263,6 +12263,14 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
   color: #bec3c7;
   margin-top: 4px; }
 
+.empty-wrapper {
+  margin-top: 6%; }
+
+.empty-img {
+  max-width: 400px;
+  width: 100%;
+  margin: 10px; }
+
 .always-bottom {
   position: fixed !important; }
 

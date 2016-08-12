@@ -19,7 +19,6 @@ export default {
 			return string.length > limit ? string.substr(0, limit) + '...' : string;
 	    }
   	},
-
 	methods: {
 		showOptions() {
 			console.log('Showing Options for ' + this.title);

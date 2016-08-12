@@ -9,7 +9,7 @@
              <div class="row col-md-9 col-sm-9">
                <input type="text" class="form-control m-bot15" id="linkURL" v-model="project.actions.link_url" placeholder="http://">
              </div>
-             <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="URL where it will route when the video is click" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+             <tooltip class="pull-right" title="URL where it will route when the video is click" placement="left"></tooltip>
           </div>
         </div>
         <div class="form-group">
@@ -27,7 +27,7 @@
              <div class="row m-bot15 col-md-9 col-sm-9">
                <input type="text" class="form-control m-bot15" id="textoverlay_line_1" v-model="project.actions.textoverlay_line_1" >
              </div>
-             <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Text overlay that will be display while the video is playing " data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+             <tooltip class="pull-right" title="Text overlay that will be display while the video is playing" placement="left"></tooltip>
           </div>
           <div class="col-lg-12 col-sm-12 row">
              <label for="line2" class="control-label col-md-3 col-sm-3">
@@ -49,7 +49,7 @@
                </select>
              </div>
              <div class="col-md-3 col-sm-3">
-              <span class="pull-left tooltips help-tip" data-toggle="tooltip"  data-original-title="Vertical alignment of text overlay" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                <tooltip class="pull-left" title="Vertical alignment of text overlay" placement="right"></tooltip>
              </div>
           </div>
           <div class="col-lg-12 col-sm-12 row">
@@ -89,7 +89,7 @@
                   </div>
               </div>
             </div>
-            <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Start time and duration of text overlay" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+            <tooltip class="pull-right" title="Start time and duration of text overlay" placement="left"></tooltip>
           </div> <!-- end of col-lg-12 -->
         </div> <!-- 2nd form-group -->
         <div class="form-group">
@@ -99,7 +99,7 @@
                 <div class="panel-heading panel-inverse">
                     <h4 class="panel-title">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            <i class="fa fa-pencil"></i>  Advance (Text Overlay)   <span class="tooltips help-tip" data-toggle="tooltip"  data-original-title="Text overlay appearance options" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span><i class="fa fa-caret-down pull-right"></i>
+                            <i class="fa fa-pencil"></i>  Advance (Text Overlay)  <tooltip title="Text overlay appearance options" placement="right"></tooltip><i class="fa fa-caret-down pull-right"></i>
                         </a>
                     </h4>
                 </div>

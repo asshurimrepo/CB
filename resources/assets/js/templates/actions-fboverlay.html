@@ -20,7 +20,7 @@
                             <div class="m-bot15 col-md-9 col-sm-9 row">
                             	<input type="text" class="form-control m-bot15" id="buttonLabel"  v-model="project.actions.buttonoverlay_label">
                             </div>
-                            <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Label of the button overlay in the video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                            <tooltip class="pull-right" title="Label of the button overlay in the video" placement="left"></tooltip>
 						</div>
 						<div class="col-lg-12 col-sm-12">
 							<label for="valignment" class="control-label col-md-3 col-sm-3">
@@ -34,7 +34,7 @@
 								</select>
 							</div>
 							<div class="col-md-3 col-sm-3">
-              					<span class="pull-left tooltips help-tip" data-toggle="tooltip"  data-original-title="Vertical alignment of button overlay" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+              					<tooltip class="pull-left" title="Vertical alignment of button overlay" placement="right"></tooltip>
              				</div>
                         </div>
                     	<div class="col-lg-12 col-sm-12">
@@ -74,7 +74,7 @@
                                   </div>
                                 </div>
                             </div>
-                            <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Start time and duration of button overlay" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                            <tooltip class="pull-right" title="Start time and duration of button overlay" placement="left"></tooltip>
                         </div>
 					</div> <!-- end of 1st form group -->
 					<div class="form-group">
@@ -84,7 +84,7 @@
 	                              <div class="panel-heading panel-inverse">
 	                                  <h4 class="panel-title">
 	                                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-	                                          <i class="fa fa-pencil"></i>  Advance (Button Overlay)  <span class="tooltips help-tip" data-toggle="tooltip"  data-original-title="Button overlay appearance options" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span><i class="fa fa-caret-down pull-right"></i></span>
+	                                          <i class="fa fa-pencil"></i>  Advance (Button Overlay)  <tooltip title="Button overlay appearance options" placement="right"></tooltip><i class="fa fa-caret-down pull-right"></i></span>
 	                                      </a>
 	                                  </h4>
 	                              </div>
@@ -268,7 +268,7 @@
        								</div>
      							</div>
 							</div>
-							<span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Start time and duration of form overlay" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+							<tooltip class="pull-right" title="Start time and duration of form overlay" placement="left"></tooltip>
 						</div> <!-- end of col-lg-12 -->
 		 			</div><!--  end of form group -->
 		 			<div class="form-group">
@@ -278,7 +278,7 @@
 		                           <div class="panel-heading panel-inverse">
 		                               <h4 class="panel-title">
 		                                   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-		                                       <i class="fa fa-pencil"></i>  Advance (Form Overlay)  <span class="tooltips help-tip" data-toggle="tooltip"  data-original-title="Form overlay appearance options" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span><i class="fa fa-caret-down pull-right"></i></span>
+		                                       <i class="fa fa-pencil"></i>  Advance (Form Overlay)   <tooltip title="Form overlay appearance options" placement="right"></tooltip><i class="fa fa-caret-down pull-right"></i></span>
 		                                   </a>
 		                               </h4>
 		                           </div>
@@ -539,7 +539,7 @@
 	                        <div class="row m-bot15 col-md-9 col-sm-9">
 	                            <input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_name">
 	                        </div>
-	                        <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Label for the autoresponder that you will choose" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+	                        <tooltip class="pull-right" title="Label for the autoresponder that you will choose" placement="left"></tooltip>
 						</div>
 						<div class="col-lg-12 col-md-12">
 	   						<label for="autoresponderservice" class="control-label col-md-3 col-sm-3">
@@ -553,7 +553,7 @@
 	 							</select>
 							</div>
 							<div class="col-md-4 col-sm-4">
-				            	<span class="pull-left tooltips help-tip" data-toggle="tooltip"  data-original-title="Choose your autoresponder service" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+				            	<tooltip class="pull-left" title="Label for the autoresponder that you will choose" placement="right"></tooltip>
 				            </div>
 						</div>
 						<!-- AWeber Authorization Key -->
@@ -570,7 +570,7 @@
 	                        	</div>
 	                        	<p class="help-block text-info">Get your AWeber verifier code: <a :href="aweber.authorization_url" class="text-danger" target="_blank">Click here</a></p>
                         	</div>
-                        	
+
                         	<tooltip class="pull-right" title="Get your verifier code by clicking the word 'Click here' below and activate it by clicking the blue button to retrieve your mailing list" placement="left"></tooltip>
 
                         	<!-- AW Mailing Lists -->
@@ -604,6 +604,7 @@
 	                              	</span>
 	                        	</div>
 							</div>
+							<tooltip class="pull-right" title="Get your API code by going to www.mailchimp.com and login using your account" placement="left"></tooltip>
                         	<!-- MC Mailing Lists -->
                 		    <div v-if="mailchimp_list_count > 0">
                 		    	<label for="mailchimplist" class="control-label col-md-3 col-sm-3">
@@ -635,6 +636,7 @@
 	                              	</span>
 	                        	</div>
                         	</div>
+                        	<tooltip class="pull-right" title="Get your API code by going to www.getresponse.com and login using your account" placement="left"></tooltip>
                         	<!-- GR Mailing Lists -->
                 		    <div v-if="getresponse_list_count > 0">
                 		    	<label for="getresponselist" class="control-label col-md-3 col-sm-3">

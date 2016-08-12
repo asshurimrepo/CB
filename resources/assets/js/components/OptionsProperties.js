@@ -1,3 +1,4 @@
+import Tooltip from '../components/ToolTip';
 export default {
 	template: require('../templates/options-properties.html'),
 
@@ -6,6 +7,10 @@ export default {
     },
 
 	props: ['project'],
+
+    components: {
+        Tooltip
+    },
 
     watch: {
         project() {

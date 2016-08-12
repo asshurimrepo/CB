@@ -4,7 +4,7 @@
   		<form class="form-horizontal tasi-form text-left">
 			<div class="form-group">
 				<div class="col-lg-12 col-md-12">
-          <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Title field for this video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+          <tooltip class="pull-right" title="Title field for this video" placement="left"></tooltip>
 				  <label for="title" class="control-label"><strong>Title: </strong></label>
 				  	<input type="text" class="form-control m-bot15" id="propertyTitle" v-model="project.title" placeholder="Enter Title">
 				</div>
@@ -12,7 +12,7 @@
 
 			<div class="form-group">
               <div class="col-lg-12 col-md-12">
-                <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Video positioning for this video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                <tooltip class="pull-right" title="Video positioning for this video" placement="left"></tooltip>
               </div>
 				        <div class="col-lg-4 col-sm-4">
 					          <label for="position" class="control-label"><strong>Position: </strong></label>
@@ -60,7 +60,7 @@
 
             <div class="form-group">
              <div class="col-lg-12 col-md-12">
-                <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Delay options for this video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                <tooltip class="pull-right" title="Delay options for this video" placement="left"></tooltip>
               </div>
 				      <div class="col-lg-4 col-sm-4">
   		          <label for="automatically" class="control-label">
@@ -106,7 +106,7 @@
                               <input type="checkbox" id='dimmed_background' v-model="project.options.dimmed_background" class="options-ref" />
                             </div>
                           </div>
-                          <span class="pull-left tooltips help-tip" data-toggle="tooltip"  data-original-title="Dimmed background for this video" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                          <tooltip class="pull-left" title="Dimmed background for this video" placement="right"></tooltip>
                       </div>
             	</div>
             	    <div class="col-lg-12 col-sm-12 row">
@@ -119,7 +119,7 @@
                               <input type="checkbox" id='glass_background' v-model="project.options.glass_background" class="options-ref" />
                             </div>
                           </div>
-                          <span class="pull-left tooltips help-tip" data-toggle="tooltip"  data-original-title="Glass background for this video" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                          <tooltip class="pull-left" title="Glass background for this video" placement="right"></tooltip>
                       </div>
             	     </div>
             </div>
@@ -139,7 +139,7 @@
                               <input type="checkbox" id='stop_showing.exit_on_end' v-model="project.options.stop_showing.exit_on_end" class="options-ref" />
                             </div>
                           </div>
-                          <span class="pull-left tooltips help-tip" data-toggle="tooltip" data-original-title="Video will automatically exit after playing" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                          <tooltip class="pull-left" title="Video will automatically exit after playing" placement="right"></tooltip>
                       </div>
               </div>
             	<div class="col-lg-12 col-sm-12 row">
@@ -152,7 +152,7 @@
                               <input type="checkbox" id='stop_showing.clicked' v-model="project.options.stop_showing.clicked" class="options-ref" />
                             </div>
                           </div>
-                          <span class="pull-left tooltips help-tip" data-toggle="tooltip" data-original-title="Video will no longer play next time the user visit the page after it was clicked" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                          <tooltip class="pull-left" title="Video will no longer play next time the user visit the page after it was clicked" placement="right"></tooltip>
                       </div>
             	     </div>
             	<div class="col-lg-12 col-sm-12 row">
@@ -165,13 +165,13 @@
                               <input type="checkbox" id='stop_showing.closed' v-model="project.options.stop_showing.closed" class="options-ref" />
                             </div>
                           </div>
-                          <span class="pull-left tooltips help-tip" data-toggle="tooltip" data-original-title="Video will no longer play next time the user visit the page after it was closed" data-placement="right" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                          <tooltip class="pull-left" title="Video will no longer play next time the user visit the page after it was closed" placement="right"></tooltip>
                       </div>
             	</div>
             </div> <!-- 6th form-group -->
             <div class="form-group">
               <div class="col-lg-12 col-md-12">
-                  <span class="pull-right tooltips help-tip" data-toggle="tooltip" data-original-title="Video will play again after the specified minutes for cookie life" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+                  <tooltip class="pull-right" title="Video will play again after the specified minutes for cookie life" placement="left"></tooltip>
               </div>
             	<div class="col-lg-8 col-md-8">
 				          <label for="cookielife" class="control-label"><strong>Cookie Life: </strong></label>
@@ -201,7 +201,7 @@
     <form class="form-horizontal tasi-form text-left">
       <div class="form-group">
         <div class="col-lg-12 col-md-12">
-          <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="Show another page in the background when playing this video instead of the background set e.g dimmed" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+          <tooltip class="pull-right" title="Show another page in the background when playing this video instead of the background set e.g dimmed" placement="left"></tooltip>
           <label for="iframeurl" class="control-label"><strong>URL: </strong></label>
             <input type="text" class="form-control m-bot15" v-model="project.options.iframe" id="IframeURL" placeholder="http://">
         </div>
@@ -216,7 +216,7 @@
       <form class="form-horizontal tasi-form text-left">
         <div class="form-group">
         <div class="col-lg-12 col-md-12">
-          <span class="pull-right tooltips help-tip" data-toggle="tooltip"  data-original-title="External video that will play after this video & duration of the external video" data-placement="left" data-trigger="hover" data-delay="500"><i class="fa fa-question-circle"></i></span>
+          <tooltip class="pull-right" title="External video that will play after this video & duration of the external video" placement="left"></tooltip>
         </div>
         <div class="col-lg-4 col-md-4">
           <label for="duration" class="control-label"><strong>Duration: </strong></label>
