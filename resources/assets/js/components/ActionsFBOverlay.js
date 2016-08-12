@@ -1,4 +1,5 @@
 import ColorPicker from '../components/ColorPicker.js';
+import Tooltip from '../components/ToolTip';
 
 export default {
 	template: require('../templates/actions-fboverlay.html'),
@@ -10,7 +11,7 @@ export default {
     },
 
     components: {
-        ColorPicker
+        ColorPicker, Tooltip
     },
 
 	props: ['project'],

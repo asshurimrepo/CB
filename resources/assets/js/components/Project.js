@@ -9,7 +9,7 @@ export default {
 		this.$data = this.data;
 
 
-		setTimeout(() => $('.tooltips').tooltip(), 300);
+		// setTimeout(() => $('.tooltips').tooltip(), 300);
 	},
 
 	filters: {
