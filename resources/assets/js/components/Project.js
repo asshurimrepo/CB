@@ -7,8 +7,6 @@ export default {
 	ready(){
 		console.log('Project Component is Ready!');
 		this.$data = this.data;
-
-
 		setTimeout(() => $('.tooltips').tooltip(), 300);
 	},
 
@@ -45,7 +43,6 @@ export default {
 
 		showPreview() {
 			this.setActive();
-
 			this.$parent.$broadcast('show_preview');
 		},
 

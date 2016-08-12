@@ -6,7 +6,6 @@ export default {
 	ready() {
        $(".actions-ref").change(this.updateSwitchable);
        $(".fontsize-buttons").click(this.updateFont);
-
     },
 
     components: {
@@ -117,15 +116,14 @@ export default {
 
         getAweberAccessToken() {
             this.$http.post('/autoresponder/aweber/access_token', this.project.actions.autoresponder_data.aweber).then(
-                response => { 
-                    Object.assign(this.project.actions.autoresponder_data.aweber, response.data); 
+                response => {
+                    Object.assign(this.project.actions.autoresponder_data.aweber, response.data);
                     this.processAutoResponder();
                 }
             );
         },
 
         processAutoResponder() {
-
             if(!this.valid_autoresponder()) {
                 return;
             }
