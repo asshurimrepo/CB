@@ -45,15 +45,15 @@
             <a href="/" class="logo">Caster<span>Buddy</span></a>
             <!--logo end-->
             <div class="horizontal-menu navbar-collapse collapse ">
-                <ul class="nav navbar-nav">
+                <ul class="nav nav-caster navbar-nav">
                     <li class="active"><a href="/">Home</a></li>
                     <li><a href="#">Resources</a></li>
-                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Help &amp; Support</a></li>
                     <li class="visible-xs">
                         <a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a>
                     </li>
                     <li class="visible-xs">
-                        <a href="#" class="btn btn-warning navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a>
+                        <a href="#" class="btn btn-info navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a>
                     </li>
                 </ul>
             </div>
@@ -64,7 +64,7 @@
                         <span><a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a></span>
                     </li>
                     <li class="popovers" data-content="Choose from premade videos!" data-placement="bottom" data-trigger="hover" data-delay="500">
-                        <span><a href="#" class="btn btn-warning navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a></span>
+                        <span><a href="#" class="btn btn-info navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a></span>
                     </li>
                 </ul>
             </div>
@@ -173,7 +173,7 @@
                 onHover: true
             });
             $('.premade-hover').pulsate({
-                color: "#e4ba00",
+                color: "#269abc",
                 repeat: false,
                 onHover: true
             });

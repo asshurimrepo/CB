@@ -2,9 +2,11 @@
 
 @section('content')
 
+<div class="loader-2"></div>
+
 <section class="error-wrapper empty-wrapper" v-if="projects.length < 1">
         <img src="/img/empty.png" class="empty-img" alt="Caster Buddy No Videos">
-        <h3>I have no videos. Rendering me worthless.</h3>
+        <h3>I have no videos, rendering me worthless.</h3>
         <h4 class="page-505">Now I am sad. <a href="/upload">Fix Me!</a></h4>
  </section>
 
