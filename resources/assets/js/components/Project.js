@@ -34,6 +34,13 @@ export default {
 			$("#project-actions").modal('show');
 		},
 
+		showEmbed() {
+			console.log('Showing Embed for ' + this.title);
+			this.setActive();
+
+			$("#project-embed").modal('show');
+		},
+
 		setActive() {
 			this.$parent.active_project = this.data;
 			setTimeout(() => $('.colorpicker-default').colorpicker('update'), 300);

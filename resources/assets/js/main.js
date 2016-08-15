@@ -3,6 +3,7 @@ import Vue from 'vue';
 import Project from './components/Project.js';
 import ProjectOptions from './components/Options.js';
 import ProjectActions from './components/Actions.js';
+import ProjectEmbed from './components/Embed.js';
 import ProjectPlayer from './components/ProjectPlayer.js';
 
 Vue.use(require('vue-resource'));
@@ -31,11 +32,12 @@ new Vue({
 			},
 
 			actions: {}
-		}
+		},
+		isTimeout: false
 	},
 
 	components: {
-		Project, ProjectOptions, ProjectActions, ProjectPlayer
+		Project, ProjectOptions, ProjectActions, ProjectEmbed, ProjectPlayer
 	},
 
 	computed: {
@@ -47,9 +49,9 @@ new Vue({
 	methods: {
 		loadProjects() {
 			this.$http.get('/project').then(response => {
-				this.projects = response.data;
 				$('.loader-2').fadeOut("slow");
-			});
+				this.projects = response.data;
+			}).catch(() => this.isTimeout = true);
 		},
 		getAWeberAuthorizationURL(){
 			this.$http.get('/autoresponder/aweber/authorize').then(

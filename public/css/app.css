@@ -12209,13 +12209,17 @@ header.blue-bg .search:focus {
   height: 100%;
   background: url("../img/rolling.gif") 50% 50% no-repeat #f9f9f9; }
 
-body.modal-open {
-  margin-right: 14px !important;
-  /*overflow: auto;*/ }
+/*
+body.modal-open
+{
+    margin-right: 14px !important;
 
-.modal-open .header, .modal-open .navbar-header {
-  margin-right: 14px !important; }
-
+}
+.modal-open .header, .modal-open .navbar-header
+{
+    margin-right: 14px !important;
+}
+*/
 .options-tab,
 .actions-tab {
   padding-left: 10px; }
