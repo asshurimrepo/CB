@@ -11564,7 +11564,7 @@ new _vue2.default({
 
 
 	data: {
-		in_progress: false,
+		in_progress: true,
 		progress: 0
 	},
 

@@ -12,9 +12,9 @@
         <section class="panel col-md-12 ">
             
             <div class="panel-body" v-if="in_progress">
-              <h2>Uploading..</h2>
+              <h3 class="upload-header">Uploading..</h3>
 
-              <div class="progress progress-striped active progress-sm">
+              <div class="progress progress-striped active">
                     <div class="progress-bar progress-bar-success" role="progressbar" :style="{width: progress + '%'}">
                     </div>
               </div>

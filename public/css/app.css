@@ -12331,4 +12331,13 @@ body#caster-app > section#container {
   margin-top: -20px;
   color: #444; }
 
+.upload-header {
+  padding: 0 0 10px;
+  text-align: center; }
+
+@media only screen and (max-width: 768px) {
+  .help-menu {
+    display: inline-block;
+    width: 100%; } }
+
 /*# sourceMappingURL=app.css.map */

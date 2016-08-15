@@ -29,7 +29,7 @@ new Vue({
 	},
 
 	data: {
-		in_progress: false,
+		in_progress: true,
 		progress: 0
 	},
 
