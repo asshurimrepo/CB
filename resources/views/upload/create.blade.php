@@ -6,9 +6,36 @@
 @stop
 
 @section('content')
-      
-      <section id="fileupload"></section>
+  <section class="container" id="upload-section">
 
+    <form action="/upload" method="POST" class="row" id="fileupload">  
+        <section class="panel col-md-12 ">
+            
+            <div class="panel-body" v-if="in_progress">
+              <h2>Uploading..</h2>
+
+              <div class="progress progress-striped active progress-sm">
+                    <div class="progress-bar progress-bar-success" role="progressbar" :style="{width: progress + '%'}">
+                    </div>
+              </div>
+            </div>
+
+            <div class="panel-body upload-body" v-if="!in_progress">
+                    <input type="file" name="file" style="display:none;">
+
+                    <button class="btn btn-upload" type="button">
+                        <i class="fa fa-cloud-upload"></i>
+                    </button>
+                    <h3>
+                      Select file to upload <br>
+                      <small>Or Select from premade videos</small>
+                    </h3>
+            </div>
+        </section>
+
+
+    </form>
+  </section>
 @stop
 
 @section('scripts')
@@ -19,14 +46,5 @@
   <!-- The basic File Upload plugin -->
   <script src="/js/blueimp/jquery.fileupload.js"></script>
 
-<script>
-  $('#fileupload').fileupload({
-        dataType: 'json',
-        done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            });
-        }
-    });
-</script>
+  <script src="/js/upload.js"></script>
 @stop
