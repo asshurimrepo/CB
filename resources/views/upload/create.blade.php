@@ -48,7 +48,7 @@
 
 @section('scripts')
   <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-  <script src="/js/blueimp/vendor/jquery.ui.widget.js"></script>
+  <script src="/assets/file-uploader/js/vendor/jquery.ui.widget.js"></script>
   <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
   <script src="/js/blueimp/jquery.iframe-transport.js"></script>
   <!-- The basic File Upload plugin -->
