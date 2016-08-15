@@ -72,13 +72,12 @@ new Vue({
 
 	methods: {
 		done(e, data) {
-			clearInterval(window.funnie_text);
 			this.process();
 		},
 
 		process() {
 			this.step = 2;
-			this.progress = 10;
+			this.progress = 1;
 		}
 	}
 });

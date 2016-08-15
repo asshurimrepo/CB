@@ -11592,12 +11592,11 @@ new _vue2.default({
 
 	methods: {
 		done: function done(e, data) {
-			clearInterval(window.funnie_text);
 			this.process();
 		},
 		process: function process() {
 			this.step = 2;
-			this.progress = 10;
+			this.progress = 1;
 		}
 	}
 });
