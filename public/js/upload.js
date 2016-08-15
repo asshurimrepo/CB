@@ -11558,7 +11558,7 @@ new _vue2.default({
 				window.funnie_text = setInterval(function () {
 					$(".funnies").hide().fadeIn(1000);
 					_this.funnies = randomLoadingMessage();
-				}, 6000);
+				}, 15000);
 
 				data.submit();
 			},

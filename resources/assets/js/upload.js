@@ -38,7 +38,7 @@ new Vue({
 	        	window.funnie_text = setInterval(() => {
 			    	$(".funnies").hide().fadeIn(1000);
 			    	this.funnies = randomLoadingMessage();
-			    }, 6000);
+			    }, 15000);
 
 			    data.submit();
 	        },
