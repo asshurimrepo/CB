@@ -4,10 +4,16 @@
 
 <div class="loader-2"></div>
 
+<section class="error-wrapper timeout-wrapper" v-if="isTimeout">
+      <h1>Oops!</h1><br/>
+      <h2>Something went wrong. <a href="#" @click="loadProjects">Retry</a></h2>
+</section>
+
+
 <section class="error-wrapper empty-wrapper" v-if="projects.length < 1">
-        <img src="/img/empty.png" class="empty-img" alt="Caster Buddy No Videos">
-        <h3>I have no videos, rendering me worthless.</h3>
-        <h4 class="page-505">Now I am sad. <a href="/upload">Fix Me!</a></h4>
+      <img src="/img/empty.png" class="empty-img" alt="Caster Buddy No Videos">
+      <h3>I have no videos, rendering me worthless.</h3>
+      <h4 class="page-505">Now I am sad. <a href="/upload">Fix Me!</a></h4>
  </section>
 
 <div class="row">
@@ -26,5 +32,6 @@
 
 <project-options :project="active_project"></project-options>
 <project-actions :project="active_project"></project-actions>
+<project-embed :project="active_project"></project-embed>
 <project-player :project="active_project"></project-player>
 @endsection

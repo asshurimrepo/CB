@@ -12216,6 +12216,9 @@ body.modal-open {
 .modal-open .header, .modal-open .navbar-header {
   margin-right: 14px !important; }
 
+#project-1 {
+  z-index: -1; }
+
 .options-tab,
 .actions-tab {
   padding-left: 10px; }

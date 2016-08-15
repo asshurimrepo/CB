@@ -141,7 +141,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $(window).on("load", function() {
-                $(".loader").fadeOut("slow");
+                $(".loader").fadeOut();
             });
 
             $('.modal').on('show.bs.modal', function () {

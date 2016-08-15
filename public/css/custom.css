@@ -31,6 +31,11 @@ body.modal-open
 {
     margin-right: 14px !important;
 }
+
+#project-1{
+    z-index: -1;
+}
+
 .options-tab,
 .actions-tab{
     padding-left: 10px;
