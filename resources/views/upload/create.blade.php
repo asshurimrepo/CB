@@ -12,12 +12,20 @@
         <section class="panel col-md-12 ">
             
             <div class="panel-body" v-if="in_progress">
-              <h3 class="upload-header">Uploading..</h3>
+              <h3 class="upload-header">@{{ process_text }}</h3>
 
-              <div class="progress progress-striped active">
-                    <div class="progress-bar progress-bar-success" role="progressbar" :style="{width: progress + '%'}">
-                    </div>
+              <div class="progress progress-striped active" v-if="step == 1">
+                    <div class="progress-bar progress-bar-success" role="progressbar" :style="{width: progress + '%'}"></div>
               </div>
+
+              <div class="progress progress-striped active" v-if="step == 2">
+                    <div class="progress-bar progress-bar-primary" role="progressbar" :style="{width: progress + '%'}"></div>
+              </div>
+              
+              <h4 class="funnies" style="text-align:center; font-style: italic; font-weight: 600">
+                "@{{ funnies }}"
+              </h4>
+
             </div>
 
             <div class="panel-body upload-body" v-if="!in_progress">

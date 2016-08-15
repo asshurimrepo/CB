@@ -11538,6 +11538,11 @@ $.ajaxSetup({
 	headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
 });
 
+var randomLoadingMessage = function randomLoadingMessage() {
+	var lines = new Array("Locating the required gigapixels to render...", "Spinning up the hamster...", "Shovelling coal into the server...", "Programming the flux capacitor", 'the architects are still drafting', 'would you prefer chicken, steak, or tofu?', 'we love you just the way you are', 'checking the gravitational constant in your locale', 'go ahead -- hold your breath', "at least you're not on hold", "a few bits tried to escape, but we caught them");
+	return lines[Math.round(Math.random() * (lines.length - 1))];
+};
+
 new _vue2.default({
 	el: "#upload-section",
 
@@ -11546,11 +11551,17 @@ new _vue2.default({
 
 		console.log('Upload is Ready!');
 
-		var that = this;
-
 		$('#fileupload').fileupload({
 			dataType: 'json',
-			done: that.done,
+			done: this.done,
+			add: function add(e, data) {
+				window.funnie_text = setInterval(function () {
+					$(".funnies").hide().fadeIn(1000);
+					_this.funnies = randomLoadingMessage();
+				}, 6000);
+
+				data.submit();
+			},
 			progressall: function progressall(e, data) {
 				_this.in_progress = true;
 				_this.$set('progress', parseInt(data.loaded / data.total * 100, 10));
@@ -11560,17 +11571,33 @@ new _vue2.default({
 		$(".btn-upload").click(function () {
 			$("[name='file']").click();
 		});
+
+		this.funnies = randomLoadingMessage();
 	},
 
 
 	data: {
-		in_progress: true,
-		progress: 0
+		in_progress: false,
+		progress: 0,
+		funnies: "",
+		step: 1
+	},
+
+	computed: {
+		process_text: function process_text() {
+			if (this.step == 1) return 'Uploading...';
+			if (this.step == 2) return 'Processing...';
+		}
 	},
 
 	methods: {
 		done: function done(e, data) {
-			console.log(data);
+			clearInterval(window.funnie_text);
+			this.process();
+		},
+		process: function process() {
+			this.step = 2;
+			this.progress = 10;
 		}
 	}
 });
