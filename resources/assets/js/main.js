@@ -49,8 +49,8 @@ new Vue({
 	methods: {
 		loadProjects() {
 			this.$http.get('/project').then(response => {
-				this.projects = response.data;
 				$('.loader-2').fadeOut("slow");
+				this.projects = response.data;
 			}).catch(() => this.isTimeout = true);
 		},
 		getAWeberAuthorizationURL(){

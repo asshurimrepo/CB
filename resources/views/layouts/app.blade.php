@@ -46,9 +46,9 @@
             <!--logo end-->
             <div class="horizontal-menu navbar-collapse collapse ">
                 <ul class="nav nav-caster navbar-nav">
-                    <li class="active"><a href="/">Home</a></li>
-                    <li><a href="#">Resources</a></li>
-                    <li><a href="#">Help &amp; Support</a></li>
+                    <li class="{{ Request::is('home') ? 'active' : '' }}"><a href="/">Home</a></li>
+                    <li class="{{ Request::is('resources') ? 'active' : '' }}"><a href="#">Resources</a></li>
+                    <li class="{{ Request::is('help') ? 'active' : '' }}"><a href="/help">Help &amp; Support</a></li>
                     <li class="visible-xs">
                         <a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a>
                     </li>
@@ -144,21 +144,6 @@
                 $(".loader").fadeOut();
             });
 
-            $('.modal').on('show.bs.modal', function () {
-                if ($(document).height() > $(window).height()) {
-                    // no-scroll
-                    $('body').addClass("modal-open-noscroll");
-                }
-                else {
-                    $('body').removeClass("modal-open-noscroll");
-                }
-                if($('#propertyDisplayAutomatically').is(':checked')){
-                    $('.aftersec').show();
-                }
-            })
-            $('.modal').on('hide.bs.modal', function () {
-                $('body').removeClass("modal-open-noscroll");
-            })
             $("#propertyDisplayAutomatically").change(function() {
                 if(this.checked) {
                     $('.aftersec').show();

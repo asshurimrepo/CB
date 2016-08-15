@@ -12846,8 +12846,8 @@ new _vue2.default({
 			var _this = this;
 
 			this.$http.get('/project').then(function (response) {
-				_this.projects = response.data;
 				$('.loader-2').fadeOut("slow");
+				_this.projects = response.data;
 			}).catch(function () {
 				return _this.isTimeout = true;
 			});
