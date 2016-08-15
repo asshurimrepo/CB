@@ -15,5 +15,5 @@ elixir(function(mix) {
     mix.sass('app.scss')
        .sass('auth.scss');
 
-    mix.browserify('main.js');
+    mix.browserify('main.js').version('js/main.js');
 });

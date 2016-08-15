@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('scripts')
+    {{-- Video Caster Core Scripts --}}
+    <script src="{{ elixir('js/main.js') }}"></script>
+@endsection
+
 @section('content')
 
 <div class="loader-2"></div>
