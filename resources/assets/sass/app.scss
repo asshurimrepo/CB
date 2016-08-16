@@ -5,6 +5,7 @@
 @import "./public/css/style";
 @import "./public/css/style-responsive";
 @import "./public/css/custom";
+@import "project-player";
 
 
 .always-bottom {
@@ -33,7 +34,7 @@ body#caster-app > section#container {
 .btn-upload>small {
 	display: block;
 	font-size: 60%;
-} 
+}
 
 .upload-body{
 	display: flex;

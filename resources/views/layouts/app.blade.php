@@ -19,13 +19,18 @@
 
         @yield('styles')
 
-
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
           <script src="/js/html5shiv.js"></script>
           <script src="/js/respond.min.js"></script>
         <![endif]-->
         <!-- <link rel="stylesheet" type="text/css" href="style.css"/> -->
+
+        <!-- Video.js file -->
+		<link href="http://vjs.zencdn.net/5.10.8/video-js.css" rel="stylesheet">
+
+		<!-- If you'd like to support IE8 -->
+		<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 
         <title>
             @yield('title', 'CasterBuddy')
@@ -34,82 +39,81 @@
     </head>
 
 <body id="caster-app" class="full-width">
-<div class="loader"></div>
-<header class="header white-bg">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="fa fa-bars"></span>
-            </button>
+	<div class="loader"></div>
+	<header class="header white-bg">
+	        <div class="navbar-header">
+	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	                <span class="fa fa-bars"></span>
+	            </button>
 
-            <!--logo start-->
-            <a href="/" class="logo">Caster<span>Buddy</span></a>
-            <!--logo end-->
-            <div class="horizontal-menu navbar-collapse collapse ">
-                <ul class="nav nav-caster navbar-nav">
-                    <li class="{{ Request::is('home') ? 'active' : '' }}"><a href="/">Home</a></li>
-                    <li class="{{ Request::is('resources') ? 'active' : '' }}"><a href="#">Resources</a></li>
-                    <li class="{{ Request::is('help') ? 'active' : '' }}"><a href="/help">Help &amp; Support</a></li>
-                    <li class="visible-xs">
-                        <a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a>
-                    </li>
-                    <li class="visible-xs">
-                        <a href="#" class="btn btn-info navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a>
-                    </li>
-                </ul>
-            </div>
+	            <!--logo start-->
+	            <a href="/" class="logo">Caster<span>Buddy</span></a>
+	            <!--logo end-->
+	            <div class="horizontal-menu navbar-collapse collapse ">
+	                <ul class="nav nav-caster navbar-nav">
+	                    <li class="{{ Request::is('home') ? 'active' : '' }}"><a href="/">Home</a></li>
+	                    <li class="{{ Request::is('resources') ? 'active' : '' }}"><a href="#">Resources</a></li>
+	                    <li class="{{ Request::is('help') ? 'active' : '' }}"><a href="/help">Help &amp; Support</a></li>
+	                    <li class="visible-xs">
+	                        <a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a>
+	                    </li>
+	                    <li class="visible-xs">
+	                        <a href="#" class="btn btn-info navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a>
+	                    </li>
+	                </ul>
+	            </div>
 
-            <div class="top-nav hidden-xs">
-                <ul class="nav pull-left top-menu">
-                    <li class="popovers" data-content="Upload your green screen video here!" data-placement="bottom" data-trigger="hover" data-delay="500">
-                        <span><a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a></span>
-                    </li>
-                    <li class="popovers" data-content="Choose from premade videos!" data-placement="bottom" data-trigger="hover" data-delay="500">
-                        <span><a href="#" class="btn btn-info navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a></span>
-                    </li>
-                </ul>
-            </div>
+	            <div class="top-nav hidden-xs">
+	                <ul class="nav pull-left top-menu">
+	                    <li class="popovers" data-content="Upload your green screen video here!" data-placement="bottom" data-trigger="hover" data-delay="500">
+	                        <span><a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a></span>
+	                    </li>
+	                    <li class="popovers" data-content="Choose from premade videos!" data-placement="bottom" data-trigger="hover" data-delay="500">
+	                        <span><a href="#" class="btn btn-info navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a></span>
+	                    </li>
+	                </ul>
+	            </div>
 
-            <div class="top-nav">
-                <ul class="nav pull-right top-menu">
-                    <!-- user login dropdown start-->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt="" src="img/avatar1_small.jpg">
-                            <span class="username">{{ auth()->user()->name }}</span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu extended logout">
-                            <li><a href="/logout"><i class="fa fa-key"></i> Log Out</a></li>
-                        </ul>
-                    </li>
-                    <!-- user login dropdown end -->
-                </ul>
-            </div>
+	            <div class="top-nav">
+	                <ul class="nav pull-right top-menu">
+	                    <!-- user login dropdown start-->
+	                    <li class="dropdown">
+	                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+	                            <img alt="" src="img/avatar1_small.jpg">
+	                            <span class="username">{{ auth()->user()->name }}</span>
+	                            <b class="caret"></b>
+	                        </a>
+	                        <ul class="dropdown-menu extended logout">
+	                            <li><a href="/logout"><i class="fa fa-key"></i> Log Out</a></li>
+	                        </ul>
+	                    </li>
+	                    <!-- user login dropdown end -->
+	                </ul>
+	            </div>
+	        </div>
+	</header>
 
-        </div>
+	<section id="container">
+	    <section id="main-content">
+	      <section class="wrapper">
 
-</header>
+	         @yield('content')
 
-<section id="container">
-    <section id="main-content">
-      <section class="wrapper">
+	      </section>
+	    </section>
+	</section>
 
-         @yield('content')
+	<!--footer start-->
+	<footer class="site-footer always-bottom">
+	    <div class="text-center">
+	        2016 &copy; Casterbuddy. All Rights Reserved.
+	        <a href="#" class="go-top">
+	            <i class="fa fa-angle-up"></i>
+	        </a>
+	    </div>
+	</footer>
+	<!--footer end-->
 
-      </section>
-    </section>
-</section>
-
-<!--footer start-->
-<footer class="site-footer always-bottom">
-    <div class="text-center">
-        2016 &copy; Casterbuddy. All Rights Reserved.
-        <a href="#" class="go-top">
-            <i class="fa fa-angle-up"></i>
-        </a>
-    </div>
-</footer>
-<!--footer end-->
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="/js/jquery.dcjqaccordion.2.7.js"></script>
@@ -133,7 +137,10 @@
     <script src="/js/common-scripts.js"></script>
 
     <script type="text/javascript" src="/assets/fuelux/js/spinner.js"></script>
-    <!-- tweaks added by rigz -->
+    <!--tweaks added by rigz-->
+
+    <!--video.js-->
+	<script src="http://vjs.zencdn.net/5.10.8/video.js"></script>
 
     {{-- Sweet Alert --}}
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>

@@ -12,7 +12,7 @@
               </div>
               <div class="panel-collapse collapse  in" id="accordion5_1">
                   <div class="panel-body">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                       <form role="form">
                           <div class="form-group">
                               <label for="email">Email address</label>

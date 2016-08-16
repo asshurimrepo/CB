@@ -1,18 +1,18 @@
-<div class="modal fade" id="project-video-modal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-       
-              <div class="modal-body">
+<div :class="[player_class.dimmed]" v-show="is_visible" id="project-player-bg">
+  <div id="project-player-container"
+     :style="[player_styles.offsets]"
+     :class="[player_class.position, player_class.glass]"
+  >
+    <a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>
+     <video id="project-player" class="video-js" controls preload="auto" data-setup="{}" width="350"
+        poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
+      <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+      <p class="vjs-no-js">
+          To view this video please enable JavaScript, and consider upgrading to a web browser that
+          <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+        </p>
+     </video>
 
-              	<div id="project-video-section">
-              		<!-- 
-              			Video Player will be rendered here on the fly.
-              			Any Css modifiers will be applied on its parent element
-              		-->
-              	</div>
-              		
-              </div>
-
-          </div>
-      </div>
+  </div>
 </div>
+

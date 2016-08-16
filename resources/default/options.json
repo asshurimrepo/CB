@@ -1,20 +1,20 @@
-{ 
-	"position": "top-left", 
-	"offset_x": "", 
-	"offset_y": "", 
-	"auto_display": true, 
-	"dimmed_background": true, 
-	"glass_background": true, 
-	"stop_showing": { 
-		"clicked": true, 
-		"closed": true, 
-		"exit_on_end": true 
-	}, 
-	"cookie_life": "60", 
-	"auto_display_after": "0", 
-	"iframe": "", 
+{
+	"position": "centered",
+	"offset_x": "",
+	"offset_y": "",
+	"auto_display": true,
+	"dimmed_background": true,
+	"glass_background": true,
+	"stop_showing": {
+		"clicked": true,
+		"closed": true,
+		"exit_on_end": true
+	},
+	"cookie_life": "60",
+	"auto_display_after": "0",
+	"iframe": "",
 	"external_video": {
-		"duration": 30, 
+		"duration": 30,
 		"embed_code": ""
-	} 
+	}
 }

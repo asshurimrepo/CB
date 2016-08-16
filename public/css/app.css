@@ -12294,6 +12294,51 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
   width: 100%;
   margin: 10px; }
 
+/*videojs*/
+#project-player-bg {
+  position: fixed;
+  z-index: 1048;
+  top: 0;
+  left: 0; }
+  #project-player-bg #project-player-container {
+    position: fixed; }
+
+#project-player-bg.Project--dimmedbg {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%; }
+
+#project-player-container.Project--glassbg {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 0px 10px 4px #c3c3c3; }
+
+#project-player-container.Project--centered {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+#project-player-container.Project--topleft {
+  top: 0;
+  left: 0; }
+
+#project-player-container.Project--topright {
+  top: 0;
+  right: 0; }
+
+#project-player-container.Project--bottomleft {
+  bottom: 0;
+  left: 0; }
+
+#project-player-container.Project--bottomright {
+  bottom: 0;
+  right: 0; }
+
+#project-player-container > a.close-project {
+  position: absolute;
+  z-index: 1049;
+  right: 5px;
+  top: 0; }
+
 .always-bottom {
   position: fixed !important; }
 
