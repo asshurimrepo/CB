@@ -1,4 +1,5 @@
 import Vue from "vue";
+require("./utilities/randomLoadingMessage");
 
 Vue.use(require('vue-resource'));
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
@@ -7,23 +8,6 @@ $.ajaxSetup({
     headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
 });
 
-
-var randomLoadingMessage = function() {
-    var lines = new Array(
-        "Locating the required gigapixels to render...",
-        "Spinning up the hamster...",
-        "Shovelling coal into the server...",
-        "Programming the flux capacitor",
-        'the architects are still drafting', 
-    	'would you prefer chicken, steak, or tofu?',
-    	'we love you just the way you are',
-    	'checking the gravitational constant in your locale',
-    	'go ahead -- hold your breath',
-    	"at least you're not on hold",
-    	"a few bits tried to escape, but we caught them"
-    );
-    return lines[Math.round(Math.random()*(lines.length-1))];
-}
 
 new Vue({
 	el: "#upload-section",
@@ -59,6 +43,7 @@ new Vue({
 	data: {
 		in_progress: false,
 		progress: 0,
+		process_is_done: false,
 		funnies: "",
 		step: 1
 	},
@@ -67,17 +52,79 @@ new Vue({
 		process_text (){
 			if (this.step == 1) return 'Uploading...';
 			if (this.step == 2) return 'Processing...';
+			if (this.step == 3) return 'Converting Frames...';
+			if (this.step == 4) return 'Composing your new video...';
+			if (this.step == 5) return 'Wrapping up! :)';
 		}
 	},
 
 	methods: {
 		done(e, data) {
-			this.process();
+			this.process(data.result.id);
 		},
 
-		process() {
+		process(id) {
 			this.step = 2;
-			this.progress = 1;
+			this.progress = 0;
+			this.updateProgress(30, 2000, 4000);
+
+			this.$http.post('/video-processer/' + id).then(() => {
+				this.progress = 30;
+				setTimeout(() => this.processFrames(id), 500);
+			});
+		},
+
+		processFrames(id) {
+			this.updateProgress(80, 2400, 6000);
+			this.step = 3;
+
+			this.$http.post('/video-processer/'+ id +'/process-frames').then(() => {
+				this.progress = 60;
+				setTimeout(() => this.recomposeVideo(id), 500);
+			});
+		},
+
+		recomposeVideo(id) {
+			this.updateProgress(91, 2000, 4000);
+			this.step = 4;
+
+			this.$http.post('/video-processer/'+ id +'/recompose-video').then(() => {
+				this.progress = 91;
+				setTimeout(() => this.finishingUp(id), 500);
+			});
+		},
+
+		finishingUp(id) {
+			this.updateProgress(95, 1000, 4000);
+			this.step = 5;
+
+			this.$http.post('/video-processer/'+ id +'/finishing').then(() => {
+				this.progress = 100;
+				this.process_is_done = true;
+			});
+		},
+
+		updateProgress(max, min_s, max_s){
+			if(this.progress > max){
+				return;
+			}
+
+			this.progress += this.getRandomNumber(1,6);
+
+			if(max < this.progress){
+				this.progress = max;
+			}
+
+			setTimeout(() => this.updateProgress(max, min_s, max_s), this.getRandomNumber(min_s, max_s));
+		},
+
+		getRandomNumber(min, max) {
+		  	min = Math.ceil(min);
+		  	max = Math.floor(max);
+
+		  	console.log(Math.floor(Math.random() * (max - min + 1)) + min);
+		  	
+		  	return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 	}
 });

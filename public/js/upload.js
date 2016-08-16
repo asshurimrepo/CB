@@ -11523,13 +11523,15 @@ setTimeout(function () {
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":1}],4:[function(require,module,exports){
-'use strict';
+"use strict";
 
-var _vue = require('vue');
+var _vue = require("vue");
 
 var _vue2 = _interopRequireDefault(_vue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+require("./utilities/randomLoadingMessage");
 
 _vue2.default.use(require('vue-resource'));
 _vue2.default.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
@@ -11537,11 +11539,6 @@ _vue2.default.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]')
 $.ajaxSetup({
 	headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
 });
-
-var randomLoadingMessage = function randomLoadingMessage() {
-	var lines = new Array("Locating the required gigapixels to render...", "Spinning up the hamster...", "Shovelling coal into the server...", "Programming the flux capacitor", 'the architects are still drafting', 'would you prefer chicken, steak, or tofu?', 'we love you just the way you are', 'checking the gravitational constant in your locale', 'go ahead -- hold your breath', "at least you're not on hold", "a few bits tried to escape, but we caught them");
-	return lines[Math.round(Math.random() * (lines.length - 1))];
-};
 
 new _vue2.default({
 	el: "#upload-section",
@@ -11579,6 +11576,7 @@ new _vue2.default({
 	data: {
 		in_progress: false,
 		progress: 0,
+		process_is_done: false,
 		funnies: "",
 		step: 1
 	},
@@ -11587,20 +11585,104 @@ new _vue2.default({
 		process_text: function process_text() {
 			if (this.step == 1) return 'Uploading...';
 			if (this.step == 2) return 'Processing...';
+			if (this.step == 3) return 'Converting Frames...';
+			if (this.step == 4) return 'Composing your new video...';
+			if (this.step == 5) return 'Wrapping up! :)';
 		}
 	},
 
 	methods: {
 		done: function done(e, data) {
-			this.process();
+			this.process(data.result.id);
 		},
-		process: function process() {
+		process: function process(id) {
+			var _this2 = this;
+
 			this.step = 2;
-			this.progress = 1;
+			this.progress = 0;
+			this.updateProgress(30, 2000, 4000);
+
+			this.$http.post('/video-processer/' + id).then(function () {
+				_this2.progress = 30;
+				setTimeout(function () {
+					return _this2.processFrames(id);
+				}, 500);
+			});
+		},
+		processFrames: function processFrames(id) {
+			var _this3 = this;
+
+			this.updateProgress(80, 2400, 6000);
+			this.step = 3;
+
+			this.$http.post('/video-processer/' + id + '/process-frames').then(function () {
+				_this3.progress = 60;
+				setTimeout(function () {
+					return _this3.recomposeVideo(id);
+				}, 500);
+			});
+		},
+		recomposeVideo: function recomposeVideo(id) {
+			var _this4 = this;
+
+			this.updateProgress(91, 2000, 4000);
+			this.step = 4;
+
+			this.$http.post('/video-processer/' + id + '/recompose-video').then(function () {
+				_this4.progress = 91;
+				setTimeout(function () {
+					return _this4.finishingUp(id);
+				}, 500);
+			});
+		},
+		finishingUp: function finishingUp(id) {
+			var _this5 = this;
+
+			this.updateProgress(95, 1000, 4000);
+			this.step = 5;
+
+			this.$http.post('/video-processer/' + id + '/finishing').then(function () {
+				_this5.progress = 100;
+				_this5.process_is_done = true;
+			});
+		},
+		updateProgress: function updateProgress(max, min_s, max_s) {
+			var _this6 = this;
+
+			if (this.progress > max) {
+				return;
+			}
+
+			this.progress += this.getRandomNumber(1, 6);
+
+			if (max < this.progress) {
+				this.progress = max;
+			}
+
+			setTimeout(function () {
+				return _this6.updateProgress(max, min_s, max_s);
+			}, this.getRandomNumber(min_s, max_s));
+		},
+		getRandomNumber: function getRandomNumber(min, max) {
+			min = Math.ceil(min);
+			max = Math.floor(max);
+
+			console.log(Math.floor(Math.random() * (max - min + 1)) + min);
+
+			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 	}
 });
 
-},{"vue":3,"vue-resource":2}]},{},[4]);
+},{"./utilities/randomLoadingMessage":5,"vue":3,"vue-resource":2}],5:[function(require,module,exports){
+"use strict";
+
+window.randomLoadingMessage = function () {
+    var lines = new Array("Locating the required gigapixels to render...", "Spinning up the hamster...", "Shovelling coal into the server...", "Programming the flux capacitor", 'the architects are still drafting', 'would you prefer chicken, steak, or tofu?', 'we love you just the way you are', 'checking the gravitational constant in your locale', 'go ahead -- hold your breath', "at least you're not on hold", "a few bits tried to escape, but we caught them");
+
+    return lines[Math.round(Math.random() * (lines.length - 1))];
+};
+
+},{}]},{},[4]);
 
 //# sourceMappingURL=upload.js.map
