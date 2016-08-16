@@ -11612,11 +11612,11 @@ new _vue2.default({
 		processFrames: function processFrames(id) {
 			var _this3 = this;
 
-			this.updateProgress(80, 2400, 6000);
+			this.updateProgress(80, 5000, 10000);
 			this.step = 3;
 
 			this.$http.post('/video-processer/' + id + '/process-frames').then(function () {
-				_this3.progress = 60;
+				_this3.progress = 85;
 				setTimeout(function () {
 					return _this3.recomposeVideo(id);
 				}, 500);

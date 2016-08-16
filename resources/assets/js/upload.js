@@ -75,11 +75,11 @@ new Vue({
 		},
 
 		processFrames(id) {
-			this.updateProgress(80, 2400, 6000);
+			this.updateProgress(80, 5000, 10000);
 			this.step = 3;
 
 			this.$http.post('/video-processer/'+ id +'/process-frames').then(() => {
-				this.progress = 60;
+				this.progress = 85;
 				setTimeout(() => this.recomposeVideo(id), 500);
 			});
 		},
