@@ -3,6 +3,17 @@
      :style="[player_styles.offsets]"
      :class="[player_class.position, player_class.glass]"
   >
+  <div v-if="has_Textoverlay" id="project-text-overlay"
+      :class="[textoverlay_class.valignment, textoverlay_class.alignment]"
+      :style="{ fontFamily:project.actions.textoverlay_fontfamily,
+                fontSize:project.actions.textoverlay_fontsize+'px',
+                fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
+                fontStyle: project.actions.textoverlay_italic ? 'italic': null
+              }"
+  >
+      <p v-if="has_Line1">{{ project.actions.textoverlay_line_1 }}</p>
+      <p v-if="has_Line2">{{ project.actions.textoverlay_line_2 }}</p>
+  </div>
     <a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>
      <video id="project-player" class="video-js" controls preload="auto" data-setup="{}" width="350"
         poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">

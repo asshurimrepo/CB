@@ -9,7 +9,7 @@
              <div class="row col-md-9 col-sm-9">
                <input type="text" class="form-control m-bot15" id="linkURL" v-model="project.actions.link_url" placeholder="http://">
              </div>
-             <tooltip class="pull-right" title="URL where it will route when the video is click" placement="left"></tooltip>
+             <tooltip class="pull-right" title="URL where it will route when the video is click. Note: 'http://' is required to work properly" placement="left"></tooltip>
           </div>
         </div>
         <div class="form-group">
@@ -43,9 +43,9 @@
              </label>
              <div class="row m-bot15 col-md-3 col-sm-3">
                <select id='textPosition' class="form-control m-bot15" v-model="project.actions.textoverlay_valignment">
-                 <option value="0">Bottom</option>
-                 <option value="1">Middle</option>
-                 <option value="2">Top</option>
+                 <option value="bottom">Bottom</option>
+                 <option value="middle">Middle</option>
+                 <option value="top">Top</option>
                </select>
              </div>
              <div class="col-md-3 col-sm-3">

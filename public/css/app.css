@@ -12339,6 +12339,31 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
   right: 5px;
   top: 0; }
 
+#project-text-overlay {
+  position: absolute;
+  z-index: 1049;
+  padding: 2px; }
+
+#project-text-overlay.Textoverlay--top {
+  top: 0; }
+
+#project-text-overlay.Textoverlay--middle {
+  top: 50%;
+  transform: translateY(-50%); }
+
+#project-text-overlay.Textoverlay--bottom {
+  bottom: 0; }
+
+#project-text-overlay.Textoverlay--left {
+  left: 0; }
+
+#project-text-overlay.Textoverlay--center {
+  left: 50%;
+  transform: translateX(-50%); }
+
+#project-text-overlay.Textoverlay--right {
+  right: 0; }
+
 .always-bottom {
   position: fixed !important; }
 
