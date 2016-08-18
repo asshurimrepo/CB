@@ -17,5 +17,6 @@ elixir(function(mix) {
 
     mix.browserify('main.js').version('js/main.js');
 
-    mix.browserify('upload.js');
+    mix.browserify('upload.js').
+    	browserify('premade.js');
 });

@@ -20,6 +20,8 @@ Route::auth();
 Route::group(['middleware' => 'auth'], function(){
 	Route::get('/home', 'HomeController@index');
 	Route::get('/help', 'PagesController@help');
+	Route::get('/premade', 'PremadeVideosController@index');
+
 	Route::resource('project','ProjectsController');
 
 	// Handles Uploads
