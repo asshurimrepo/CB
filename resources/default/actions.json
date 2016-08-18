@@ -13,7 +13,7 @@
 	"textoverlay_textcolor": "rgb(51,51,51)",
 	"textoverlay_backgroundcolor": "rgba(190,195,199,1)",
 	"clicktocall": "",
-	"clicktocall_valignment": "1",
+	"clicktocall_valignment": "middle",
 	"clicktocall_start": "0",
 	"clicktocall_duration": "0",
 	"clicktocall_fontfamily": "Arial",

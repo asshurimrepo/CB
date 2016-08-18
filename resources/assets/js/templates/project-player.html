@@ -1,23 +1,59 @@
 <div :class="[player_class.dimmed]" v-show="is_visible" id="project-player-bg">
+
   <div id="project-player-container"
      :style="[player_styles.offsets]"
      :class="[player_class.position, player_class.glass]"
   >
-  <div v-if="has_Textoverlay" id="project-text-overlay"
-      :class="[textoverlay_class.valignment, textoverlay_class.alignment]"
-      :style="{ fontFamily:project.actions.textoverlay_fontfamily,
-                fontSize:project.actions.textoverlay_fontsize+'px',
-                fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
-                fontStyle: project.actions.textoverlay_italic ? 'italic': null
-              }"
-  >
-      <p v-if="has_Line1">{{ project.actions.textoverlay_line_1 }}</p>
-      <p v-if="has_Line2">{{ project.actions.textoverlay_line_2 }}</p>
-  </div>
+    <!-- textoverlay -->
+    <div v-if="has_Textoverlay" id="project-text-overlay"
+        :class="[textoverlay_class.valignment, textoverlay_class.alignment]"
+        :style="{ fontFamily:project.actions.textoverlay_fontfamily,
+                  fontSize:project.actions.textoverlay_fontsize+'px',
+                  fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
+                  fontStyle: project.actions.textoverlay_italic ? 'italic': null,
+                  color: project.actions.textoverlay_textcolor
+                }"
+    >
+        <span v-if="has_Line1"
+          :style="{
+            backgroundColor: project.actions.textoverlay_backgroundcolor
+          }"
+        >
+          {{ project.actions.textoverlay_line_1 }}
+        </span><br/>
+        <span v-if="has_Line2"
+          :style="{
+            backgroundColor: project.actions.textoverlay_backgroundcolor
+          }"
+        >
+          {{ project.actions.textoverlay_line_2 }}
+        </span>
+    </div>
+
+    <!-- click to call -->
+    <div v-if="has_Phonenumber"
+         id="project-clicktocall"
+         :class="[clicktocall_class.valignment, clicktocall_class.alignment]"
+         :style="{ fontFamily:project.actions.clicktocall_fontfamily,
+                   fontSize:project.actions.clicktocall_fontsize+'px',
+                   fontWeight: project.actions.clicktocall_bold ? 'bold' : null,
+                   fontStyle: project.actions.clicktocall_italic ? 'italic': null
+                 }"
+    >
+      <a href="tel:{{ project.actions.clicktocall }}"
+        :style="{
+          backgroundColor: project.actions.clicktocall_backgroundcolor,
+          color: project.actions.clicktocall_textcolor
+        }"
+      >
+        {{ project.actions.clicktocall }}
+      </a>
+    </div>
+
     <a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>
      <video id="project-player" class="video-js" controls preload="auto" data-setup="{}" width="350"
         poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-      <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+      <source src="img/short.mp4" type="video/mp4">
       <p class="vjs-no-js">
           To view this video please enable JavaScript, and consider upgrading to a web browser that
           <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>

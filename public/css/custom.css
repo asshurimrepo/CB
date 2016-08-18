@@ -118,4 +118,6 @@ ul.nav-tabs>li.active> a[data-toggle='tab']
     margin: 10px;
 }
 
-/*videojs*/
+.textoverlay-container>span{
+    padding: 2px 4px;
+}

@@ -110,32 +110,33 @@
                           <div class="well">
                             <div class="textoverlay-container"
                               :style="{
-                                          textAlign: project.actions.textoverlay_alignment,
-                                          backgroundColor: project.actions.textoverlay_backgroundcolor
+                                          textAlign: project.actions.textoverlay_alignment
                                         }"
                             >
-                              <p
+                              <span
                                 :style="{
                                             fontFamily: project.actions.textoverlay_fontfamily,
                                             fontSize: project.actions.textoverlay_fontsize + 'px',
                                             fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
                                             fontStyle: project.actions.textoverlay_italic ? 'italic': null,
-                                            color: project.actions.textoverlay_textcolor
+                                            color: project.actions.textoverlay_textcolor,
+                                            backgroundColor: project.actions.textoverlay_backgroundcolor
                                           }"
                               >
                                 {{ project.actions.textoverlay_line_1 ? project.actions.textoverlay_line_1: 'The quick brown fox...'}}
-                              </p>
-                              <p
+                              </span> <br/>
+                              <span
                                 :style="{
                                             fontFamily: project.actions.textoverlay_fontfamily,
                                             fontSize: project.actions.textoverlay_fontsize + 'px',
                                             fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
                                             fontStyle: project.actions.textoverlay_italic ? 'italic': null,
-                                            color: project.actions.textoverlay_textcolor
+                                            color: project.actions.textoverlay_textcolor,
+                                            backgroundColor: project.actions.textoverlay_backgroundcolor
                                           }"
                               >
                                 {{ project.actions.textoverlay_line_2 }}
-                              </p>
+                              </span>
                             </div>
                           </div>
                         </div>

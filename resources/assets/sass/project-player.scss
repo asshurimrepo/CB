@@ -56,7 +56,11 @@
 #project-text-overlay{
 	position: absolute;
     z-index: 1049;
-    padding: 2px;
+    width: 100%;
+}
+
+#project-text-overlay>span{
+	padding: 2px 4px;
 }
 
 #project-text-overlay.Textoverlay--top{
@@ -72,15 +76,51 @@
 	bottom: 0;
 }
 
+
+
 #project-text-overlay.Textoverlay--left{
-	left: 0;
+	text-align: left;
 }
 
 #project-text-overlay.Textoverlay--center{
-	left: 50%;
-	transform: translateX(-50%);
+	text-align: center;
 }
 
 #project-text-overlay.Textoverlay--right{
-	right: 0;
+	text-align: right;
+}
+
+#project-clicktocall{
+	position: absolute;
+    z-index: 1049;
+    width: 100%;
+}
+
+#project-clicktocall>a{
+	padding: 2px 4px;
+}
+
+#project-clicktocall.Clicktocall--top{
+	top: 0;
+}
+
+#project-clicktocall.Clicktocall--middle{
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#project-clicktocall.Clicktocall--bottom{
+	bottom: 0;
+}
+
+#project-clicktocall.Clicktocall--left{
+	text-align: left;
+}
+
+#project-clicktocall.Clicktocall--center{
+	text-align: center;
+}
+
+#project-clicktocall.Clicktocall--right{
+	text-align: right;
 }

@@ -32,6 +32,10 @@ export default {
 				alignment: ""
 			},
 
+			clicktocall_class: {
+				valignment: ""
+			},
+
 			video_duration: 0
 		}
 	},
@@ -49,6 +53,7 @@ export default {
 	},
 
 	computed: {
+		//textiverlay
 		has_Textoverlay(){
 			let line1 = this.project.actions.textoverlay_line_1;
 			let line2 = this.project.actions.textoverlay_line_2;
@@ -72,6 +77,16 @@ export default {
 			if( line2 == ""){
 				return false
 			}
+			return true;
+		},
+		// clicktocall
+		has_Phonenumber(){
+			let phone_number = this.project.actions.clicktocall;
+
+			if(phone_number == ""){
+				return false;
+			}
+
 			return true;
 		}
 	},
@@ -208,6 +223,33 @@ export default {
 			if(this.project.actions.textoverlay_alignment == 'right'){
 				this.textoverlay_class.alignment = "Textoverlay--right";
 			}
+
+			// clicktocall alignment
+			if(this.project.actions.clicktocall_valignment == 'middle'){
+				this.clicktocall_class.valignment = "Clicktocall--middle";
+			}
+
+			if (this.project.actions.clicktocall_valignment == 'top'){
+				this.clicktocall_class.valignment = "Clicktocall--top";
+			}
+
+			if(this.project.actions.clicktocall_valignment == 'bottom'){
+				this.clicktocall_class.valignment = "Clicktocall--bottom";
+			}
+
+			//clicktocall alignment
+			if(this.project.actions.clicktocall_alignment == 'left'){
+				this.clicktocall_class.alignment = "Clicktocall--left";
+			}
+
+			if (this.project.actions.clicktocall_alignment == 'center'){
+				this.clicktocall_class.alignment = "Clicktocall--center";
+			}
+
+			if(this.project.actions.clicktocall_alignment == 'right'){
+				this.clicktocall_class.alignment = "Clicktocall--right";
+			}
+
 		} //end of projectActions
 
 	}
