@@ -15,9 +15,9 @@
             </label>
             <div class="row m-bot15 col-md-3 col-sm-3 control-label">
               <select id='phonePosition' class="form-control m-bot15" v-model="project.actions.clicktocall_valignment">
-  							<option value="0">Bottom</option>
-  							<option value="1">Middle</option>
-  							<option value="2">Top</option>
+  							<option value="bottom">Bottom</option>
+  							<option value="middle">Middle</option>
+  							<option value="top">Top</option>
   						</select>
             </div>
              <div class="col-md-3 col-sm-3">
@@ -85,18 +85,18 @@
                               					 	textAlign: project.actions.clicktocall_alignment
                               					}"
                               				>
-                              					<button type="button" class="btn btn-default"
-                              						:style="{
-                              					 		fontFamily: project.actions.clicktocall_fontfamily,
-                              					 		fontSize: project.actions.clicktocall_fontsize + 'px',
-                              					 		fontWeight: project.actions.clicktocall_bold ? 'bold' : null,
-                              					 		fontStyle: project.actions.clicktocall_italic ? 'italic': null,
-                              					 		color: project.actions.clicktocall_textcolor,
-                              					 		backgroundColor: project.actions.clicktocall_backgroundcolor
-                              					 	}"
-                              					>
-                              						{{ project.actions.clicktocall ? project.actions.clicktocall : 'Default'}}
-                              					</button>
+                                         <a class="btn btn-default" href="tel:{{ project.actions.clicktocall }}"
+                                            :style="{
+                                              fontFamily: project.actions.clicktocall_fontfamily,
+                                              fontSize: project.actions.clicktocall_fontsize + 'px',
+                                              fontWeight: project.actions.clicktocall_bold ? 'bold' : null,
+                                              fontStyle: project.actions.clicktocall_italic ? 'italic': null,
+                                              color: project.actions.clicktocall_textcolor,
+                                              backgroundColor: project.actions.clicktocall_backgroundcolor
+                                            }"
+                                         >
+                                           {{ project.actions.clicktocall ? project.actions.clicktocall : 'Default'}}
+                                         </a>
                               				</div>
                               			</div>
                               		</div>

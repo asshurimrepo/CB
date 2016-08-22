@@ -32,7 +32,15 @@ export default {
 				alignment: ""
 			},
 
-			video_duration: 0
+			clicktocall_class: {
+				valignment: "",
+				alignment: ""
+			},
+
+			buttonoverlay_class:{
+				valignment: "",
+				alignment: ""
+			}
 		}
 	},
 
@@ -49,6 +57,7 @@ export default {
 	},
 
 	computed: {
+		//textoverlay
 		has_Textoverlay(){
 			let line1 = this.project.actions.textoverlay_line_1;
 			let line2 = this.project.actions.textoverlay_line_2;
@@ -73,7 +82,51 @@ export default {
 				return false
 			}
 			return true;
-		}
+		},
+		// clicktocall
+		has_Phonenumber(){
+			let phone_number = this.project.actions.clicktocall;
+
+			if(phone_number == ""){
+				return false;
+			}
+
+			return true;
+		},
+		//button overlay
+		has_Buttonoverlay(){
+			let button_overlay = this.project.actions.buttonoverlay_label;
+
+			if(button_overlay == ""){
+				return false;
+			}
+
+			return true;
+		},
+
+		formoverlay_titlesize() {
+    		if(this.project.actions.formoverlay_titlesize === 'Small') return '14px';
+    		if(this.project.actions.formoverlay_titlesize === 'Medium') return '18px';
+    		if(this.project.actions.formoverlay_titlesize === 'Large') return '22px';
+
+    		return '18px';
+    	},
+
+    	formoverlay_fieldsize(){
+    		if(this.project.actions.formoverlay_fieldsize === 'Small') return 'input-sm';
+    		if(this.project.actions.formoverlay_fieldsize === 'Medium') return '';
+    		if(this.project.actions.formoverlay_fieldsize === 'Large') return 'input-lg';
+
+    		return '';
+    	},
+
+    	formoverlay_buttonsize(){
+    		if(this.project.actions.formoverlay_buttonsize === 'Small') return 'btn-sm';
+    		if(this.project.actions.formoverlay_buttonsize === 'Medium') return '';
+    		if(this.project.actions.formoverlay_buttonsize === 'Large') return 'btn-lg';
+
+    		return 'btn-sm';
+    	}
 	},
 
 	methods: {
@@ -128,22 +181,35 @@ export default {
 
 		playProject() {
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
-			this.video_duration = 0;
 
 			setTimeout(() => {
 				this.is_visible = true;
 				$('#project-player-bg').fadeIn("fast");
 				this.video.play();
-				this.video_duration = Math.floor(this.video.duration())*1000;
 			}, delay);
 
-			// close button function
+			// close on click background
+			$("body").on("click","div#project-player-bg", (e) => {
+				if($(e.target).is('div#project-player-bg')){
+					this.video.pause();
+					$('#project-player-bg').fadeOut("fast");
+				}
+				e.preventDefault();
+		        return;
+			});
+
+			// close button
 			$("body").on("click","a.close-project", (e) => {
 				e.preventDefault();
 				this.video.pause();
 				$('#project-player-bg').fadeOut("fast");
 			});
 
+			//close form
+			$("body").on("click","a.close-form", (e) => {
+				e.preventDefault();
+				$('#project-formoverlay').fadeOut("fast");
+			});
 		},
 
 		projectOptions(){
@@ -165,7 +231,6 @@ export default {
 			        return;
 				});
 			}
-
 		},
 
 		projectActions(){
@@ -208,6 +273,60 @@ export default {
 			if(this.project.actions.textoverlay_alignment == 'right'){
 				this.textoverlay_class.alignment = "Textoverlay--right";
 			}
+
+			// clicktocall alignment
+			if(this.project.actions.clicktocall_valignment == 'middle'){
+				this.clicktocall_class.valignment = "Clicktocall--middle";
+			}
+
+			if (this.project.actions.clicktocall_valignment == 'top'){
+				this.clicktocall_class.valignment = "Clicktocall--top";
+			}
+
+			if(this.project.actions.clicktocall_valignment == 'bottom'){
+				this.clicktocall_class.valignment = "Clicktocall--bottom";
+			}
+
+			//clicktocall alignment
+			if(this.project.actions.clicktocall_alignment == 'left'){
+				this.clicktocall_class.alignment = "Clicktocall--left";
+			}
+
+			if (this.project.actions.clicktocall_alignment == 'center'){
+				this.clicktocall_class.alignment = "Clicktocall--center";
+			}
+
+			if(this.project.actions.clicktocall_alignment == 'right'){
+				this.clicktocall_class.alignment = "Clicktocall--right";
+			}
+
+			// button overlay alignment
+			if(this.project.actions.buttonoverlay_valignment == 'middle'){
+				this.buttonoverlay_class.valignment = "Buttonoverlay--middle";
+			}
+
+			if (this.project.actions.buttonoverlay_valignment == 'top'){
+				this.buttonoverlay_class.valignment = "Buttonoverlay--top";
+			}
+
+			if(this.project.actions.buttonoverlay_valignment == 'bottom'){
+				this.buttonoverlay_class.valignment = "Buttonoverlay--bottom";
+			}
+
+			// button overlay alignment
+			if(this.project.actions.buttonoverlay_alignment == 'left'){
+				this.buttonoverlay_class.alignment = "Buttonoverlay--left";
+			}
+
+			if (this.project.actions.buttonoverlay_alignment == 'center'){
+				this.buttonoverlay_class.alignment = "Buttonoverlay--center";
+			}
+
+			if(this.project.actions.buttonoverlay_alignment == 'right'){
+				this.buttonoverlay_class.alignment = "Buttonoverlay--right";
+			}
+
+			$('#project-formoverlay').show();
 		} //end of projectActions
 
 	}
