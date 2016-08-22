@@ -33,10 +33,14 @@ export default {
 			},
 
 			clicktocall_class: {
-				valignment: ""
+				valignment: "",
+				alignment: ""
 			},
 
-			video_duration: 0
+			buttonoverlay_class:{
+				valignment: "",
+				alignment: ""
+			}
 		}
 	},
 
@@ -53,7 +57,7 @@ export default {
 	},
 
 	computed: {
-		//textiverlay
+		//textoverlay
 		has_Textoverlay(){
 			let line1 = this.project.actions.textoverlay_line_1;
 			let line2 = this.project.actions.textoverlay_line_2;
@@ -88,7 +92,41 @@ export default {
 			}
 
 			return true;
-		}
+		},
+		//button overlay
+		has_Buttonoverlay(){
+			let button_overlay = this.project.actions.buttonoverlay_label;
+
+			if(button_overlay == ""){
+				return false;
+			}
+
+			return true;
+		},
+
+		formoverlay_titlesize() {
+    		if(this.project.actions.formoverlay_titlesize === 'Small') return '14px';
+    		if(this.project.actions.formoverlay_titlesize === 'Medium') return '18px';
+    		if(this.project.actions.formoverlay_titlesize === 'Large') return '22px';
+
+    		return '18px';
+    	},
+
+    	formoverlay_fieldsize(){
+    		if(this.project.actions.formoverlay_fieldsize === 'Small') return 'input-sm';
+    		if(this.project.actions.formoverlay_fieldsize === 'Medium') return '';
+    		if(this.project.actions.formoverlay_fieldsize === 'Large') return 'input-lg';
+
+    		return '';
+    	},
+
+    	formoverlay_buttonsize(){
+    		if(this.project.actions.formoverlay_buttonsize === 'Small') return 'btn-sm';
+    		if(this.project.actions.formoverlay_buttonsize === 'Medium') return '';
+    		if(this.project.actions.formoverlay_buttonsize === 'Large') return 'btn-lg';
+
+    		return 'btn-sm';
+    	}
 	},
 
 	methods: {
@@ -143,22 +181,29 @@ export default {
 
 		playProject() {
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
-			this.video_duration = 0;
 
 			setTimeout(() => {
 				this.is_visible = true;
 				$('#project-player-bg').fadeIn("fast");
 				this.video.play();
-				this.video_duration = Math.floor(this.video.duration())*1000;
 			}, delay);
-
-			// close button function
+			// close on click background
+			$("body").on("click","div#project-player-bg", (e) => {
+				e.preventDefault();
+				this.video.pause();
+				$('#project-player-bg').fadeOut("fast");
+			});
+			// close button
 			$("body").on("click","a.close-project", (e) => {
 				e.preventDefault();
 				this.video.pause();
 				$('#project-player-bg').fadeOut("fast");
 			});
-
+			//close form
+			$("body").on("click","a.close-form", (e) => {
+				e.preventDefault();
+				$('#project-formoverlay').fadeOut("fast");
+			});
 		},
 
 		projectOptions(){
@@ -180,7 +225,6 @@ export default {
 			        return;
 				});
 			}
-
 		},
 
 		projectActions(){
@@ -248,6 +292,32 @@ export default {
 
 			if(this.project.actions.clicktocall_alignment == 'right'){
 				this.clicktocall_class.alignment = "Clicktocall--right";
+			}
+
+			// button overlay alignment
+			if(this.project.actions.buttonoverlay_valignment == 'middle'){
+				this.buttonoverlay_class.valignment = "Buttonoverlay--middle";
+			}
+
+			if (this.project.actions.buttonoverlay_valignment == 'top'){
+				this.buttonoverlay_class.valignment = "Buttonoverlay--top";
+			}
+
+			if(this.project.actions.buttonoverlay_valignment == 'bottom'){
+				this.buttonoverlay_class.valignment = "Buttonoverlay--bottom";
+			}
+
+			// button overlay alignment
+			if(this.project.actions.buttonoverlay_alignment == 'left'){
+				this.buttonoverlay_class.alignment = "Buttonoverlay--left";
+			}
+
+			if (this.project.actions.buttonoverlay_alignment == 'center'){
+				this.buttonoverlay_class.alignment = "Buttonoverlay--center";
+			}
+
+			if(this.project.actions.buttonoverlay_alignment == 'right'){
+				this.buttonoverlay_class.alignment = "Buttonoverlay--right";
 			}
 
 		} //end of projectActions

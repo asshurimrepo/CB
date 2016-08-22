@@ -24,7 +24,7 @@
 	"clicktocall_textcolor": "rgb(51,51,51)",
 	"clicktocall_backgroundcolor": "rgba(190,195,199,1)",
 	"buttonoverlay_label": "",
-	"buttonoverlay_valignment": "1",
+	"buttonoverlay_valignment": "middle",
 	"buttonoverlay_start": "0",
 	"buttonoverlay_duration": "0",
 	"buttonoverlay_fontfamily": "Arial",
