@@ -187,18 +187,24 @@ export default {
 				$('#project-player-bg').fadeIn("fast");
 				this.video.play();
 			}, delay);
+
 			// close on click background
 			$("body").on("click","div#project-player-bg", (e) => {
+				if($(e.target).is('div#project-player-bg')){
+					this.video.pause();
+					$('#project-player-bg').fadeOut("fast");
+				}
 				e.preventDefault();
-				this.video.pause();
-				$('#project-player-bg').fadeOut("fast");
+		        return;
 			});
+
 			// close button
 			$("body").on("click","a.close-project", (e) => {
 				e.preventDefault();
 				this.video.pause();
 				$('#project-player-bg').fadeOut("fast");
 			});
+
 			//close form
 			$("body").on("click","a.close-form", (e) => {
 				e.preventDefault();
@@ -320,6 +326,7 @@ export default {
 				this.buttonoverlay_class.alignment = "Buttonoverlay--right";
 			}
 
+			$('#project-formoverlay').show();
 		} //end of projectActions
 
 	}
