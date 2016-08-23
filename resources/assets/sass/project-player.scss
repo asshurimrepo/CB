@@ -61,6 +61,7 @@
 	position: absolute;
     z-index: 1049;
     width: 100%;
+    display: none;
 }
 
 #project-text-overlay>span{
@@ -99,6 +100,7 @@
 	position: absolute;
     z-index: 1049;
     width: 100%;
+    display: none;
 }
 
 #project-clicktocall>a{
@@ -137,6 +139,7 @@
 	position: absolute;
     z-index: 1049;
     width: 100%;
+    display: none;
 }
 
 #project-buttonoverlay>button{
@@ -188,6 +191,7 @@
     width: 100%;
     top: 50%;
     transform: translateY(-50%);
+    display: none;
 }
 
 #project-formoverlay>section.panel{

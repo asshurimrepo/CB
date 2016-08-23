@@ -4,6 +4,201 @@ export default {
 
 	ready(){
 		this.video = videojs('project-player');
+
+		this.video.on("timeupdate",() => {
+			this.vidtime = Math.floor(this.video.currentTime());
+
+			//textoverlay show & duration
+			// if the start time is greater than the total duration the textoverlay will display at the end
+			if(this.textoverlaystart > this.vidduration){
+
+				if(this.vidtime === this.vidduration){
+					$("#project-text-overlay").fadeIn("fast",() =>{
+						if(this.textoverlayduration > 0){
+							setTimeout(() => {
+								$("#project-text-overlay").fadeOut("fast");
+							},this.textoverlayduration);
+						}
+					});
+					return false;
+				}
+
+				// if duration is set to 0
+				if(this.textoverlayduration === 0){
+					this.video.on("ended",() => {
+						$("#project-text-overlay").fadeOut("fast");
+						return false;
+					});
+				}
+
+			}else{
+
+				if(this.vidtime === this.textoverlaystart){
+					$("#project-text-overlay").fadeIn("fast",() =>{
+						if(this.textoverlayduration > 0){
+							setTimeout(() => {
+								$("#project-text-overlay").fadeOut("fast");
+							},this.textoverlayduration);
+						}
+					});
+					return false;
+				}
+
+				// if duration is set to 0
+				if(this.textoverlayduration === 0){
+					this.video.on("ended",() => {
+						$("#project-text-overlay").fadeOut("fast");
+						return false;
+					});
+				}
+
+			}
+
+
+			//clicktocall show & duration
+			// if the start time is greater than the total duration the clicktocall will display at the end
+			if(this.clicktocallstart > this.vidduration){
+
+				if(this.vidtime === this.vidduration){
+					$("#project-clicktocall").fadeIn("fast",() =>{
+						if(this.clicktocallduration > 0){
+							setTimeout(() => {
+								$("#project-clicktocall").fadeOut("fast");
+							},this.clicktocallduration);
+						}
+					});
+					return false;
+				}
+
+				// if duration is set to 0
+				if(this.clicktocallduration === 0){
+					this.video.on("ended",() => {
+						$("#project-clicktocall").fadeOut("fast");
+						return false;
+					});
+				}
+
+
+			}else{
+
+				if(this.vidtime === this.clicktocallstart){
+					$("#project-clicktocall").fadeIn("fast",() =>{
+						if(this.clicktocallduration > 0){
+							setTimeout(() => {
+								$("#project-clicktocall").fadeOut("fast");
+							},this.clicktocallduration);
+						}
+					});
+					return false;
+				}
+
+				// if duration is set to 0
+				if(this.clicktocallduration === 0){
+					this.video.on("ended",() => {
+						$("#project-clicktocall").fadeOut("fast");
+						return false;
+					});
+				}
+
+			}
+
+			//buttonoverlay show & duration
+			// if the start time is greater than the total duration the buttonoverlay will display at the end
+			if(this.buttonoverlaystart > this.vidduration){
+
+				if(this.vidtime === this.vidduration){
+					$("#project-buttonoverlay").fadeIn("fast",() =>{
+						if(this.buttonoverlayduration > 0){
+							setTimeout(() => {
+								$("#project-buttonoverlay").fadeOut("fast");
+							},this.buttonoverlayduration);
+						}
+					});
+					return false;
+				}
+
+				// if duration is set to 0
+				if(this.buttonoverlayduration === 0){
+					this.video.on("ended",() => {
+						$("#project-buttonoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+
+			}else{
+
+				if(this.vidtime === this.buttonoverlaystart){
+					$("#project-buttonoverlay").fadeIn("fast",() =>{
+						if(this.buttonoverlayduration > 0){
+							setTimeout(() => {
+								$("#project-buttonoverlay").fadeOut("fast");
+							},this.buttonoverlayduration);
+						}
+					});
+					return false;
+				}
+
+				// if duration is set to 0
+				if(this.buttonoverlayduration === 0){
+					this.video.on("ended",() => {
+						$("#project-buttonoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+
+			}
+
+			//formoverlay show & duration
+			// if the start time is greater than the total duration the formoverlay will display at the end
+			if(this.formoverlaystart > this.vidduration){
+
+				if(this.vidtime === this.vidduration){
+					$("#project-formoverlay").fadeIn("fast",() =>{
+						if(this.formoverlayduration > 0){
+							setTimeout(() => {
+								$("#project-formoverlay").fadeOut("fast");
+							},this.formoverlayduration);
+						}
+					});
+					return false;
+				}
+
+
+				// if duration is set to 0
+				if(this.formoverlayduration === 0){
+					this.video.on("ended",() => {
+						$("#project-formoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+
+			}else{
+
+				if(this.vidtime === this.formoverlaystart){
+					$("#project-formoverlay").fadeIn("fast",() =>{
+						if(this.formoverlayduration > 0){
+							setTimeout(() => {
+								$("#project-formoverlay").fadeOut("fast");
+							},this.formoverlayduration);
+						}
+					});
+					return false;
+				}
+
+
+				// if duration is set to 0
+				if(this.formoverlayduration === 0){
+					this.video.on("ended",() => {
+						$("#project-formoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+
+			}
+
+		});
+
+
 	},
 
 	props: ['project'],
@@ -12,6 +207,8 @@ export default {
 		return {
 			is_visible: false,
 			video: null,
+			vidtime: 0,
+			vidduration: 0,
 			player_styles: {
 				offsets: {
 					marginTop: 0,
@@ -40,7 +237,16 @@ export default {
 			buttonoverlay_class:{
 				valignment: "",
 				alignment: ""
-			}
+			},
+			textoverlaystart: 0,
+			textoverlayduration: 0,
+			clicktocallstart: 0,
+			clicktocallduration: 0,
+			buttonoverlaystart: 0,
+			buttonoverlayduration: 0,
+			formoverlaystart: 0,
+			formoverlayduration: 0
+
 		}
 	},
 
@@ -65,7 +271,7 @@ export default {
 			if( line1 === "" && line2 === ""){
 				return false;
 			}
-			return true;
+				return true;
 		},
 
 		has_Line1(){
@@ -98,6 +304,16 @@ export default {
 			let button_overlay = this.project.actions.buttonoverlay_label;
 
 			if(button_overlay == ""){
+				return false;
+			}
+
+			return true;
+		},
+
+		has_Autoresponder(){
+			let autoresponder = this.project.actions.autoresponder_name;
+
+			if(autoresponder == ""){
 				return false;
 			}
 
@@ -186,6 +402,7 @@ export default {
 				this.is_visible = true;
 				$('#project-player-bg').fadeIn("fast");
 				this.video.play();
+				this.vidduration = Math.floor(this.video.duration());
 			}, delay);
 
 			// close on click background
@@ -209,7 +426,10 @@ export default {
 			$("body").on("click","a.close-form", (e) => {
 				e.preventDefault();
 				$('#project-formoverlay').fadeOut("fast");
+				return false;
 			});
+
+
 		},
 
 		projectOptions(){
@@ -236,6 +456,24 @@ export default {
 		projectActions(){
 			let url_length = this.project.actions.link_url.length;
 			let url = this.project.actions.link_url;
+
+			// textoverlay start and duration
+			this.textoverlaystart = parseInt(this.project.actions.textoverlay_start);
+			this.textoverlayduration = parseInt(this.project.actions.textoverlay_duration)*1000;
+
+			//clicktocall start and duration
+			this.clicktocallstart = parseInt(this.project.actions.clicktocall_start);
+			this.clicktocallduration = parseInt(this.project.actions.clicktocall_duration)*1000;
+
+			// buttonoverlay
+			this.buttonoverlaystart = parseInt(this.project.actions.buttonoverlay_start);
+			this.buttonoverlayduration = parseInt(this.project.actions.buttonoverlay_duration)*1000;
+
+			// formoverlay
+			this.formoverlaystart = parseInt(this.project.actions.formoverlay_start);
+			this.formoverlayduration = parseInt(this.project.actions.formoverlay_duration)*1000;
+
+
 
 			//link url
 			if(url_length > 0){
@@ -326,7 +564,6 @@ export default {
 				this.buttonoverlay_class.alignment = "Buttonoverlay--right";
 			}
 
-			$('#project-formoverlay').show();
 		} //end of projectActions
 
 	}
