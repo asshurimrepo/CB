@@ -7,6 +7,10 @@ export default {
 	ready() {
        $(".actions-ref").change(this.updateSwitchable);
        $(".fontsize-buttons").click(this.updateFont);
+       $("#buttonoverlay_start").click(this.updateStart);
+       $("#buttonoverlay_duration").click(this.updateDuration);
+       $("#formoverlay_start").click(this.updateStart);
+       $("#formoverlay_duration").click(this.updateDuration);
     },
 
     components: {
@@ -100,6 +104,16 @@ export default {
             }
 
             return false;
+        },
+
+        updateStart($this) {
+            let starttime = $($this.currentTarget).parent().find('input').val();
+            this.$set('project.actions.'+ $this.currentTarget.id, starttime);
+        },
+
+        updateDuration($this) {
+            let durationtime = $($this.currentTarget).parent().find('input').val();
+            this.$set('project.actions.'+ $this.currentTarget.id, durationtime);
         },
 
         updateSwitchable($this) {
