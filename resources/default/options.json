@@ -1,9 +1,9 @@
 {
-	"position": "centered",
+	"position": "bottom-right",
 	"offset_x": "",
 	"offset_y": "",
 	"auto_display": true,
-	"dimmed_background": true,
+	"dimmed_background": false,
 	"glass_background": false,
 	"stop_showing": {
 		"clicked": true,

@@ -38,5 +38,6 @@ class PremadeVideosController extends Controller
     		]);
     	}
 
+        return redirect('/premade');
     }
 }

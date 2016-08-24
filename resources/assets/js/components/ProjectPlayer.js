@@ -153,7 +153,7 @@ export default {
 
 	methods: {
 		renderTransparentVideo() {
-			this.video = videojs('project-player');
+			this.video = videojs('project-player', { "controls": true, "preload": "auto" });
 
 			this.addActionsToVideo();
 

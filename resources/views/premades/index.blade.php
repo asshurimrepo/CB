@@ -16,9 +16,12 @@
                           <table class="table table-striped table-advance table-hover">
                               <tbody>
                                 <tr v-for="premade in premades">
+                                  <th>#@{{$index + 1}}</th>
                                   <td>
                                     <img width="240px" :src="'/premades/' + premade.filename + '.png'" :alt="premade.filename">
                                   </td>
+
+                                  <td><h4>@{{ premade.title }}</h4></td>
                                   <td>
                                       
                                       <button class="btn btn-primary"><i class="fa fa-play "></i> Preview</button>
