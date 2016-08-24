@@ -69,7 +69,7 @@
 	                        <span><a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload</a></span>
 	                    </li>
 	                    <li class="popovers" data-content="Choose from premade videos!" data-placement="bottom" data-trigger="hover" data-delay="500">
-	                        <span><a href="#" class="btn btn-info navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a></span>
+	                        <span><a href="/premade" class="btn btn-info navbar-btn btn-sm premade-hover"><i class="fa fa-plus"></i> Premade Video</a></span>
 	                    </li>
 	                </ul>
 	            </div>
