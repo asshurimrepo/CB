@@ -19,9 +19,9 @@
                                   <td>
                                     <img width="240px" :src="'/premades/' + premade.filename + '.png'" :alt="premade.filename">
                                   </td>
-                                  <td class="hidden-phone">@{{ premade.title }}</td>
                                   <td>
                                       
+                                      <button class="btn btn-primary"><i class="fa fa-play "></i> Preview</button>
                                       <button class="btn btn-danger"><i class="fa fa-plus "></i> Add to project</button>
                                   </td>
                               </tr>

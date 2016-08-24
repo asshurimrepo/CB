@@ -26,7 +26,7 @@ class PremadeVideosController extends Controller
     	$files = File::allFiles('premades');
 
     	foreach ($files as $file) {
-    		if($file->getExtension() != 'mp4') 
+    		if($file->getExtension() == 'png') 
     		{
     			continue;
     		}

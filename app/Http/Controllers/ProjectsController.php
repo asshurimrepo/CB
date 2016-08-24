@@ -13,7 +13,7 @@ class ProjectsController extends Controller
     {
     	return auth()->user()
     				 ->projects()
-                     ->orderBy('updated_at', 'desc')
+                     ->orderBy('created_at', 'desc')
     				 ->get();
     }
 
