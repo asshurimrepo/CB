@@ -8,7 +8,7 @@
 @section('content')
   <section class="container" id="upload-section">
 
-    <form action="/upload" method="POST" class="row" id="fileupload">  
+    <form action="/upload" method="POST" class="row" id="fileupload">
         <section class="panel col-md-12 ">
 
             <div class="panel-body" v-if="process_is_done">
@@ -19,7 +19,7 @@
                 <hr>
                 <p>Awesome! Now you can add your video to any page you like. If you have any questions <a href="/help" class="text-danger">Click Here.</a> We would like you to help you feel free to refer to our guides and faqs.</p>
             </div>
-            
+
             <div class="panel-body" v-if="in_progress && !process_is_done">
               <h3 class="upload-header">@{{ process_text }}</h3>
 
@@ -30,7 +30,7 @@
               <div class="progress progress-striped active" v-if="step > 1">
                     <div class="progress-bar progress-bar-primary" role="progressbar" :style="{width: progress + '%'}"></div>
               </div>
-              
+
               <h4 class="funnies" style="text-align:center; font-style: italic; font-weight: 600">
                 "@{{ funnies }}"
               </h4>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="panel-body upload-body" v-if="!in_progress && !process_is_done">
-                    <input type="file" name="file" style="display:none;">
+                    <input type="file" name="file" style="display:none;" accept="video/mp4,video/x-m4v,video/*">
 
                     <button class="btn btn-upload" type="button">
                         <i class="fa fa-cloud-upload"></i>
