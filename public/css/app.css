@@ -12315,8 +12315,7 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
   top: 0;
   left: 0; }
   #project-player-bg #project-player-container {
-    position: fixed;
-    overflow: hidden; }
+    position: fixed; }
 
 #project-player-bg.Project--dimmedbg {
   background: rgba(0, 0, 0, 0.6);

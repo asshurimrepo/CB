@@ -12964,8 +12964,6 @@ exports.default = {
 		playProject: function playProject() {
 			var _this3 = this;
 
-			console.log('Play Project');
-
 			// Dispose Video
 			if (this.video) {
 				this.video.dispose();
@@ -12978,7 +12976,6 @@ exports.default = {
 
 			setTimeout(function () {
 				_this3.is_visible = true;
-
 				setTimeout(function () {
 					return _this3.renderTransparentVideo();
 				}, 300);
@@ -12999,9 +12996,6 @@ exports.default = {
 			$("body").on("click", "a.close-project", function (e) {
 				e.preventDefault();
 				_this3.video.pause();
-
-				console.log('Closed!');
-
 				$('#project-player-bg').fadeOut("fast");
 			});
 
@@ -13017,9 +13011,6 @@ exports.default = {
 
 			// if close on exit is true
 			this.video.on("ended", function () {
-				_this4.is_visible = false;
-				console.log('On Ended');
-
 				if (_this4.project.options.stop_showing.exit_on_end === true) {
 					$('#project-player-bg').fadeOut("fast");
 				}

@@ -10,7 +10,7 @@
 #project-poster {
 	left: 50%;
 	transform: translateX(-50%);
-} 
+}
 
 #project-player-bg{
 	position: fixed;
@@ -19,7 +19,6 @@
 	left: 0;
 	#project-player-container {
 		position: fixed;
-		overflow: hidden;
 		#project-player{}
 	}
 }
