@@ -20,7 +20,9 @@ Route::auth();
 Route::group(['middleware' => 'auth'], function(){
 	Route::get('/home', 'HomeController@index');
 	Route::get('/help', 'PagesController@help');
-	Route::get('/premade', 'PremadeVideosController@index');
+
+	Route::get('/premade/data', 'PremadeVideosController@data');
+	Route::resource('/premade', 'PremadeVideosController');
 
 	Route::resource('project','ProjectsController');
 

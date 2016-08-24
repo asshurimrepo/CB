@@ -11537,7 +11537,17 @@ new _vue2.default({
 	el: "#premade-app",
 
 	ready: function ready() {
+		var _this = this;
+
 		console.log('Ready Premade!');
+		this.$http.get('/premade/data').then(function (response) {
+			return _this.premades = response.data;
+		});
+	},
+
+
+	data: {
+		premades: []
 	}
 });
 
