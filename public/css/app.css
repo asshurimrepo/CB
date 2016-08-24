@@ -12299,6 +12299,16 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
 .textoverlay-container > span {
   padding: 2px 4px; }
 
+#project-player {
+  background: transparent !important;
+  height: auto !important; }
+  #project-player .vjs-fullscreen-control.vjs-control.vjs-button, #project-player .vjs-progress-control.vjs-control {
+    display: none !important; }
+
+#project-poster {
+  left: 50%;
+  transform: translateX(-50%); }
+
 #project-player-bg {
   position: fixed;
   z-index: 1048;

@@ -1,3 +1,17 @@
+#project-player {
+	background: transparent !important;
+	height: auto !important;
+
+	.vjs-fullscreen-control.vjs-control.vjs-button, .vjs-progress-control.vjs-control {
+		display: none !important;
+	}
+}
+
+#project-poster {
+	left: 50%;
+	transform: translateX(-50%);
+} 
+
 #project-player-bg{
 	position: fixed;
 	z-index: 1048;
