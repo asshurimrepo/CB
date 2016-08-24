@@ -187,7 +187,7 @@ export default {
 				this.player_class.position = "Project--topright"
 				this.player_styles.offsets.marginRight = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
-			};
+			}
 
 			if(this.project.options.position == 'bottom-left') {
 				this.player_class.position = "Project--bottomleft";
@@ -199,15 +199,15 @@ export default {
 				this.player_class.position = "Project--bottomright";
 				this.player_styles.offsets.marginRight = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginBottom = this.project.options.offset_y + 'px';
-			};
+			}
 
 			if(this.project.options.dimmed_background == true) {
 				this.player_class.dimmed = "Project--dimmedbg";
-			};
+			}
 
 			if(this.project.options.glass_background == true) {
 				this.player_class.glass = "Project--glassbg";
-			};
+			}
 		},
 
 		resetOffsets() {

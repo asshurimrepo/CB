@@ -4,7 +4,7 @@
 	"offset_y": "",
 	"auto_display": true,
 	"dimmed_background": true,
-	"glass_background": true,
+	"glass_background": false,
 	"stop_showing": {
 		"clicked": true,
 		"closed": true,
