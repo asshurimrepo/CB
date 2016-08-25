@@ -11553,7 +11553,7 @@ new _vue2.default({
 	},
 
 	methods: {
-		addProjects: function addProjects() {
+		addProject: function addProject(filename) {
 			var _this2 = this;
 
 			swal({
@@ -11564,7 +11564,7 @@ new _vue2.default({
 				closeOnConfirm: false,
 				showLoaderOnConfirm: true
 			}, function () {
-				_this2.$http.post('/premade/add-to-project').then(function (response) {
+				_this2.$http.post('/premade/add-to-project', { filename: filename }).then(function (response) {
 					swal("Good job!", "You added new video to your project!", "success");
 				});
 			});

@@ -17,7 +17,7 @@ new Vue({
 	},
 
 	methods: {
-		addProjects(){
+		addProject(filename){
 			swal({
 				 title: "Add to Project?",
 				 text: "click ok to confirm",
@@ -27,7 +27,7 @@ new Vue({
 				 showLoaderOnConfirm: true,
 				},
 				() => {
-					this.$http.post('/premade/add-to-project').then(
+					this.$http.post('/premade/add-to-project', { filename }).then(
 						response => {
 							  swal("Good job!", "You added new video to your project!", "success")
 						}

@@ -42,14 +42,20 @@ class PremadeVideosController extends Controller
         return redirect('/premade');
     }
 
-    public function addToProject()
+    public function addToProject(Request $request)
     {
+        $title = 'New Premade-'. str_random(5);
+        $filename = str_random(5) . $request->get('filename');
+        $email = auth()->user()->email;
+
         $project = new Project;
         $project->user_id = auth()->user()->id;
         $project->filename = $filename;
-        $project->title = $filename;
+        $project->title = $title;
 
         $project->save();
 
+        File::copy("premades/{$request->get('filename')}", "../data/{$email}/done/{$filename}");
+        File::copy("premades/{$request->get('filename')}.png", "../data/{$email}/done/{$filename}.png");
     }
 }
