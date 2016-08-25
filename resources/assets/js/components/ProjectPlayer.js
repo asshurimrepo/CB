@@ -17,6 +17,7 @@ export default {
 			dy: 0,
 			vidtime: 0,
 			vidduration: 0,
+			interval: null,
 			player_styles: {
 				offsets: {
 					marginTop: 0,
@@ -255,6 +256,7 @@ export default {
 				if($(e.target).is('div#project-player-bg')){
 					this.video.pause();
 					$('#project-player-bg').fadeOut("fast");
+					clearInterval(this.interval);
 				}
 				e.preventDefault();
 		        return;
@@ -265,6 +267,7 @@ export default {
 				e.preventDefault();
 				this.video.pause();
 				$('#project-player-bg').fadeOut("fast");
+				clearInterval(this.interval);
 			});
 
 			//close form
@@ -282,6 +285,7 @@ export default {
 			this.video.on("ended", () =>{
 				if(this.project.options.stop_showing.exit_on_end === true){
 					$('#project-player-bg').fadeOut("fast");
+					clearInterval(this.interval);
 				}
 			});
 
@@ -412,13 +416,14 @@ export default {
 		}, //end of projectActions
 
 		addActionsToVideo() {
-			this.video.on("timeupdate",() => {
+			this.interval = setInterval(() => {
 				this.videoElements();
 				this.vidtime = Math.floor(this.video.currentTime());
-			});
+			}, 300);
 		},
 
 		videoElements(){
+
 			//textoverlay show & duration
 			// if the start time is greater than the total duration the textoverlay will display at the end
 			if(this.textoverlaystart > this.vidduration){
@@ -429,9 +434,9 @@ export default {
 							setTimeout(() => {
 								$("#project-text-overlay").fadeOut("fast");
 							},this.textoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -450,9 +455,9 @@ export default {
 							setTimeout(() => {
 								$("#project-text-overlay").fadeOut("fast");
 							},this.textoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -475,9 +480,9 @@ export default {
 							setTimeout(() => {
 								$("#project-clicktocall").fadeOut("fast");
 							},this.clicktocallduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -488,7 +493,6 @@ export default {
 					});
 				}
 
-
 			}else{
 
 				if(this.vidtime === this.clicktocallstart){
@@ -497,9 +501,9 @@ export default {
 							setTimeout(() => {
 								$("#project-clicktocall").fadeOut("fast");
 							},this.clicktocallduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -522,9 +526,10 @@ export default {
 							setTimeout(() => {
 								$("#project-buttonoverlay").fadeOut("fast");
 							},this.buttonoverlayduration);
+							return false;
 						}
 					});
-					return false;
+
 				}
 
 				// if duration is set to 0
@@ -543,9 +548,9 @@ export default {
 							setTimeout(() => {
 								$("#project-buttonoverlay").fadeOut("fast");
 							},this.buttonoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -569,9 +574,9 @@ export default {
 							setTimeout(() => {
 								$("#project-formoverlay").fadeOut("fast");
 							},this.formoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 
@@ -592,9 +597,10 @@ export default {
 							setTimeout(() => {
 								$("#project-formoverlay").fadeOut("fast");
 							},this.formoverlayduration);
+							return false;
 						}
 					});
-					return false;
+
 				}
 
 
@@ -607,6 +613,7 @@ export default {
 				}
 
 			}
+
 			//end of elements
 		}
 

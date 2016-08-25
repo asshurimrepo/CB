@@ -12762,6 +12762,7 @@ exports.default = {
 			dy: 0,
 			vidtime: 0,
 			vidduration: 0,
+			interval: null,
 			player_styles: {
 				offsets: {
 					marginTop: 0,
@@ -12988,6 +12989,7 @@ exports.default = {
 				if ($(e.target).is('div#project-player-bg')) {
 					_this3.video.pause();
 					$('#project-player-bg').fadeOut("fast");
+					clearInterval(_this3.interval);
 				}
 				e.preventDefault();
 				return;
@@ -12998,6 +13000,7 @@ exports.default = {
 				e.preventDefault();
 				_this3.video.pause();
 				$('#project-player-bg').fadeOut("fast");
+				clearInterval(_this3.interval);
 			});
 
 			//close form
@@ -13014,6 +13017,7 @@ exports.default = {
 			this.video.on("ended", function () {
 				if (_this4.project.options.stop_showing.exit_on_end === true) {
 					$('#project-player-bg').fadeOut("fast");
+					clearInterval(_this4.interval);
 				}
 			});
 
@@ -13143,10 +13147,10 @@ exports.default = {
 		addActionsToVideo: function addActionsToVideo() {
 			var _this5 = this;
 
-			this.video.on("timeupdate", function () {
+			this.interval = setInterval(function () {
 				_this5.videoElements();
 				_this5.vidtime = Math.floor(_this5.video.currentTime());
-			});
+			}, 300);
 		},
 		videoElements: function videoElements() {
 			var _this6 = this;
@@ -13161,9 +13165,9 @@ exports.default = {
 							setTimeout(function () {
 								$("#project-text-overlay").fadeOut("fast");
 							}, _this6.textoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -13181,9 +13185,9 @@ exports.default = {
 							setTimeout(function () {
 								$("#project-text-overlay").fadeOut("fast");
 							}, _this6.textoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -13205,9 +13209,9 @@ exports.default = {
 							setTimeout(function () {
 								$("#project-clicktocall").fadeOut("fast");
 							}, _this6.clicktocallduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -13225,9 +13229,9 @@ exports.default = {
 							setTimeout(function () {
 								$("#project-clicktocall").fadeOut("fast");
 							}, _this6.clicktocallduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -13249,9 +13253,9 @@ exports.default = {
 							setTimeout(function () {
 								$("#project-buttonoverlay").fadeOut("fast");
 							}, _this6.buttonoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -13269,9 +13273,9 @@ exports.default = {
 							setTimeout(function () {
 								$("#project-buttonoverlay").fadeOut("fast");
 							}, _this6.buttonoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -13294,9 +13298,9 @@ exports.default = {
 							setTimeout(function () {
 								$("#project-formoverlay").fadeOut("fast");
 							}, _this6.formoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -13315,9 +13319,9 @@ exports.default = {
 							setTimeout(function () {
 								$("#project-formoverlay").fadeOut("fast");
 							}, _this6.formoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -13328,6 +13332,7 @@ exports.default = {
 					});
 				}
 			}
+
 			//end of elements
 		}
 	}
