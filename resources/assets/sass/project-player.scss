@@ -2,13 +2,12 @@
 	background: transparent !important;
 	height: auto !important;
 
-	.vjs-fullscreen-control.vjs-control.vjs-button, .vjs-progress-control.vjs-control {
+	.vjs-fullscreen-control.vjs-control.vjs-button, .vjs-progress-control.vjs-control, .vjs-big-play-button {
 		display: none !important;
 	}
 
-	.vjs-default-skin.vjs-paused .vjs-big-play-button
-	{
-		display: none !important;
+	.seeThru-display {
+		margin-bottom: -2px;
 	}
 }
 

@@ -12302,10 +12302,10 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
 #project-player {
   background: transparent !important;
   height: auto !important; }
-  #project-player .vjs-fullscreen-control.vjs-control.vjs-button, #project-player .vjs-progress-control.vjs-control {
+  #project-player .vjs-fullscreen-control.vjs-control.vjs-button, #project-player .vjs-progress-control.vjs-control, #project-player .vjs-big-play-button {
     display: none !important; }
-  #project-player .vjs-default-skin.vjs-paused .vjs-big-play-button {
-    display: none !important; }
+  #project-player .seeThru-display {
+    margin-bottom: -2px; }
 
 #project-poster {
   left: 50%;
