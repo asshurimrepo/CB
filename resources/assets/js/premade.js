@@ -2,6 +2,8 @@ import Vue from "vue";
 
 Vue.use(require('vue-resource'));
 
+Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+
 new Vue({
 	el: "#premade-app",
 
@@ -12,5 +14,29 @@ new Vue({
 
 	data: {
 		premades: []
+	},
+
+	methods: {
+		addProjects(){
+			swal({
+				 title: "Add to Project?",
+				 text: "click ok to confirm",
+				 type: "info",
+				 showCancelButton: true,
+				 closeOnConfirm: false,
+				 showLoaderOnConfirm: true,
+				},
+				() => {
+					this.$http.post('/premade/add-to-project').then(
+						response => {
+							  swal("Good job!", "You added new video to your project!", "success")
+						}
+					);
+			});
+
+
+		}
 	}
+
+
 });

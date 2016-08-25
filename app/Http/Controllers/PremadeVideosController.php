@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Premade;
+use App\Project;
 use File;
 
 class PremadeVideosController extends Controller
@@ -26,7 +27,7 @@ class PremadeVideosController extends Controller
     	$files = File::allFiles('premades');
 
     	foreach ($files as $file) {
-    		if($file->getExtension() == 'png') 
+    		if($file->getExtension() == 'png')
     		{
     			continue;
     		}
@@ -39,5 +40,16 @@ class PremadeVideosController extends Controller
     	}
 
         return redirect('/premade');
+    }
+
+    public function addToProject()
+    {
+        $project = new Project;
+        $project->user_id = auth()->user()->id;
+        $project->filename = $filename;
+        $project->title = $filename;
+
+        $project->save();
+
     }
 }

@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('/premade/data', 'PremadeVideosController@data');
 	Route::resource('/premade', 'PremadeVideosController');
+	Route::post('/premade/add-to-project', 'PremadeVideosController@addToProject');
 
 	Route::resource('project','ProjectsController');
 

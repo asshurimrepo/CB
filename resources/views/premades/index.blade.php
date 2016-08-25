@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-	
+
 	<section id="premade-app">
 		<div class="row">
                   <div class="col-lg-12">
@@ -23,9 +23,9 @@
 
                                   <td><h4>@{{ premade.title }}</h4></td>
                                   <td>
-                                      
+
                                       <button class="btn btn-primary"><i class="fa fa-play "></i> Preview</button>
-                                      <button class="btn btn-danger"><i class="fa fa-plus "></i> Add to project</button>
+                                      <button class="btn btn-danger" @click="addProjects"><i class="fa fa-plus "></i> Add to project</button>
                                   </td>
                               </tr>
                               </tbody>

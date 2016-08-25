@@ -11523,15 +11523,17 @@ setTimeout(function () {
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":1}],4:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _vue = require("vue");
+var _vue = require('vue');
 
 var _vue2 = _interopRequireDefault(_vue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue2.default.use(require('vue-resource'));
+
+_vue2.default.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 
 new _vue2.default({
 	el: "#premade-app",
@@ -11548,7 +11550,27 @@ new _vue2.default({
 
 	data: {
 		premades: []
+	},
+
+	methods: {
+		addProjects: function addProjects() {
+			var _this2 = this;
+
+			swal({
+				title: "Add to Project?",
+				text: "click ok to confirm",
+				type: "info",
+				showCancelButton: true,
+				closeOnConfirm: false,
+				showLoaderOnConfirm: true
+			}, function () {
+				_this2.$http.post('/premade/add-to-project').then(function (response) {
+					swal("Good job!", "You added new video to your project!", "success");
+				});
+			});
+		}
 	}
+
 });
 
 },{"vue":3,"vue-resource":2}]},{},[4]);
