@@ -12898,7 +12898,7 @@ exports.default = {
 		renderTransparentVideo: function renderTransparentVideo() {
 			var _this2 = this;
 
-			this.video = videojs('project-player', { "controls": true, "preload": "auto" });
+			this.video = videojs('project-player');
 
 			this.seeThru = seeThru.create("#project-player_html5_api", { start: 'stop', end: 'stop' });
 

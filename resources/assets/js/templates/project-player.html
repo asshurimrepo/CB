@@ -4,11 +4,11 @@
      :style="[player_styles.offsets]"
      :class="[player_class.position, player_class.glass]"
   >
-  <!-- <div class="loader-3"></div> -->
+  <div class="loader-3"></div>
 
     <!-- textoverlay -->
     <div v-if="has_Textoverlay" id="project-text-overlay"
-        :class="[textoverlay_class.valignment, textoverlay_class.alignment]"
+        :class="[textoverlay_class.valignment, textoverlay_class.alignment, 'project-element']"
         :style="{ fontFamily:project.actions.textoverlay_fontfamily,
                   fontSize:project.actions.textoverlay_fontsize+'px',
                   fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
@@ -37,7 +37,7 @@
     <!-- click to call -->
     <div v-if="has_Phonenumber"
          id="project-clicktocall"
-         :class="[clicktocall_class.valignment, clicktocall_class.alignment]"
+         :class="[clicktocall_class.valignment, clicktocall_class.alignment, 'project-element']"
          :style="{ fontFamily:project.actions.clicktocall_fontfamily,
                    fontSize:project.actions.clicktocall_fontsize+'px',
                    fontWeight: project.actions.clicktocall_bold ? 'bold' : null,
@@ -61,7 +61,7 @@
     <!-- button overlay -->
     <div v-if="has_Buttonoverlay"
         id="project-buttonoverlay"
-        :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment]"
+        :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, 'project-element']"
         :style="{ fontFamily:project.actions.buttonoverlay_fontfamily,
          fontSize:project.actions.buttonoverlay_fontsize+'px',
          fontWeight: project.actions.buttonoverlay_bold ? 'bold' : null,
@@ -80,7 +80,7 @@
 
     <!-- form overlay -->
 
-    <div v-if="has_Autoresponder" id="project-formoverlay">
+    <div v-if="has_Autoresponder" id="project-formoverlay" class="project-element">
           <section class="panel">
             <a href="#" class="close-form text-danger"><i class="fa fa-times"></i></a>
             <header class="panel-heading text-center">
@@ -132,11 +132,11 @@
           </section>
     </div>
 
-    <a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
 
      <div id="video-section">
 
      </div>
+
 
   </div> <!-- end of project-player-container -->
 </div> <!-- end of player background -->
