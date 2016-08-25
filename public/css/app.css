@@ -12304,6 +12304,8 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
   height: auto !important; }
   #project-player .vjs-fullscreen-control.vjs-control.vjs-button, #project-player .vjs-progress-control.vjs-control {
     display: none !important; }
+  #project-player .vjs-default-skin.vjs-paused .vjs-big-play-button {
+    display: none !important; }
 
 #project-poster {
   left: 50%;

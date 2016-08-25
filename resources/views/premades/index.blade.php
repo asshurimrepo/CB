@@ -25,7 +25,7 @@
                                   <td>
 
                                       <button class="btn btn-primary"><i class="fa fa-play "></i> Preview</button>
-                                      <button class="btn btn-danger" @click="addProjects"><i class="fa fa-plus "></i> Add to project</button>
+                                      <button class="btn btn-danger" @click="addProject(premade.filename)"><i class="fa fa-plus "></i> Add to project</button>
                                   </td>
                               </tr>
                               </tbody>

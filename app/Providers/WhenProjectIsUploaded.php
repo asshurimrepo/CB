@@ -10,6 +10,7 @@ use Log;
 
 class WhenProjectIsUploaded extends ServiceProvider
 {
+
     /**
      * Bootstrap the application services.
      *
@@ -21,7 +22,15 @@ class WhenProjectIsUploaded extends ServiceProvider
             $project->options = File::get('../resources/default/options.json');
             $project->actions = File::get('../resources/default/actions.json');
             $project->save();
-            // event(new VideoWasUploaded($project));
+        });
+
+        Project::deleted(function ($project) {
+            $email = auth()->user()->email;
+            
+            File::delete(
+                "../data/{$email}/done/{$project->filename}", 
+                "../data/{$email}/done/{$project->filename}.png"
+            );
         });
     }
 

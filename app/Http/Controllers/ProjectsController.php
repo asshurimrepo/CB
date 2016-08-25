@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Project;
+use File;
 
 class ProjectsController extends Controller
 {
@@ -15,6 +16,11 @@ class ProjectsController extends Controller
     				 ->projects()
                      ->orderBy('created_at', 'desc')
     				 ->get();
+    }
+
+    public function show()
+    {
+        return view('projects.show');
     }
 
     public function destroy(Project $project)
