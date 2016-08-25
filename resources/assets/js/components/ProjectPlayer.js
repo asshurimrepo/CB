@@ -4,7 +4,7 @@ export default {
 	template: require('../templates/project-player.html'),
 
 	ready(){
-		// this.addActionsToVideo();
+
 	},
 
 	props: ['project'],
@@ -155,13 +155,15 @@ export default {
 		renderTransparentVideo() {
 			this.video = videojs('project-player');
 
-			this.addActionsToVideo();
-
 			this.seeThru = seeThru.create("#project-player_html5_api", {start : 'stop', end : 'stop'});
 
-			this.seeThru.ready(() => {
-				this.video.play();
-				this.vidduration = Math.floor(this.video.duration());
+			this.video.ready(() => {
+				this.seeThru.ready(() =>{
+					$(".loader-3").fadeOut("fast");
+					this.video.play();
+					this.vidduration = Math.floor(this.video.duration());
+					this.addActionsToVideo();
+				});
 			});
 
 			this.projectOptions();
@@ -222,11 +224,13 @@ export default {
 			// Dispose Video
 			if(this.video){
 				this.video.dispose();
+				$(".project-element").hide();
 			}
 
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
 			let video_template = `
-			<video id="project-player" poster="/image/${this.project.filename}" class="video-js" preload="auto" data-setup="{}">
+			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
+			<video id="project-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}"}'>
 
 		          <source src="/video/${this.project.filename}" type="video/mp4">
 
@@ -284,7 +288,7 @@ export default {
 			// if close on click is true
 			if(this.project.options.stop_showing.clicked === true){
 				$("#project-player-container").on("click",(e) => {
-					if($(e.target).is('video#project-player_html5_api')){
+					if($(e.target).is('canvas.seeThru-display')){
 						this.video.pause();
 						$('#project-player-bg').fadeOut("fast");
 					}
@@ -319,7 +323,7 @@ export default {
 			//link url
 			if(url_length > 0){
 				$("#project-player-container").one("click",(e) => {
-					if($(e.target).is('video#project-player_html5_api')){
+					if($(e.target).is('canvas.seeThru-display')){
 						window.open (url, '_blank');
 			        }
 			        e.preventDefault();
@@ -408,10 +412,13 @@ export default {
 		}, //end of projectActions
 
 		addActionsToVideo() {
-
 			this.video.on("timeupdate",() => {
-			this.vidtime = Math.floor(this.video.currentTime());
+				this.videoElements();
+				this.vidtime = Math.floor(this.video.currentTime());
+			});
+		},
 
+		videoElements(){
 			//textoverlay show & duration
 			// if the start time is greater than the total duration the textoverlay will display at the end
 			if(this.textoverlaystart > this.vidduration){
@@ -457,7 +464,6 @@ export default {
 				}
 
 			}
-
 
 			//clicktocall show & duration
 			// if the start time is greater than the total duration the clicktocall will display at the end
@@ -554,6 +560,7 @@ export default {
 
 			//formoverlay show & duration
 			// if the start time is greater than the total duration the formoverlay will display at the end
+
 			if(this.formoverlaystart > this.vidduration){
 
 				if(this.vidtime === this.vidduration){
@@ -579,6 +586,7 @@ export default {
 			}else{
 
 				if(this.vidtime === this.formoverlaystart){
+
 					$("#project-formoverlay").fadeIn("fast",() =>{
 						if(this.formoverlayduration > 0){
 							setTimeout(() => {
@@ -599,9 +607,9 @@ export default {
 				}
 
 			}
-
-		});
+			//end of elements
 		}
+
 
 	}
 }
