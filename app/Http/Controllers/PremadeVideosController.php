@@ -33,7 +33,7 @@ class PremadeVideosController extends Controller
     		}
 
     		Premade::create([
-    			'title' => $file->getFilename(),
+    			'title' => str_replace($file->getExtension(), "", $file->getFilename()),
     			'filename' => $file->getFilename(),
     			'active' => 1
     		]);
@@ -44,7 +44,9 @@ class PremadeVideosController extends Controller
 
     public function addToProject(Request $request)
     {
-        $title = 'New Premade-'. str_random(5);
+        $exploded_filename = explode('.', $request->get('filename'));
+        $title = $exploded_filename[0];
+        
         $filename = str_random(5) . $request->get('filename');
         $email = auth()->user()->email;
 
