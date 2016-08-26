@@ -4,7 +4,6 @@ export default {
 	template: require('../templates/project-player.html'),
 
 	ready(){
-
 	},
 
 	props: ['project'],
@@ -17,7 +16,6 @@ export default {
 			dy: 0,
 			vidtime: 0,
 			vidduration: 0,
-			interval: null,
 			player_styles: {
 				offsets: {
 					marginTop: 0,
@@ -26,7 +24,9 @@ export default {
 					marginRight: 0
 				}
 			},
-
+			embed_class: {
+				position: ""
+			},
 			player_class: {
 				position: "",
 				dimmed: false,
@@ -70,6 +70,16 @@ export default {
 	},
 
 	computed: {
+
+		has_Video(){
+			let embed = this.project.options.external_video.embed_code;
+
+			if(embed === ""){
+				return false;
+			}
+
+			return true;
+		},
 		//textoverlay
 		has_Textoverlay(){
 			let line1 = this.project.actions.textoverlay_line_1;
@@ -164,6 +174,7 @@ export default {
 					this.video.play();
 					this.vidduration = Math.floor(this.video.duration());
 					this.addActionsToVideo();
+					this.videoEnded();
 				});
 			});
 
@@ -178,30 +189,35 @@ export default {
 				this.player_class.position = "Project--centered";
 				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--centered";
 			}
 
 			if(this.project.options.position == 'top-left') {
 				this.player_class.position = "Project--topleft";
 				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--topleft";
 			}
 
 			if(this.project.options.position == 'top-right') {
 				this.player_class.position = "Project--topright"
 				this.player_styles.offsets.marginRight = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--topright";
 			}
 
 			if(this.project.options.position == 'bottom-left') {
 				this.player_class.position = "Project--bottomleft";
 				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginBottom = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--bottomleft";
 			}
 
 			if(this.project.options.position == 'bottom-right') {
 				this.player_class.position = "Project--bottomright";
 				this.player_styles.offsets.marginRight = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginBottom = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--bottomright";
 			}
 
 			if(this.project.options.dimmed_background == true) {
@@ -256,7 +272,6 @@ export default {
 				if($(e.target).is('div#project-player-bg')){
 					this.video.pause();
 					$('#project-player-bg').fadeOut("fast");
-					clearInterval(this.interval);
 				}
 				e.preventDefault();
 		        return;
@@ -267,7 +282,6 @@ export default {
 				e.preventDefault();
 				this.video.pause();
 				$('#project-player-bg').fadeOut("fast");
-				clearInterval(this.interval);
 			});
 
 			//close form
@@ -277,6 +291,15 @@ export default {
 				return false;
 			});
 
+			//close video embed
+			$("body").on("click","div#project-embed>a.close-embed", (e) => {
+				e.preventDefault();
+				let project_embed = $("div#project-embed").find('iframe');
+				let embed_source = $(project_embed).attr("src");
+				$(project_embed).attr("src", embed_source);
+				$('div#project-player-container>div#project-embed').fadeOut("fast");
+				return false;
+			});
 
 		},
 
@@ -285,7 +308,6 @@ export default {
 			this.video.on("ended", () =>{
 				if(this.project.options.stop_showing.exit_on_end === true){
 					$('#project-player-bg').fadeOut("fast");
-					clearInterval(this.interval);
 				}
 			});
 
@@ -416,10 +438,10 @@ export default {
 		}, //end of projectActions
 
 		addActionsToVideo() {
-			this.interval = setInterval(() => {
+			this.video.on("timeupdate",() => {
 				this.videoElements();
 				this.vidtime = Math.floor(this.video.currentTime());
-			}, 300);
+			});
 		},
 
 		videoElements(){
@@ -613,8 +635,21 @@ export default {
 				}
 
 			}
-
 			//end of elements
+		},
+
+		videoEnded(){
+			this.video.on("ended", () => {
+				if(this.project.options.external_video.embed_code != ""){
+					let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
+					$("div#project-embed").fadeIn("fast");
+					if (embed_duration > 0){
+						setTimeout(() => {
+							$("div#project-embed").fadeOut("fast");
+						},embed_duration);
+					}
+				}
+			});
 		}
 
 

@@ -12,11 +12,6 @@
 	}
 }
 
-#project-poster {
-	left: 50%;
-	transform: translateX(-50%);
-}
-
 #project-player-bg{
 	position: fixed;
 	z-index: 1048;
@@ -252,4 +247,46 @@
     height: 100%;
     background: url('../img/vidload.gif') 50% 50% no-repeat transparent;
     overflow: hidden;
+}
+
+div#project-embed.Embed--centered{
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div#project-embed.Embed--topleft{
+	top: 0;
+    left: 0;
+}
+
+div#project-embed.Embed--topright{
+	top: 0;
+    right: 0;
+}
+
+div#project-embed.Embed--bottomleft{
+	bottom: 0;
+    left: 0;
+}
+
+div#project-embed.Embed--bottomright{
+	bottom: 0;
+    right: 0;
+}
+
+
+#project-embed{
+	position: inherit;
+	display: none;
+	z-index: 1050;
+	margin-bottom: -4px;
+}
+
+div#project-embed>a.close-embed{
+	position: absolute;
+    z-index: 1049;
+    right: 4px;
+    top: 0;
+    float: right;
 }
