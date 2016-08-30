@@ -166,21 +166,65 @@ export default {
 		renderTransparentVideo() {
 			this.video = videojs('project-player', { "controls": true, "preload": "auto" });
 
-			this.seeThru = seeThru.create("#project-player_html5_api", {start : 'stop', end : 'stop'});
+			// this.seeThru = seeThru.create("#project-player_html5_api", {start : 'stop', end : 'stop'});
 
 			this.video.ready(() => {
-				this.seeThru.ready(() =>{
 					$(".loader-3").fadeOut("fast");
 					this.video.play();
 					this.vidduration = Math.floor(this.video.duration());
 					this.addActionsToVideo();
 					this.videoEnded();
-				});
+					this.startProcessing();
 			});
 
 			this.projectOptions();
 			this.projectActions();
 		},
+
+		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		processFrame() {
+			var vPlayer =  $("video#project-player_html5_api").get(0);
+			var buffer = $("canvas#buffer").get(0).getContext('2d');
+			var output = $("canvas#output").get(0).getContext('2d');
+			var w = 400;
+			var h = 450/2;
+			var dy = 0;
+		 	var frstfrm = true;
+
+			buffer.drawImage(vPlayer, 0, 0);
+
+			//var	image=buffer.getImageData(0, 0, w, h-dy-7);
+			//var alpha=buffer.getImageData(0, h-dy, w, h-dy-7);
+			var	image=buffer.getImageData(0, 0, w, h-dy-0);
+			var alpha=buffer.getImageData(0, h-dy, w, h-dy-0);
+			var	imageData=image.data;
+			var	alphaData=alpha.data;
+
+			if(frstfrm) {
+				if(navigator.userAgent.toLowerCase().indexOf('firefox')<0) {
+					if(alphaData[w*4]<50) dy=Math.round(6-(400-w)/50)+1;
+				}
+		      frstfrm=false;
+			} else {
+				var strt=w*0+3;
+				var len=imageData.length;
+				for(var i=strt; i<len; i+=4) imageData[i]=alphaData[i-1];
+
+		//		output.putImageData(image, 0, 0, 0, 0, w, h-6);
+				output.putImageData(image, 0, 0, 0, dy, w, h-dy);
+		    }
+		},
+
+		startProcessing() {
+			var timer = setInterval(this.processFrame(), 100);
+		},
+
+		stopProcessing() {
+			clearInterval(timer);
+		},
+
+		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 		updatePlayer(){
 			this.resetOffsets();
@@ -247,7 +291,7 @@ export default {
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
 			let video_template = `
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
-			<video id="project-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}"}'>
+			<video id="project-player" class="video-js" preload="auto" width="400" height="450" data-setup='{"poster":"/image/${this.project.filename}"}'>
 
 		          <source src="/video/${this.project.filename}" type="video/mp4">
 
@@ -256,7 +300,11 @@ export default {
 		            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
 		          </p>
 
-		   	</video>`;
+		   	</video>
+
+		    <canvas  width="400" height="450" id="buffer"></canvas>
+			<canvas width="400" height="450" id="output"></canvas>
+		   	`;
 
 
 		   	$("#video-section").empty().html(video_template);

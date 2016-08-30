@@ -1,6 +1,7 @@
 #project-player {
 	background: transparent !important;
 	height: auto !important;
+	display: none;
 
 	.vjs-fullscreen-control.vjs-control.vjs-button, .vjs-progress-control.vjs-control {
 		display: none !important;

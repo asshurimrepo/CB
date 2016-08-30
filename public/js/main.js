@@ -12912,21 +12912,66 @@ exports.default = {
 
 			this.video = videojs('project-player', { "controls": true, "preload": "auto" });
 
-			this.seeThru = seeThru.create("#project-player_html5_api", { start: 'stop', end: 'stop' });
+			// this.seeThru = seeThru.create("#project-player_html5_api", {start : 'stop', end : 'stop'});
 
 			this.video.ready(function () {
-				_this2.seeThru.ready(function () {
-					$(".loader-3").fadeOut("fast");
-					_this2.video.play();
-					_this2.vidduration = Math.floor(_this2.video.duration());
-					_this2.addActionsToVideo();
-					_this2.videoEnded();
-				});
+				$(".loader-3").fadeOut("fast");
+				_this2.video.play();
+				_this2.vidduration = Math.floor(_this2.video.duration());
+				_this2.addActionsToVideo();
+				_this2.videoEnded();
+				_this2.startProcessing();
 			});
 
 			this.projectOptions();
 			this.projectActions();
 		},
+
+
+		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		processFrame: function processFrame() {
+			var vPlayer = $("video#project-player_html5_api").get(0);
+			var buffer = $("canvas#buffer").get(0).getContext('2d');
+			var output = $("canvas#output").get(0).getContext('2d');
+			var w = 400;
+			var h = 450 / 2;
+			var dy = 0;
+			var frstfrm = true;
+
+			buffer.drawImage(vPlayer, 0, 0);
+
+			//var	image=buffer.getImageData(0, 0, w, h-dy-7);
+			//var alpha=buffer.getImageData(0, h-dy, w, h-dy-7);
+			var image = buffer.getImageData(0, 0, w, h - dy - 0);
+			var alpha = buffer.getImageData(0, h - dy, w, h - dy - 0);
+			var imageData = image.data;
+			var alphaData = alpha.data;
+
+			if (frstfrm) {
+				if (navigator.userAgent.toLowerCase().indexOf('firefox') < 0) {
+					if (alphaData[w * 4] < 50) dy = Math.round(6 - (400 - w) / 50) + 1;
+				}
+				frstfrm = false;
+			} else {
+				var strt = w * 0 + 3;
+				var len = imageData.length;
+				for (var i = strt; i < len; i += 4) {
+					imageData[i] = alphaData[i - 1];
+				} //		output.putImageData(image, 0, 0, 0, 0, w, h-6);
+				output.putImageData(image, 0, 0, 0, dy, w, h - dy);
+			}
+		},
+		startProcessing: function startProcessing() {
+			var timer = setInterval(this.processFrame(), 100);
+		},
+		stopProcessing: function stopProcessing() {
+			clearInterval(timer);
+		},
+
+
+		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 		updatePlayer: function updatePlayer() {
 			this.resetOffsets();
 
@@ -12989,7 +13034,7 @@ exports.default = {
 			}
 
 			var delay = parseInt(this.project.options.auto_display_after) * 1000;
-			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>';
+			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" width="400" height="450" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t    <canvas  width="400" height="450" id="buffer"></canvas>\n\t\t\t<canvas width="400" height="450" id="output"></canvas>\n\t\t   \t';
 
 			$("#video-section").empty().html(video_template);
 
