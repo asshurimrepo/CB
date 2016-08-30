@@ -6,6 +6,15 @@
   >
   <div class="loader-3"></div>
 
+  <!-- embed video -->
+   <div v-if="has_Video"
+        id="project-embed"
+        :class="[embed_class.position]"
+    >
+      <a href="#" class="close-embed text-danger"><i class="fa fa-times"></i></a>
+      <span v-html="project.options.external_video.embed_code"></span>
+    </div>
+
     <!-- textoverlay -->
     <div v-if="has_Textoverlay" id="project-text-overlay"
         :class="[textoverlay_class.valignment, textoverlay_class.alignment, 'project-element']"

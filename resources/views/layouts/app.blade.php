@@ -47,7 +47,7 @@
 	            </button>
 
 	            <!--logo start-->
-	            <a href="/" class="logo">Caster<span>Buddy</span></a>
+	            <a href="/" class="logo hidden-xs">Caster<span>Buddy</span></a>
 	            <!--logo end-->
 	            <div class="horizontal-menu navbar-collapse collapse ">
 	                <ul class="nav nav-caster navbar-nav">

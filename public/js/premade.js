@@ -11558,7 +11558,7 @@ new _vue2.default({
 
 			swal({
 				title: "Add to Project?",
-				text: "click ok to confirm",
+				text: "Press OK to confirm",
 				type: "info",
 				showCancelButton: true,
 				closeOnConfirm: false,

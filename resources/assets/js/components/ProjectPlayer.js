@@ -4,7 +4,6 @@ export default {
 	template: require('../templates/project-player.html'),
 
 	ready(){
-
 	},
 
 	props: ['project'],
@@ -25,7 +24,9 @@ export default {
 					marginRight: 0
 				}
 			},
-
+			embed_class: {
+				position: ""
+			},
 			player_class: {
 				position: "",
 				dimmed: false,
@@ -69,6 +70,16 @@ export default {
 	},
 
 	computed: {
+
+		has_Video(){
+			let embed = this.project.options.external_video.embed_code;
+
+			if(embed === ""){
+				return false;
+			}
+
+			return true;
+		},
 		//textoverlay
 		has_Textoverlay(){
 			let line1 = this.project.actions.textoverlay_line_1;
@@ -163,6 +174,7 @@ export default {
 					this.video.play();
 					this.vidduration = Math.floor(this.video.duration());
 					this.addActionsToVideo();
+					this.videoEnded();
 				});
 			});
 
@@ -177,30 +189,35 @@ export default {
 				this.player_class.position = "Project--centered";
 				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--centered";
 			}
 
 			if(this.project.options.position == 'top-left') {
 				this.player_class.position = "Project--topleft";
 				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--topleft";
 			}
 
 			if(this.project.options.position == 'top-right') {
 				this.player_class.position = "Project--topright"
 				this.player_styles.offsets.marginRight = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--topright";
 			}
 
 			if(this.project.options.position == 'bottom-left') {
 				this.player_class.position = "Project--bottomleft";
 				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginBottom = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--bottomleft";
 			}
 
 			if(this.project.options.position == 'bottom-right') {
 				this.player_class.position = "Project--bottomright";
 				this.player_styles.offsets.marginRight = this.project.options.offset_x + 'px';
 				this.player_styles.offsets.marginBottom = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--bottomright";
 			}
 
 			if(this.project.options.dimmed_background == true) {
@@ -274,6 +291,15 @@ export default {
 				return false;
 			});
 
+			//close video embed
+			$("body").on("click","div#project-embed>a.close-embed", (e) => {
+				e.preventDefault();
+				let project_embed = $("div#project-embed").find('iframe');
+				let embed_source = $(project_embed).attr("src");
+				$(project_embed).attr("src", embed_source);
+				$('div#project-player-container>div#project-embed').fadeOut("fast");
+				return false;
+			});
 
 		},
 
@@ -419,6 +445,7 @@ export default {
 		},
 
 		videoElements(){
+
 			//textoverlay show & duration
 			// if the start time is greater than the total duration the textoverlay will display at the end
 			if(this.textoverlaystart > this.vidduration){
@@ -429,9 +456,9 @@ export default {
 							setTimeout(() => {
 								$("#project-text-overlay").fadeOut("fast");
 							},this.textoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -450,9 +477,9 @@ export default {
 							setTimeout(() => {
 								$("#project-text-overlay").fadeOut("fast");
 							},this.textoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -475,9 +502,9 @@ export default {
 							setTimeout(() => {
 								$("#project-clicktocall").fadeOut("fast");
 							},this.clicktocallduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -488,7 +515,6 @@ export default {
 					});
 				}
 
-
 			}else{
 
 				if(this.vidtime === this.clicktocallstart){
@@ -497,9 +523,9 @@ export default {
 							setTimeout(() => {
 								$("#project-clicktocall").fadeOut("fast");
 							},this.clicktocallduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -522,9 +548,10 @@ export default {
 							setTimeout(() => {
 								$("#project-buttonoverlay").fadeOut("fast");
 							},this.buttonoverlayduration);
+							return false;
 						}
 					});
-					return false;
+
 				}
 
 				// if duration is set to 0
@@ -543,9 +570,9 @@ export default {
 							setTimeout(() => {
 								$("#project-buttonoverlay").fadeOut("fast");
 							},this.buttonoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 				// if duration is set to 0
@@ -569,9 +596,9 @@ export default {
 							setTimeout(() => {
 								$("#project-formoverlay").fadeOut("fast");
 							},this.formoverlayduration);
+							return false;
 						}
 					});
-					return false;
 				}
 
 
@@ -592,9 +619,10 @@ export default {
 							setTimeout(() => {
 								$("#project-formoverlay").fadeOut("fast");
 							},this.formoverlayduration);
+							return false;
 						}
 					});
-					return false;
+
 				}
 
 
@@ -608,6 +636,20 @@ export default {
 
 			}
 			//end of elements
+		},
+
+		videoEnded(){
+			this.video.on("ended", () => {
+				if(this.project.options.external_video.embed_code != ""){
+					let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
+					$("div#project-embed").fadeIn("fast");
+					if (embed_duration > 0){
+						setTimeout(() => {
+							$("div#project-embed").fadeOut("fast");
+						},embed_duration);
+					}
+				}
+			});
 		}
 
 
