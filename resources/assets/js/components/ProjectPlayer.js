@@ -645,6 +645,9 @@ export default {
 					$("div#project-embed").fadeIn("fast");
 					if (embed_duration > 0){
 						setTimeout(() => {
+							let project_embed = $("div#project-embed").find('iframe');
+							let embed_source = $(project_embed).attr("src");
+							$(project_embed).attr("src", embed_source);
 							$("div#project-embed").fadeOut("fast");
 						},embed_duration);
 					}
