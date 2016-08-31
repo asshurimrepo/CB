@@ -1,19 +1,28 @@
-var seeThru = require('seethru');
+// var seeThru = require('seethru');
 
 export default {
 	template: require('../templates/project-player.html'),
 
 	ready(){
+
 	},
 
 	props: ['project'],
 
 	data() {
 		return {
+			/*Player*/
+			vPlayer: null,
+			buffer: null,
+			output: null,
+			w: 400,
+			h: 450/2,
+			dy: 0,
+			first_frame: true,
+			timer: null,
 			is_visible: false,
 			video: null,
 			seeThru: null,
-			dy: 0,
 			vidtime: 0,
 			vidduration: 0,
 			player_styles: {
@@ -164,63 +173,55 @@ export default {
 
 	methods: {
 		renderTransparentVideo() {
-			this.video = videojs('project-player', { "controls": true, "preload": "auto" });
-
-			// this.seeThru = seeThru.create("#project-player_html5_api", {start : 'stop', end : 'stop'});
+			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
 
 			this.video.ready(() => {
-					$(".loader-3").fadeOut("fast");
-					this.video.play();
-					this.vidduration = Math.floor(this.video.duration());
-					this.addActionsToVideo();
-					this.videoEnded();
-					this.startProcessing();
+				$(".loader-3").fadeOut("fast");
+				this.video.play();
+				this.addActionsToVideo();
+				this.videoEnded();
+				this.startProcessing();
+
+				$("#project-player").prepend($("canvas#output"));
+				$("canvas#output").get(0).setAttribute("width", this.w);
+				$("canvas#output").get(0).setAttribute("height", this.h);
 			});
 
 			this.projectOptions();
 			this.projectActions();
+
+			this.vPlayer = document.getElementById("project-player_html5_api");
 		},
 
 		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 		processFrame() {
-			var vPlayer =  $("video#project-player_html5_api").get(0);
-			var buffer = $("canvas#buffer").get(0).getContext('2d');
-			var output = $("canvas#output").get(0).getContext('2d');
-			var w = 400;
-			var h = 450/2;
-			var dy = 0;
-		 	var frstfrm = true;
+			this.buffer.drawImage(this.vPlayer, 0, 0);
 
-			buffer.drawImage(vPlayer, 0, 0);
-
-			//var	image=buffer.getImageData(0, 0, w, h-dy-7);
-			//var alpha=buffer.getImageData(0, h-dy, w, h-dy-7);
-			var	image=buffer.getImageData(0, 0, w, h-dy-0);
-			var alpha=buffer.getImageData(0, h-dy, w, h-dy-0);
+			var	image=this.buffer.getImageData(0, 0, this.w, this.h-this.dy-0);
+			var alpha=this.buffer.getImageData(0, this.h-this.dy, this.w, this.h-this.dy-0);
 			var	imageData=image.data;
 			var	alphaData=alpha.data;
-
-			if(frstfrm) {
+			if(this.frstfrm) {
 				if(navigator.userAgent.toLowerCase().indexOf('firefox')<0) {
-					if(alphaData[w*4]<50) dy=Math.round(6-(400-w)/50)+1;
+					if(alphaData[this.w*4]<50) this.dy=Math.round(6-(400-w)/50)+1;
 				}
-		      frstfrm=false;
+		      this.frstfrm=false;
 			} else {
-				var strt=w*0+3;
+				var strt=this.w*0+3;
 				var len=imageData.length;
 				for(var i=strt; i<len; i+=4) imageData[i]=alphaData[i-1];
 
-		//		output.putImageData(image, 0, 0, 0, 0, w, h-6);
-				output.putImageData(image, 0, 0, 0, dy, w, h-dy);
+				this.output.putImageData(image, 0, 0, 0, this.dy, this.w, this.h-this.dy);
 		    }
 		},
 
 		startProcessing() {
-			var timer = setInterval(this.processFrame(), 100);
+			this.timer = setInterval(() => { this.processFrame(); }, 100);
 		},
 
 		stopProcessing() {
-			clearInterval(timer);
+			clearInterval(this.timer);
 		},
 
 		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -302,17 +303,23 @@ export default {
 
 		   	</video>
 
-		    <canvas  width="400" height="450" id="buffer"></canvas>
-			<canvas width="400" height="450" id="output"></canvas>
+		    <canvas width="400" height="450" id="buffer"></canvas>
+			<canvas id="output"></canvas>
 		   	`;
 
 
 		   	$("#video-section").empty().html(video_template);
 
+		   	this.buffer = $("canvas#buffer").get(0).getContext('2d');
+			this.output = $("canvas#output").get(0).getContext('2d');
+
+
 			setTimeout(() => {
 				this.is_visible = true;
 				setTimeout(() => this.renderTransparentVideo(), 300);
 				$('#project-player-bg').fadeIn("fast");
+
+
 			}, delay);
 
 			// close on click background
@@ -362,7 +369,7 @@ export default {
 			// if close on click is true
 			if(this.project.options.stop_showing.clicked === true){
 				$("#project-player-container").on("click",(e) => {
-					if($(e.target).is('canvas.seeThru-display')){
+					if($(e.target).is('canvas#output')){
 						this.video.pause();
 						$('#project-player-bg').fadeOut("fast");
 					}
@@ -397,7 +404,7 @@ export default {
 			//link url
 			if(url_length > 0){
 				$("#project-player-container").one("click",(e) => {
-					if($(e.target).is('canvas.seeThru-display')){
+					if($(e.target).is('canvas#output')){
 						window.open (url, '_blank');
 			        }
 			        e.preventDefault();
@@ -489,14 +496,15 @@ export default {
 			this.video.on("timeupdate",() => {
 				this.videoElements();
 				this.vidtime = Math.floor(this.video.currentTime());
+				this.vidduration = Math.floor(this.video.duration());
 			});
 		},
 
 		videoElements(){
-
 			//textoverlay show & duration
 			// if the start time is greater than the total duration the textoverlay will display at the end
-			if(this.textoverlaystart > this.vidduration){
+
+			if(this.textoverlaystart > this.vidduration && this.vidduration != 0){
 
 				if(this.vidtime === this.vidduration){
 					$("#project-text-overlay").fadeIn("fast",() =>{
@@ -518,6 +526,7 @@ export default {
 				}
 
 			}else{
+
 
 				if(this.vidtime === this.textoverlaystart){
 					$("#project-text-overlay").fadeIn("fast",() =>{
@@ -542,7 +551,7 @@ export default {
 
 			//clicktocall show & duration
 			// if the start time is greater than the total duration the clicktocall will display at the end
-			if(this.clicktocallstart > this.vidduration){
+			if(this.clicktocallstart > this.vidduration  && this.vidduration != 0){
 
 				if(this.vidtime === this.vidduration){
 					$("#project-clicktocall").fadeIn("fast",() =>{
@@ -588,7 +597,7 @@ export default {
 
 			//buttonoverlay show & duration
 			// if the start time is greater than the total duration the buttonoverlay will display at the end
-			if(this.buttonoverlaystart > this.vidduration){
+			if(this.buttonoverlaystart > this.vidduration  && this.vidduration != 0){
 
 				if(this.vidtime === this.vidduration){
 					$("#project-buttonoverlay").fadeIn("fast",() =>{
@@ -636,7 +645,7 @@ export default {
 			//formoverlay show & duration
 			// if the start time is greater than the total duration the formoverlay will display at the end
 
-			if(this.formoverlaystart > this.vidduration){
+			if(this.formoverlaystart > this.vidduration  && this.vidduration != 0){
 
 				if(this.vidtime === this.vidduration){
 					$("#project-formoverlay").fadeIn("fast",() =>{
@@ -684,10 +693,12 @@ export default {
 
 			}
 			//end of elements
+
 		},
 
 		videoEnded(){
 			this.video.on("ended", () => {
+				this.stopProcessing();
 				if(this.project.options.external_video.embed_code != ""){
 					let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
 					$("div#project-embed").fadeIn("fast");
