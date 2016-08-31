@@ -16,7 +16,7 @@ export default {
 			buffer: null,
 			output: null,
 			w: 400,
-			h: 450/2,
+			h: 0,
 			dy: 0,
 			first_frame: true,
 			timer: null,
@@ -179,12 +179,15 @@ export default {
 				$(".loader-3").fadeOut("fast");
 				this.video.play();
 				this.addActionsToVideo();
-				this.videoEnded();
+				this.h = this.video.height()/2;
+			   	this.buffer = $("canvas#buffer").get(0).getContext('2d');
+				this.output = $("canvas#output").get(0).getContext('2d');
 				this.startProcessing();
-
 				$("#project-player").prepend($("canvas#output"));
+				$("canvas#buffer").get(0).setAttribute("height", this.h*2);
 				$("canvas#output").get(0).setAttribute("width", this.w);
 				$("canvas#output").get(0).setAttribute("height", this.h);
+				this.videoEnded();
 			});
 
 			this.projectOptions();
@@ -303,15 +306,13 @@ export default {
 
 		   	</video>
 
-		    <canvas width="400" height="450" id="buffer"></canvas>
+		    <canvas width="400" id="buffer"></canvas>
 			<canvas id="output"></canvas>
 		   	`;
 
 
 		   	$("#video-section").empty().html(video_template);
 
-		   	this.buffer = $("canvas#buffer").get(0).getContext('2d');
-			this.output = $("canvas#output").get(0).getContext('2d');
 
 
 			setTimeout(() => {
