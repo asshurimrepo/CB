@@ -1,19 +1,28 @@
-var seeThru = require('seethru');
+// var seeThru = require('seethru');
 
 export default {
 	template: require('../templates/project-player.html'),
 
 	ready(){
+
 	},
 
 	props: ['project'],
 
 	data() {
 		return {
+			/*Player*/
+			vPlayer: null,
+			buffer: null,
+			output: null,
+			w: 400,
+			h: 450/2,
+			dy: 0,
+			first_frame: true,
+			timer: null,
 			is_visible: false,
 			video: null,
 			seeThru: null,
-			dy: 0,
 			vidtime: 0,
 			vidduration: 0,
 			player_styles: {
@@ -164,23 +173,59 @@ export default {
 
 	methods: {
 		renderTransparentVideo() {
-			this.video = videojs('project-player', { "controls": true, "preload": "auto" });
-
-			this.seeThru = seeThru.create("#project-player_html5_api", {start : 'stop', end : 'stop'});
+			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
 
 			this.video.ready(() => {
-				this.seeThru.ready(() =>{
-					$(".loader-3").fadeOut("fast");
-					this.video.play();
-					this.vidduration = Math.floor(this.video.duration());
-					this.addActionsToVideo();
-					this.videoEnded();
-				});
+				$(".loader-3").fadeOut("fast");
+				this.video.play();
+				this.addActionsToVideo();
+				this.videoEnded();
+				this.startProcessing();
+
+				$("#project-player").prepend($("canvas#output"));
+				$("canvas#output").get(0).setAttribute("width", this.w);
+				$("canvas#output").get(0).setAttribute("height", this.h);
 			});
 
 			this.projectOptions();
 			this.projectActions();
+
+			this.vPlayer = document.getElementById("project-player_html5_api");
 		},
+
+		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+		processFrame() {
+			this.buffer.drawImage(this.vPlayer, 0, 0);
+
+			var	image=this.buffer.getImageData(0, 0, this.w, this.h-this.dy-0);
+			var alpha=this.buffer.getImageData(0, this.h-this.dy, this.w, this.h-this.dy-0);
+			var	imageData=image.data;
+			var	alphaData=alpha.data;
+			if(this.frstfrm) {
+				if(navigator.userAgent.toLowerCase().indexOf('firefox')<0) {
+					if(alphaData[this.w*4]<50) this.dy=Math.round(6-(400-w)/50)+1;
+				}
+		      this.frstfrm=false;
+			} else {
+				var strt=this.w*0+3;
+				var len=imageData.length;
+				for(var i=strt; i<len; i+=4) imageData[i]=alphaData[i-1];
+
+				this.output.putImageData(image, 0, 0, 0, this.dy, this.w, this.h-this.dy);
+		    }
+		},
+
+		startProcessing() {
+			this.timer = setInterval(() => { this.processFrame(); }, 100);
+		},
+
+		stopProcessing() {
+			clearInterval(this.timer);
+		},
+
+		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 		updatePlayer(){
 			this.resetOffsets();
@@ -247,7 +292,7 @@ export default {
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
 			let video_template = `
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
-			<video id="project-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}"}'>
+			<video id="project-player" class="video-js" preload="auto" width="400" height="450" data-setup='{"poster":"/image/${this.project.filename}"}'>
 
 		          <source src="/video/${this.project.filename}" type="video/mp4">
 
@@ -256,15 +301,25 @@ export default {
 		            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
 		          </p>
 
-		   	</video>`;
+		   	</video>
+
+		    <canvas width="400" height="450" id="buffer"></canvas>
+			<canvas id="output"></canvas>
+		   	`;
 
 
 		   	$("#video-section").empty().html(video_template);
+
+		   	this.buffer = $("canvas#buffer").get(0).getContext('2d');
+			this.output = $("canvas#output").get(0).getContext('2d');
+
 
 			setTimeout(() => {
 				this.is_visible = true;
 				setTimeout(() => this.renderTransparentVideo(), 300);
 				$('#project-player-bg').fadeIn("fast");
+
+
 			}, delay);
 
 			// close on click background
@@ -314,7 +369,7 @@ export default {
 			// if close on click is true
 			if(this.project.options.stop_showing.clicked === true){
 				$("#project-player-container").on("click",(e) => {
-					if($(e.target).is('canvas.seeThru-display')){
+					if($(e.target).is('canvas#output')){
 						this.video.pause();
 						$('#project-player-bg').fadeOut("fast");
 					}
@@ -349,7 +404,7 @@ export default {
 			//link url
 			if(url_length > 0){
 				$("#project-player-container").one("click",(e) => {
-					if($(e.target).is('canvas.seeThru-display')){
+					if($(e.target).is('canvas#output')){
 						window.open (url, '_blank');
 			        }
 			        e.preventDefault();
@@ -441,14 +496,15 @@ export default {
 			this.video.on("timeupdate",() => {
 				this.videoElements();
 				this.vidtime = Math.floor(this.video.currentTime());
+				this.vidduration = Math.floor(this.video.duration());
 			});
 		},
 
 		videoElements(){
-
 			//textoverlay show & duration
 			// if the start time is greater than the total duration the textoverlay will display at the end
-			if(this.textoverlaystart > this.vidduration){
+
+			if(this.textoverlaystart > this.vidduration && this.vidduration != 0){
 
 				if(this.vidtime === this.vidduration){
 					$("#project-text-overlay").fadeIn("fast",() =>{
@@ -470,6 +526,7 @@ export default {
 				}
 
 			}else{
+
 
 				if(this.vidtime === this.textoverlaystart){
 					$("#project-text-overlay").fadeIn("fast",() =>{
@@ -494,7 +551,7 @@ export default {
 
 			//clicktocall show & duration
 			// if the start time is greater than the total duration the clicktocall will display at the end
-			if(this.clicktocallstart > this.vidduration){
+			if(this.clicktocallstart > this.vidduration  && this.vidduration != 0){
 
 				if(this.vidtime === this.vidduration){
 					$("#project-clicktocall").fadeIn("fast",() =>{
@@ -540,7 +597,7 @@ export default {
 
 			//buttonoverlay show & duration
 			// if the start time is greater than the total duration the buttonoverlay will display at the end
-			if(this.buttonoverlaystart > this.vidduration){
+			if(this.buttonoverlaystart > this.vidduration  && this.vidduration != 0){
 
 				if(this.vidtime === this.vidduration){
 					$("#project-buttonoverlay").fadeIn("fast",() =>{
@@ -588,7 +645,7 @@ export default {
 			//formoverlay show & duration
 			// if the start time is greater than the total duration the formoverlay will display at the end
 
-			if(this.formoverlaystart > this.vidduration){
+			if(this.formoverlaystart > this.vidduration  && this.vidduration != 0){
 
 				if(this.vidtime === this.vidduration){
 					$("#project-formoverlay").fadeIn("fast",() =>{
@@ -636,15 +693,20 @@ export default {
 
 			}
 			//end of elements
+
 		},
 
 		videoEnded(){
 			this.video.on("ended", () => {
+				this.stopProcessing();
 				if(this.project.options.external_video.embed_code != ""){
 					let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
 					$("div#project-embed").fadeIn("fast");
 					if (embed_duration > 0){
 						setTimeout(() => {
+							let project_embed = $("div#project-embed").find('iframe');
+							let embed_source = $(project_embed).attr("src");
+							$(project_embed).attr("src", embed_source);
 							$("div#project-embed").fadeOut("fast");
 						},embed_duration);
 					}
