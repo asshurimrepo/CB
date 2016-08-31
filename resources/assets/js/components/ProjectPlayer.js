@@ -174,6 +174,7 @@ export default {
 	methods: {
 		renderTransparentVideo() {
 			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
+			this.video.height(this.project.height*2);
 
 			this.video.ready(() => {
 				$(".loader-3").fadeOut("fast");
@@ -295,7 +296,7 @@ export default {
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
 			let video_template = `
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
-			<video id="project-player" class="video-js" preload="auto" width="400" height="450" data-setup='{"poster":"/image/${this.project.filename}"}'>
+			<video id="project-player" class="video-js" preload="auto" width="400" data-setup='{"poster":"/image/${this.project.filename}"}'>
 
 		          <source src="/video/${this.project.filename}" type="video/mp4">
 
