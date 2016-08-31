@@ -12092,7 +12092,7 @@ exports.default = {
 			buffer: null,
 			output: null,
 			w: 400,
-			h: 450 / 2,
+			h: 0,
 			dy: 0,
 			first_frame: true,
 			timer: null,
@@ -12255,12 +12255,15 @@ exports.default = {
 				$(".loader-3").fadeOut("fast");
 				_this2.video.play();
 				_this2.addActionsToVideo();
-				_this2.videoEnded();
+				_this2.h = _this2.video.height() / 2;
+				_this2.buffer = $("canvas#buffer").get(0).getContext('2d');
+				_this2.output = $("canvas#output").get(0).getContext('2d');
 				_this2.startProcessing();
-
 				$("#project-player").prepend($("canvas#output"));
+				$("canvas#buffer").get(0).setAttribute("height", _this2.h * 2);
 				$("canvas#output").get(0).setAttribute("width", _this2.w);
 				$("canvas#output").get(0).setAttribute("height", _this2.h);
+				_this2.videoEnded();
 			});
 
 			this.projectOptions();
@@ -12369,12 +12372,9 @@ exports.default = {
 			}
 
 			var delay = parseInt(this.project.options.auto_display_after) * 1000;
-			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" width="400" height="450" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t    <canvas width="400" height="450" id="buffer"></canvas>\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
+			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" width="400" height="450" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t    <canvas width="400" id="buffer"></canvas>\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
 
 			$("#video-section").empty().html(video_template);
-
-			this.buffer = $("canvas#buffer").get(0).getContext('2d');
-			this.output = $("canvas#output").get(0).getContext('2d');
 
 			setTimeout(function () {
 				_this4.is_visible = true;
