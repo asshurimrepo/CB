@@ -45,7 +45,14 @@ class VideoProcesserController extends Controller
     	$process = new Process("sh ../reComposeVideo {$this->user->email} {$project->filename}");
         $process->run();
 
-        copy("../data/{$this->user->email}/out/thumb.png", "../data/{$this->user->email}/done/{$project->filename}.png");
+        $path_to_copy = "../data/{$this->user->email}/out/thumb.png";
+        list($width, $height) = getimagesize($path_to_copy);
+
+        $project->width = $width;
+        $project->height = $height;
+        $project->save();
+
+        copy($path_to_copy, "../data/{$this->user->email}/done/{$project->filename}.png");
 
         // executes after the command finishes
         if (!$process->isSuccessful()) {

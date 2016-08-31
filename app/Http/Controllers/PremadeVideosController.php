@@ -50,9 +50,13 @@ class PremadeVideosController extends Controller
         $filename = str_random(5) . $request->get('filename');
         $email = auth()->user()->email;
 
+        list($width, $height) = getimagesize("premades/{$request->get('filename')}.png");
+
         $project = new Project;
         $project->user_id = auth()->user()->id;
         $project->filename = $filename;
+        $project->width = $width;
+        $project->height = $height;
         $project->title = $title;
 
         $project->save();
