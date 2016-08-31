@@ -12492,9 +12492,7 @@ canvas#buffer {
   top: 0px;
   width: 100%;
   height: 100%;
-  background: url("../img/vidload.gif") 50% 50% no-repeat transparent;
-  overflow: hidden;
-  display: none; }
+  overflow: hidden; }
 
 div#project-embed.Embed--centered {
   top: 50%;
