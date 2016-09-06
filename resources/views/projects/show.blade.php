@@ -1,7 +1,7 @@
 
 
     <video preload="auto" id="video" width="400" height="450">
-         <source src="/video/OhE1P7udxRZaHftw2.mp4" type="video/mp4">
+         <source src="/video/FDntFDhAIWdogTraining.mp4" type="video/mp4">
     </video>
 
 	<button onclick="playVideo();">Play</button>
@@ -37,7 +37,6 @@
 		var alpha=buffer.getImageData(0, h-dy, w, h-dy-0);
 		var	imageData=image.data;
 		var	alphaData=alpha.data;
-		console..log(alpha);
 		if(frstfrm) {
 			if(navigator.userAgent.toLowerCase().indexOf('firefox')<0) {
 				if(alphaData[w*4]<50) dy=Math.round(6-(400-w)/50)+1;
