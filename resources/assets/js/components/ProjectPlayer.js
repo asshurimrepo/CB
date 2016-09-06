@@ -184,7 +184,7 @@ export default {
 			   	this.buffer = $("canvas#buffer").get(0).getContext('2d');
 				this.output = $("canvas#output").get(0).getContext('2d');
 				this.startProcessing();
-				$("#project-player").prepend($("canvas#output"));
+				// $("#project-player").prepend($("canvas#output"));
 				$("canvas#buffer").get(0).setAttribute("height", this.h*2);
 				$("canvas#output").get(0).setAttribute("width", this.w);
 				$("canvas#output").get(0).setAttribute("height", this.h);
