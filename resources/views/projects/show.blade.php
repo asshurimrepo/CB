@@ -1,7 +1,7 @@
 
 
     <video preload="auto" id="video" width="400" height="450">
-         <source src="/video/OhE1P7udxRZaHftw2.mp4" type="video/mp4">
+         <source src="/video/FDntFDhAIWdogTraining.mp4" type="video/mp4">
     </video>
 
 	<button onclick="playVideo();">Play</button>

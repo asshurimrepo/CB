@@ -58,8 +58,8 @@ class AutoResponderController extends Controller
 		$application = new \AWeberAPI($this->consumerKey, $this->consumerSecret);
 
 		return Aweber::lists(
-			$application, 
-			$request->get('access_token'), 
+			$application,
+			$request->get('access_token'),
 			$request->get('access_secret')
 		);
 

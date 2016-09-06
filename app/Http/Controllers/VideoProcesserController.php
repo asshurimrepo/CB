@@ -32,12 +32,18 @@ class VideoProcesserController extends Controller
 
     public function processFrames(Request $request, Project $project)
     {
-    	$process = new Process(
-            "sh ../processFrames {$this->user->email} 400 0",
-            null, null, null, null
-        );
+        $files = File::files("../data/{$this->user->email}/images");
 
-        $process->run();
+    	foreach ($files as $key => $file) {
+            $file = explode('/', $file);
+
+            $process = new Process(
+                "sh ../processSingleFrame {$this->user->email} {$file[4]} 400 0",
+                null, null, null, null
+            );
+
+            $process->run();
+        }
     }
 
     public function recomposeVideo(Request $request, Project $project)

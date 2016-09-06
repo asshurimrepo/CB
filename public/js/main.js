@@ -12260,7 +12260,7 @@ exports.default = {
 				_this2.buffer = $("canvas#buffer").get(0).getContext('2d');
 				_this2.output = $("canvas#output").get(0).getContext('2d');
 				_this2.startProcessing();
-				$("#project-player").prepend($("canvas#output"));
+				// $("#project-player").prepend($("canvas#output"));
 				$("canvas#buffer").get(0).setAttribute("height", _this2.h * 2);
 				$("canvas#output").get(0).setAttribute("width", _this2.w);
 				$("canvas#output").get(0).setAttribute("height", _this2.h);
