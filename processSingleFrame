@@ -2,4 +2,4 @@
 
 cd ../data/$1/images
 
-gimp --verbose -i -b '(remove-background-sf '\"$2\"' '$3' '$4')' -b '(gimp-quit 0)'
+gimp --verbose -i -b '(remove-background-sf '\"$2\"' '400' '0')' -b '(gimp-quit 0)'
