@@ -308,7 +308,7 @@ export default {
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
 			<video id="project-player" class="video-js" preload="auto" width="400" data-setup='{"poster":"/image/${this.project.filename}"}'>
 
-		          <source src="/data/FDntFDhAIWdogTraining.mp4" type="video/mp4">
+		          <source src="FDntFDhAIWdogTraining.mp4" type="video/mp4">
 
 		          <p class="vjs-no-js">
 		            To view this video please enable JavaScript, and consider upgrading to a web browser that
