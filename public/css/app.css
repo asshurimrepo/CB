@@ -12301,15 +12301,13 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
 
 #project-player {
   background: transparent !important;
-  height: auto !important;
-  display: none !important;
-  /*	.vjs-big-play-button
-	{
-		display: none !important;
-	}*/ }
-
-canvas#output {
-  /*	margin-bottom: -4px;*/ }
+  height: auto !important; }
+  #project-player canvas#output {
+    margin-bottom: -2px; }
+  #project-player .vjs-fullscreen-control.vjs-control.vjs-button, #project-player .vjs-progress-control.vjs-control, #project-player video {
+    display: none !important; }
+  #project-player .vjs-big-play-button {
+    display: none !important; }
 
 canvas#buffer {
   display: none; }
@@ -12494,7 +12492,9 @@ canvas#buffer {
   top: 0px;
   width: 100%;
   height: 100%;
-  overflow: hidden; }
+  background: url("../img/vidload.gif") 50% 50% no-repeat transparent;
+  overflow: hidden;
+  display: none; }
 
 div#project-embed.Embed--centered {
   top: 50%;

@@ -173,37 +173,32 @@ export default {
 
 	methods: {
 		renderTransparentVideo() {
-			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
-			// this.video.height(this.project.height*2);
 
-			this.video.ready(() => {
-				$(".loader-3").fadeOut("fast");
-				this.video.on("loadedmetadata",() => {
-					this.video.height(this.vPlayer.videoHeight);
-					this.h = this.video.height()/2;
-				   	this.buffer = $("canvas#buffer").get(0).getContext('2d');
-					this.output = $("canvas#output").get(0).getContext('2d');
-					$("#project-player").prepend($("canvas#output"));
-					$("canvas#buffer").get(0).setAttribute("height", this.h*2);
-					$("canvas#output").get(0).setAttribute("width", this.w);
-					$("canvas#output").get(0).setAttribute("height", this.h);
-					this.video.play();
-					this.addActionsToVideo();
-					this.startProcessing();
-					console.log('video height:', this.video.height());
-					console.log('buffer height:', $("canvas#buffer").height());
-					console.log('output height:', $("canvas#output").height());
-				});
+			this.video = $("video#project-player");
 
-				this.videoEnded();
+			this.video.on("loadedmetadata",() => {
+				this.video.attr("height", this.vPlayer.videoHeight);
+				this.h = this.video.attr("height")/2;
+			   	this.buffer = $("canvas#buffer").get(0).getContext('2d');
+				this.output = $("canvas#output").get(0).getContext('2d');
+				// $("#project-player").prepend($("canvas#output"));
+				$("canvas#buffer").get(0).setAttribute("height", this.h*2);
+				$("canvas#output").get(0).setAttribute("width", this.w);
+				$("canvas#output").get(0).setAttribute("height", this.h);
+				// this.video.play();
+				this.addActionsToVideo();
+				this.startProcessing();
+				console.log('video height:', this.h);
+				console.log('buffer height:', $("canvas#buffer").height());
+				console.log('output height:', $("canvas#output").height());
 			});
+
+			this.videoEnded();
 
 			this.projectOptions();
 			this.projectActions();
 
-			this.vPlayer = document.getElementById("project-player_html5_api");
-
-
+			this.vPlayer = document.getElementById("project-player");
 		},
 
 		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -298,23 +293,20 @@ export default {
 
 			// Dispose Video
 			if(this.video){
-				this.video.dispose();
+				// this.video.dispose();
+				this.video.remove();
 				$(".project-element").hide();
 			}
 
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
 			let video_template = `
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
-			<video id="project-player" class="video-js" preload="auto" width="400" data-setup='{"poster":"/image/${this.project.filename}"}'>
+			<video id="project-player" autoplay controls preload="auto" width="400" poster="/image/${this.project.filename}">
 
 		          <source src="/video/${this.project.filename}" type="video/mp4">
 
-		          <p class="vjs-no-js">
-		            To view this video please enable JavaScript, and consider upgrading to a web browser that
-		            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-		          </p>
-
 		   	</video>
+
 
 		    <canvas width="400" id="buffer"></canvas>
 			<canvas id="output"></canvas>
@@ -336,7 +328,7 @@ export default {
 			// close on click background
 			$("body").on("click","div#project-player-bg", (e) => {
 				if($(e.target).is('div#project-player-bg')){
-					this.video.pause();
+					this.vPlayer.pause();
 					$('#project-player-bg').fadeOut("fast");
 				}
 				e.preventDefault();
@@ -346,7 +338,7 @@ export default {
 			// close button
 			$("body").on("click","a.close-project", (e) => {
 				e.preventDefault();
-				this.video.pause();
+				this.vPlayer.pause();
 				$('#project-player-bg').fadeOut("fast");
 			});
 
@@ -362,7 +354,9 @@ export default {
 				e.preventDefault();
 				let project_embed = $("div#project-embed").find('iframe');
 				let embed_source = $(project_embed).attr("src");
-				$(project_embed).attr("src", embed_source);
+				if(embed_source != undefined){
+					$(project_embed).attr("src", embed_source);
+				}
 				$('div#project-player-container>div#project-embed').fadeOut("fast");
 				return false;
 			});
@@ -381,7 +375,7 @@ export default {
 			if(this.project.options.stop_showing.clicked === true){
 				$("#project-player-container").on("click",(e) => {
 					if($(e.target).is('canvas#output')){
-						this.video.pause();
+						this.video.pause;
 						$('#project-player-bg').fadeOut("fast");
 					}
 					e.preventDefault();
@@ -506,8 +500,8 @@ export default {
 		addActionsToVideo() {
 			this.video.on("timeupdate",() => {
 				this.videoElements();
-				this.vidtime = Math.floor(this.video.currentTime());
-				this.vidduration = Math.floor(this.video.duration());
+				this.vidtime = Math.floor(this.vPlayer.currentTime);
+				this.vidduration = Math.floor(this.vPlayer.duration);
 			});
 		},
 
@@ -717,7 +711,9 @@ export default {
 						setTimeout(() => {
 							let project_embed = $("div#project-embed").find('iframe');
 							let embed_source = $(project_embed).attr("src");
-							$(project_embed).attr("src", embed_source);
+							if(embed_source != undefined){
+								$(project_embed).attr("src", embed_source);
+							}
 							$("div#project-embed").fadeOut("fast");
 						},embed_duration);
 					}
