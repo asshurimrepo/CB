@@ -12,11 +12,13 @@ class ProjectsController extends Controller
 {
     public function index(Project $project)
     {
+        
     	return auth()->user()
     				 ->projects()
                      ->where('active', 1)
                      ->orderBy('created_at', 'desc')
     				 ->get();
+
     }
 
     public function show()
