@@ -1,16 +1,20 @@
 #project-player {
 	background: transparent !important;
 	height: auto !important;
-	display:none !important;
-/*	.vjs-big-play-button
+
+
+	canvas#output{
+		margin-bottom: -2px;
+	}
+
+	.vjs-fullscreen-control.vjs-control.vjs-button, .vjs-progress-control.vjs-control, video {
+		display: none !important;
+	}
+
+	.vjs-big-play-button
 	{
 		display: none !important;
-	}*/
-}
-
-
-canvas#output{
-	margin-bottom: -4px;
+	}
 }
 
 canvas#buffer {
