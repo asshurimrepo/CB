@@ -58,6 +58,7 @@ class PremadeVideosController extends Controller
         $project->width = $width;
         $project->height = $height;
         $project->title = $title;
+        $project->active = 1;
 
         $project->save();
 

@@ -8,7 +8,6 @@ $.ajaxSetup({
     headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
 });
 
-
 new Vue({
 	el: "#upload-section",
 
@@ -45,14 +44,16 @@ new Vue({
 		progress: 0,
 		process_is_done: false,
 		funnies: "",
-		step: 1
+		step: 1,
+		frames: [],
+		current_frame: 0
 	},
 
 	computed: {
 		process_text (){
 			if (this.step == 1) return 'Uploading...';
 			if (this.step == 2) return 'Processing...';
-			if (this.step == 3) return 'Converting Frames...';
+			if (this.step == 3) return `Converting ${this.current_frame} out of ${this.frames.length} Frames...`;
 			if (this.step == 4) return 'Composing your new video...';
 			if (this.step == 5) return 'Wrapping up! :)';
 		}
@@ -66,21 +67,39 @@ new Vue({
 		process(id) {
 			this.step = 2;
 			this.progress = 0;
-			this.updateProgress(30, 2000, 4000);
+			this.updateProgress(20, 2000, 4000);
 
 			this.$http.post('/video-processer/' + id).then(() => {
-				this.progress = 30;
+				this.progress = 20;
 				setTimeout(() => this.processFrames(id), 500);
 			});
 		},
 
 		processFrames(id) {
-			this.updateProgress(80, 5000, 10000);
+			// this.updateProgress(80, 5000, 10000);
 			this.step = 3;
 
-			this.$http.post('/video-processer/'+ id +'/process-frames').then(() => {
-				this.progress = 85;
-				setTimeout(() => this.recomposeVideo(id), 500);
+			this.$http.post('/video-processer/'+ id +'/process-frames').then(response => {
+				this.frames = response.data;
+				this.processSingleFrame(id, 0);
+			});
+		},
+
+		processSingleFrame(id, current_frame) {
+			this.progress = (current_frame/this.frames.length) * 100 - 20;
+			this.current_frame = current_frame;
+
+			if(current_frame + 1 >= this.frames.length) 
+			{
+				this.recomposeVideo(id);
+				return;
+			}
+
+			let image = this.frames[current_frame].split("/");
+
+			this.$http.post('/video-processer/'+ id +'/process-single-frame/' + image[4]).then(response => {
+				current_frame += 1;
+				this.processSingleFrame(id, current_frame);
 			});
 		},
 
@@ -105,7 +124,7 @@ new Vue({
 		},
 
 		updateProgress(max, min_s, max_s){
-			if(this.progress > max){
+			if(this.progress >= max){
 				return;
 			}
 

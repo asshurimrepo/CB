@@ -32,9 +32,9 @@ class VideoProcesserController extends Controller
 
     public function processFrames(Request $request, Project $project)
     {
-        $files = File::files("../data/{$this->user->email}/images");
+        return File::files("../data/{$this->user->email}/images");
 
-    	foreach ($files as $key => $file) {
+    	/*foreach ($files as $key => $file) {
             $file = explode('/', $file);
 
             $process = new Process(
@@ -43,7 +43,17 @@ class VideoProcesserController extends Controller
             );
 
             $process->run();
-        }
+        }*/
+    }
+
+    public function processSingleFrame(Project $project, $img)
+    {
+        $process = new Process(
+            "sh ../processSingleFrame {$this->user->email} {$img} 400 0",
+            null, null, null, null
+        );
+
+        $process->run();
     }
 
     public function recomposeVideo(Request $request, Project $project)
@@ -68,6 +78,9 @@ class VideoProcesserController extends Controller
 
     public function cleanUpVideo(Request $request, Project $project)
     {
+        $project->active = 1;
+        $project->save();
+
     	File::cleanDirectory("../data/{$this->user->email}/images");
         File::cleanDirectory("../data/{$this->user->email}/out");
         File::cleanDirectory("../data/{$this->user->email}/tmp");
