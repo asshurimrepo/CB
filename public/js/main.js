@@ -12250,27 +12250,20 @@ exports.default = {
 			var _this2 = this;
 
 			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
-			// this.video.height(this.project.height*2);
+			this.video.height(this.project.height * 2);
 
 			this.video.ready(function () {
 				$(".loader-3").fadeOut("fast");
-				_this2.video.on("loadedmetadata", function () {
-					_this2.video.height(_this2.vPlayer.videoHeight);
-					_this2.h = _this2.video.height() / 2;
-					_this2.buffer = $("canvas#buffer").get(0).getContext('2d');
-					_this2.output = $("canvas#output").get(0).getContext('2d');
-					$("#project-player").prepend($("canvas#output"));
-					$("canvas#buffer").get(0).setAttribute("height", _this2.h * 2);
-					$("canvas#output").get(0).setAttribute("width", _this2.w);
-					$("canvas#output").get(0).setAttribute("height", _this2.h);
-					_this2.video.play();
-					_this2.addActionsToVideo();
-					_this2.startProcessing();
-					console.log('video height:', _this2.video.height());
-					console.log('buffer height:', $("canvas#buffer").height());
-					console.log('output height:', $("canvas#output").height());
-				});
-
+				_this2.video.play();
+				_this2.addActionsToVideo();
+				_this2.h = _this2.video.height() / 2;
+				_this2.buffer = $("canvas#buffer").get(0).getContext('2d');
+				_this2.output = $("canvas#output").get(0).getContext('2d');
+				_this2.startProcessing();
+				// $("#project-player").prepend($("canvas#output"));
+				$("canvas#buffer").get(0).setAttribute("height", _this2.h * 2);
+				$("canvas#output").get(0).setAttribute("width", _this2.w);
+				$("canvas#output").get(0).setAttribute("height", _this2.h);
 				_this2.videoEnded();
 			});
 
