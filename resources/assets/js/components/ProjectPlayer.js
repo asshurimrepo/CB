@@ -306,9 +306,6 @@ export default {
 		          <source src="/video/${this.project.filename}" type="video/mp4">
 
 		   	</video>
-
-		    <canvas width="400" id="buffer"></canvas>
-			<canvas id="output"></canvas>
 		   	`;
 
 
