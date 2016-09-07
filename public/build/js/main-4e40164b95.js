@@ -12377,7 +12377,7 @@ exports.default = {
 			}
 
 			var delay = parseInt(this.project.options.auto_display_after) * 1000;
-			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" autoplay controls preload="auto" width="400" poster="/image/' + this.project.filename + '">\n\n\t\t          <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n\t\t   \t</video>\n\n\n\t\t   \t';
+			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" autoplay controls preload="auto" width="400" poster="/image/' + this.project.filename + '">\n\n\t\t          <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n\t\t   \t</video>\n\t\t   \t';
 
 			$("#video-section").empty().html(video_template);
 
