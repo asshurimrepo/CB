@@ -307,8 +307,7 @@ export default {
 
 		   	</video>
 
-		    <canvas width="400" height="450" id="buffer"></canvas>
-			<canvas id="output" width="400" height="450"></canvas>
+
 		   	`;
 
 
