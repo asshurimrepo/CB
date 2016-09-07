@@ -32,18 +32,7 @@ class VideoProcesserController extends Controller
 
     public function processFrames(Request $request, Project $project)
     {
-        return File::files("../data/{$this->user->email}/images");
-
-    	/*foreach ($files as $key => $file) {
-            $file = explode('/', $file);
-
-            $process = new Process(
-                "sh ../processSingleFrame {$this->user->email} {$file[4]} 400 0",
-                null, null, null, null
-            );
-
-            $process->run();
-        }*/
+        return File::files("data/{$this->user->email}/images");
     }
 
     public function processSingleFrame(Project $project, $img)
@@ -61,14 +50,14 @@ class VideoProcesserController extends Controller
     	$process = new Process("sh ../reComposeVideo {$this->user->email} {$project->filename}");
         $process->run();
 
-        $path_to_copy = "../data/{$this->user->email}/out/thumb.png";
+        $path_to_copy = "data/{$this->user->email}/out/thumb.png";
         list($width, $height) = getimagesize($path_to_copy);
 
         $project->width = $width;
         $project->height = $height;
         $project->save();
 
-        copy($path_to_copy, "../data/{$this->user->email}/done/{$project->filename}.png");
+        copy($path_to_copy, "data/{$this->user->email}/done/{$project->filename}.png");
 
         // executes after the command finishes
         if (!$process->isSuccessful()) {
@@ -81,9 +70,9 @@ class VideoProcesserController extends Controller
         $project->active = 1;
         $project->save();
 
-    	File::cleanDirectory("../data/{$this->user->email}/images");
-        File::cleanDirectory("../data/{$this->user->email}/out");
-        File::cleanDirectory("../data/{$this->user->email}/tmp");
-        File::cleanDirectory("../data/{$this->user->email}/videos");
+    	File::cleanDirectory("data/{$this->user->email}/images");
+        File::cleanDirectory("data/{$this->user->email}/out");
+        File::cleanDirectory("data/{$this->user->email}/tmp");
+        File::cleanDirectory("data/{$this->user->email}/videos");
     }
 }

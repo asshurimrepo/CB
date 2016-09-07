@@ -30,16 +30,16 @@ class CreateUsersDataDirectory
     {
         $email = $event->user->email;
 
-        if(File::exists("../data/{$email}"))
+        if(File::exists("data/{$email}"))
         {
             return;
         }
 
-        mkdir("../data/".$email);
-        mkdir("../data/".$email."/videos");
-        mkdir("../data/".$email."/images");
-        mkdir("../data/".$email."/out");
-        mkdir("../data/".$email."/done");
-        mkdir("../data/".$email."/tmp");
+        mkdir("data/".$email);
+        mkdir("data/".$email."/videos");
+        mkdir("data/".$email."/images");
+        mkdir("data/".$email."/out");
+        mkdir("data/".$email."/done");
+        mkdir("data/".$email."/tmp");
     }
 }

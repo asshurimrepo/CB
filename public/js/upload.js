@@ -11628,14 +11628,14 @@ new _vue2.default({
 			this.progress = current_frame / this.frames.length * 100 - 20;
 			this.current_frame = current_frame;
 
-			if (current_frame + 1 >= this.frames.length) {
+			if (current_frame >= this.frames.length) {
 				this.recomposeVideo(id);
 				return;
 			}
 
 			var image = this.frames[current_frame].split("/");
 
-			this.$http.post('/video-processer/' + id + '/process-single-frame/' + image[4]).then(function (response) {
+			this.$http.post('/video-processer/' + id + '/process-single-frame/' + image[3]).then(function (response) {
 				current_frame += 1;
 				_this4.processSingleFrame(id, current_frame);
 			});

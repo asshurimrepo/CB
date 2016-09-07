@@ -4,7 +4,7 @@ export default {
 	template: require('../templates/project-player.html'),
 
 	ready(){
-
+		this.usermail = $("meta[name='usermail']").prop('content');
 	},
 
 	props: ['project'],
@@ -12,6 +12,7 @@ export default {
 	data() {
 		return {
 			/*Player*/
+			usermail: null,
 			vPlayer: null,
 			buffer: null,
 			output: null,
@@ -307,7 +308,7 @@ export default {
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
 			<video id="project-player" class="video-js" preload="auto" width="400" data-setup='{"poster":"/image/${this.project.filename}"}'>
 
-		          <source src="/video/${this.project.filename}" type="video/mp4">
+		          <source src="/data/${this.usermail}/done/${this.project.filename}" type="video/mp4">
 
 		          <p class="vjs-no-js">
 		            To view this video please enable JavaScript, and consider upgrading to a web browser that
