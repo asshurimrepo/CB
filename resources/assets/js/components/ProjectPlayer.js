@@ -303,7 +303,7 @@ export default {
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
 			<video id="project-player" autoplay controls preload="auto" width="400" poster="/image/${this.project.filename}">
 
-		          <source src="/video/${this.project.filename}" type="video/mp4">
+		          <source src="/dogtraining.mp4" type="video/mp4">
 
 		   	</video>
 
