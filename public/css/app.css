@@ -12496,34 +12496,34 @@ canvas#buffer {
   overflow: hidden;
   display: none; }
 
-div#project-embed.Embed--centered {
+div#project-embed-video.Embed--centered {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
 
-div#project-embed.Embed--topleft {
+div#project-embed-video.Embed--topleft {
   top: 0;
   left: 0; }
 
-div#project-embed.Embed--topright {
+div#project-embed-video.Embed--topright {
   top: 0;
   right: 0; }
 
-div#project-embed.Embed--bottomleft {
+div#project-embed-video.Embed--bottomleft {
   bottom: 0;
   left: 0; }
 
-div#project-embed.Embed--bottomright {
+div#project-embed-video.Embed--bottomright {
   bottom: 0;
   right: 0; }
 
-#project-embed {
+#project-embed-video {
   position: inherit;
   display: none;
   z-index: 1050;
   margin-bottom: -4px; }
 
-div#project-embed > a.close-embed {
+div#project-embed-video > a.close-embed {
   position: absolute;
   z-index: 1049;
   right: 4px;

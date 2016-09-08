@@ -4,7 +4,7 @@ export default {
 	template: require('../templates/project-player.html'),
 
 	ready(){
-		this.usermail = $("meta[name='usermail']").prop('content');
+
 	},
 
 	props: ['project'],
@@ -12,7 +12,7 @@ export default {
 	data() {
 		return {
 			/*Player*/
-			usermail: null,
+			animation_request: null,
 			vPlayer: null,
 			buffer: null,
 			output: null,
@@ -213,7 +213,7 @@ export default {
 			this.buffer.drawImage(this.vPlayer, 0, 0);
 
 			var	image=this.buffer.getImageData(0, 0, this.w, this.h-this.dy-0);
-			var alpha=this.buffer.getImageData(0, this.h-this.dy, this.w, this.h-this.dy-0);
+			var alpha=this.buffer.getImageData(0, this.h-this.dy, this.w, this.h-this.dy+300);
 			var	imageData=image.data;
 			var	alphaData=alpha.data;
 			if(this.frstfrm) {
@@ -231,11 +231,24 @@ export default {
 		},
 
 		startProcessing() {
-			this.timer = setInterval(() => { this.processFrame(); }, 100);
+            if (window.requestAnimationFrame) this.animation_request = window.requestAnimationFrame(this.startProcessing);
+            // IE implementation
+            else if (window.msRequestAnimationFrame) this.animation_request = window.msRequestAnimationFrame(this.startProcessing);
+            // Firefox implementation
+            else if (window.mozRequestAnimationFrame) this.animation_request = window.mozRequestAnimationFrame(this.startProcessing);
+            // Chrome implementation
+            else if (window.webkitRequestAnimationFrame) this.animation_request = window.webkitRequestAnimationFrame(this.startProcessing);
+            // Other browsers that do not yet support feature
+            else this.animation_request =  setTimeout(this.startProcessing, 16.7);
+
+            this.processFrame();
+			// this.timer = setInterval(() => { this.processFrame(); }, 100);
 		},
 
 		stopProcessing() {
-			clearInterval(this.timer);
+			// clearInterval(this.timer);
+			window.cancelAnimationFrame(this.animation_request);
+			this.animation_request = undefined;
 		},
 
 		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -308,7 +321,7 @@ export default {
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
 			<video id="project-player" class="video-js" preload="auto" width="400" data-setup='{"poster":"/image/${this.project.filename}"}'>
 
-		          <source src="/dogtraining.mp4" type="video/mp4">
+		          <source src="/video/${this.project.filename}" type="video/mp4">
 
 		          <p class="vjs-no-js">
 		            To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -338,6 +351,7 @@ export default {
 			$("body").on("click","div#project-player-bg", (e) => {
 				if($(e.target).is('div#project-player-bg')){
 					this.video.pause();
+					this.stopProcessing();
 					$('#project-player-bg').fadeOut("fast");
 				}
 				e.preventDefault();
@@ -348,6 +362,7 @@ export default {
 			$("body").on("click","a.close-project", (e) => {
 				e.preventDefault();
 				this.video.pause();
+				this.stopProcessing();
 				$('#project-player-bg').fadeOut("fast");
 			});
 
@@ -359,12 +374,14 @@ export default {
 			});
 
 			//close video embed
-			$("body").on("click","div#project-embed>a.close-embed", (e) => {
+			$("body").on("click","div#project-embed-video>a.close-embed", (e) => {
 				e.preventDefault();
-				let project_embed = $("div#project-embed").find('iframe');
+				let project_embed = $("div#project-embed-video").find('iframe');
 				let embed_source = $(project_embed).attr("src");
-				$(project_embed).attr("src", embed_source);
-				$('div#project-player-container>div#project-embed').fadeOut("fast");
+				if(embed_source == undefined){
+					$(project_embed).attr("src", embed_source);
+				}
+				$('div#project-player-container>div#project-embed-video').fadeOut("fast");
 				return false;
 			});
 
@@ -375,6 +392,7 @@ export default {
 			this.video.on("ended", () =>{
 				if(this.project.options.stop_showing.exit_on_end === true){
 					$('#project-player-bg').fadeOut("fast");
+					this.stopProcessing();
 				}
 			});
 
@@ -383,6 +401,7 @@ export default {
 				$("#project-player-container").on("click",(e) => {
 					if($(e.target).is('canvas#output')){
 						this.video.pause();
+						this.stopProcessing();
 						$('#project-player-bg').fadeOut("fast");
 					}
 					e.preventDefault();
@@ -713,13 +732,15 @@ export default {
 				this.stopProcessing();
 				if(this.project.options.external_video.embed_code != ""){
 					let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
-					$("div#project-embed").fadeIn("fast");
+					$("div#project-embed-video").fadeIn("fast");
 					if (embed_duration > 0){
 						setTimeout(() => {
-							let project_embed = $("div#project-embed").find('iframe');
+							let project_embed = $("div#project-embed-video").find('iframe');
 							let embed_source = $(project_embed).attr("src");
-							$(project_embed).attr("src", embed_source);
-							$("div#project-embed").fadeOut("fast");
+							if(embed_source == undefined){
+								$(project_embed).attr("src", embed_source);
+							}
+							$("div#project-embed-video").fadeOut("fast");
 						},embed_duration);
 					}
 				}
