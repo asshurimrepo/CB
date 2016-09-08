@@ -12288,7 +12288,7 @@ exports.default = {
 			this.buffer.drawImage(this.vPlayer, 0, 0);
 
 			var image = this.buffer.getImageData(0, 0, this.w, this.h - this.dy - 0);
-			var alpha = this.buffer.getImageData(0, this.h - this.dy, this.w, this.h - this.dy + 300);
+			var alpha = this.buffer.getImageData(0, this.h - this.dy, this.w, this.h - this.dy - 0);
 			var imageData = image.data;
 			var alphaData = alpha.data;
 			if (this.frstfrm) {
