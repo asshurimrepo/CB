@@ -178,89 +178,26 @@ export default {
 			// this.video.height(this.project.height*2);
 
 			this.video.ready(() => {
+				$(".loader-3").fadeOut("fast");
 				this.video.on("loadedmetadata",() => {
-
-					// rigz script
 					this.video.height(this.vPlayer.videoHeight);
-
 					this.h = this.video.height()/2;
-
+				   	this.buffer = $("canvas#buffer").get(0).getContext('2d');
+					this.output = $("canvas#output").get(0).getContext('2d');
 					$("#project-player").prepend($("canvas#output"));
+					$("canvas#buffer").get(0).setAttribute("height", this.h*2);
 					$("canvas#output").get(0).setAttribute("width", this.w);
 					$("canvas#output").get(0).setAttribute("height", this.h);
 					this.video.play();
 					this.addActionsToVideo();
-					// rigz script
-
-
-			          var seriously,
-			            chroma,
-			            target;
-
-			          seriously = new Seriously();
-
-			          target = seriously.target('#output');
-			          chroma = seriously.effect('chroma');
-
-				      // if (Modernizr.video.webm && Modernizr.video.h264) {
-				      //   //console.log("Chrome");
-				      //   chroma.weight = .9;
-				      //   chroma.balance = 1;
-				      //   chroma.clipWhite = 1;
-				      //   chroma.clipBlack = 0;
-				      //   chroma.screen = [.2,1,.1,1];
-				      // } else if (!Modernizr.video.webm && Modernizr.video.h264) {
-				      //   //console.log("Safari");
-				      //   chroma.weight = 1.25;
-				      //   chroma.balance = 1;
-				      //   chroma.clipWhite = 1;
-				      //   chroma.clipBlack = 0;
-				      //   chroma.screen = [.3,.9,.15,1];
-				      // } else if (Modernizr.video.webm && !Modernizr.video.h264) {
-				      //   //console.log("Firefox");
-				      //   chroma.weight = 1.05;
-				      //   chroma.balance = 1;
-				      //   chroma.clipWhite = 1;
-				      //   chroma.clipBlack = 0;
-				      //   chroma.screen = [.14,.95,0,1];
-				      // }
-
-			          chroma.source = "#project-player_html5_api";
-			          target.source = chroma;
-			          chroma.screen = [0,1,0,1];
-			          chrome['clipWhite'] = 1;
-			          chrome['clipBlack'] = 0;
-			          chrome['weight'] = 1;
-			          seriously.go();
-
-			          // $("input[type=range]").on("input",function(e) {
-			          //   update(this);
-			          // });
-
-			          function update(elment) {
-			            var id = $(elment).attr('id')
-			            var value = $(elment).val();
-
-			            $("#"+id+"Value").html(value);
-
-			            if ($.inArray(id, ['red','green','blue']) > - 1) {
-			              var red = parseFloat($("#red").val());
-			              var green = parseFloat($("#green").val());
-			              var blue = parseFloat($("#blue").val());
-			              id = "screen";
-			              value = [red,green,blue,1];
-			              chroma.screen = value;
-			            }
-
-			            chroma[id] = value;
-			          }
-
+					this.startProcessing();
+					console.log('video height:', this.video.height());
+					console.log('buffer height:', $("canvas#buffer").height());
+					console.log('output height:', $("canvas#output").height());
 				});
+
 				this.videoEnded();
 			});
-
-
-
 
 			this.projectOptions();
 			this.projectActions();
@@ -270,7 +207,51 @@ export default {
 
 		},
 
+		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+		processFrame() {
+			this.buffer.drawImage(this.vPlayer, 0, 0);
+
+			var	image=this.buffer.getImageData(0, 0, this.w, this.h-this.dy-0);
+			var alpha=this.buffer.getImageData(0, this.h-this.dy, this.w, this.h-this.dy-0);
+			var	imageData=image.data;
+			var	alphaData=alpha.data;
+			if(this.frstfrm) {
+				if(navigator.userAgent.toLowerCase().indexOf('firefox')<0) {
+					if(alphaData[this.w*4]<50) this.dy=Math.round(6-(400-w)/50)+1;
+				}
+		      this.frstfrm=false;
+			} else {
+				var strt=this.w*0+3;
+				var len=imageData.length;
+				for(var i=strt; i<len; i+=4) imageData[i]=alphaData[i-1];
+
+				this.output.putImageData(image, 0, 0, 0, this.dy, this.w, this.h-this.dy);
+		    }
+		},
+
+		startProcessing() {
+            if (window.requestAnimationFrame) this.animation_request = window.requestAnimationFrame(this.startProcessing);
+            // IE implementation
+            else if (window.msRequestAnimationFrame) this.animation_request = window.msRequestAnimationFrame(this.startProcessing);
+            // Firefox implementation
+            else if (window.mozRequestAnimationFrame) this.animation_request = window.mozRequestAnimationFrame(this.startProcessing);
+            // Chrome implementation
+            else if (window.webkitRequestAnimationFrame) this.animation_request = window.webkitRequestAnimationFrame(this.startProcessing);
+            // Other browsers that do not yet support feature
+            else this.animation_request =  setTimeout(this.startProcessing, 16.7);
+
+            this.processFrame();
+			// this.timer = setInterval(() => { this.processFrame(); }, 100);
+		},
+
+		stopProcessing() {
+			// clearInterval(this.timer);
+			window.cancelAnimationFrame(this.animation_request);
+			this.animation_request = undefined;
+		},
+
+		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 		updatePlayer(){
@@ -340,7 +321,7 @@ export default {
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
 			<video id="project-player" class="video-js" preload="auto" width="400" data-setup='{"poster":"/image/${this.project.filename}"}'>
 
-		          <source src="/video/2.mp4" type="video/mp4">
+		          <source src="/video/${this.project.filename}" type="video/mp4">
 
 		          <p class="vjs-no-js">
 		            To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -349,6 +330,7 @@ export default {
 
 		   	</video>
 
+		    <canvas width="400" id="buffer"></canvas>
 			<canvas id="output"></canvas>
 		   	`;
 
@@ -369,7 +351,7 @@ export default {
 			$("body").on("click","div#project-player-bg", (e) => {
 				if($(e.target).is('div#project-player-bg')){
 					this.video.pause();
-
+					this.stopProcessing();
 					$('#project-player-bg').fadeOut("fast");
 				}
 				e.preventDefault();
@@ -380,6 +362,7 @@ export default {
 			$("body").on("click","a.close-project", (e) => {
 				e.preventDefault();
 				this.video.pause();
+				this.stopProcessing();
 				$('#project-player-bg').fadeOut("fast");
 			});
 
@@ -409,7 +392,7 @@ export default {
 			this.video.on("ended", () =>{
 				if(this.project.options.stop_showing.exit_on_end === true){
 					$('#project-player-bg').fadeOut("fast");
-
+					this.stopProcessing();
 				}
 			});
 
@@ -418,7 +401,7 @@ export default {
 				$("#project-player-container").on("click",(e) => {
 					if($(e.target).is('canvas#output')){
 						this.video.pause();
-
+						this.stopProcessing();
 						$('#project-player-bg').fadeOut("fast");
 					}
 					e.preventDefault();
@@ -746,6 +729,7 @@ export default {
 
 		videoEnded(){
 			this.video.on("ended", () => {
+				this.stopProcessing();
 				if(this.project.options.external_video.embed_code != ""){
 					let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
 					$("div#project-embed-video").fadeIn("fast");

@@ -173,6 +173,10 @@
         });
     </script>
 
+    <!-- seriously.js -->
+    <script src="/js/seriously.js" type="text/javascript"></script>
+    <script src="/js/seriously.chroma.js" type="text/javascript"></script>
+
     @yield('scripts')
 
     </body>
