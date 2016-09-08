@@ -14,7 +14,7 @@ class ImagesController extends Controller
     {
 
     	$user = auth()->user();
-    	$path = "../data/{$user->email}/done/{$filename}.png";
+    	$path = "data/{$user->email}/done/{$filename}.png";
 
 	    if(!File::exists($path)) {
 	    	return $this->defaultImage();

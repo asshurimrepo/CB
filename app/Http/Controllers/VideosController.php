@@ -12,8 +12,10 @@ class VideosController extends Controller
 {
     public function show($filename)
     {
+    	// return 1;
+    	$filename = str_replace("video", "", $filename);
     	$user = auth()->user();
-    	$path = "../data/{$user->email}/done/{$filename}";
+    	$path = "data/{$user->email}/done/{$filename}";
 
     	// dd($path,File::exists($path));
 

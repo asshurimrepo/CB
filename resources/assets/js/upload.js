@@ -89,7 +89,7 @@ new Vue({
 			this.progress = (current_frame/this.frames.length) * 100 - 20;
 			this.current_frame = current_frame;
 
-			if(current_frame + 1 >= this.frames.length) 
+			if(current_frame >= this.frames.length) 
 			{
 				this.recomposeVideo(id);
 				return;
@@ -97,7 +97,7 @@ new Vue({
 
 			let image = this.frames[current_frame].split("/");
 
-			this.$http.post('/video-processer/'+ id +'/process-single-frame/' + image[4]).then(response => {
+			this.$http.post('/video-processer/'+ id +'/process-single-frame/' + image[3]).then(response => {
 				current_frame += 1;
 				this.processSingleFrame(id, current_frame);
 			});

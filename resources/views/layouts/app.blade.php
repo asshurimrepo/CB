@@ -5,6 +5,7 @@
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <meta name="usermail" content="{{ auth()->user()->email }}" />
 
         {{-- Core Css --}}
         <link rel="stylesheet" href="/css/app.css" />

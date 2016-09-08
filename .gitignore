@@ -5,6 +5,6 @@ composer.lock
 phpunit.xml
 project-data/*.*
 node_modules/
-data/*
+public/data/*
 .env
 **/*.DS_Store
