@@ -12517,7 +12517,7 @@ div#project-embed-video.Embed--bottomright {
   bottom: 0;
   right: 0; }
 
-#project-embed-video-video {
+#project-embed-video {
   position: inherit;
   display: none;
   z-index: 1050;

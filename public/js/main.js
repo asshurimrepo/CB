@@ -12088,6 +12088,7 @@ exports.default = {
 	data: function data() {
 		return {
 			/*Player*/
+			animation_request: null,
 			vPlayer: null,
 			buffer: null,
 			output: null,
@@ -12304,20 +12305,22 @@ exports.default = {
 			}
 		},
 		startProcessing: function startProcessing() {
-			if (window.requestAnimationFrame) window.requestAnimationFrame(this.startProcessing);
+			if (window.requestAnimationFrame) this.animation_request = window.requestAnimationFrame(this.startProcessing);
 			// IE implementation
-			else if (window.msRequestAnimationFrame) window.msRequestAnimationFrame(this.startProcessing);
+			else if (window.msRequestAnimationFrame) this.animation_request = window.msRequestAnimationFrame(this.startProcessing);
 				// Firefox implementation
-				else if (window.mozRequestAnimationFrame) window.mozRequestAnimationFrame(this.startProcessing);
+				else if (window.mozRequestAnimationFrame) this.animation_request = window.mozRequestAnimationFrame(this.startProcessing);
 					// Chrome implementation
-					else if (window.webkitRequestAnimationFrame) window.webkitRequestAnimationFrame(this.startProcessing);
+					else if (window.webkitRequestAnimationFrame) this.animation_request = window.webkitRequestAnimationFrame(this.startProcessing);
 						// Other browsers that do not yet support feature
-						else setTimeout(this.startProcessing, 16.7);
+						else this.animation_request = setTimeout(this.startProcessing, 16.7);
 			this.processFrame();
 			// this.timer = setInterval(() => { this.processFrame(); }, 100);
 		},
 		stopProcessing: function stopProcessing() {
 			// clearInterval(this.timer);
+			window.cancelAnimationFrame(this.animation_request);
+			this.animation_request = undefined;
 		},
 
 
@@ -12402,6 +12405,7 @@ exports.default = {
 			$("body").on("click", "div#project-player-bg", function (e) {
 				if ($(e.target).is('div#project-player-bg')) {
 					_this3.video.pause();
+					_this3.stopProcessing();
 					$('#project-player-bg').fadeOut("fast");
 				}
 				e.preventDefault();
@@ -12412,6 +12416,7 @@ exports.default = {
 			$("body").on("click", "a.close-project", function (e) {
 				e.preventDefault();
 				_this3.video.pause();
+				_this3.stopProcessing();
 				$('#project-player-bg').fadeOut("fast");
 			});
 
@@ -12441,6 +12446,7 @@ exports.default = {
 			this.video.on("ended", function () {
 				if (_this4.project.options.stop_showing.exit_on_end === true) {
 					$('#project-player-bg').fadeOut("fast");
+					_this4.stopProcessing();
 				}
 			});
 
@@ -12449,6 +12455,7 @@ exports.default = {
 				$("#project-player-container").on("click", function (e) {
 					if ($(e.target).is('canvas#output')) {
 						_this4.video.pause();
+						_this4.stopProcessing();
 						$('#project-player-bg').fadeOut("fast");
 					}
 					e.preventDefault();
@@ -12771,7 +12778,9 @@ exports.default = {
 						setTimeout(function () {
 							var project_embed = $("div#project-embed-video").find('iframe');
 							var embed_source = $(project_embed).attr("src");
-							$(project_embed).attr("src", embed_source);
+							if (embed_source == undefined) {
+								$(project_embed).attr("src", embed_source);
+							}
 							$("div#project-embed-video").fadeOut("fast");
 						}, embed_duration);
 					}

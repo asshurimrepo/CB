@@ -12,6 +12,7 @@ export default {
 	data() {
 		return {
 			/*Player*/
+			animation_request: null,
 			vPlayer: null,
 			buffer: null,
 			output: null,
@@ -230,21 +231,23 @@ export default {
 		},
 
 		startProcessing() {
-            if (window.requestAnimationFrame) window.requestAnimationFrame(this.startProcessing);
+            if (window.requestAnimationFrame) this.animation_request = window.requestAnimationFrame(this.startProcessing);
             // IE implementation
-            else if (window.msRequestAnimationFrame) window.msRequestAnimationFrame(this.startProcessing);
+            else if (window.msRequestAnimationFrame) this.animation_request = window.msRequestAnimationFrame(this.startProcessing);
             // Firefox implementation
-            else if (window.mozRequestAnimationFrame) window.mozRequestAnimationFrame(this.startProcessing);
+            else if (window.mozRequestAnimationFrame) this.animation_request = window.mozRequestAnimationFrame(this.startProcessing);
             // Chrome implementation
-            else if (window.webkitRequestAnimationFrame) window.webkitRequestAnimationFrame(this.startProcessing);
+            else if (window.webkitRequestAnimationFrame) this.animation_request = window.webkitRequestAnimationFrame(this.startProcessing);
             // Other browsers that do not yet support feature
-            else setTimeout(this.startProcessing, 16.7);
+            else this.animation_request =  setTimeout(this.startProcessing, 16.7);
             this.processFrame();
 			// this.timer = setInterval(() => { this.processFrame(); }, 100);
 		},
 
 		stopProcessing() {
 			// clearInterval(this.timer);
+			window.cancelAnimationFrame(this.animation_request);
+			this.animation_request = undefined;
 		},
 
 		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -347,6 +350,7 @@ export default {
 			$("body").on("click","div#project-player-bg", (e) => {
 				if($(e.target).is('div#project-player-bg')){
 					this.video.pause();
+					this.stopProcessing();
 					$('#project-player-bg').fadeOut("fast");
 				}
 				e.preventDefault();
@@ -357,6 +361,7 @@ export default {
 			$("body").on("click","a.close-project", (e) => {
 				e.preventDefault();
 				this.video.pause();
+				this.stopProcessing();
 				$('#project-player-bg').fadeOut("fast");
 			});
 
@@ -386,6 +391,7 @@ export default {
 			this.video.on("ended", () =>{
 				if(this.project.options.stop_showing.exit_on_end === true){
 					$('#project-player-bg').fadeOut("fast");
+					this.stopProcessing();
 				}
 			});
 
@@ -394,6 +400,7 @@ export default {
 				$("#project-player-container").on("click",(e) => {
 					if($(e.target).is('canvas#output')){
 						this.video.pause();
+						this.stopProcessing();
 						$('#project-player-bg').fadeOut("fast");
 					}
 					e.preventDefault();
