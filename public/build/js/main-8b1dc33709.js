@@ -12254,24 +12254,81 @@ exports.default = {
 			// this.video.height(this.project.height*2);
 
 			this.video.ready(function () {
-				$(".loader-3").fadeOut("fast");
 				_this2.video.on("loadedmetadata", function () {
+
+					// rigz script
 					_this2.video.height(_this2.vPlayer.videoHeight);
+
 					_this2.h = _this2.video.height() / 2;
-					_this2.buffer = $("canvas#buffer").get(0).getContext('2d');
-					_this2.output = $("canvas#output").get(0).getContext('2d');
+
 					$("#project-player").prepend($("canvas#output"));
-					$("canvas#buffer").get(0).setAttribute("height", _this2.h * 2);
 					$("canvas#output").get(0).setAttribute("width", _this2.w);
 					$("canvas#output").get(0).setAttribute("height", _this2.h);
 					_this2.video.play();
 					_this2.addActionsToVideo();
-					_this2.startProcessing();
-					console.log('video height:', _this2.video.height());
-					console.log('buffer height:', $("canvas#buffer").height());
-					console.log('output height:', $("canvas#output").height());
-				});
+					// rigz script
 
+
+					var seriously, chroma, target;
+
+					seriously = new Seriously();
+
+					target = seriously.target('#output');
+					chroma = seriously.effect('chroma');
+
+					// if (Modernizr.video.webm && Modernizr.video.h264) {
+					//   //console.log("Chrome");
+					//   chroma.weight = .9;
+					//   chroma.balance = 1;
+					//   chroma.clipWhite = 1;
+					//   chroma.clipBlack = 0;
+					//   chroma.screen = [.2,1,.1,1];
+					// } else if (!Modernizr.video.webm && Modernizr.video.h264) {
+					//   //console.log("Safari");
+					//   chroma.weight = 1.25;
+					//   chroma.balance = 1;
+					//   chroma.clipWhite = 1;
+					//   chroma.clipBlack = 0;
+					//   chroma.screen = [.3,.9,.15,1];
+					// } else if (Modernizr.video.webm && !Modernizr.video.h264) {
+					//   //console.log("Firefox");
+					//   chroma.weight = 1.05;
+					//   chroma.balance = 1;
+					//   chroma.clipWhite = 1;
+					//   chroma.clipBlack = 0;
+					//   chroma.screen = [.14,.95,0,1];
+					// }
+
+					chroma.source = "#project-player_html5_api";
+					target.source = chroma;
+					chroma.screen = [0, 1, 0, 1];
+					chrome['clipWhite'] = 1;
+					chrome['clipBlack'] = 0;
+					chrome['weight'] = 1;
+					seriously.go();
+
+					// $("input[type=range]").on("input",function(e) {
+					//   update(this);
+					// });
+
+					function update(elment) {
+						var id = $(elment).attr('id');
+						var value = $(elment).val();
+
+						$("#" + id + "Value").html(value);
+
+						if ($.inArray(id, ['red', 'green', 'blue']) > -1) {
+							var red = parseFloat($("#red").val());
+							var green = parseFloat($("#green").val());
+							var blue = parseFloat($("#blue").val());
+							id = "screen";
+							value = [red, green, blue, 1];
+							chroma.screen = value;
+						}
+
+						chroma[id] = value;
+					}
+				});
 				_this2.videoEnded();
 			});
 
@@ -12280,54 +12337,6 @@ exports.default = {
 
 			this.vPlayer = document.getElementById("project-player_html5_api");
 		},
-
-
-		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-		processFrame: function processFrame() {
-			this.buffer.drawImage(this.vPlayer, 0, 0);
-
-			var image = this.buffer.getImageData(0, 0, this.w, this.h - this.dy - 0);
-			var alpha = this.buffer.getImageData(0, this.h - this.dy, this.w, this.h - this.dy - 0);
-			var imageData = image.data;
-			var alphaData = alpha.data;
-			if (this.frstfrm) {
-				if (navigator.userAgent.toLowerCase().indexOf('firefox') < 0) {
-					if (alphaData[this.w * 4] < 50) this.dy = Math.round(6 - (400 - w) / 50) + 1;
-				}
-				this.frstfrm = false;
-			} else {
-				var strt = this.w * 0 + 3;
-				var len = imageData.length;
-				for (var i = strt; i < len; i += 4) {
-					imageData[i] = alphaData[i - 1];
-				}this.output.putImageData(image, 0, 0, 0, this.dy, this.w, this.h - this.dy);
-			}
-		},
-		startProcessing: function startProcessing() {
-			if (window.requestAnimationFrame) this.animation_request = window.requestAnimationFrame(this.startProcessing);
-			// IE implementation
-			else if (window.msRequestAnimationFrame) this.animation_request = window.msRequestAnimationFrame(this.startProcessing);
-				// Firefox implementation
-				else if (window.mozRequestAnimationFrame) this.animation_request = window.mozRequestAnimationFrame(this.startProcessing);
-					// Chrome implementation
-					else if (window.webkitRequestAnimationFrame) this.animation_request = window.webkitRequestAnimationFrame(this.startProcessing);
-						// Other browsers that do not yet support feature
-						else this.animation_request = setTimeout(this.startProcessing, 16.7);
-
-			this.processFrame();
-			// this.timer = setInterval(() => { this.processFrame(); }, 100);
-		},
-		stopProcessing: function stopProcessing() {
-			// clearInterval(this.timer);
-			window.cancelAnimationFrame(this.animation_request);
-			this.animation_request = undefined;
-		},
-
-
-		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
 		updatePlayer: function updatePlayer() {
 			this.resetOffsets();
 
@@ -12390,7 +12399,7 @@ exports.default = {
 			}
 
 			var delay = parseInt(this.project.options.auto_display_after) * 1000;
-			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" width="400" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t    <canvas width="400" id="buffer"></canvas>\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
+			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" width="400" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/video/2.mp4" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
 
 			$("#video-section").empty().html(video_template);
 
@@ -12406,7 +12415,7 @@ exports.default = {
 			$("body").on("click", "div#project-player-bg", function (e) {
 				if ($(e.target).is('div#project-player-bg')) {
 					_this3.video.pause();
-					_this3.stopProcessing();
+
 					$('#project-player-bg').fadeOut("fast");
 				}
 				e.preventDefault();
@@ -12417,7 +12426,6 @@ exports.default = {
 			$("body").on("click", "a.close-project", function (e) {
 				e.preventDefault();
 				_this3.video.pause();
-				_this3.stopProcessing();
 				$('#project-player-bg').fadeOut("fast");
 			});
 
@@ -12447,7 +12455,6 @@ exports.default = {
 			this.video.on("ended", function () {
 				if (_this4.project.options.stop_showing.exit_on_end === true) {
 					$('#project-player-bg').fadeOut("fast");
-					_this4.stopProcessing();
 				}
 			});
 
@@ -12456,7 +12463,7 @@ exports.default = {
 				$("#project-player-container").on("click", function (e) {
 					if ($(e.target).is('canvas#output')) {
 						_this4.video.pause();
-						_this4.stopProcessing();
+
 						$('#project-player-bg').fadeOut("fast");
 					}
 					e.preventDefault();
@@ -12771,7 +12778,6 @@ exports.default = {
 			var _this7 = this;
 
 			this.video.on("ended", function () {
-				_this7.stopProcessing();
 				if (_this7.project.options.external_video.embed_code != "") {
 					var embed_duration = parseInt(_this7.project.options.external_video.duration) * 1000;
 					$("div#project-embed-video").fadeIn("fast");

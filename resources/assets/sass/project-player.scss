@@ -1,31 +1,19 @@
 #project-player {
 	background: transparent !important;
 	height: auto !important;
-
 	canvas#output{
 		margin-bottom: -2px;
-	    -webkit-transform: translate3d(0, 0, 0) !important;
-	    -moz-transform: translate3d(0, 0, 0) !important;
-	    -ms-transform: translate3d(0, 0, 0) !important; /*only in IE10*/
 	}
 	.vjs-fullscreen-control.vjs-control.vjs-button, .vjs-progress-control.vjs-control, video {
 		display: none !important;
-	    -webkit-transform: translate3d(0, 0, 0) !important;
-	    -moz-transform: translate3d(0, 0, 0) !important;
-	    -ms-transform: translate3d(0, 0, 0) !important; /*only in IE10*/
 	}
 	.vjs-big-play-button
 	{
 		display: none !important;
 	}
 }
-
-
 canvas#buffer {
 	display: none;
-    -webkit-transform: translate3d(0, 0, 0) !important;
-    -moz-transform: translate3d(0, 0, 0) !important;
-    -ms-transform: translate3d(0, 0, 0) !important; /*only in IE10*/
 }
 
 #project-player-bg{
