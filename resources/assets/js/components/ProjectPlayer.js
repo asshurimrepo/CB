@@ -230,11 +230,21 @@ export default {
 		},
 
 		startProcessing() {
-			this.timer = setInterval(() => { this.processFrame(); }, 100);
+            if (window.requestAnimationFrame) window.requestAnimationFrame(this.startProcessing);
+            // IE implementation
+            else if (window.msRequestAnimationFrame) window.msRequestAnimationFrame(this.startProcessing);
+            // Firefox implementation
+            else if (window.mozRequestAnimationFrame) window.mozRequestAnimationFrame(this.startProcessing);
+            // Chrome implementation
+            else if (window.webkitRequestAnimationFrame) window.webkitRequestAnimationFrame(this.startProcessing);
+            // Other browsers that do not yet support feature
+            else setTimeout(this.startProcessing, 16.7);
+            this.processFrame();
+			// this.timer = setInterval(() => { this.processFrame(); }, 100);
 		},
 
 		stopProcessing() {
-			clearInterval(this.timer);
+			// clearInterval(this.timer);
 		},
 
 		// green screen processing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -358,12 +368,14 @@ export default {
 			});
 
 			//close video embed
-			$("body").on("click","div#project-embed>a.close-embed", (e) => {
+			$("body").on("click","div#project-embed-video>a.close-embed", (e) => {
 				e.preventDefault();
-				let project_embed = $("div#project-embed").find('iframe');
+				let project_embed = $("div#project-embed-video").find('iframe');
 				let embed_source = $(project_embed).attr("src");
-				$(project_embed).attr("src", embed_source);
-				$('div#project-player-container>div#project-embed').fadeOut("fast");
+				if(embed_source == undefined){
+					$(project_embed).attr("src", embed_source);
+				}
+				$('div#project-player-container>div#project-embed-video').fadeOut("fast");
 				return false;
 			});
 
@@ -712,13 +724,15 @@ export default {
 				this.stopProcessing();
 				if(this.project.options.external_video.embed_code != ""){
 					let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
-					$("div#project-embed").fadeIn("fast");
+					$("div#project-embed-video").fadeIn("fast");
 					if (embed_duration > 0){
 						setTimeout(() => {
-							let project_embed = $("div#project-embed").find('iframe');
+							let project_embed = $("div#project-embed-video").find('iframe');
 							let embed_source = $(project_embed).attr("src");
-							$(project_embed).attr("src", embed_source);
-							$("div#project-embed").fadeOut("fast");
+							if(embed_source == undefined){
+								$(project_embed).attr("src", embed_source);
+							}
+							$("div#project-embed-video").fadeOut("fast");
 						},embed_duration);
 					}
 				}
