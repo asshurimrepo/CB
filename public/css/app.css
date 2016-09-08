@@ -12303,14 +12303,26 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
   background: transparent !important;
   height: auto !important; }
   #project-player canvas#output {
-    margin-bottom: -2px; }
+    margin-bottom: -2px;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    -moz-transform: translate3d(0, 0, 0) !important;
+    -ms-transform: translate3d(0, 0, 0) !important;
+    /*only in IE10*/ }
   #project-player .vjs-fullscreen-control.vjs-control.vjs-button, #project-player .vjs-progress-control.vjs-control, #project-player video {
-    display: none !important; }
+    display: none !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    -moz-transform: translate3d(0, 0, 0) !important;
+    -ms-transform: translate3d(0, 0, 0) !important;
+    /*only in IE10*/ }
   #project-player .vjs-big-play-button {
     display: none !important; }
 
 canvas#buffer {
-  display: none; }
+  display: none;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  -moz-transform: translate3d(0, 0, 0) !important;
+  -ms-transform: translate3d(0, 0, 0) !important;
+  /*only in IE10*/ }
 
 #project-player-bg {
   position: fixed;
@@ -12332,7 +12344,7 @@ canvas#buffer {
 #project-player-container.Project--centered {
   top: 50%;
   left: 50%;
-  /*transform: translate(-50%, -50%);*/ }
+  transform: translate(-50%, -50%); }
 
 #project-player-container.Project--topleft {
   top: 0;
@@ -12375,7 +12387,7 @@ canvas#buffer {
 
 #project-text-overlay.Textoverlay--middle {
   top: 50%;
-  /*transform: translateY(-50%);*/ }
+  transform: translateY(-50%); }
 
 #project-text-overlay.Textoverlay--bottom {
   bottom: 0; }
@@ -12403,7 +12415,7 @@ canvas#buffer {
 
 #project-clicktocall.Clicktocall--middle {
   top: 50%;
-  /*transform: translateY(-50%);*/ }
+  transform: translateY(-50%); }
 
 #project-clicktocall.Clicktocall--bottom {
   bottom: 0; }
@@ -12441,7 +12453,7 @@ canvas#buffer {
 
 #project-buttonoverlay.Buttonoverlay--middle {
   top: 50%;
-  /*transform: translateY(-50%);*/ }
+  transform: translateY(-50%); }
 
 #project-buttonoverlay.Buttonoverlay--bottom {
   bottom: 0; }
@@ -12460,7 +12472,7 @@ canvas#buffer {
   z-index: 1049;
   width: 100%;
   top: 50%;
-  /* transform: translateY(-50%);*/
+  transform: translateY(-50%);
   padding: 30px;
   display: none; }
 
@@ -12499,7 +12511,7 @@ canvas#buffer {
 div#project-embed-video.Embed--centered {
   top: 50%;
   left: 50%;
-  /* transform: translate(-50%, -50%);*/ }
+  transform: translate(-50%, -50%); }
 
 div#project-embed-video.Embed--topleft {
   top: 0;
