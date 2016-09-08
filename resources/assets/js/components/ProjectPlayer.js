@@ -240,6 +240,7 @@ export default {
             else if (window.webkitRequestAnimationFrame) this.animation_request = window.webkitRequestAnimationFrame(this.startProcessing);
             // Other browsers that do not yet support feature
             else this.animation_request =  setTimeout(this.startProcessing, 16.7);
+
             this.processFrame();
 			// this.timer = setInterval(() => { this.processFrame(); }, 100);
 		},
