@@ -183,11 +183,12 @@ export default {
 					// rigz script
 					this.video.height(this.vPlayer.videoHeight);
 
-					this.h = this.video.height()/2;
+					this.h = this.video.height();
 
 					$("#project-player").prepend($("canvas#output"));
-					$("canvas#output").get(0).setAttribute("width", this.w);
+					$("canvas#output").get(0).setAttribute("width", this.vPlayer.videoWidth);
 					$("canvas#output").get(0).setAttribute("height", this.h);
+					$("canvas#output").css('width', '400px');
 					this.video.play();
 					this.addActionsToVideo();
 					// rigz script
@@ -228,10 +229,12 @@ export default {
 			          chroma.source = "#project-player_html5_api";
 			          target.source = chroma;
 			          chroma.screen = [0,1,0,1];
-			          chrome['clipWhite'] = 1;
-			          chrome['clipBlack'] = 0;
-			          chrome['weight'] = 1;
+			          chroma['clipWhite'] = 1;
+			          chroma.clipBlack = 1;
+			          chroma['weight'] = 2;
 			          seriously.go();
+
+			          console.log(chroma);
 
 			          // $("input[type=range]").on("input",function(e) {
 			          //   update(this);
@@ -338,9 +341,9 @@ export default {
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
 			let video_template = `
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
-			<video id="project-player" class="video-js" preload="auto" width="400" data-setup='{"poster":"/image/${this.project.filename}"}'>
+			<video id="project-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}"}'>
 
-		          <source src="/video/2.mp4" type="video/mp4">
+		          <source src="/dog.mp4" type="video/mp4">
 
 		          <p class="vjs-no-js">
 		            To view this video please enable JavaScript, and consider upgrading to a web browser that

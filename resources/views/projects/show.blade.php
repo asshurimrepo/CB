@@ -24,8 +24,8 @@
           chroma.source = "#video";
           target.source = chroma;
           chroma.screen = [0,1,0,1];
-          chroma['clipBlack'] = 1;
-          chroma['weight'] = 2;
+      /*    chroma['clipBlack'] = 1;
+          chroma['weight'] = 2;*/
           seriously.go();
 
           $("input[type=range]").bind("input",function(e) { 

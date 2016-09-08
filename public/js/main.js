@@ -12259,11 +12259,12 @@ exports.default = {
 					// rigz script
 					_this2.video.height(_this2.vPlayer.videoHeight);
 
-					_this2.h = _this2.video.height() / 2;
+					_this2.h = _this2.video.height();
 
 					$("#project-player").prepend($("canvas#output"));
-					$("canvas#output").get(0).setAttribute("width", _this2.w);
+					$("canvas#output").get(0).setAttribute("width", _this2.vPlayer.videoWidth);
 					$("canvas#output").get(0).setAttribute("height", _this2.h);
+					$("canvas#output").css('width', '400px');
 					_this2.video.play();
 					_this2.addActionsToVideo();
 					// rigz script
@@ -12302,10 +12303,12 @@ exports.default = {
 					chroma.source = "#project-player_html5_api";
 					target.source = chroma;
 					chroma.screen = [0, 1, 0, 1];
-					chrome['clipWhite'] = 1;
-					chrome['clipBlack'] = 0;
-					chrome['weight'] = 1;
+					chroma['clipWhite'] = 1;
+					chroma.clipBlack = 1;
+					chroma['weight'] = 2;
 					seriously.go();
+
+					console.log(chroma);
 
 					// $("input[type=range]").on("input",function(e) {
 					//   update(this);
@@ -12399,7 +12402,7 @@ exports.default = {
 			}
 
 			var delay = parseInt(this.project.options.auto_display_after) * 1000;
-			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" width="400" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/video/2.mp4" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
+			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/dog.mp4" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
 
 			$("#video-section").empty().html(video_template);
 
