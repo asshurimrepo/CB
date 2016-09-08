@@ -1,19 +1,31 @@
 #project-player {
 	background: transparent !important;
 	height: auto !important;
+
 	canvas#output{
 		margin-bottom: -2px;
+	    -webkit-transform: translate3d(0, 0, 0);
+	    -moz-transform: translate3d(0, 0, 0);
+	    -ms-transform: translate3d(0, 0, 0); /*only in IE10*/
 	}
 	.vjs-fullscreen-control.vjs-control.vjs-button, .vjs-progress-control.vjs-control, video {
 		display: none !important;
+	    -webkit-transform: translate3d(0, 0, 0);
+	    -moz-transform: translate3d(0, 0, 0);
+	    -ms-transform: translate3d(0, 0, 0); /*only in IE10*/
 	}
 	.vjs-big-play-button
 	{
 		display: none !important;
 	}
 }
+
+
 canvas#buffer {
 	display: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0); /*only in IE10*/
 }
 
 #project-player-bg{
@@ -41,7 +53,7 @@ canvas#buffer {
 #project-player-container.Project--centered {
 	top: 50%;
     left: 50%;
-    /*transform: translate(-50%, -50%);*/
+    transform: translate(-50%, -50%);
 }
 
 #project-player-container.Project--topleft {
@@ -97,7 +109,7 @@ canvas#buffer {
 
 #project-text-overlay.Textoverlay--middle{
 	top: 50%;
-	/*transform: translateY(-50%);*/
+	transform: translateY(-50%);
 }
 
 #project-text-overlay.Textoverlay--bottom{
@@ -136,7 +148,7 @@ canvas#buffer {
 
 #project-clicktocall.Clicktocall--middle{
 	top: 50%;
-	/*transform: translateY(-50%);*/
+	transform: translateY(-50%);
 }
 
 #project-clicktocall.Clicktocall--bottom{
@@ -187,7 +199,7 @@ canvas#buffer {
 
 #project-buttonoverlay.Buttonoverlay--middle{
 	top: 50%;
-	/*transform: translateY(-50%);*/
+	transform: translateY(-50%);
 }
 
 #project-buttonoverlay.Buttonoverlay--bottom{
@@ -213,7 +225,7 @@ canvas#buffer {
     z-index: 1049;
     width: 100%;
     top: 50%;
-   /* transform: translateY(-50%);*/
+    transform: translateY(-50%);
     padding: 30px;
     display: none;
 }
@@ -257,7 +269,7 @@ canvas#buffer {
 div#project-embed-video.Embed--centered{
 	top: 50%;
     left: 50%;
-   /* transform: translate(-50%, -50%);*/
+    transform: translate(-50%, -50%);
 }
 
 div#project-embed-video.Embed--topleft{
