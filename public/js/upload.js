@@ -11595,7 +11595,8 @@ new _vue2.default({
 
 	methods: {
 		done: function done(e, data) {
-			this.process(data.result.id);
+			// this.process(data.result.id);
+			this.finishingUp(data.result.id);
 		},
 		process: function process(id) {
 			var _this2 = this;
