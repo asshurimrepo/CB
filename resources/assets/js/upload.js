@@ -61,7 +61,8 @@ new Vue({
 
 	methods: {
 		done(e, data) {
-			this.process(data.result.id);
+			// this.process(data.result.id);
+			this.finishingUp(data.result.id);
 		},
 
 		process(id) {

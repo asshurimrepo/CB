@@ -11523,185 +11523,1398 @@ setTimeout(function () {
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":1}],4:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _vue = require("vue");
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
-var _vue2 = _interopRequireDefault(_vue);
+var _ActionsLinkURL = require('../components/ActionsLinkURL.js');
+
+var _ActionsLinkURL2 = _interopRequireDefault(_ActionsLinkURL);
+
+var _ActionsClickToCall = require('../components/ActionsClickToCall.js');
+
+var _ActionsClickToCall2 = _interopRequireDefault(_ActionsClickToCall);
+
+var _ActionsFBOverlay = require('../components/ActionsFBOverlay.js');
+
+var _ActionsFBOverlay2 = _interopRequireDefault(_ActionsFBOverlay);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-require("./utilities/randomLoadingMessage");
+exports.default = {
+	template: require('../templates/actions.html'),
 
-_vue2.default.use(require('vue-resource'));
-_vue2.default.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+	props: ['project'],
 
-$.ajaxSetup({
-	headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
-});
-
-new _vue2.default({
-	el: "#upload-section",
-
-	ready: function ready() {
-		var _this = this;
-
-		console.log('Upload is Ready!');
-
-		$('#fileupload').fileupload({
-			dataType: 'json',
-			done: this.done,
-			add: function add(e, data) {
-				window.funnie_text = setInterval(function () {
-					$(".funnies").hide().fadeIn(1000);
-					_this.funnies = randomLoadingMessage();
-				}, 15000);
-
-				data.submit();
-			},
-			progressall: function progressall(e, data) {
-				_this.in_progress = true;
-				_this.$set('progress', parseInt(data.loaded / data.total * 100, 10));
-			}
-		});
-
-		$(".btn-upload").click(function () {
-			$("[name='file']").click();
-		});
-
-		this.funnies = randomLoadingMessage();
+	data: function data() {
+		return {
+			is_saving: false
+		};
 	},
 
 
-	data: {
-		in_progress: false,
-		progress: 0,
-		process_is_done: false,
-		funnies: "",
-		step: 1,
-		frames: [],
-		current_frame: 0
+	watch: {
+		project: function project() {
+			this.$broadcast('project_change');
+		}
+	},
+
+	components: {
+		Linkurl: _ActionsLinkURL2.default, Clicktocall: _ActionsClickToCall2.default, Fboverlay: _ActionsFBOverlay2.default
+	},
+
+	methods: {
+		save: function save() {
+			var _this = this;
+
+			this.is_saving = true;
+
+			this.$http.put('/project/' + this.project.id, this.project).then(function () {
+				swal("Good job!", "You have successfully save your project settings!", "success");
+				_this.is_saving = false;
+			});
+		}
+	}
+};
+
+},{"../components/ActionsClickToCall.js":5,"../components/ActionsFBOverlay.js":6,"../components/ActionsLinkURL.js":7,"../templates/actions.html":19}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _ColorPicker = require('../components/ColorPicker.js');
+
+var _ColorPicker2 = _interopRequireDefault(_ColorPicker);
+
+var _ToolTip = require('../components/ToolTip');
+
+var _ToolTip2 = _interopRequireDefault(_ToolTip);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    template: require('../templates/actions-clicktocall.html'),
+
+    ready: function ready() {
+        $(".actions-ref").change(this.updateSwitchable);
+        $("#clicktocall_start").click(this.updateStart);
+        $("#clicktocall_duration").click(this.updateDuration);
+    },
+
+
+    components: {
+        ColorPicker: _ColorPicker2.default, Tooltip: _ToolTip2.default
+    },
+
+    props: ['project'],
+
+    watch: {
+        project: function project() {
+            $(".actions-ref").change();
+        }
+    },
+
+    methods: {
+        updateSwitchable: function updateSwitchable($this) {
+            this.$set('project.actions.' + $this.target.id, $this.target.checked);
+        },
+        updateStart: function updateStart($this) {
+            var starttime = $($this.currentTarget).parent().find('input').val();
+            this.$set('project.actions.' + $this.currentTarget.id, starttime);
+        },
+        updateDuration: function updateDuration($this) {
+            var durationtime = $($this.currentTarget).parent().find('input').val();
+            this.$set('project.actions.' + $this.currentTarget.id, durationtime);
+        }
+    }
+
+};
+
+},{"../components/ColorPicker.js":8,"../components/ToolTip":14,"../templates/actions-clicktocall.html":16}],6:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _ColorPicker = require('../components/ColorPicker.js');
+
+var _ColorPicker2 = _interopRequireDefault(_ColorPicker);
+
+var _ToolTip = require('../components/ToolTip');
+
+var _ToolTip2 = _interopRequireDefault(_ToolTip);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    template: require('../templates/actions-fboverlay.html'),
+
+    ready: function ready() {
+        $(".actions-ref").change(this.updateSwitchable);
+        $(".fontsize-buttons").click(this.updateFont);
+        $("#buttonoverlay_start").click(this.updateStart);
+        $("#buttonoverlay_duration").click(this.updateDuration);
+        $("#formoverlay_start").click(this.updateStart);
+        $("#formoverlay_duration").click(this.updateDuration);
+    },
+
+
+    components: {
+        ColorPicker: _ColorPicker2.default, Tooltip: _ToolTip2.default
+    },
+
+    props: ['project'],
+
+    data: function data() {
+        return {
+            mailchimp: {
+                lists: []
+            },
+            getresponse: {
+                lists: []
+            },
+            aweber: {
+                lists: [],
+                authorization_url: null,
+                access_token: null,
+                access_secret: null
+            },
+            isLoading: false
+        };
+    },
+
+
+    watch: {
+        project: function project() {
+            $(".actions-ref").change();
+        }
+    },
+
+    events: {
+        project_change: function project_change() {
+            this.processAutoResponder();
+        },
+        aweber_authorization_url: function aweber_authorization_url(url) {
+            this.aweber.authorization_url = url;
+        }
+    },
+
+    computed: {
+        formoverlay_titlesize: function formoverlay_titlesize() {
+            if (this.project.actions.formoverlay_titlesize === 'Small') return '14px';
+            if (this.project.actions.formoverlay_titlesize === 'Medium') return '18px';
+            if (this.project.actions.formoverlay_titlesize === 'Large') return '22px';
+
+            return '18px';
+        },
+        formoverlay_fieldsize: function formoverlay_fieldsize() {
+            if (this.project.actions.formoverlay_fieldsize === 'Small') return 'input-sm';
+            if (this.project.actions.formoverlay_fieldsize === 'Medium') return '';
+            if (this.project.actions.formoverlay_fieldsize === 'Large') return 'input-lg';
+
+            return '';
+        },
+        formoverlay_buttonsize: function formoverlay_buttonsize() {
+            if (this.project.actions.formoverlay_buttonsize === 'Small') return 'btn-sm';
+            if (this.project.actions.formoverlay_buttonsize === 'Medium') return '';
+            if (this.project.actions.formoverlay_buttonsize === 'Large') return 'btn-lg';
+
+            return 'btn-sm';
+        },
+        mailchimp_list_count: function mailchimp_list_count() {
+            var keys = Object.keys(this.mailchimp.lists);
+            return keys.length;
+        },
+        getresponse_list_count: function getresponse_list_count() {
+            var keys = Object.keys(this.getresponse.lists);
+            return keys.length;
+        },
+        aweber_list_count: function aweber_list_count() {
+            var keys = Object.keys(this.aweber.lists);
+            return keys.length;
+        }
+    },
+
+    methods: {
+        valid_autoresponder: function valid_autoresponder() {
+            if (this.isBelongsTo('mailchimp')) {
+                return this.project.actions.autoresponder_data.mailchimp.key.length > 0;
+            }
+
+            if (this.isBelongsTo('getresponse')) {
+                return this.project.actions.autoresponder_data.getresponse.key.length > 0;
+            }
+
+            if (this.isBelongsTo('aweber')) {
+                return this.project.actions.autoresponder_data.aweber.access_token.length > 0;
+            }
+
+            return false;
+        },
+        updateStart: function updateStart($this) {
+            var starttime = $($this.currentTarget).parent().find('input').val();
+            this.$set('project.actions.' + $this.currentTarget.id, starttime);
+        },
+        updateDuration: function updateDuration($this) {
+            var durationtime = $($this.currentTarget).parent().find('input').val();
+            this.$set('project.actions.' + $this.currentTarget.id, durationtime);
+        },
+        updateSwitchable: function updateSwitchable($this) {
+            this.$set('project.actions.' + $this.target.id, $this.target.checked);
+        },
+        isBelongsTo: function isBelongsTo(ref) {
+            return this.project.actions.autoresponder == ref;
+        },
+        updateFont: function updateFont($this) {
+            var fontsize = $($this.currentTarget).parent().find('input').val();
+            this.$set('project.actions.' + $this.currentTarget.id, fontsize);
+        },
+        getAweberAccessToken: function getAweberAccessToken() {
+            var _this = this;
+
+            this.$http.post('/autoresponder/aweber/access_token', this.project.actions.autoresponder_data.aweber).then(function (response) {
+                Object.assign(_this.project.actions.autoresponder_data.aweber, response.data);
+                _this.processAutoResponder();
+            });
+        },
+        processAutoResponder: function processAutoResponder() {
+            var _this2 = this;
+
+            if (!this.valid_autoresponder()) {
+                return;
+            }
+
+            this.isLoading = true;
+            var data = this.$get('project.actions.autoresponder_data.' + this.project.actions.autoresponder);
+
+            this.$http.post('/autoresponder/' + this.project.actions.autoresponder, data).then(function (response) {
+                _this2.$set(_this2.project.actions.autoresponder + '.lists', response.data);
+                _this2.isLoading = false;
+            }).catch(function () {
+                return _this2.isLoading = false;
+            });
+        }
+    }
+
+};
+
+},{"../components/ColorPicker.js":8,"../components/ToolTip":14,"../templates/actions-fboverlay.html":17}],7:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _ColorPicker = require('../components/ColorPicker.js');
+
+var _ColorPicker2 = _interopRequireDefault(_ColorPicker);
+
+var _ToolTip = require('../components/ToolTip');
+
+var _ToolTip2 = _interopRequireDefault(_ToolTip);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    template: require('../templates/actions-linkurl.html'),
+
+    ready: function ready() {
+        $(".actions-ref").change(this.updateSwitchable);
+        $("#textoverlay_start").click(this.updateStart);
+        $("#textoverlay_duration").click(this.updateDuration);
+    },
+
+
+    components: {
+        ColorPicker: _ColorPicker2.default, Tooltip: _ToolTip2.default
+    },
+
+    props: ['project'],
+
+    watch: {
+        project: function project() {
+            $(".actions-ref").change();
+        }
+    },
+
+    methods: {
+        updateSwitchable: function updateSwitchable($this) {
+            this.$set('project.actions.' + $this.target.id, $this.target.checked);
+        },
+        updateStart: function updateStart($this) {
+            var starttime = $($this.currentTarget).parent().find('input').val();
+            this.$set('project.actions.' + $this.currentTarget.id, starttime);
+        },
+        updateDuration: function updateDuration($this) {
+            var durationtime = $($this.currentTarget).parent().find('input').val();
+            this.$set('project.actions.' + $this.currentTarget.id, durationtime);
+        }
+    }
+
+};
+
+},{"../components/ColorPicker.js":8,"../components/ToolTip":14,"../templates/actions-linkurl.html":18}],8:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+
+	template: require('../templates/color-picker.html'),
+
+	ready: function ready() {
+		$(this.$el).on('changeColor', this.updateColor);
+		$(this.$el).on('hide', this.updateColor);
+	},
+
+
+	props: {
+		format: { default: 'rgb' },
+		color: { default: null }
+	},
+
+	methods: {
+		updateColor: function updateColor($color) {
+			if ($color.target.dataset.colorFormat == 'rgba') {
+				return this.$set('color', $color.color.toStringRGBA());
+			}
+			this.$set('color', $color.color.toStringRGB());
+		}
+	}
+
+};
+
+},{"../templates/color-picker.html":20}],9:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	template: require('../templates/embed.html'),
+
+	props: ['project']
+};
+
+},{"../templates/embed.html":21}],10:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _OptionsProperties = require('../components/OptionsProperties.js');
+
+var _OptionsProperties2 = _interopRequireDefault(_OptionsProperties);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+	template: require('../templates/options.html'),
+
+	props: ['project'],
+
+	data: function data() {
+		return {
+			is_saving: false
+		};
+	},
+
+
+	components: {
+		Properties: _OptionsProperties2.default
+	},
+
+	methods: {
+		save: function save() {
+			var _this = this;
+
+			this.is_saving = true;
+
+			this.$http.put('/project/' + this.project.id, this.project).then(function () {
+				swal("Good job!", "You have successfully save your project settings!", "success");
+				_this.is_saving = false;
+			});
+		}
+	}
+};
+
+},{"../components/OptionsProperties.js":11,"../templates/options.html":23}],11:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _ToolTip = require('../components/ToolTip');
+
+var _ToolTip2 = _interopRequireDefault(_ToolTip);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    template: require('../templates/options-properties.html'),
+
+    ready: function ready() {
+        $(".options-ref").change(this.updateSwitchable);
+    },
+
+
+    props: ['project'],
+
+    components: {
+        Tooltip: _ToolTip2.default
+    },
+
+    watch: {
+        project: function project() {
+            $(".options-ref").change();
+        }
+    },
+
+    methods: {
+        updateSwitchable: function updateSwitchable($this) {
+            this.$set('project.options.' + $this.target.id, $this.target.checked);
+        }
+    }
+
+};
+
+},{"../components/ToolTip":14,"../templates/options-properties.html":22}],12:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+
+	template: require('../templates/project.html'),
+
+	props: ['data'],
+
+	ready: function ready() {
+		console.log('Project Component is Ready!');
+		this.$data = this.data;
+	},
+
+
+	filters: {
+		truncate: function truncate(string, limit) {
+			if (string == undefined) {
+				return string;
+			}
+
+			return string.length > limit ? string.substr(0, limit) + '...' : string;
+		}
+	},
+	methods: {
+		showOptions: function showOptions() {
+			console.log('Showing Options for ' + this.title);
+			this.setActive();
+
+			$("#project-options").modal('show');
+		},
+		showActions: function showActions() {
+			console.log('Showing Actions for ' + this.title);
+			this.setActive();
+
+			$("#project-actions").modal('show');
+		},
+		showEmbed: function showEmbed() {
+			console.log('Showing Embed for ' + this.title);
+			this.setActive();
+
+			$("#project-embed").modal('show');
+		},
+		setActive: function setActive() {
+			this.$parent.active_project = this.data;
+			setTimeout(function () {
+				return $('.colorpicker-default').colorpicker('update');
+			}, 300);
+		},
+		showPreview: function showPreview() {
+			this.setActive();
+			this.$parent.$broadcast('show_preview');
+		},
+		deleteMe: function deleteMe() {
+			var _this = this;
+
+			swal({ title: "Are you sure?",
+				text: "You will not be able to recover this Project file!",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Yes, delete it!",
+				cancelButtonText: "No, cancel please!",
+				closeOnConfirm: false,
+				closeOnCancel: false }, function (isConfirm) {
+				if (isConfirm) {
+					swal("Deleted!", "Your Project file has been deleted.", "success");
+
+					_this.$http.delete('/project/' + _this.id).then(function () {
+						return _this.$parent.loadProjects();
+					});
+				} else {
+					swal("Cancelled", "Your Project file is safe :)", "error");
+				}
+			});
+		}
+	}
+
+};
+
+},{"../templates/project.html":25}],13:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+// var seeThru = require('seethru');
+
+exports.default = {
+	template: require('../templates/project-player.html'),
+
+	ready: function ready() {},
+
+
+	props: ['project'],
+
+	data: function data() {
+		return {
+			/*Player*/
+			animation_request: null,
+			vPlayer: null,
+			buffer: null,
+			output: null,
+			dy: 0,
+			first_frame: true,
+			timer: null,
+			is_visible: false,
+			video: null,
+			seeThru: null,
+			vidtime: 0,
+			vidduration: 0,
+			player_styles: {
+				offsets: {
+					marginTop: 0,
+					marginLeft: 0,
+					marginBottom: 0,
+					marginRight: 0
+				}
+			},
+			embed_class: {
+				position: ""
+			},
+			player_class: {
+				position: "",
+				dimmed: false,
+				glass: false
+			},
+
+			textoverlay_class: {
+				valignment: "",
+				alignment: ""
+			},
+
+			clicktocall_class: {
+				valignment: "",
+				alignment: ""
+			},
+
+			buttonoverlay_class: {
+				valignment: "",
+				alignment: ""
+			},
+			textoverlaystart: 0,
+			textoverlayduration: 0,
+			clicktocallstart: 0,
+			clicktocallduration: 0,
+			buttonoverlaystart: 0,
+			buttonoverlayduration: 0,
+			formoverlaystart: 0,
+			formoverlayduration: 0
+
+		};
+	},
+
+
+	events: {
+		show_preview: function show_preview() {
+			var _this = this;
+
+			setTimeout(function () {
+				_this.updatePlayer();
+				_this.playProject();
+			}, 200);
+		}
 	},
 
 	computed: {
-		process_text: function process_text() {
-			if (this.step == 1) return 'Uploading...';
-			if (this.step == 2) return 'Processing...';
-			if (this.step == 3) return "Converting " + this.current_frame + " out of " + this.frames.length + " Frames...";
-			if (this.step == 4) return 'Composing your new video...';
-			if (this.step == 5) return 'Wrapping up! :)';
+		has_Video: function has_Video() {
+			var embed = this.project.options.external_video.embed_code;
+
+			if (embed === "") {
+				return false;
+			}
+
+			return true;
+		},
+
+		//textoverlay
+		has_Textoverlay: function has_Textoverlay() {
+			var line1 = this.project.actions.textoverlay_line_1;
+			var line2 = this.project.actions.textoverlay_line_2;
+
+			if (line1 === "" && line2 === "") {
+				return false;
+			}
+			return true;
+		},
+		has_Line1: function has_Line1() {
+			var line1 = this.project.actions.textoverlay_line_1;
+			if (line1 == "") {
+				return false;
+			}
+			return true;
+		},
+		has_Line2: function has_Line2() {
+			var line2 = this.project.actions.textoverlay_line_2;
+			if (line2 == "") {
+				return false;
+			}
+			return true;
+		},
+
+		// clicktocall
+		has_Phonenumber: function has_Phonenumber() {
+			var phone_number = this.project.actions.clicktocall;
+
+			if (phone_number == "") {
+				return false;
+			}
+
+			return true;
+		},
+
+		//button overlay
+		has_Buttonoverlay: function has_Buttonoverlay() {
+			var button_overlay = this.project.actions.buttonoverlay_label;
+
+			if (button_overlay == "") {
+				return false;
+			}
+
+			return true;
+		},
+		has_Autoresponder: function has_Autoresponder() {
+			var autoresponder = this.project.actions.autoresponder_name;
+
+			if (autoresponder == "") {
+				return false;
+			}
+
+			return true;
+		},
+		formoverlay_titlesize: function formoverlay_titlesize() {
+			if (this.project.actions.formoverlay_titlesize === 'Small') return '14px';
+			if (this.project.actions.formoverlay_titlesize === 'Medium') return '18px';
+			if (this.project.actions.formoverlay_titlesize === 'Large') return '22px';
+
+			return '18px';
+		},
+		formoverlay_fieldsize: function formoverlay_fieldsize() {
+			if (this.project.actions.formoverlay_fieldsize === 'Small') return 'input-sm';
+			if (this.project.actions.formoverlay_fieldsize === 'Medium') return '';
+			if (this.project.actions.formoverlay_fieldsize === 'Large') return 'input-lg';
+
+			return '';
+		},
+		formoverlay_buttonsize: function formoverlay_buttonsize() {
+			if (this.project.actions.formoverlay_buttonsize === 'Small') return 'btn-sm';
+			if (this.project.actions.formoverlay_buttonsize === 'Medium') return '';
+			if (this.project.actions.formoverlay_buttonsize === 'Large') return 'btn-lg';
+
+			return 'btn-sm';
 		}
 	},
 
 	methods: {
-		done: function done(e, data) {
-			// this.process(data.result.id);
-			this.finishingUp(data.result.id);
-		},
-		process: function process(id) {
+		renderTransparentVideo: function renderTransparentVideo() {
 			var _this2 = this;
 
-			this.step = 2;
-			this.progress = 0;
-			this.updateProgress(20, 2000, 4000);
+			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
+			// this.video.height(this.project.height*2);
 
-			this.$http.post('/video-processer/' + id).then(function () {
-				_this2.progress = 20;
-				setTimeout(function () {
-					return _this2.processFrames(id);
-				}, 500);
+			this.video.ready(function () {
+				_this2.video.on("loadedmetadata", function () {
+
+					// rigz script
+					// this.video.height(this.vPlayer.videoHeight);
+					$("video#project-player_html5_api").attr("height", _this2.vPlayer.videoHeight);
+					$("video#project-player_html5_api").attr("width", _this2.vPlayer.videoWidth);
+
+					$("#project-player").prepend($("canvas#output"));
+					$("canvas#output").get(0).setAttribute("width", _this2.vPlayer.videoWidth);
+					$("canvas#output").get(0).setAttribute("height", _this2.vPlayer.videoHeight);
+
+					// for testing
+					$("canvas#output").css('width', '400px');
+					$("#project-player").css('width', '400px');
+					// for testing
+
+					_this2.video.play();
+					_this2.addActionsToVideo();
+					// rigz script
+
+
+					var seriously, chroma, target;
+
+					seriously = new Seriously();
+
+					target = seriously.target('#output');
+					chroma = seriously.effect('chroma');
+
+					chroma.source = "#project-player_html5_api";
+					target.source = chroma;
+					// chroma['screen'] = [255/255,255/255,255/255,1];
+					// chroma.screen = [0, 0, 0, 1];
+					chroma['clipWhite'] = 1;
+					chroma['clipBlack'] = 1;
+					chroma['weight'] = 1;
+					seriously.go();
+
+					function update(elment) {
+						var id = $(elment).attr('id');
+						var value = $(elment).val();
+
+						$("#" + id + "Value").html(value);
+
+						if ($.inArray(id, ['red', 'green', 'blue']) > -1) {
+							var red = parseFloat($("#red").val());
+							var green = parseFloat($("#green").val());
+							var blue = parseFloat($("#blue").val());
+							id = "screen";
+							value = [red, green, blue, 1];
+							chroma.screen = value;
+						}
+
+						chroma[id] = value;
+					}
+				});
+				_this2.videoEnded();
 			});
+
+			this.projectOptions();
+			this.projectActions();
+
+			this.vPlayer = document.getElementById("project-player_html5_api");
 		},
-		processFrames: function processFrames(id) {
+		updatePlayer: function updatePlayer() {
+			this.resetOffsets();
+
+			if (this.project.options.position == 'centered') {
+				this.player_class.position = "Project--centered";
+				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
+				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--centered";
+			}
+
+			if (this.project.options.position == 'top-left') {
+				this.player_class.position = "Project--topleft";
+				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
+				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--topleft";
+			}
+
+			if (this.project.options.position == 'top-right') {
+				this.player_class.position = "Project--topright";
+				this.player_styles.offsets.marginRight = this.project.options.offset_x + 'px';
+				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--topright";
+			}
+
+			if (this.project.options.position == 'bottom-left') {
+				this.player_class.position = "Project--bottomleft";
+				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
+				this.player_styles.offsets.marginBottom = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--bottomleft";
+			}
+
+			if (this.project.options.position == 'bottom-right') {
+				this.player_class.position = "Project--bottomright";
+				this.player_styles.offsets.marginRight = this.project.options.offset_x + 'px';
+				this.player_styles.offsets.marginBottom = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--bottomright";
+			}
+
+			if (this.project.options.dimmed_background == true) {
+				this.player_class.dimmed = "Project--dimmedbg";
+			}
+
+			if (this.project.options.glass_background == true) {
+				this.player_class.glass = "Project--glassbg";
+			}
+		},
+		resetOffsets: function resetOffsets() {
+			this.player_styles.offsets.marginTop = 0;
+			this.player_styles.offsets.marginLeft = 0;
+			this.player_styles.offsets.marginBottom = 0;
+			this.player_styles.offsets.marginRight = 0;
+		},
+		playProject: function playProject() {
 			var _this3 = this;
 
-			// this.updateProgress(80, 5000, 10000);
-			this.step = 3;
-
-			this.$http.post('/video-processer/' + id + '/process-frames').then(function (response) {
-				_this3.frames = response.data;
-				_this3.processSingleFrame(id, 0);
-			});
-		},
-		processSingleFrame: function processSingleFrame(id, current_frame) {
-			var _this4 = this;
-
-			this.progress = current_frame / this.frames.length * 100 - 20;
-			this.current_frame = current_frame;
-
-			if (current_frame >= this.frames.length) {
-				this.recomposeVideo(id);
-				return;
+			// Dispose Video
+			if (this.video) {
+				this.video.dispose();
+				$(".project-element").hide();
 			}
 
-			var image = this.frames[current_frame].split("/");
+			var delay = parseInt(this.project.options.auto_display_after) * 1000;
+			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
 
-			this.$http.post('/video-processer/' + id + '/process-single-frame/' + image[3]).then(function (response) {
-				current_frame += 1;
-				_this4.processSingleFrame(id, current_frame);
-			});
-		},
-		recomposeVideo: function recomposeVideo(id) {
-			var _this5 = this;
-
-			this.updateProgress(91, 2000, 4000);
-			this.step = 4;
-
-			this.$http.post('/video-processer/' + id + '/recompose-video').then(function () {
-				_this5.progress = 91;
-				setTimeout(function () {
-					return _this5.finishingUp(id);
-				}, 500);
-			});
-		},
-		finishingUp: function finishingUp(id) {
-			var _this6 = this;
-
-			this.updateProgress(95, 1000, 4000);
-			this.step = 5;
-
-			this.$http.post('/video-processer/' + id + '/finishing').then(function () {
-				_this6.progress = 100;
-				_this6.process_is_done = true;
-			});
-		},
-		updateProgress: function updateProgress(max, min_s, max_s) {
-			var _this7 = this;
-
-			if (this.progress >= max) {
-				return;
-			}
-
-			this.progress += this.getRandomNumber(1, 6);
-
-			if (max < this.progress) {
-				this.progress = max;
-			}
+			$("#video-section").empty().html(video_template);
 
 			setTimeout(function () {
-				return _this7.updateProgress(max, min_s, max_s);
-			}, this.getRandomNumber(min_s, max_s));
+				_this3.is_visible = true;
+				setTimeout(function () {
+					return _this3.renderTransparentVideo();
+				}, 300);
+				$('#project-player-bg').fadeIn("fast");
+			}, delay);
+
+			// close on click background
+			$("body").on("click", "div#project-player-bg", function (e) {
+				if ($(e.target).is('div#project-player-bg')) {
+					_this3.video.pause();
+
+					$('#project-player-bg').fadeOut("fast");
+				}
+				e.preventDefault();
+				return;
+			});
+
+			// close button
+			$("body").on("click", "a.close-project", function (e) {
+				e.preventDefault();
+				_this3.video.pause();
+				$('#project-player-bg').fadeOut("fast");
+			});
+
+			//close form
+			$("body").on("click", "a.close-form", function (e) {
+				e.preventDefault();
+				$('#project-formoverlay').fadeOut("fast");
+				return false;
+			});
+
+			//close video embed
+			$("body").on("click", "div#project-embed-video>a.close-embed", function (e) {
+				e.preventDefault();
+				var project_embed = $("div#project-embed-video").find('iframe');
+				var embed_source = $(project_embed).attr("src");
+				if (embed_source == undefined) {
+					$(project_embed).attr("src", embed_source);
+				}
+				$('div#project-player-container>div#project-embed-video').fadeOut("fast");
+				return false;
+			});
 		},
-		getRandomNumber: function getRandomNumber(min, max) {
-			min = Math.ceil(min);
-			max = Math.floor(max);
+		projectOptions: function projectOptions() {
+			var _this4 = this;
 
-			console.log(Math.floor(Math.random() * (max - min + 1)) + min);
+			// if close on exit is true
+			this.video.on("ended", function () {
+				if (_this4.project.options.stop_showing.exit_on_end === true) {
+					$('#project-player-bg').fadeOut("fast");
+				}
+			});
 
-			return Math.floor(Math.random() * (max - min + 1)) + min;
+			// if close on click is true
+			if (this.project.options.stop_showing.clicked === true) {
+				$("#project-player-container").on("click", function (e) {
+					if ($(e.target).is('canvas#output')) {
+						_this4.video.pause();
+
+						$('#project-player-bg').fadeOut("fast");
+					}
+					e.preventDefault();
+					return;
+				});
+			}
+		},
+		projectActions: function projectActions() {
+			var url_length = this.project.actions.link_url.length;
+			var url = this.project.actions.link_url;
+
+			// textoverlay start and duration
+			this.textoverlaystart = parseInt(this.project.actions.textoverlay_start);
+			this.textoverlayduration = parseInt(this.project.actions.textoverlay_duration) * 1000;
+
+			//clicktocall start and duration
+			this.clicktocallstart = parseInt(this.project.actions.clicktocall_start);
+			this.clicktocallduration = parseInt(this.project.actions.clicktocall_duration) * 1000;
+
+			// buttonoverlay
+			this.buttonoverlaystart = parseInt(this.project.actions.buttonoverlay_start);
+			this.buttonoverlayduration = parseInt(this.project.actions.buttonoverlay_duration) * 1000;
+
+			// formoverlay
+			this.formoverlaystart = parseInt(this.project.actions.formoverlay_start);
+			this.formoverlayduration = parseInt(this.project.actions.formoverlay_duration) * 1000;
+
+			//link url
+			if (url_length > 0) {
+				$("#project-player-container").one("click", function (e) {
+					if ($(e.target).is('canvas#output')) {
+						window.open(url, '_blank');
+					}
+					e.preventDefault();
+					return;
+				});
+			}
+
+			//textoverlay valignment
+			if (this.project.actions.textoverlay_valignment == 'middle') {
+				this.textoverlay_class.valignment = "Textoverlay--middle";
+			}
+
+			if (this.project.actions.textoverlay_valignment == 'top') {
+				this.textoverlay_class.valignment = "Textoverlay--top";
+			}
+
+			if (this.project.actions.textoverlay_valignment == 'bottom') {
+				this.textoverlay_class.valignment = "Textoverlay--bottom";
+			}
+
+			//textoverlay alignment
+			if (this.project.actions.textoverlay_alignment == 'left') {
+				this.textoverlay_class.alignment = "Textoverlay--left";
+			}
+
+			if (this.project.actions.textoverlay_alignment == 'center') {
+				this.textoverlay_class.alignment = "Textoverlay--center";
+			}
+
+			if (this.project.actions.textoverlay_alignment == 'right') {
+				this.textoverlay_class.alignment = "Textoverlay--right";
+			}
+
+			// clicktocall alignment
+			if (this.project.actions.clicktocall_valignment == 'middle') {
+				this.clicktocall_class.valignment = "Clicktocall--middle";
+			}
+
+			if (this.project.actions.clicktocall_valignment == 'top') {
+				this.clicktocall_class.valignment = "Clicktocall--top";
+			}
+
+			if (this.project.actions.clicktocall_valignment == 'bottom') {
+				this.clicktocall_class.valignment = "Clicktocall--bottom";
+			}
+
+			//clicktocall alignment
+			if (this.project.actions.clicktocall_alignment == 'left') {
+				this.clicktocall_class.alignment = "Clicktocall--left";
+			}
+
+			if (this.project.actions.clicktocall_alignment == 'center') {
+				this.clicktocall_class.alignment = "Clicktocall--center";
+			}
+
+			if (this.project.actions.clicktocall_alignment == 'right') {
+				this.clicktocall_class.alignment = "Clicktocall--right";
+			}
+
+			// button overlay alignment
+			if (this.project.actions.buttonoverlay_valignment == 'middle') {
+				this.buttonoverlay_class.valignment = "Buttonoverlay--middle";
+			}
+
+			if (this.project.actions.buttonoverlay_valignment == 'top') {
+				this.buttonoverlay_class.valignment = "Buttonoverlay--top";
+			}
+
+			if (this.project.actions.buttonoverlay_valignment == 'bottom') {
+				this.buttonoverlay_class.valignment = "Buttonoverlay--bottom";
+			}
+
+			// button overlay alignment
+			if (this.project.actions.buttonoverlay_alignment == 'left') {
+				this.buttonoverlay_class.alignment = "Buttonoverlay--left";
+			}
+
+			if (this.project.actions.buttonoverlay_alignment == 'center') {
+				this.buttonoverlay_class.alignment = "Buttonoverlay--center";
+			}
+
+			if (this.project.actions.buttonoverlay_alignment == 'right') {
+				this.buttonoverlay_class.alignment = "Buttonoverlay--right";
+			}
+		},
+		//end of projectActions
+
+		addActionsToVideo: function addActionsToVideo() {
+			var _this5 = this;
+
+			this.video.on("timeupdate", function () {
+				_this5.videoElements();
+				_this5.vidtime = Math.floor(_this5.video.currentTime());
+				_this5.vidduration = Math.floor(_this5.video.duration());
+			});
+		},
+		videoElements: function videoElements() {
+			var _this6 = this;
+
+			//textoverlay show & duration
+			// if the start time is greater than the total duration the textoverlay will display at the end
+
+			if (this.textoverlaystart > this.vidduration && this.vidduration != 0) {
+
+				if (this.vidtime === this.vidduration) {
+					$("#project-text-overlay").fadeIn("fast", function () {
+						if (_this6.textoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-text-overlay").fadeOut("fast");
+							}, _this6.textoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.textoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-text-overlay").fadeOut("fast");
+						return false;
+					});
+				}
+			} else {
+
+				if (this.vidtime === this.textoverlaystart) {
+					$("#project-text-overlay").fadeIn("fast", function () {
+						if (_this6.textoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-text-overlay").fadeOut("fast");
+							}, _this6.textoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.textoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-text-overlay").fadeOut("fast");
+						return false;
+					});
+				}
+			}
+
+			//clicktocall show & duration
+			// if the start time is greater than the total duration the clicktocall will display at the end
+			if (this.clicktocallstart > this.vidduration && this.vidduration != 0) {
+
+				if (this.vidtime === this.vidduration) {
+					$("#project-clicktocall").fadeIn("fast", function () {
+						if (_this6.clicktocallduration > 0) {
+							setTimeout(function () {
+								$("#project-clicktocall").fadeOut("fast");
+							}, _this6.clicktocallduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.clicktocallduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-clicktocall").fadeOut("fast");
+						return false;
+					});
+				}
+			} else {
+
+				if (this.vidtime === this.clicktocallstart) {
+					$("#project-clicktocall").fadeIn("fast", function () {
+						if (_this6.clicktocallduration > 0) {
+							setTimeout(function () {
+								$("#project-clicktocall").fadeOut("fast");
+							}, _this6.clicktocallduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.clicktocallduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-clicktocall").fadeOut("fast");
+						return false;
+					});
+				}
+			}
+
+			//buttonoverlay show & duration
+			// if the start time is greater than the total duration the buttonoverlay will display at the end
+			if (this.buttonoverlaystart > this.vidduration && this.vidduration != 0) {
+
+				if (this.vidtime === this.vidduration) {
+					$("#project-buttonoverlay").fadeIn("fast", function () {
+						if (_this6.buttonoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-buttonoverlay").fadeOut("fast");
+							}, _this6.buttonoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.buttonoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-buttonoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+			} else {
+
+				if (this.vidtime === this.buttonoverlaystart) {
+					$("#project-buttonoverlay").fadeIn("fast", function () {
+						if (_this6.buttonoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-buttonoverlay").fadeOut("fast");
+							}, _this6.buttonoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.buttonoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-buttonoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+			}
+
+			//formoverlay show & duration
+			// if the start time is greater than the total duration the formoverlay will display at the end
+
+			if (this.formoverlaystart > this.vidduration && this.vidduration != 0) {
+
+				if (this.vidtime === this.vidduration) {
+					$("#project-formoverlay").fadeIn("fast", function () {
+						if (_this6.formoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-formoverlay").fadeOut("fast");
+							}, _this6.formoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.formoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-formoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+			} else {
+
+				if (this.vidtime === this.formoverlaystart) {
+
+					$("#project-formoverlay").fadeIn("fast", function () {
+						if (_this6.formoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-formoverlay").fadeOut("fast");
+							}, _this6.formoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.formoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-formoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+			}
+			//end of elements
+		},
+		videoEnded: function videoEnded() {
+			var _this7 = this;
+
+			this.video.on("ended", function () {
+				if (_this7.project.options.external_video.embed_code != "") {
+					var embed_duration = parseInt(_this7.project.options.external_video.duration) * 1000;
+					$("div#project-embed-video").fadeIn("fast");
+					if (embed_duration > 0) {
+						setTimeout(function () {
+							var project_embed = $("div#project-embed-video").find('iframe');
+							var embed_source = $(project_embed).attr("src");
+							if (embed_source == undefined) {
+								$(project_embed).attr("src", embed_source);
+							}
+							$("div#project-embed-video").fadeOut("fast");
+						}, embed_duration);
+					}
+				}
+			});
 		}
 	}
-});
-
-},{"./utilities/randomLoadingMessage":5,"vue":3,"vue-resource":2}],5:[function(require,module,exports){
-"use strict";
-
-window.randomLoadingMessage = function () {
-    var lines = new Array("Locating the required gigapixels to render...", "Spinning up the hamster...", "Shovelling coal into the server...", "Programming the flux capacitor", 'the architects are still drafting', 'would you prefer chicken, steak, or tofu?', 'we love you just the way you are', 'checking the gravitational constant in your locale', 'go ahead -- hold your breath', "at least you're not on hold", "a few bits tried to escape, but we caught them");
-
-    return lines[Math.round(Math.random() * (lines.length - 1))];
 };
 
-},{}]},{},[4]);
+},{"../templates/project-player.html":24}],14:[function(require,module,exports){
+'use strict';
 
-//# sourceMappingURL=upload.js.map
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	template: '<span class="tooltips help-tip"\n\t\t\t\t\tdata-toggle="tooltip"\n\t\t\t\t\t@mouseover="show"\n\t\t\t\t\t:data-original-title="title" :data-placement="placement" data-trigger="hover" data-delay="500">\n\t\t\t\t\t<i class="fa fa-question-circle"></i>\n\t\t\t\t</span>',
+
+	props: ['title', 'placement'],
+
+	ready: function ready() {
+		this.jq = jQuery;
+	},
+	data: function data() {
+		return {
+			jq: null
+		};
+	},
+
+
+	methods: {
+		show: function show() {
+			this.jq(this.$el).tooltip('show');
+		}
+	}
+};
+
+},{}],15:[function(require,module,exports){
+'use strict';
+
+var _vue = require('vue');
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _Project = require('./components/Project.js');
+
+var _Project2 = _interopRequireDefault(_Project);
+
+var _Options = require('./components/Options.js');
+
+var _Options2 = _interopRequireDefault(_Options);
+
+var _Actions = require('./components/Actions.js');
+
+var _Actions2 = _interopRequireDefault(_Actions);
+
+var _Embed = require('./components/Embed.js');
+
+var _Embed2 = _interopRequireDefault(_Embed);
+
+var _ProjectPlayer = require('./components/ProjectPlayer.js');
+
+var _ProjectPlayer2 = _interopRequireDefault(_ProjectPlayer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.use(require('vue-resource'));
+
+_vue2.default.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+
+new _vue2.default({
+
+	el: "#caster-app",
+
+	ready: function ready() {
+		console.log('Ready to KickAss!!');
+
+		$('.colorpicker-default').colorpicker();
+
+		this.loadProjects();
+		this.getAWeberAuthorizationURL();
+	},
+
+
+	data: {
+		projects: [],
+		active_project: {
+			options: {
+				stop_showing: {},
+				external_video: {}
+			},
+
+			actions: {}
+		},
+		isTimeout: false
+	},
+
+	components: {
+		Project: _Project2.default, ProjectOptions: _Options2.default, ProjectActions: _Actions2.default, ProjectEmbed: _Embed2.default, ProjectPlayer: _ProjectPlayer2.default
+	},
+
+	computed: {
+		has_projects: function has_projects() {
+			return this.projects.length > 0;
+		}
+	},
+
+	methods: {
+		loadProjects: function loadProjects() {
+			var _this = this;
+
+			this.$http.get('/project').then(function (response) {
+				$('.loader-2').fadeOut("slow");
+				_this.projects = response.data;
+			}).catch(function () {
+				return _this.isTimeout = true;
+			});
+		},
+		getAWeberAuthorizationURL: function getAWeberAuthorizationURL() {
+			var _this2 = this;
+
+			this.$http.get('/autoresponder/aweber/authorize').then(function (response) {
+				return _this2.$broadcast('aweber_authorization_url', response.data);
+			});
+		}
+	}
+
+});
+
+},{"./components/Actions.js":4,"./components/Embed.js":9,"./components/Options.js":10,"./components/Project.js":12,"./components/ProjectPlayer.js":13,"vue":3,"vue-resource":2}],16:[function(require,module,exports){
+module.exports = '<div id="clicktocall" class="tab-pane fade">\n  	<section class="panel">\n  		<form class="form-horizontal tasi-form text-left">\n  			<div class="form-group">\n  				<div class="col-lg-12 col-md-12 row">\n  				  <label for="phonenumber" class="control-label col-md-3 col-sm-3"><strong> Phone Number: </strong></label>\n  				  <div class="row col-md-9 col-sm-9 control-label">\n  				  	<input type="text" class="form-control m-bot15" id="phonenumber" v-model="project.actions.clicktocall">\n  				  </div>\n            <tooltip class="pull-right control-label" title="Click to call overlay in the video. Useful for mobile phones, and it works on web that have e.g Skype" placement="left"></tooltip>\n  				</div>\n  				<div class="col-lg-12 col-sm-12 row m-bot15">\n  					<label for="valignment" class="control-label col-md-3 col-sm-3">\n              <strong> Vertical Alignment: </strong>\n            </label>\n            <div class="row m-bot15 col-md-3 col-sm-3 control-label">\n              <select id=\'phonePosition\' class="form-control m-bot15" v-model="project.actions.clicktocall_valignment">\n  							<option value="bottom">Bottom</option>\n  							<option value="middle">Middle</option>\n  							<option value="top">Top</option>\n  						</select>\n            </div>\n             <div class="col-md-3 col-sm-3">\n                <tooltip class="pull-left control-label" title="Vertical alignment of click to call overlay" placement="right"></tooltip>\n             </div>\n          </div>\n        <div class="col-lg-12 col-sm-12 row">\n					<label for="phoneshow" class="control-label col-md-3 col-sm-3">\n            	   <strong> Start Time: </strong>\n          </label>\n          <div class="row m-bot15 col-md-3 col-sm-3">\n						<div class="spinner">\n                <div class="input-group input-small">\n                    <input type="text" id=\'phoneShowSec\' class="spinner-input form-control" value="0"  v-model="project.actions.clicktocall_start">\n                    	<div id="clicktocall_start" class="spinner-buttons input-group-btn btn-group-vertical">\n                        <button type="button" class="btn spinner-up btn-xs btn-default">\n                            <i class="fa fa-angle-up"></i>\n                        </button>\n                        <button type="button" class="btn spinner-down btn-xs btn-default">\n                            <i class="fa fa-angle-down"></i>\n                        </button>\n                      </div>\n                  </div>\n              </div>\n          </div>\n					<label for="phoneduration" class="control-label col-md-3 col-sm-3">\n            	   <strong> Duration: </strong>\n          </label>\n          <div class="row m-bot15 col-md-3 col-sm-3">\n						<div class="spinner">\n                    <div class="input-group input-small">\n                        <input type="text" id=\'phoneShowDuration\' class="spinner-input form-control" value="0" v-model="project.actions.clicktocall_duration">\n                        	<div id="clicktocall_duration" class="spinner-buttons input-group-btn btn-group-vertical">\n                            <button type="button" class="btn spinner-up btn-xs btn-default">\n                                <i class="fa fa-angle-up"></i>\n                            </button>\n                            <button type="button" class="btn spinner-down btn-xs btn-default">\n                                <i class="fa fa-angle-down"></i>\n                            </button>\n                          </div>\n                    </div>\n                  </div>\n              </div>\n              <tooltip class="pull-right control-label" title="Start time and duration of click to call overlay" placement="left"></tooltip>\n          </div>\n			</div> <!-- 1st form-group -->\n			<div class="form-group">\n				<div class="col-lg-12 col-md-12">\n					<div class="panel-group" id="accordion">\n                      <div class="panel advance-panel">\n                          <div class="panel-heading panel-inverse">\n                              <h4 class="panel-title">\n                                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">\n                                      <div>\n                                        <i class="fa fa-pencil"></i>  Advance (Click to Call)  <tooltip title="Click to call overlay appearance options" placement="right"></tooltip><i class="fa fa-caret-down pull-right"></i></span>\n                                      </div>\n                                  </a>\n                              </h4>\n                          </div>\n                          <div id="collapseTwo" class="panel-collapse collapse">\n                            <div class="panel-body">\n                            	<div class="form-group">\n                            		<div class="col-lg-12 col-md-12">\n                              			<div class="well">\n                              				<div class="clicktocall-container"\n                              					:style="{\n                              					 	textAlign: project.actions.clicktocall_alignment\n                              					}"\n                              				>\n                                         <a class="btn btn-default" href="tel:{{ project.actions.clicktocall }}"\n                                            :style="{\n                                              fontFamily: project.actions.clicktocall_fontfamily,\n                                              fontSize: project.actions.clicktocall_fontsize + \'px\',\n                                              fontWeight: project.actions.clicktocall_bold ? \'bold\' : null,\n                                              fontStyle: project.actions.clicktocall_italic ? \'italic\': null,\n                                              color: project.actions.clicktocall_textcolor,\n                                              backgroundColor: project.actions.clicktocall_backgroundcolor\n                                            }"\n                                         >\n                                           {{ project.actions.clicktocall ? project.actions.clicktocall : \'Default\'}}\n                                         </a>\n                              				</div>\n                              			</div>\n                              		</div>\n                      			</div>\n                      			<div class="form-group">\n                  <div class="col-lg-12 col-md-12">\n										<label for="fontstyle" class="control-label col-md-3 col-sm-3">\n                      	   <strong> Font Family: </strong>\n                    </label>\n                    <div class="row m-bot15 col-md-4 col-sm-4">\n                    	<select id=\'textFontProperty\' class="form-control m-bot15"  v-model="project.actions.clicktocall_fontfamily">\n												<option value="Arial">Arial</option>\n												<option value="Arial Black">Arial Black</option>\n												<option value="Comic Sans MS">Comic Sans MS</option>\n												<option value="Impact">Impact</option>\n												<option value="Lucida">Lucida</option>\n												<option value="Tahoma">Tahoma</option>\n												<option value="Verdana">Verdana</option>\n												<option value="Georgia">Georgia</option>\n												<option value="Times New Roman">Times New Roman</option>\n												<option value="Courier New">Courier New</option>\n												<option value="Lucida Console">Lucida Console</option>\n											</select>\n										</div>\n										<label for="fontsize" class="control-label col-md-3 col-sm-3">\n              	   				<strong> Font Size: </strong>\n            				</label>\n                    <div class="row m-bot15 col-md-3 col-sm-3">\n											<div class="spinner">\n                        <div class="input-group input-small">\n                            <input type="text" class="spinner-input form-control fontsize" value="10"  v-model="project.actions.clicktocall_fontsize">\n                            	<div id=\'clicktocall_fontsize\' class="spinner-buttons input-group-btn btn-group-vertical fontsize-buttons">\n                                <button type="button" class="btn spinner-up btn-xs btn-default">\n                                    <i class="fa fa-angle-up"></i>\n                                </button>\n                                <button type="button" class="btn spinner-down btn-xs btn-default">\n                                    <i class="fa fa-angle-down"></i>\n                                </button>\n                              </div>\n                        </div>\n                      </div>\n                </div>\n            </div>\n          </div>\n          <div class="form-group">\n             <div class="col-lg-12 col-md-12">\n								<label for="boldtext" class="control-label col-md-2 col-sm-2">\n	                    <strong> Bold: </strong>\n	              </label>\n                <div class="row m-bot15 col-md-4 col-sm-4">\n                    <div class="col-sm-6 text-center">\n                      	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                          <input type="checkbox" id=\'clicktocall_bold\' v-model="project.actions.clicktocall_bold" class="actions-ref"/>\n                        </div>\n                    </div>\n                </div>\n								<label for="italictext" class="control-label col-md-2 col-sm-2">\n                  	  <strong> Italic: </strong>\n                </label>\n                <div class="row m-bot15 col-md-4 col-sm-4">\n                    <div class="col-sm-6 text-center">\n                      	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                          <input type="checkbox" id=\'clicktocall_italic\' v-model="project.actions.clicktocall_italic" class="actions-ref"/>\n                        </div>\n                    </div>\n                </div>\n            </div>\n          </div>\n          <div class="form-group">\n          	<div class="col-lg-12 col-md-12">\n							<label for="textalignment" class="control-label col-md-3 col-sm-3">\n                	  <strong> Alignment: </strong>\n              </label>\n                <div class="row col-md-3 col-sm-3">\n                    	<select id=\'textFontProperty\' class="form-control m-bot15" v-model="project.actions.clicktocall_alignment">\n												<option value="left">Left</option>\n												<option value="center">Center</option>\n												<option value="right">Right</option>\n											</select>\n										</div>\n									</div>\n								</div>\n								<div class="form-group">\n									<div class="col-lg-12 col-md-12">\n										<label for="textoverlay" class="m-bot15 control-label col-md-4 col-sm-4"><strong> Text Color: </strong></label>\n                      <label for="rgba" class="control-label col-md-2 col-sm-2 row">\n                      	  RGB\n                      </label>\n                     <div class="row m-bot15 col-md-6 col-sm-6">\n                        <color-picker :color.sync="project.actions.clicktocall_textcolor"></color-picker>\n                      </div>\n	                 </div>\n                </div>\n               	<div class="form-group">\n                 	<div class="col-lg-12 col-md-12">\n										<label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4"><strong> Background Color: </strong></label>\n                    <label for="rgba" class="control-label col-md-2 col-sm-2 row">\n                    	  RGBA\n                    </label>\n                     <div class="row m-bot15 col-md-6 col-sm-6">\n                        <color-picker :color.sync="project.actions.clicktocall_backgroundcolor"\n                          format="rgba"></color-picker>\n                      </div>\n                    </div>\n                  </div>\n              </div><!--  end of panel-body -->\n            </div>\n        </div>\n      </div>\n  </div>\n			</div> <!-- 2nd form-group -->\n		</form>\n  	</section>\n</div>  <!-- end of clicktocall -->';
+},{}],17:[function(require,module,exports){
+module.exports = '<div id="fboverlay" class="tab-pane fade">\n   	<section class="panel">\n		<div class="form-group">\n            <section class="panel">\n            	<header class="panel-heading">\n                    <ul class="nav nav-tabs tab-inverse-bg fboverlay-tab">\n					  <li class="active"><a data-toggle="tab" href="#buttonoverlay"><i class="fa fa-caret-right"></i> Button Overlay </a></li>\n					  <li><a data-toggle="tab" href="#formoverlay"><i class="fa fa-caret-right"></i> Form Overlay </a></li>\n					  <li><a data-toggle="tab" href="#autoresponder"><i class="fa fa-caret-right"></i> Autoresponder </a></li>\n					</ul>\n				</header>\n			</section>\n		</div>\n		<div class="tab-content">\n		 	<div id="buttonoverlay" class="tab-pane active">\n				<form class="form-horizontal tasi-form text-left">\n					<div class="form-group">\n						<div class="col-lg-12 col-md-12">\n							<label for="buttonlabel" class="control-label col-md-3 col-sm-3"><strong> Label: </strong></label>\n                            <div class="m-bot15 col-md-9 col-sm-9 row">\n                            	<input type="text" class="form-control m-bot15" id="buttonLabel"  v-model="project.actions.buttonoverlay_label">\n                            </div>\n                            <tooltip class="pull-right" title="Label of the button overlay in the video" placement="left"></tooltip>\n						</div>\n						<div class="col-lg-12 col-sm-12">\n							<label for="valignment" class="control-label col-md-3 col-sm-3">\n                              	   <strong> Vertical Alignment: </strong>\n                            </label>\n                            <div class="row m-bot15 col-md-3 col-sm-3">\n                              	<select id=\'buttonPosition\' class="form-control m-bot15"  v-model="project.actions.buttonoverlay_valignment">\n									<option value="bottom">Bottom</option>\n									<option value="middle">Middle</option>\n									<option value="top">Top</option>\n								</select>\n							</div>\n							<div class="col-md-3 col-sm-3">\n              					<tooltip class="pull-left" title="Vertical alignment of button overlay" placement="right"></tooltip>\n             				</div>\n                        </div>\n                    	<div class="col-lg-12 col-sm-12">\n							<label for="buttonshow" class="control-label col-md-3 col-sm-3">\n                              	   <strong> Start Time: </strong>\n                            </label>\n                            <div class="row m-bot15 col-md-3 col-sm-3">\n								<div class="spinner">\n                                  <div class="input-group input-small">\n                                      <input type="text" id=\'buttonShowSec\' class="spinner-input form-control" value="0" v-model="project.actions.buttonoverlay_start">\n                                      	<div id="buttonoverlay_start" class="spinner-buttons input-group-btn btn-group-vertical">\n                                          <button type="button" class="btn spinner-up btn-xs btn-default">\n                                              <i class="fa fa-angle-up"></i>\n                                          </button>\n                                          <button type="button" class="btn spinner-down btn-xs btn-default">\n                                              <i class="fa fa-angle-down"></i>\n                                          </button>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n							<label for="buttonduration" class="control-label col-md-3 col-sm-3">\n                              	   <strong> Duration: </strong>\n                            </label>\n                            <div class="row m-bot15 col-md-3 col-sm-3">\n								<div class="spinner">\n                                  <div class="input-group input-small">\n                                      <input type="text" id=\'buttonShowDuration\' class="spinner-input form-control" value="0" v-model="project.actions.buttonoverlay_duration">\n                                      	<div id="buttonoverlay_duration" class="spinner-buttons input-group-btn btn-group-vertical">\n                                          <button type="button" class="btn spinner-up btn-xs btn-default">\n                                              <i class="fa fa-angle-up"></i>\n                                          </button>\n                                          <button type="button" class="btn spinner-down btn-xs btn-default">\n                                              <i class="fa fa-angle-down"></i>\n                                          </button>\n                                        </div>\n                                  </div>\n                                </div>\n                            </div>\n                            <tooltip class="pull-right" title="Start time and duration of button overlay" placement="left"></tooltip>\n                        </div>\n					</div> <!-- end of 1st form group -->\n					<div class="form-group">\n						<div class="col-lg-12 col-md-12">\n							<div class="panel-group" id="accordion">\n	                          <div class="panel advance-panel">\n	                              <div class="panel-heading panel-inverse">\n	                                  <h4 class="panel-title">\n	                                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">\n	                                      	<div>\n	                                          <i class="fa fa-pencil"></i>  Advance (Button Overlay)  <tooltip title="Button overlay appearance options" placement="right"></tooltip><i class="fa fa-caret-down pull-right"></i></span>\n	                                        </div>\n	                                      </a>\n	                                  </h4>\n	                              </div>\n	                              <div id="collapseThree" class="panel-collapse collapse">\n	                                <div class="panel-body">\n	                                	<div class="form-group">\n	                                		<div class="col-lg-12 col-md-12">\n	                                  			<div class="well">\n	                                  				<div class="clicktocall-container"\n		                              					:style="{\n		                              					 	textAlign: project.actions.buttonoverlay_alignment\n		                              					}"\n                              						>\n		                              					<button type="button" class="btn btn-default"\n		                              						:style="{\n		                              					 		fontFamily: project.actions.buttonoverlay_fontfamily,\n		                              					 		fontSize: project.actions.buttonoverlay_fontsize + \'px\',\n		                              					 		fontWeight: project.actions.buttonoverlay_bold ? \'bold\' : null,\n		                              					 		fontStyle: project.actions.buttonoverlay_italic ? \'italic\': null,\n		                              					 		color: project.actions.buttonoverlay_textcolor,\n		                              					 		backgroundColor: project.actions.buttonoverlay_backgroundcolor\n		                              					 	}"\n		                              					>\n		                              						{{ project.actions.buttonoverlay_label ? project.actions.buttonoverlay_label: \'Default\'}}\n		                              					</button>\n                              						</div>\n	                                  			</div>\n                                  			</div>\n                              			</div>\n                              			<div class="form-group">\n                              				<div class="col-lg-12 col-md-12">\n												<label for="fontstyle" class="control-label col-md-3 col-sm-3">\n			                                      	   <strong> Font Family: </strong>\n			                                    </label>\n			                                    <div class="row m-bot15 col-md-4 col-sm-4">\n		                                          	<select id=\'textFontProperty\' class="form-control m-bot15" v-model="project.actions.buttonoverlay_fontfamily">\n														<option value="Arial">Arial</option>\n														<option value="Arial Black">Arial Black</option>\n														<option value="Comic Sans MS">Comic Sans MS</option>\n														<option value="Impact">Impact</option>\n														<option value="Lucida">Lucida</option>\n														<option value="Tahoma">Tahoma</option>\n														<option value="Verdana">Verdana</option>\n														<option value="Georgia">Georgia</option>\n														<option value="Times New Roman">Times New Roman</option>\n														<option value="Courier New">Courier New</option>\n														<option value="Lucida Console">Lucida Console</option>\n													</select>\n												</div>\n												<label for="fontsize" class="control-label col-md-3 col-sm-3">\n                                  	   				<strong> Font Size: </strong>\n                                				</label>\n			                                    <div class="row m-bot15 col-md-3 col-sm-3">\n													<div class="spinner">\n	                                                  <div class="input-group input-small">\n	                                                      	<input type="text" class="spinner-input form-control fontsize" value="10"  v-model="project.actions.buttonoverlay_fontsize">\n	                                                      	<div id=\'buttonoverlay_fontsize\' class="spinner-buttons input-group-btn btn-group-vertical fontsize-buttons">\n	                                                          <button type="button" class="btn spinner-up btn-xs btn-default">\n	                                                              <i class="fa fa-angle-up"></i>\n	                                                          </button>\n	                                                          <button type="button" class="btn spinner-down btn-xs btn-default">\n	                                                              <i class="fa fa-angle-down"></i>\n	                                                          </button>\n		                                                    </div>\n		                                              </div>\n		                                            </div>\n			                                    </div>\n		                                    </div>\n		                                </div>\n		                                <div class="form-group">\n		                                	<div class="col-lg-12 col-md-12">\n												<label for="boldtext" class="control-label col-md-2 col-sm-2">\n			                                      	  <strong> Bold: </strong>\n			                                    </label>\n			                                    <div class="row m-bot15 col-md-4 col-sm-4">\n			                                        <div class="col-sm-6 text-center">\n			                                          	<div class="switch"\n			                                          		 data-on-label="<i class=\' fa fa-check\'></i>"\n                       										 data-off-label="<i class=\'fa fa-times\'></i>">\n			                                              <input type="checkbox" id=\'buttonoverlay_bold\' v-model="project.actions.buttonoverlay_bold" class="actions-ref"/>\n			                                            </div>\n			                                        </div>\n			                                    </div>\n												<label for="italictext" class="control-label col-md-2 col-sm-2">\n			                                      	  <strong> Italic: </strong>\n			                                    </label>\n			                                    <div class="row m-bot15 col-md-4 col-sm-4">\n			                                        <div class="col-sm-6 text-center">\n			                                          	<div class="switch"\n			                                          		 data-on-label="<i class=\' fa fa-check\'></i>"\n                       										 data-off-label="<i class=\'fa fa-times\'></i>">\n			                                              <input type="checkbox" id=\'buttonoverlay_italic\' v-model="project.actions.buttonoverlay_italic" class="actions-ref"/>\n			                                            </div>\n			                                        </div>\n			                                    </div>\n			                                </div>\n		                                </div>\n		                                <div class="form-group">\n		                                	<div class="col-lg-12 col-md-12">\n												<label for="textalignment" class="control-label col-md-3 col-sm-3">\n			                                      	  <strong> Alignment: </strong>\n			                                    </label>\n			                                    <div class="row col-md-3 col-sm-3">\n		                                          	<select id=\'textFontProperty\' class="form-control m-bot15" v-model="project.actions.buttonoverlay_alignment">\n														<option value="left">Left</option>\n														<option value="center">Center</option>\n														<option value="right">Right</option>\n													</select>\n												</div>\n											</div>\n										</div>\n										<div class="form-group">\n											<div class="col-lg-12 col-md-12">\n												<label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4">\n													<strong> Text Color: </strong></label>\n			                                    <label for="rgb" class="control-label col-md-2 col-sm-2 row">\n			                                    	  RGB\n			                                    </label>\n			                                   <div class="row m-bot15 col-md-46 col-sm-6">\n													<color-picker :color.sync="project.actions.buttonoverlay_textcolor"></color-picker>\n			                                    </div>\n			                                </div>\n		                               	</div>\n		                               	<div class="form-group">\n		                               		<div class="col-lg-12 col-md-12">\n												<label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4">\n													<strong> Background Color: </strong></label>\n			                                    <label for="rgba" class="control-label col-md-2 col-sm-2 row">\n			                                    	  RGBA\n			                                    </label>\n			                                   <div class="row m-bot15 col-md-6 col-sm-6">\n													<color-picker :color.sync="project.actions.buttonoverlay_backgroundcolor" format="rgba"></color-picker>\n			                                   </div>\n			                                </div>\n		                                </div>\n	                                </div><!--  end of panel-body -->\n	                              </div>\n	                          </div>\n	                        </div>\n                        </div>\n					</div> <!-- 2nd form-group -->\n				</form>\n		 	</div><!--  end of tab-pane one button overlay -->\n		 	<div id="formoverlay" class="tab-pane">\n		 		<form class="form-horizontal tasi-form text-left">\n		 			<div class="form-group">\n		 				<div class="col-lg-12 col-md-12">\n							<label for="formshow" class="control-label col-md-3 col-sm-3">\n									<strong> Start Time: </strong>\n							</label>\n							<div class="row m-bot15 col-md-3 col-sm-3">\n								<div class="spinner">\n	      							<div class="input-group input-small">\n	          							<input type="text" id=\'buttonShowSec\' class="spinner-input form-control" value="0" v-model="project.actions.formoverlay_start">\n	               						<div id="formoverlay_start" class="spinner-buttons input-group-btn btn-group-vertical">\n	                                      <button type="button" class="btn spinner-up btn-xs btn-default">\n	                                          <i class="fa fa-angle-up"></i>\n	                                      </button>\n	                                      <button type="button" class="btn spinner-down btn-xs btn-default">\n	                                          <i class="fa fa-angle-down"></i>\n	                                      </button>\n	             						</div>\n	     							</div>\n 								</div>\n							</div>\n							<label for="formduration" class="control-label col-md-3 col-sm-3">\n								<strong> Duration: </strong>\n							</label>\n							<div class="row m-bot15 col-md-3 col-sm-3">\n								<div class="spinner">\n          							<div class="input-group input-small">\n              							<input type="text" id=\'buttonShowDuration\' class="spinner-input form-control" value="0" v-model="project.actions.formoverlay_duration">\n              						 	<div id="formoverlay_duration" class="spinner-buttons input-group-btn btn-group-vertical">\n                                          	<button type="button" class="btn spinner-up btn-xs btn-default">\n                                              <i class="fa fa-angle-up"></i>\n                                          	</button>\n                                            <button type="button" class="btn spinner-down btn-xs btn-default">\n                                              <i class="fa fa-angle-down"></i>\n                                            </button>\n           								</div>\n       								</div>\n     							</div>\n							</div>\n							<tooltip class="pull-right" title="Start time and duration of form overlay" placement="left"></tooltip>\n						</div> <!-- end of col-lg-12 -->\n		 			</div><!--  end of form group -->\n		 			<div class="form-group">\n			            <div class="col-lg-12 col-md-12">\n			                <div class="panel-group" id="accordion">\n		                        <div class="panel advance-panel">\n		                           <div class="panel-heading panel-inverse">\n		                               <h4 class="panel-title">\n		                                   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">\n		                                   	   <div>\n			                                       <i class="fa fa-pencil"></i>  Advance (Form Overlay)   <tooltip title="Form overlay appearance options" placement="right"></tooltip><i class="fa fa-caret-down pull-right"></i></span>\n			                                    </div>\n		                                   </a>\n		                               </h4>\n		                           </div>\n		               			</div>\n			                </div>\n			            </div>\n			        </div> <!-- 2nd form-group -->\n			        <div id="collapseFour" class="panel-collapse collapse">\n	                	<div class="panel-body">\n							<div class="form-group">\n	                   			<div class="col-no-float center-block col-md-7 col-sm-7">\n	                   				<div class="well">\n	                   					<section id="formStyle" class="panel">\n	                        				<header class="panel-heading text-center">\n	                          					<h4\n	                          						:style="{\n	              					 					fontFamily: project.actions.formoverlay_titlefontfamily,\n	              					 					fontSize: formoverlay_titlesize,\n	              					 					fontWeight: project.actions.formoverlay_titlebold ? \'bold\' : null,\n	      					 							fontStyle: project.actions.formoverlay_titleitalic ? \'italic\': null,\n	      					 							color: project.actions.formoverlay_titlecolor\n	              					 				}"\n	                          					>\n	                          						{{ project.actions.formoverlay_title }}\n\n	                          					</h4>\n	                        				</header>\n									        <div class="panel-body">\n		                    					<form class="form-horizontal tasi-form text-left">\n		                        					<div class="form-group">\n		                         						<div class="col-lg-12 col-md-12">\n		                          							<input type="text" class="form-control m-bot15 {{formoverlay_fieldsize}}" id="usernameField" placeholder="Enter your name.." v-model="project.actions.formoverlay_name" :style="{\n		              					 							borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n		              					 							borderColor: project.actions.formoverlay_fieldbordercolor\n		              					 						}"\n		                          							>\n		                          							<input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}" id="emailField" placeholder="Enter your email.." v-model="project.actions.formoverlay_email" :style="{\n		              					 							borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n		              					 							borderColor: project.actions.formoverlay_fieldbordercolor\n		              					 						}"\n		              					 					>\n		                          							<button type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"\n		                          								:style="{\n		              					 							borderWidth: project.actions.formoverlay_buttonbordersize + \'px\',\n		              					 							color: project.actions.formoverlay_buttoncolor,\n		              					 							borderColor: project.actions.formoverlay_buttoncolor,\n		              					 							backgroundColor: project.actions.formoverlay_buttonbackgroundcolor\n		              					 						}"\n		              					 					>\n		                          								{{ project.actions.formoverlay_buttontext }}\n		                          							</button>\n		                         						</div>\n		                        					</div>\n		                      					</form>\n		                     				</div>\n		                     			</section>\n	                        		</div>\n	                        	</div>\n	                        </div>\n				            <div class="form-group">\n                                <div class="col-lg-12 col-md-12">\n            						<label for="formtitle" class="control-label">\n           								Form Title Style\n            						</label>\n           						</div>\n          					</div>\n							<div class="form-group">\n           						<div class="col-lg-12 col-md-12">\n            						<label for="titletext" class="control-label col-md-3 col-sm-3"><strong> Title Text: </strong></label>\n                                    <div class="row m-bot15 col-md-9 col-sm-9">\n                                    	<input type="text" class="form-control m-bot15" id="titleText" maxlength="25" v-model="project.actions.formoverlay_title">\n                                    </div>\n        						</div>\n        						<div class="col-lg-12 col-md-12">\n            						<label for="titlesize" class="control-label col-md-3 col-sm-3">\n                                    	<strong> Size: </strong>\n                              		</label>\n                                	<div class="row m-bot15 col-md-3 col-sm-3">\n                                    	<select id=\'titleSize\' class="form-control m-bot15" v-model="project.actions.formoverlay_titlesize">\n					                    	<option value="Small">Small</option>\n					                    	<option value="Medium">Medium</option>\n					                    	<option value="Large">Large</option>\n                						</select>\n                					</div>\n               						<label for="fontstyle" class="control-label col-md-3 col-sm-3">\n                                        <strong> Font Family: </strong>\n                                  	</label>\n                                  	<div class="row m-bot15 col-md-3 col-sm-3">\n                                    	 <select id=\'textFontProperty\' class="form-control m-bot15" v-model="project.actions.formoverlay_titlefontfamily">\n						                    <option value="Arial">Arial</option>\n					                      	<option value="Arial Black">Arial Black</option>\n					                      	<option value="Comic Sans MS">Comic Sans MS</option>\n					                      	<option value="Impact">Impact</option>\n					                      	<option value="Lucida">Lucida</option>\n					                      	<option value="Tahoma">Tahoma</option>\n					                      	<option value="Verdana">Verdana</option>\n					                      	<option value="Georgia">Georgia</option>\n					                      	<option value="Times New Roman">Times New Roman</option>\n					                      	<option value="Courier New">Courier New</option>\n					                      	<option value="Lucida Console">Lucida Console</option>\n                						</select>\n                					</div>\n           						</div>\n           						<div class="col-lg-12 col-md-12 m-bot15">\n            						<label for="boldtext" class="control-label col-md-3 col-sm-3">\n                                        <strong> Bold: </strong>\n                                    </label>\n                                    <div class="row m-bot15 col-md-3 col-sm-3">\n                                        <div class="col-sm-6 text-center">\n                                            <div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                                                 <input type="checkbox" id=\'formoverlay_titlebold\' v-model="project.actions.formoverlay_titlebold" class="actions-ref"/>\n                                            </div>\n                                        </div>\n                                    </div>\n            						<label for="italictext" class="control-label col-md-3 col-sm-3">\n                                            <strong> Italic: </strong>\n                                    </label>\n                                    <div class="row m-bot15 col-md-3 col-sm-3">\n                                        <div class="col-sm-6 text-center">\n                                            <div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                                                <input type="checkbox" id=\'formoverlay_titleitalic\' v-model="project.actions.formoverlay_titleitalic" class="actions-ref"/>\n                                            </div>\n                                        </div>\n                                    </div>\n           						</div>\n           						<div class="col-lg-12 col-md-12">\n           							<label for="titletextcolor" class="m-bot15 control-label col-md-4 col-sm-4">\n           								<strong> Text Color: </strong>\n           							</label>\n                                    <label for="rgb" class="control-label col-md-2 col-sm-2 row">\n                                          RGB\n									</label>\n                                    <div class="row m-bot15 col-md-6 col-sm-6">\n                                        <color-picker :color.sync="project.actions.formoverlay_titlecolor"></color-picker>\n                                    </div>\n            					</div>\n          					</div><!--  end form-group title style -->\n          					<div class="form-group">\n                                <div class="col-lg-12 col-md-12">\n            						<label for="fieldtitle" class="control-label">\n            							 Form Input Fields Style\n            						</label>\n           						</div>\n          					</div>\n							<div class="form-group">\n           						<div class="col-lg-12 col-md-12">\n                					<label for="fieldsize" class="control-label col-md-3 col-sm-3">\n                                        <strong> Size: </strong>\n                                  	</label>\n                                  	<div class="row m-bot15 col-md-3 col-sm-3">\n                                        <select id=\'fieldsize\' class="form-control m-bot15" v-model="project.actions.formoverlay_fieldsize">\n						                    <option value="Small">Small</option>\n						                    <option value="Medium">Medium</option>\n						                    <option value="Large">Large</option>\n                     					</select>\n                					</div>\n            						<label for="fieldbordersize" class="control-label col-md-3 col-sm-3">\n                                    	<strong> Border size: </strong>\n                              		</label>\n                              		<div class="row m-bot15 col-md-3 col-sm-3">\n                                		<select id=\'fieldbordersize\' class="form-control m-bot15" v-model="project.actions.formoverlay_fieldbordersize">\n						                    <option value="1">1px</option>\n						                 	<option value="2">2px</option>\n						                    <option value="3">3px</option>\n            							</select>\n            						</div>\n           						</div>\n           						<div class="col-lg-12 col-md-12 m-bot15">\n           							<label for="bordercolor" class="m-bot15 control-label col-md-4 col-sm-4">\n           								<strong> Border Color: </strong>\n           							</label>\n                                    <label for="rgb" class="control-label col-md-2 col-sm-2 row">\n                                        RGB\n                                    </label>\n                                    <div class="row m-bot15 col-md-6 col-sm-6">\n                                       <color-picker :color.sync="project.actions.formoverlay_fieldbordercolor"></color-picker>\n                                    </div>\n           						</div>\n          					</div> <!-- end of form group input fields style -->\n          					<div class="form-group">\n                                <div class="col-lg-12 col-md-12">\n            						<label for="buttontitle" class="control-label">\n            							 Form Button Style\n            						</label>\n           						</div>\n          					</div>\n	      					<div class="form-group">\n	       						<div class="col-lg-12 col-md-12">\n	        						<label for="buttontext" class="control-label col-md-3 col-sm-3">\n	        							<strong> Button Text: </strong>\n	        						</label>\n	                               <div class="row m-bot15 col-md-9 col-sm-9">\n	                                	<input type="text" class="form-control m-bot15" id="titleText" maxlength="25" v-model="project.actions.formoverlay_buttontext">\n	                               </div>\n	            					<label for="buttonsize" class="control-label col-md-3 col-sm-3">\n	                                    <strong> Size: </strong>\n	                              	</label>\n	                              	<div class="row m-bot15 col-md-3 col-sm-3">\n	                                    <select id=\'buttonsize\' class="form-control m-bot15" v-model="project.actions.formoverlay_buttonsize">\n						                    <option value="Small">Small</option>\n						                    <option value="Medium">Medium</option>\n						                    <option value="Large">Large</option>\n	                 					</select>\n	            					</div>\n	        						<label for="buttonbordersize" class="control-label col-md-3 col-sm-3">\n	                                	<strong> Border size: </strong>\n	                          		</label>\n	                          		<div class="row m-bot15 col-md-3 col-sm-3">\n	                            		<select id=\'titleSize\' class="form-control m-bot15" v-model="project.actions.formoverlay_buttonbordersize">\n						                    <option value="1">1px</option>\n						                 	<option value="2">2px</option>\n						                    <option value="3">3px</option>\n	        							</select>\n	        						</div>\n	       						</div>\n	       						<div class="col-lg-12 col-md-12 m-bot15">\n	        						<label for="buttoncolor" class="m-bot15 control-label col-md-4 col-sm-4">\n	        							<strong> Foreground Color: </strong>\n	        						</label>\n	                                <label for="rgb" class="control-label col-md-2 col-sm-2 row">\n	                                    RGB\n	                                </label>\n	                                <div class="row m-bot15 col-md-6 col-sm-6">\n	                                   <color-picker :color.sync="project.actions.formoverlay_buttoncolor"></color-picker>\n	                                </div>\n	       						</div>\n	       						<div class="col-lg-12 col-md-12 m-bot15">\n	       							<label for="buttonbackgroundcolor" class="m-bot15 control-label col-md-4 col-sm-4">\n	       								<strong> Background Color: </strong>\n	       							</label>\n	                                <label for="rgba" class="control-label col-md-2 col-sm-2 row">\n	                                    RGBA\n	                                </label>\n	                                <div class="row m-bot15 col-md-6 col-sm-6">\n	                                    <color-picker :color.sync="project.actions.formoverlay_buttonbackgroundcolor" format="rgba"></color-picker>\n	                                </div>\n	       						</div>\n	       					</div>\n						</div><!--  end of panel-body -->\n	               	</div> <!-- end of collapsefour -->\n		 		</form>\n		 	</div><!--  end of tab-pane two form overlay -->\n		 	<div id="autoresponder" class="tab-pane">\n		 		<form class="form-horizontal tasi-form text-left">\n		            <div class="form-group">\n	                    <div class="col-lg-12 col-md-12">\n							<label for="autoresponder" class="control-label">\n								Autoresponder\n							</label>\n						</div>\n					</div>\n\n					<div class="form-group">\n						<div class="col-lg-12 col-md-12">\n							<label for="autoresponderlabel" class="control-label col-md-3 col-sm-3">\n								<strong> Name: </strong>\n							</label>\n	                        <div class="row m-bot15 col-md-9 col-sm-9">\n	                            <input type="text" class="form-control m-bot15" v-model="project.actions.autoresponder_name">\n	                        </div>\n	                        <tooltip class="pull-right" title="Label for the autoresponder that you will choose" placement="left"></tooltip>\n						</div>\n						<div class="col-lg-12 col-md-12">\n	   						<label for="autoresponderservice" class="control-label col-md-3 col-sm-3">\n	                            <strong> Service: </strong>\n	                      	</label>\n	                  		<div class="row m-bot15 col-md-5 col-sm-5">\n	                     		<select id=\'autoresponder\' class="form-control m-bot15" v-model="project.actions.autoresponder">\n				                    <option value="aweber">AWeber</option>\n				                    <option value="mailchimp">MailChimp</option>\n				                    <option value="getresponse">GetResponse</option>\n	 							</select>\n							</div>\n							<div class="col-md-4 col-sm-4">\n				            	<tooltip class="pull-left" title="Autoresponder services that are available" placement="right"></tooltip>\n				            </div>\n						</div>\n						<!-- AWeber Authorization Key -->\n						<div v-if="isBelongsTo(\'aweber\')" class="col-lg-12 col-md-12 aweber">\n							<label for="authorizationkey_aweber" class="control-label col-md-3 col-sm-3">\n								<strong> Verifier Code: </strong>\n							</label>\n							<div class="row m-bot15 col-md-9 col-sm-9">\n	                        	<div class="input-group">\n	                              	<input type="text" class="form-control m-bot15" :readonly="isLoading" v-model="project.actions.autoresponder_data.aweber.key">\n	                              	<span class="input-group-btn">\n	                                	<button class="btn btn-info" :disabled="isLoading" type="button" @click="getAweberAccessToken"><i class="fa fa-key" ></i></button>\n	                              	</span>\n	                        	</div>\n	                        	<p class="help-block text-info">Get your AWeber verifier code: <a :href="aweber.authorization_url" class="text-danger" target="_blank">Click here</a></p>\n                        	</div>\n\n                        	<tooltip class="pull-right" title="Get your verifier code by clicking the word \'Click here\' below and activate it by clicking the blue button to retrieve your mailing list" placement="left"></tooltip>\n\n                        	<!-- AW Mailing Lists -->\n                		    <div v-if="aweber_list_count > 0">\n                		    	<label for="aweberlist" class="control-label col-md-3 col-sm-3">\n                            		<strong> AWeber List: </strong>\n	                      		</label>\n	                      		<div class="row m-bot15 col-md-5 col-sm-5">\n	                        		<select class="form-control m-bot15" v-model="project.actions.autoresponder_data.aweber.list" :disabled="isLoading">\n					                    <option v-for="list in aweber.lists" :value="list">\n					                    	{{ list }}\n					                    </option>\n	    							</select>\n	    						</div>\n                		    </div>\n						</div>\n						<!-- AWeber Authorization Key -->\n\n						<!-- MailChimp API Key -->\n						<div v-if="isBelongsTo(\'mailchimp\')" class="col-lg-12 col-md-12">\n							<label for="apikey_mailchimp" class="control-label col-md-3 col-sm-3">\n								<strong> API Key: </strong>\n							</label>\n	                  		<div class="row m-bot15 col-md-9 col-sm-9">\n		                        <div class="input-group m-bot15">\n	                              	<input type="text" class="m-bot15 form-control" :readonly="isLoading" v-model="project.actions.autoresponder_data.mailchimp.key" @keyup.enter="processAutoResponder">\n	                              	<span class="input-group-btn">\n	                                	<button class="btn btn-info" :disabled="isLoading" type="button" @click="processAutoResponder">\n	                                		<i class="fa fa-key"></i>\n	                                	</button>\n	                              	</span>\n	                        	</div>\n							</div>\n							<tooltip class="pull-right" title="Get your API code by going to www.mailchimp.com and login using your account" placement="left"></tooltip>\n                        	<!-- MC Mailing Lists -->\n                		    <div v-if="mailchimp_list_count > 0">\n                		    	<label for="mailchimplist" class="control-label col-md-3 col-sm-3">\n                            		<strong> Mailing List: </strong>\n	                      		</label>\n	                      		<div class="row m-bot15 col-md-5 col-sm-5">\n	                        		<select class="form-control m-bot15" v-model="project.actions.autoresponder_data.mailchimp.list" :disabled="isLoading">\n					                    <option v-for="list in mailchimp.lists" :value="list">\n					                    	{{ list }}\n					                    </option>\n	    							</select>\n	    						</div>\n                		    </div>\n						</div>\n						<!-- MailChimp API Key -->\n\n						<!-- GetResponse API Key -->\n						<div v-if="isBelongsTo(\'getresponse\')" class="col-lg-12 col-md-12">\n							<label for="apikey_getresponse" class="control-label col-md-3 col-sm-3">\n								<strong> API Key: </strong>\n							</label>\n							<div class="row m-bot15 col-md-9 col-sm-9">\n		                        <div class="input-group m-bot15">\n	                              	<input type="text" class="form-control m-bot15" :readonly="isLoading" v-model="project.actions.autoresponder_data.getresponse.key" @keyup.enter="processAutoResponder">\n	                              	<span class="input-group-btn">\n	                                	<button class="btn btn-info" :disabled="isLoading" type="button" @click="processAutoResponder">\n	                                		<i class="fa fa-key"></i>\n	                                	</button>\n	                              	</span>\n	                        	</div>\n                        	</div>\n                        	<tooltip class="pull-right" title="Get your API code by going to www.getresponse.com and login using your account" placement="left"></tooltip>\n                        	<!-- GR Mailing Lists -->\n                		    <div v-if="getresponse_list_count > 0">\n                		    	<label for="getresponselist" class="control-label col-md-3 col-sm-3">\n                            		<strong> Campaign List: </strong>\n	                      		</label>\n	                      		<div class="row m-bot15 col-md-5 col-sm-5">\n	                        		<select class="form-control m-bot15" v-model="project.actions.autoresponder_data.getresponse.list" :disabled="isLoading">\n					                    <option v-for="list in getresponse.lists" :value="list">\n					                    	{{ list }}\n					                    </option>\n	    							</select>\n	    						</div>\n                		    </div>\n						</div>\n						<!-- GetResponse API Key -->\n	                </div> <!-- end of form group autoresponder -->\n		 		</form>\n		 	</div>\n		</div><!--  end of tab content -->\n	</section>\n</div>	<!-- end of fboverlay -->\n';
+},{}],18:[function(require,module,exports){
+module.exports = '<div id="linkurl" class="tab-pane fade in active">\n  <section class="panel">\n    <form class="form-horizontal tasi-form text-left">\n      <div class="form-group">\n          <div class="col-lg-12 col-md-12 row">\n             <label for="linkurl" class="control-label col-md-3 col-sm-3">\n               <strong> Link URL: </strong>\n             </label>\n             <div class="row col-md-9 col-sm-9">\n               <input type="text" class="form-control m-bot15" id="linkURL" v-model="project.actions.link_url" placeholder="http://">\n             </div>\n             <tooltip class="pull-right" title="URL where it will route when the video is click. Note: \'http://\' is required to work properly" placement="left"></tooltip>\n          </div>\n        </div>\n        <div class="form-group">\n          <div class="col-lg-12 col-md-12">\n             <label for="textoverlay pull-left" class="control-label">\n                Text Overlay\n             </label>\n          </div>\n        </div>\n        <div class="form-group">\n          <div class="col-lg-12 col-sm-12 row">\n             <label for="line1" class="control-label col-md-3 col-sm-3">\n               <strong> Line1: </strong>\n             </label>\n             <div class="row m-bot15 col-md-9 col-sm-9">\n               <input type="text" class="form-control m-bot15" id="textoverlay_line_1" v-model="project.actions.textoverlay_line_1" >\n             </div>\n             <tooltip class="pull-right" title="Text overlay that will be display while the video is playing" placement="left"></tooltip>\n          </div>\n          <div class="col-lg-12 col-sm-12 row">\n             <label for="line2" class="control-label col-md-3 col-sm-3">\n                 <strong> Line2: </strong>\n             </label>\n             <div class="row m-bot15 col-md-9 col-sm-9">\n               <input type="text" class="form-control m-bot15" id="textoverlay_line_2" v-model="project.actions.textoverlay_line_2">\n             </div>\n          </div>\n          <div class="col-lg-12 col-sm-12 row">\n             <label for="valignment" class="control-label col-md-3 col-sm-3">\n               <strong> Vertical Alignment: </strong>\n             </label>\n             <div class="row m-bot15 col-md-3 col-sm-3">\n               <select id=\'textPosition\' class="form-control m-bot15" v-model="project.actions.textoverlay_valignment">\n                 <option value="bottom">Bottom</option>\n                 <option value="middle">Middle</option>\n                 <option value="top">Top</option>\n               </select>\n             </div>\n             <div class="col-md-3 col-sm-3">\n                <tooltip class="pull-left" title="Vertical alignment of text overlay" placement="right"></tooltip>\n             </div>\n          </div>\n          <div class="col-lg-12 col-sm-12 row">\n             <label for="starttime" class="control-label col-md-3 col-sm-3">\n                 <strong> Start Time: </strong>\n             </label>\n             <div class="row m-bot15 col-md-3 col-sm-3">\n                <div class="spinner">\n                  <div class="input-group input-small">\n                     <input type="text" id=\'textShowSec\' class="spinner-input form-control" value="0" v-model="project.actions.textoverlay_start">\n                     <div id="textoverlay_start" class="spinner-buttons input-group-btn btn-group-vertical">\n                        <button type="button" class="btn spinner-up btn-xs btn-default">\n                           <i class="fa fa-angle-up"></i>\n                        </button>\n                        <button type="button" class="btn spinner-down btn-xs btn-default">\n                           <i class="fa fa-angle-down"></i>\n                         </button>\n                      </div>\n                  </div>\n                </div>\n            </div>\n            <label for="textduration" class="control-label col-md-3 col-sm-3">\n               <strong> Duration: </strong>\n            </label>\n            <div class="row m-bot15 col-md-3 col-sm-3">\n              <div class="spinner">\n                <div class="input-group input-small">\n                  <input type="text" id=\'textShowDuration\' class="spinner-input form-control" value="0" v-model="project.actions.textoverlay_duration">\n                      <div id="textoverlay_duration" class="spinner-buttons input-group-btn btn-group-vertical">\n                        <button type="button" class="btn spinner-up btn-xs btn-default">\n                            <i class="fa fa-angle-up"></i>\n                        </button>\n                        <button type="button" class="btn spinner-down btn-xs btn-default">\n                            <i class="fa fa-angle-down"></i>\n                        </button>\n                      </div>\n                  </div>\n              </div>\n            </div>\n            <tooltip class="pull-right" title="Start time and duration of text overlay" placement="left"></tooltip>\n          </div> <!-- end of col-lg-12 -->\n        </div> <!-- 2nd form-group -->\n        <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <div class="panel-group" id="accordion">\n            <div class="panel advance-panel">\n                <div class="panel-heading panel-inverse">\n                    <h4 class="panel-title">\n                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">\n                            <div>\n                              <i class="fa fa-pencil"></i>  Advance (Text Overlay)  <tooltip title="Text overlay appearance options" placement="right"></tooltip><i class="fa fa-caret-down pull-right"></i>\n                            </div>\n                        </a>\n                    </h4>\n                </div>\n                <div id="collapseOne" class="panel-collapse collapse">\n                  <div class="panel-body">\n                    <div class="form-group">\n                      <div class="col-lg-12 col-md-12">\n                          <div class="well">\n                            <div class="textoverlay-container"\n                              :style="{\n                                          textAlign: project.actions.textoverlay_alignment\n                                        }"\n                            >\n                              <span\n                                :style="{\n                                            fontFamily: project.actions.textoverlay_fontfamily,\n                                            fontSize: project.actions.textoverlay_fontsize + \'px\',\n                                            fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n                                            fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n                                            color: project.actions.textoverlay_textcolor,\n                                            backgroundColor: project.actions.textoverlay_backgroundcolor\n                                          }"\n                              >\n                                {{ project.actions.textoverlay_line_1 ? project.actions.textoverlay_line_1: \'The quick brown fox...\'}}\n                              </span> <br/>\n                              <span\n                                :style="{\n                                            fontFamily: project.actions.textoverlay_fontfamily,\n                                            fontSize: project.actions.textoverlay_fontsize + \'px\',\n                                            fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n                                            fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n                                            color: project.actions.textoverlay_textcolor,\n                                            backgroundColor: project.actions.textoverlay_backgroundcolor\n                                          }"\n                              >\n                                {{ project.actions.textoverlay_line_2 }}\n                              </span>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    <div class="form-group">\n                      <div class="col-lg-12 col-md-12">\n                        <label for="fontstyle" class="control-label col-md-3 col-sm-3">\n                           <strong> Font Family: </strong>\n                        </label>\n                       <div class="row m-bot15 col-md-4 col-sm-4">\n                          <select id=\'textFontProperty\' class="form-control m-bot15" v-model="project.actions.textoverlay_fontfamily">\n                            <option value="Arial">Arial</option>\n                            <option value="Arial Black">Arial Black</option>\n                            <option value="Comic Sans MS">Comic Sans MS</option>\n                            <option value="Impact">Impact</option>\n                            <option value="Lucida">Lucida</option>\n                            <option value="Tahoma">Tahoma</option>\n                            <option value="Verdana">Verdana</option>\n                            <option value="Georgia">Georgia</option>\n                            <option value="Times New Roman">Times New Roman</option>\n                            <option value="Courier New">Courier New</option>\n                            <option value="Lucida Console">Lucida Console</option>\n                           </select>\n                        </div>\n                        <label for="fontsize" class="control-label col-md-3 col-sm-3">\n                            <strong> Font Size: </strong>\n                        </label>\n                        <div class="row m-bot15 col-md-3 col-sm-3">\n                           <div class="spinner">\n                              <div class="input-group input-small">\n                                 <input type="text" class="spinner-input form-control fontsize" value="10" v-model="project.actions.textoverlay_fontsize" placeholder="10">\n                                  <div id=\'textoverlay_fontsize\' class="spinner-buttons input-group-btn btn-group-vertical fontsize-buttons">\n                                    <button type="button" class="btn spinner-up btn-xs btn-default">\n                                        <i class="fa fa-angle-up"></i>\n                                    </button>\n                                    <button type="button" class="btn spinner-down btn-xs btn-default">\n                                        <i class="fa fa-angle-down"></i>\n                                    </button>\n                                  </div>\n                              </div>\n                            </div>\n                         </div>\n                      </div>\n                    </div>\n                <div class="form-group">\n                  <div class="col-lg-12 col-md-12">\n                    <label for="boldtext" class="control-label col-md-2 col-sm-2">\n                        <strong> Bold: </strong>\n                    </label>\n                    <div class="row m-bot15 col-md-4 col-sm-4">\n                        <div class="col-sm-6 text-center">\n                            <div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'textoverlay_bold\' v-model="project.actions.textoverlay_bold" class="actions-ref"/>\n                            </div>\n                        </div>\n                    </div>\n                    <label for="italictext" class="control-label col-md-2 col-sm-2">\n                       <strong> Italic: </strong>\n                    </label>\n                    <div class="row m-bot15 col-md-4 col-sm-4">\n                        <div class="col-sm-6 text-center">\n                            <div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'textoverlay_italic\' v-model="project.actions.textoverlay_italic" class="actions-ref"/>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n              </div>\n              <div class="form-group">\n                <div class="col-lg-12 col-md-12">\n                    <label for="textalignment" class="control-label col-md-3 col-sm-3">\n                       <strong> Alignment: </strong>\n                    </label>\n                    <div class="row col-md-3 col-sm-3">\n                          <select id=\'textAlignment\' class="form-control m-bot15" v-model="project.actions.textoverlay_alignment">\n                            <option value="left">Left</option>\n                            <option value="center">Center</option>\n                            <option value="right">Right</option>\n                          </select>\n                    </div>\n                </div>\n              </div>\n              <div class="form-group">\n                <div class="col-lg-12 col-md-12">\n                  <label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4"><strong> Text Color: </strong></label>\n                    <label for="rgba" class="control-label col-md-2 col-sm-2 row">\n                        RGB\n                    </label>\n                    <div class="row m-bot15 col-md-6 col-sm-6">\n                      <color-picker :color.sync="project.actions.textoverlay_textcolor"></color-picker>\n                    </div>\n                </div>\n              </div>\n              <div class="form-group">\n                <div class="col-lg-12 col-md-12">\n                  <label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4"><strong> Background Color: </strong></label>\n                   <label for="rgba" class="control-label col-md-2 col-sm-2 row">\n                      RGBA\n                   </label>\n                    <div class="row m-bot15 col-md-6 col-sm-6">\n                      <color-picker :color.sync="project.actions.textoverlay_backgroundcolor" format="rgba"></color-picker>\n                    </div>\n                </div>\n              </div>\n              </div><!--  end of panel-body -->\n            </div>\n          </div>\n        </div>\n      </div>\n    </div> <!-- 3rd form-group -->\n  </form>\n</section>\n</div> <!-- end of linkurl -->';
+},{}],19:[function(require,module,exports){
+module.exports = '<!-- Action Modal -->\n<div class="modal fade" id="project-actions" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n        <div class="actions-modal modal-header">\n            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n            <h4 class="modal-title text-center"><i class="fa fa-share-square-o"></i>  Actions</h4>\n        </div>\n        <div class="modal-body">\n        	<div class="row">\n        		<div class="col-md-12">\n    			    <section class="panel row">\n            			<ul class="nav nav-tabs actions-tab">\n      						  <li class="active"><a data-toggle="tab" href="#linkurl"><i class="fa fa-link"></i> Link URL &amp; Text Overlay</a></li>\n      						  <li><a data-toggle="tab" href="#clicktocall"><i class="fa fa-hand-o-up"></i> Click to Call</a></li>\n      						  <li><a data-toggle="tab" href="#fboverlay"><i class="fa fa-file-text"></i> Form &amp; Button Overlay</a></li>\n					        </ul>\n        			</section>\n				      <div class="tab-content">\n				      	<linkurl :project="project"></linkurl>\n				      	<clicktocall :project="project"></clicktocall>\n                <fboverlay :project="project"></fboverlay>\n        			</div>\n    			  </div>\n    		  </div>\n      	</div>\n        <div class="modal-footer">\n            <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n            <button class="btn btn-primary" type="button" @click="save">\n                  <i class="fa fa-save"></i> {{ is_saving ? \'Saving...\' : \'Save\' }}\n            </button>\n        </div>\n      </div> <!--  end of modal content -->\n   </div> <!--  end of modal dialog -->\n</div>  <!--  end of modal -->';
+},{}],20:[function(require,module,exports){
+module.exports = '<div :data-color-format="format" :data-color="color" class="input-append colorpicker-default color">\n  <input type="text" readonly="" class="form-control" v-model="color">\n    <span class=" input-group-btn add-on">\n      <button class="btn btn-white" type="button" style="padding: 8px">\n      <i\n        :style="{\n          backgroundColor:color\n        }"\n      ></i>\n      </button>\n    </span>\n</div>';
+},{}],21:[function(require,module,exports){
+module.exports = '<div class="modal fade" id="project-embed" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-link"></i>  Embed</h4>\n          </div>\n          <div class="modal-body">\n          	<div class="row">\n          		<div class="col-md-12">\n\n							</div>\n						</div>\n          </div>\n          <div class="modal-footer">\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
+},{}],22:[function(require,module,exports){
+module.exports = '<!-- Properties Tab -->\n<div id="home" class="tab-pane fade in active">\n  	<section class="panel">\n  		<form class="form-horizontal tasi-form text-left">\n			<div class="form-group">\n				<div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="Title field for this video" placement="left"></tooltip>\n				  <label for="title" class="control-label"><strong>Title: </strong></label>\n				  	<input type="text" class="form-control m-bot15" id="propertyTitle" v-model="project.title" placeholder="Enter Title">\n				</div>\n			</div> <!-- 1st form-group -->\n\n			<div class="form-group">\n              <div class="col-lg-12 col-md-12">\n                <tooltip class="pull-right" title="Video positioning for this video" placement="left"></tooltip>\n              </div>\n				        <div class="col-lg-4 col-sm-4">\n					          <label for="position" class="control-label"><strong>Position: </strong></label>\n                  	<select id=\'propertyPosition\' v-model="project.options.position" class="form-control m-bot15">\n            						<option value="centered">Centered</option>\n            						<option value="top-left">Top left</option>\n            						<option value="top-right">Top right</option>\n            						<option value="bottom-left">Bottom left</option>\n            						<option value="bottom-right">Bottom right</option>\n                    </select>\n              	</div>\n              	<div class="col-lg-4 col-sm-4">\n	                 <label for="offsetx" class="control-label"><strong>Offset X: </strong></label>\n	                  <div class="spinner">\n                      <div class="input-group input-small">\n                        <input type="text" id=\'propertyOffsetX\' class="spinner-input form-control" v-model="project.options.offset_x" placeholder="0">\n                      	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                          <button type="button" class="btn spinner-up btn-xs btn-default">\n                              <i class="fa fa-angle-up"></i>\n                          </button>\n                          <button type="button" class="btn spinner-down btn-xs btn-default">\n                              <i class="fa fa-angle-down"></i>\n                          </button>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                <div class="col-lg-4 col-sm-4">\n        					<label for="offsety" class="control-label"><strong>Offset Y: </strong></label>\n        						<div class="spinner">\n                      <div class="input-group input-small">\n                          <input type="text" id=\'propertyOffsetY\' class="spinner-input form-control" v-model="project.options.offset_y" placeholder="0">\n                          	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                              <button type="button" class="btn spinner-up btn-xs btn-default">\n                                  <i class="fa fa-angle-up"></i>\n                              </button>\n                              <button type="button" class="btn spinner-down btn-xs btn-default">\n                                  <i class="fa fa-angle-down"></i>\n                              </button>\n                            </div>\n                        </div>\n                    </div>\n		              </div>\n              </div> <!-- 3rd form-group -->\n\n            <div class="form-group">\n             <div class="col-lg-12 col-md-12">\n                <tooltip class="pull-right" title="Delay options for this video" placement="left"></tooltip>\n              </div>\n				      <div class="col-lg-4 col-sm-4">\n  		          <label for="automatically" class="control-label">\n                  	  <strong> Delay: </strong>\n                </label>\n                <div class="row m-bot15">\n                    <div class="col-sm-6 text-center">\n                      <div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                        <input type="checkbox" id="auto_display" v-model="project.options.auto_display" class="options-ref" />\n                      </div>\n                    </div>\n                </div>\n            	</div>\n            	<div class="col-lg-8 col-sm-8">\n                	<div v-show="project.options.auto_display">\n                      	<label for="afterseconds" class="control-label">\n                      	  <strong> After (Seconds): </strong>\n                      	</label>\n						            <div class="spinner">\n                            <div class="input-group input-small">\n                                  <input type="text" id=\'propertyDisplayAfter\' v-model="project.options.auto_display_after" class="spinner-input form-control" placeholder="0">\n                                  	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                                      <button type="button" class="btn spinner-up btn-xs btn-default">\n                                          <i class="fa fa-angle-up"></i>\n                                      </button>\n                                      <button type="button" class="btn spinner-down btn-xs btn-default">\n                                          <i class="fa fa-angle-down"></i>\n                                      </button>\n                                    </div>\n                            </div>\n                        </div>\n					</div>\n            	</div>\n            </div> <!-- 4th form-group -->\n            <div class="form-group">\n            	<div class="col-lg-12 col-sm-12 row">\n					          <label for="dimmed" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Dimmed Background: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'dimmed_background\' v-model="project.options.dimmed_background" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Dimmed background for this video" placement="right"></tooltip>\n                      </div>\n            	</div>\n            	    <div class="col-lg-12 col-sm-12 row">\n					          <label for="glass" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Glass Background: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'glass_background\' v-model="project.options.glass_background" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Glass background for this video" placement="right"></tooltip>\n                      </div>\n            	     </div>\n            </div>\n           	<div class="form-group">\n            	<div class="m-bot15 col-lg-12 col-sm-12 row">\n            		<label for="stopshowing" class="control-label col-md-4 col-sm-4">\n            			Stop Showing When\n            		</label>\n            	</div>\n              <div class="col-lg-12 col-sm-12 row">\n                   <label for="exitonend" class="control-label col-md-4 col-sm-4">\n                          <strong> Exit On End: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                            <div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'stop_showing.exit_on_end\' v-model="project.options.stop_showing.exit_on_end" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Video will automatically exit after playing" placement="right"></tooltip>\n                      </div>\n              </div>\n            	<div class="col-lg-12 col-sm-12 row">\n					          <label for="exitonend" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Clicked: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'stop_showing.clicked\' v-model="project.options.stop_showing.clicked" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Video will no longer play next time the user visit the page after it was clicked" placement="right"></tooltip>\n                      </div>\n            	     </div>\n            	<div class="col-lg-12 col-sm-12 row">\n					         <label for="exitonend" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Closed: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'stop_showing.closed\' v-model="project.options.stop_showing.closed" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Video will no longer play next time the user visit the page after it was closed" placement="right"></tooltip>\n                      </div>\n            	</div>\n            </div> <!-- 6th form-group -->\n            <div class="form-group">\n              <div class="col-lg-12 col-md-12">\n                  <tooltip class="pull-right" title="Video will play again after the specified minutes for cookie life" placement="left"></tooltip>\n              </div>\n            	<div class="col-lg-8 col-md-8">\n				          <label for="cookielife" class="control-label"><strong>Cookie Life: </strong></label>\n					         <div class="spinner">\n                        <div class="input-group input-small">\n                              <input type="text" id=\'propertyCookieLife\' class="spinner-input form-control" v-model="project.options.cookie_life" placeholder="0">\n                              	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                                  <button type="button" class="btn spinner-up btn-xs btn-default">\n                                      <i class="fa fa-angle-up"></i>\n                                  </button>\n                                  <button type="button" class="btn spinner-down btn-xs btn-default">\n                                      <i class="fa fa-angle-down"></i>\n                                  </button>\n                                </div>\n                        </div>\n                    </div>\n				      </div>\n			       </div> <!-- 6th form-group -->\n  		</form>\n  	</section>\n</div>\n\n\n<!-- IFrame Tab -->\n<div id="iframe" class="tab-pane fade">\n    <section class="panel">\n    <form class="form-horizontal tasi-form text-left">\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="Show another page in the background when playing this video instead of the background set e.g dimmed" placement="left"></tooltip>\n          <label for="iframeurl" class="control-label"><strong>URL: </strong></label>\n            <input type="text" class="form-control m-bot15" v-model="project.options.iframe" id="IframeURL" placeholder="http://">\n        </div>\n      </div> <!-- 1st form-group -->\n    </form>\n    </section>\n</div>\n\n<!-- External Video -->\n<div id="externalvideo" class="tab-pane fade">\n    <section class="panel">\n      <form class="form-horizontal tasi-form text-left">\n        <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="External video that will play after this video & duration of the external video" placement="left"></tooltip>\n        </div>\n        <div class="col-lg-4 col-md-4">\n          <label for="duration" class="control-label"><strong>Duration: </strong></label>\n            <div class="spinner">\n            <div class="input-group input-small">\n                          <input type="text" id=\'propertyExtVideoDuration\' v-model="project.options.external_video.duration" class="spinner-input form-control" >\n                          <div class="spinner-buttons input-group-btn btn-group-vertical">\n                            <button type="button" class="btn spinner-up btn-xs btn-default">\n                                <i class="fa fa-angle-up"></i>\n                            </button>\n                            <button type="button" class="btn spinner-down btn-xs btn-default">\n                                <i class="fa fa-angle-down"></i>\n                            </button>\n                          </div>\n                      </div>\n                    </div>\n            </div>\n        <div class="col-lg-8 col-md-8">\n          <label for="embed" class="control-label"><strong>Embed Code: </strong></label>\n            <input type="text" class="form-control m-bot15" v-model="project.options.external_video.embed_code" id="propertyExtVideoURL" >\n        </div>\n      </div> <!-- 2nd form-group -->\n    </form>\n    </section>\n</div>';
+},{}],23:[function(require,module,exports){
+module.exports = '<div class="modal fade" id="project-options" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-gears"></i>  Options</h4>\n          </div>\n          <div class="modal-body">\n          	<div class="row">\n          		<div class="col-md-12">\n              			<section class="panel row">\n                  			<ul class="nav nav-tabs options-tab">\n  											  <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-pencil-square-o"></i> Properties</a></li>\n  											  <li class="hidden"><a data-toggle="tab" href="#iframe"><i class="fa fa-code"></i> IFrame</a></li>\n  											  <li><a data-toggle="tab" href="#externalvideo"><i class="fa fa-video-camera"></i> External Video</a></li>\n  											</ul>\n                    </section>\n                    <div class="tab-content">\n                        <properties :project="project"></properties>\n                    </div>\n							</div>\n						</div>\n          </div>\n          <div class="modal-footer">\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n              <button class="btn btn-primary"\n                      type="button"\n                      :disabled="is_saving"\n                      @click="save"\n              >\n                      <i class="fa fa-save"></i> {{ is_saving ? \'Saving...\' : \'Save\' }}\n              </button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->\n';
+},{}],24:[function(require,module,exports){
+module.exports = '<div :class="[player_class.dimmed]" v-show="is_visible" id="project-player-bg">\n\n  <div id="project-player-container"\n     :style="[player_styles.offsets]"\n     :class="[player_class.position, player_class.glass]"\n  >\n  <div class="loader-3">\n      <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>\n      <span class="sr-only">Loading...</span>\n  </div>\n\n  <!-- embed video -->\n   <div v-if="has_Video"\n        id="project-embed-video"\n        :class="[embed_class.position]"\n    >\n      <a href="#" class="close-embed text-danger"><i class="fa fa-times"></i></a>\n      <span v-html="project.options.external_video.embed_code"></span>\n    </div>\n\n    <!-- textoverlay -->\n    <div v-if="has_Textoverlay" id="project-text-overlay"\n        :class="[textoverlay_class.valignment, textoverlay_class.alignment, \'project-element\']"\n        :style="{ fontFamily:project.actions.textoverlay_fontfamily,\n                  fontSize:project.actions.textoverlay_fontsize+\'px\',\n                  fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n                  fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n                  color: project.actions.textoverlay_textcolor\n                }"\n    >\n\n        <span v-if="has_Line1"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_1 }}\n        </span><br/>\n        <span v-if="has_Line2"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_2 }}\n        </span>\n    </div>\n\n\n    <!-- click to call -->\n    <div v-if="has_Phonenumber"\n         id="project-clicktocall"\n         :class="[clicktocall_class.valignment, clicktocall_class.alignment, \'project-element\']"\n         :style="{ fontFamily:project.actions.clicktocall_fontfamily,\n                   fontSize:project.actions.clicktocall_fontsize+\'px\',\n                   fontWeight: project.actions.clicktocall_bold ? \'bold\' : null,\n                   fontStyle: project.actions.clicktocall_italic ? \'italic\': null\n                 }"\n    >\n\n\n      <a class="btn btn-default" href="tel:{{ project.actions.clicktocall }}"\n        :style="{\n          backgroundColor: project.actions.clicktocall_backgroundcolor,\n          color: project.actions.clicktocall_textcolor\n        }"\n      >\n        {{ project.actions.clicktocall }}\n      </a>\n\n\n    </div>\n\n    <!-- button overlay -->\n    <div v-if="has_Buttonoverlay"\n        id="project-buttonoverlay"\n        :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, \'project-element\']"\n        :style="{ fontFamily:project.actions.buttonoverlay_fontfamily,\n         fontSize:project.actions.buttonoverlay_fontsize+\'px\',\n         fontWeight: project.actions.buttonoverlay_bold ? \'bold\' : null,\n         fontStyle: project.actions.buttonoverlay_italic ? \'italic\': null\n        }"\n    >\n          <button class="btn btn-default"\n                  :style="{\n                      color: project.actions.buttonoverlay_textcolor,\n                      backgroundColor: project.actions.buttonoverlay_backgroundcolor\n                  }"\n          >\n            {{ project.actions.buttonoverlay_label ? project.actions.buttonoverlay_label: \'Default\'}}\n          </button>\n    </div>\n\n    <!-- form overlay -->\n\n    <div v-if="has_Autoresponder" id="project-formoverlay" class="project-element">\n          <section class="panel">\n            <a href="#" class="close-form text-danger"><i class="fa fa-times"></i></a>\n            <header class="panel-heading text-center">\n               <h4\n                :style="{\n                  fontFamily: project.actions.formoverlay_titlefontfamily,\n                  fontSize: formoverlay_titlesize,\n                  fontWeight: project.actions.formoverlay_titlebold ? \'bold\' : null,\n                  fontStyle: project.actions.formoverlay_titleitalic ? \'italic\': null,\n                  color: project.actions.formoverlay_titlecolor\n                }"\n               >\n                {{ project.actions.formoverlay_title }}\n\n              </h4>\n            </header>\n             <div class="panel-body">\n               <form class="form-horizontal tasi-form text-left">\n                  <div class="form-group">\n                    <div class="col-lg-12 col-md-12">\n                        <input type="text" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="usernameField" placeholder="Enter your name.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor\n                               }"\n                        >\n                        <input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="usernameField" placeholder="Enter your email.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor\n                               }"\n                        >\n                        <button id="formoverlay-btn" type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"\n                              :style="{\n                                borderWidth: project.actions.formoverlay_buttonbordersize + \'px\',\n                                color: project.actions.formoverlay_buttoncolor,\n                                borderColor: project.actions.formoverlay_buttoncolor,\n                                backgroundColor: project.actions.formoverlay_buttonbackgroundcolor\n                              }"\n                        >\n                              {{ project.actions.formoverlay_buttontext }}\n                        </button>\n                    </div>\n                  </div>\n                 </form>\n             </div>\n          </section>\n    </div>\n\n\n     <div id="video-section">\n\n     </div>\n\n\n  </div> <!-- end of project-player-container -->\n</div> <!-- end of player background -->\n\n';
+},{}],25:[function(require,module,exports){
+module.exports = '<div id="project-1" class="col-md-3 col-sm-6">\n	<section class="panel">\n		<!-- Title & Preview Image -->\n		<div class="pro-img-box text-center">\n              <h3>\n                  <a href="#" class="pro-title">{{ title | truncate \'20\' }}</a>\n              </h3>\n\n              <div class="vid-thumbnail">\n                 <img :src="\'/image/\' + filename" class="img-responsive" />\n              </div>\n\n              <a href="#preview" @click="showPreview" class="adtocart"><i class="fa fa-play-circle"></i></a>\n\n        </div>\n\n        <!-- Actions -->\n        <div class="panel-body text-center">\n            <div class="col-md-12">\n\n                <br/>\n\n                <button type="button"\n                		class="btn btn-primary btn-sm"\n                		data-toggle="modal"\n                		@click="showOptions"\n                >\n                		<i class="fa fa-gears"></i> Options\n                </button>\n\n                <div class="btn-group">\n                    <button data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle" type="button"> More <span class="caret"></span></button>\n                    <ul role="menu" class="dropdown-menu">\n                      <li>\n\n                      	<a href="#"\n                      	   data-toggle="modal"\n                      	   @click="showActions"\n                      	>\n                      	   	<span class="text-primary"><i class="fa fa-share-square-o"></i> Actions </span>\n                      	</a>\n\n                      </li>\n                      <li>\n                      	<a href="#delete" @click="deleteMe">\n                      		<span class="text-danger"><i class="fa fa-trash-o"></i> Delete </span>\n                      	</a>\n                      </li>\n                      <li class="divider"></li>\n                      <li><a href="#" data-toggle="modal"\n                           @click="showEmbed"><span class="text-warning"><i class="fa fa-link"></i> Embed </span></a></li>\n                    </ul>\n                </div><!-- /btn-group -->\n            </div> <!-- /col-md-12 -->\n        </div>\n\n	</section>\n</div>\n\n\n';
+},{}]},{},[15]);
+
+//# sourceMappingURL=main.js.map
