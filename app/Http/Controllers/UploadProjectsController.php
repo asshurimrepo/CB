@@ -48,7 +48,7 @@ class UploadProjectsController extends Controller
         $file = $request->file('file')->move("data/{$user->email}/videos", $filename);
 
         $commands = [
-            "ffmpeg -i {$file->getPathname()} -vcodec libx264 -vprofile high -preset fast -b:v 225k -maxrate 300k -bufsize 1000k -vf scale=1280:720 -threads 2 -acodec aac -b:a 128k -f mp4 data/{$user->email}/done/{$file->getFilename()}",
+            "ffmpeg -i {$file->getPathname()} -vcodec libx264 -preset fast -b:v 225k -maxrate 300k -bufsize 1000k -vf scale=1280:720 -threads 2 -acodec aac -b:a 128k -f mp4 data/{$user->email}/done/{$file->getFilename()}",
 
             "ffmpeg -i {$file->getPathname()} -vframes 1 -vf scale=-1:-1 data/{$user->email}/images/{$file->getFilename()}.png",
 
