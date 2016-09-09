@@ -12283,7 +12283,7 @@ exports.default = {
 					chroma.source = "#project-player_html5_api";
 					target.source = chroma;
 					// chroma['screen'] = [255/255,255/255,255/255,1];
-					// chroma.screen = [0, 0, 0, 1];
+					chroma.screen = [0, 0, 0, 1];
 					chroma['clipWhite'] = 1;
 					chroma['clipBlack'] = 1;
 					chroma['weight'] = 1;
@@ -12377,7 +12377,7 @@ exports.default = {
 			}
 
 			var delay = parseInt(this.project.options.auto_display_after) * 1000;
-			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
+			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/1.mp4" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
 
 			$("#video-section").empty().html(video_template);
 
