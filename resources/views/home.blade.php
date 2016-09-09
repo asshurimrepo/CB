@@ -9,8 +9,6 @@
 
 <div class="loader-2"></div>
 
-<section id="test"></section>
-
 <section class="error-wrapper timeout-wrapper" v-if="isTimeout">
       <h1>Oops!</h1><br/>
       <h2>Something went wrong. <a href="#" @click="loadProjects">Retry</a></h2>

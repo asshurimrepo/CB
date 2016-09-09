@@ -12092,8 +12092,6 @@ exports.default = {
 			vPlayer: null,
 			buffer: null,
 			output: null,
-			w: 400,
-			h: 0,
 			dy: 0,
 			first_frame: true,
 			timer: null,
@@ -12257,14 +12255,19 @@ exports.default = {
 				_this2.video.on("loadedmetadata", function () {
 
 					// rigz script
-					_this2.video.height(_this2.vPlayer.videoHeight);
-
-					_this2.h = _this2.video.height();
+					// this.video.height(this.vPlayer.videoHeight);
+					$("video#project-player_html5_api").attr("height", _this2.vPlayer.videoHeight);
+					$("video#project-player_html5_api").attr("width", _this2.vPlayer.videoWidth);
 
 					$("#project-player").prepend($("canvas#output"));
 					$("canvas#output").get(0).setAttribute("width", _this2.vPlayer.videoWidth);
-					$("canvas#output").get(0).setAttribute("height", _this2.h);
+					$("canvas#output").get(0).setAttribute("height", _this2.vPlayer.videoHeight);
+
+					// for testing
 					$("canvas#output").css('width', '400px');
+					$("#project-player").css('width', '400px');
+					// for testing
+
 					_this2.video.play();
 					_this2.addActionsToVideo();
 					// rigz script
@@ -12277,42 +12280,13 @@ exports.default = {
 					target = seriously.target('#output');
 					chroma = seriously.effect('chroma');
 
-					// if (Modernizr.video.webm && Modernizr.video.h264) {
-					//   //console.log("Chrome");
-					//   chroma.weight = .9;
-					//   chroma.balance = 1;
-					//   chroma.clipWhite = 1;
-					//   chroma.clipBlack = 0;
-					//   chroma.screen = [.2,1,.1,1];
-					// } else if (!Modernizr.video.webm && Modernizr.video.h264) {
-					//   //console.log("Safari");
-					//   chroma.weight = 1.25;
-					//   chroma.balance = 1;
-					//   chroma.clipWhite = 1;
-					//   chroma.clipBlack = 0;
-					//   chroma.screen = [.3,.9,.15,1];
-					// } else if (Modernizr.video.webm && !Modernizr.video.h264) {
-					//   //console.log("Firefox");
-					//   chroma.weight = 1.05;
-					//   chroma.balance = 1;
-					//   chroma.clipWhite = 1;
-					//   chroma.clipBlack = 0;
-					//   chroma.screen = [.14,.95,0,1];
-					// }
-
 					chroma.source = "#project-player_html5_api";
 					target.source = chroma;
 					chroma.screen = [0, 1, 0, 1];
 					chroma['clipWhite'] = 1;
 					chroma.clipBlack = 1;
-					chroma['weight'] = 2;
+					chroma['weight'] = 1;
 					seriously.go();
-
-					console.log(chroma);
-
-					// $("input[type=range]").on("input",function(e) {
-					//   update(this);
-					// });
 
 					function update(elment) {
 						var id = $(elment).attr('id');
