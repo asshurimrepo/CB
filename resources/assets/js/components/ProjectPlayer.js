@@ -208,9 +208,10 @@ export default {
 
 			          chroma.source = "#project-player_html5_api";
 			          target.source = chroma;
-			          chroma.screen = [0,1,0,1];
+			          // chroma['screen'] = [255/255,255/255,255/255,1];
+			          // chroma.screen = [0, 0, 0, 1];
 			          chroma['clipWhite'] = 1;
-			          chroma.clipBlack = 1;
+			          chroma['clipBlack'] = 1;
 			          chroma['weight'] = 1;
 			          seriously.go();
 
@@ -319,7 +320,7 @@ export default {
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
 			<video id="project-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}"}'>
 
-		          <source src="/dog.mp4" type="video/mp4">
+		          <source src="/1.mp4" type="video/mp4">
 
 		          <p class="vjs-no-js">
 		            To view this video please enable JavaScript, and consider upgrading to a web browser that
