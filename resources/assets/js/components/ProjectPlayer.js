@@ -209,7 +209,7 @@ export default {
 			          chroma.source = "#project-player_html5_api";
 			          target.source = chroma;
 			          // chroma['screen'] = [255/255,255/255,255/255,1];
-			          // chroma.screen = [0, 0, 0, 1];
+			          // chroma.screen =  [238/255,233/255,232/255,1];
 			          chroma['clipWhite'] = 1;
 			          chroma['clipBlack'] = 1;
 			          chroma['weight'] = 1;

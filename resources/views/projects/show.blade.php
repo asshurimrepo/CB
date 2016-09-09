@@ -8,7 +8,6 @@
     <script src="http://hello.p5js.org/js/vendor/seriously.js"></script>
     <script src="http://hello.p5js.org/js/vendor/effects/seriously.chroma.js"></script>
     <script>
-      $(document).ready(function() {
 
       //   $("#video").bind("loadeddata", function(){
 
@@ -53,28 +52,6 @@
       //   });
 
 
-
-      $('img').mousemove(function(e) {
-
-          if(!this.canvas) {
-              this.canvas = $('<canvas/>').css({width:this.width + 'px', height: this.height + 'px'})[0];
-              this.canvas.getContext('2d').drawImage(this, 0, 0, this.width, this.height);
-          }
-           var offX  = (e.offsetX || e.clientX - $(e.target).offset().left);
-           var offY  = (e.offsetY || e.clientY - $(e.target).offset().top);
-
-          var pixelData = this.canvas.getContext('2d').getImageData(offX, offY, 1, 1).data;
-
-          $('#output').html('R: ' + pixelData[0] + '<br>G: ' + pixelData[1] + '<br>B: ' + pixelData[2] + '<br>A: ' + pixelData[3]);
-
-
-      });
-
-
-
-
-
-      });
     </script>
 
   <style>
@@ -82,8 +59,18 @@
     </style>
 <body>
 
-  <img src="/test1.png" style="height: 400px;">
-  <pre id="output"></pre>
+<?php
+
+use ColorThief\ColorThief;
+
+$sourceImage = "3.png";
+
+
+$image = ColorThief::getColor($sourceImage);
+var_dump($image);
+// returns array(r: num, g: num, b: num);
+
+?>
 <!--
 
 <video id="video"  controls preload>
