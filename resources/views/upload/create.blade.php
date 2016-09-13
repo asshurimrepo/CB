@@ -13,7 +13,6 @@
 
             <div class="panel-body" v-if="process_is_done">
                 <h1 class="text-success"><center>WE'RE DONE! <i class="fa fa-check"></i></center> </h1>
-                <center><img src="/img/happy-upload.jpg" alt="Happy Upload" class="img-responsive"></center>
                 <hr>
                 <a href="/home" class="btn btn-shadow btn-lg btn-danger btn-block">See My Videos NOW! <i class="fa fa-arrow-right"></i></a>
                 <hr>
