@@ -28,8 +28,9 @@ class WhenProjectIsUploaded extends ServiceProvider
             $email = auth()->user()->email;
             
             File::delete(
-                "../data/{$email}/done/{$project->filename}", 
-                "../data/{$email}/done/{$project->filename}.png"
+                "data/{$email}/done/{$project->filename}", 
+                "data/{$email}/done/{$project->filename}.png",
+                "data/{$email}/done/raw_{$project->filename}.png"
             );
         });
     }
