@@ -2,7 +2,7 @@
 
 @section('scripts')
 	<script src="/js/premade.js"></script>
-@stop
+@endsection
 
 @section('content')
 
@@ -23,8 +23,7 @@
 
                                   <td><h4>@{{ premade.title }}</h4></td>
                                   <td>
-
-                                      <button class="btn btn-primary"><i class="fa fa-play "></i> Preview</button>
+                                      <button class="btn btn-primary" @click="showPreview(premade)"><i class="fa fa-play"></i> Preview</button>
                                       <button class="btn btn-danger" @click="addProject(premade.filename)"><i class="fa fa-plus "></i> Add to project</button>
                                   </td>
                               </tr>
@@ -35,4 +34,5 @@
               </div>
 	</section>
 
-@stop
+<project-player :project="active_project"></project-player>
+@endsection

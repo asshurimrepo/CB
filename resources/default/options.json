@@ -16,5 +16,11 @@
 	"external_video": {
 		"duration": 30,
 		"embed_code": ""
+	},
+	"video_settings": {
+		"weight" : 1,
+		"balance": 0.2,
+		"clip_black": 0.8,
+		"clip_white": 1
 	}
 }

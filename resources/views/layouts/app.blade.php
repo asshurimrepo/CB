@@ -12,6 +12,7 @@
 
         <!--external css-->
         <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="/assets/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet"/>
         <link href="/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
         <link rel="stylesheet" type="text/css" href="/assets/bootstrap-colorpicker/css/colorpicker.css" />
 
@@ -25,7 +26,7 @@
           <script src="/js/html5shiv.js"></script>
           <script src="/js/respond.min.js"></script>
         <![endif]-->
-        <!-- <link rel="stylesheet" type="text/css" href="style.css"/> -->
+<!--         <link rel="stylesheet" type="text/css" href="style.css"/> -->
 
         <!-- Video.js file -->
 		<link href="http://vjs.zencdn.net/5.10.8/video-js.css" rel="stylesheet">
@@ -115,7 +116,9 @@
 	</footer>
 	<!--footer end-->
 
-    <script src="/js/jquery.js"></script>
+    <!-- <script src="/js/jquery.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/assets/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="/js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="/js/jquery.scrollTo.min.js"></script>
@@ -170,6 +173,44 @@
                 repeat: false,
                 onHover: true
             });
+            var Sliders = function () {
+                $("#slider-range-weight").slider({
+                    range: "min",
+                    min: 0,
+                    max: 10,
+                    slide: function (event, ui) {
+                        $("#slider-range-weight-amount").text(ui.value/10);
+                        $("#videoWeight").val(ui.value/10);
+                    }
+                });
+                $("#slider-range-balance").slider({
+                    range: "min",
+                    min: 0,
+                    max: 10,
+                    slide: function (event, ui) {
+                        $("#slider-range-balance-amount").text(ui.value/10);
+                        $("#videoBalance").val(ui.value/10);
+                    }
+                });
+                $("#slider-range-clipblack").slider({
+                    range: "min",
+                    min: 0,
+                    max: 10,
+                    slide: function (event, ui) {
+                        $("#slider-range-clipblack-amount").text(ui.value/10);
+                        $("#videoClipBlack").val(ui.value/10);
+                    }
+                });
+                $("#slider-range-clipwhite").slider({
+                    range: "min",
+                    min: 0,
+                    max: 10,
+                    slide: function (event, ui) {
+                        $("#slider-range-clipwhite-amount").text(ui.value/10);
+                        $("#videoClipWhite").val(ui.value/10);
+                    }
+                });
+            }();
         });
     </script>
 

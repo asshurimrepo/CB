@@ -9551,7 +9551,8 @@ table.sliders tr td {
   height: 8px !important; }
 
 .ui-slider-horizontal .ui-slider-handle {
-  top: -0.57em   !important; }
+  /*top: -0.57em   !important;*/
+  top: -0.38em   !important; }
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
   background: #fff !important;

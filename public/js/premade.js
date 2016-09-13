@@ -11525,9 +11525,718 @@ module.exports = Vue;
 },{"_process":1}],4:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+// var seeThru = require('seethru');
+
+exports.default = {
+	template: require('../templates/project-player.html'),
+
+	ready: function ready() {},
+
+
+	props: ['project'],
+
+	data: function data() {
+		return {
+			/*Player*/
+			animation_request: null,
+			vPlayer: null,
+			buffer: null,
+			output: null,
+			dy: 0,
+			first_frame: true,
+			timer: null,
+			is_visible: false,
+			video: null,
+			seeThru: null,
+			vidtime: 0,
+			vidduration: 0,
+			player_styles: {
+				offsets: {
+					marginTop: 0,
+					marginLeft: 0,
+					marginBottom: 0,
+					marginRight: 0
+				}
+			},
+			embed_class: {
+				position: ""
+			},
+			player_class: {
+				position: "",
+				dimmed: false,
+				glass: false
+			},
+
+			textoverlay_class: {
+				valignment: "",
+				alignment: ""
+			},
+
+			clicktocall_class: {
+				valignment: "",
+				alignment: ""
+			},
+
+			buttonoverlay_class: {
+				valignment: "",
+				alignment: ""
+			},
+			textoverlaystart: 0,
+			textoverlayduration: 0,
+			clicktocallstart: 0,
+			clicktocallduration: 0,
+			buttonoverlaystart: 0,
+			buttonoverlayduration: 0,
+			formoverlaystart: 0,
+			formoverlayduration: 0
+		};
+	},
+
+
+	events: {
+		show_preview: function show_preview() {
+			var _this = this;
+
+			setTimeout(function () {
+				_this.updatePlayer();
+				_this.playProject();
+			}, 200);
+		}
+	},
+
+	computed: {
+		has_Video: function has_Video() {
+			var embed = this.project.options.external_video.embed_code;
+
+			if (embed === "") {
+				return false;
+			}
+
+			return true;
+		},
+
+		//textoverlay
+		has_Textoverlay: function has_Textoverlay() {
+			var line1 = this.project.actions.textoverlay_line_1;
+			var line2 = this.project.actions.textoverlay_line_2;
+
+			if (line1 === "" && line2 === "") {
+				return false;
+			}
+			return true;
+		},
+		has_Line1: function has_Line1() {
+			var line1 = this.project.actions.textoverlay_line_1;
+			if (line1 == "") {
+				return false;
+			}
+			return true;
+		},
+		has_Line2: function has_Line2() {
+			var line2 = this.project.actions.textoverlay_line_2;
+			if (line2 == "") {
+				return false;
+			}
+			return true;
+		},
+
+		// clicktocall
+		has_Phonenumber: function has_Phonenumber() {
+			var phone_number = this.project.actions.clicktocall;
+
+			if (phone_number == "") {
+				return false;
+			}
+
+			return true;
+		},
+
+		//button overlay
+		has_Buttonoverlay: function has_Buttonoverlay() {
+			var button_overlay = this.project.actions.buttonoverlay_label;
+
+			if (button_overlay == "") {
+				return false;
+			}
+
+			return true;
+		},
+		has_Autoresponder: function has_Autoresponder() {
+			var autoresponder = this.project.actions.autoresponder_name;
+
+			if (autoresponder == "") {
+				return false;
+			}
+
+			return true;
+		},
+		formoverlay_titlesize: function formoverlay_titlesize() {
+			if (this.project.actions.formoverlay_titlesize === 'Small') return '14px';
+			if (this.project.actions.formoverlay_titlesize === 'Medium') return '18px';
+			if (this.project.actions.formoverlay_titlesize === 'Large') return '22px';
+
+			return '18px';
+		},
+		formoverlay_fieldsize: function formoverlay_fieldsize() {
+			if (this.project.actions.formoverlay_fieldsize === 'Small') return 'input-sm';
+			if (this.project.actions.formoverlay_fieldsize === 'Medium') return '';
+			if (this.project.actions.formoverlay_fieldsize === 'Large') return 'input-lg';
+
+			return '';
+		},
+		formoverlay_buttonsize: function formoverlay_buttonsize() {
+			if (this.project.actions.formoverlay_buttonsize === 'Small') return 'btn-sm';
+			if (this.project.actions.formoverlay_buttonsize === 'Medium') return '';
+			if (this.project.actions.formoverlay_buttonsize === 'Large') return 'btn-lg';
+
+			return 'btn-sm';
+		}
+	},
+
+	methods: {
+		renderTransparentVideo: function renderTransparentVideo() {
+			var _this2 = this;
+
+			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
+			// this.video.height(this.project.height*2);
+
+			this.video.ready(function () {
+				_this2.video.on("loadedmetadata", function () {
+
+					// rigz script
+					// this.video.height(this.vPlayer.videoHeight);
+					$("video#project-player_html5_api").attr("height", _this2.vPlayer.videoHeight);
+					$("video#project-player_html5_api").attr("width", _this2.vPlayer.videoWidth);
+
+					$("#project-player").prepend($("canvas#output"));
+					$("canvas#output").get(0).setAttribute("width", _this2.vPlayer.videoWidth);
+					$("canvas#output").get(0).setAttribute("height", _this2.vPlayer.videoHeight);
+
+					// for testing
+					$("canvas#output").css('width', '400px');
+					$("#project-player").css('width', '400px');
+					// for testing
+
+					_this2.video.play();
+					_this2.addActionsToVideo();
+					// rigz script
+
+
+					var seriously, chroma, target;
+
+					seriously = new Seriously();
+
+					target = seriously.target('#output');
+					chroma = seriously.effect('chroma');
+
+					chroma.source = "#project-player_html5_api";
+					target.source = chroma;
+					// chroma['screen'] = [255/255,255/255,255/255,1];
+					// chroma.screen =  [238/255,233/255,232/255,1];
+					chroma['clipWhite'] = 1;
+					chroma['clipBlack'] = 1;
+					chroma['weight'] = 1;
+					seriously.go();
+
+					function update(elment) {
+						var id = $(elment).attr('id');
+						var value = $(elment).val();
+
+						$("#" + id + "Value").html(value);
+
+						if ($.inArray(id, ['red', 'green', 'blue']) > -1) {
+							var red = parseFloat($("#red").val());
+							var green = parseFloat($("#green").val());
+							var blue = parseFloat($("#blue").val());
+							id = "screen";
+							value = [red, green, blue, 1];
+							chroma.screen = value;
+						}
+
+						chroma[id] = value;
+					}
+				});
+				_this2.videoEnded();
+			});
+
+			this.projectOptions();
+			this.projectActions();
+
+			this.vPlayer = document.getElementById("project-player_html5_api");
+		},
+		updatePlayer: function updatePlayer() {
+			this.resetOffsets();
+
+			if (this.project.options.position == 'centered') {
+				this.player_class.position = "Project--centered";
+				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
+				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--centered";
+			}
+
+			if (this.project.options.position == 'top-left') {
+				this.player_class.position = "Project--topleft";
+				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
+				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--topleft";
+			}
+
+			if (this.project.options.position == 'top-right') {
+				this.player_class.position = "Project--topright";
+				this.player_styles.offsets.marginRight = this.project.options.offset_x + 'px';
+				this.player_styles.offsets.marginTop = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--topright";
+			}
+
+			if (this.project.options.position == 'bottom-left') {
+				this.player_class.position = "Project--bottomleft";
+				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
+				this.player_styles.offsets.marginBottom = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--bottomleft";
+			}
+
+			if (this.project.options.position == 'bottom-right') {
+				this.player_class.position = "Project--bottomright";
+				this.player_styles.offsets.marginRight = this.project.options.offset_x + 'px';
+				this.player_styles.offsets.marginBottom = this.project.options.offset_y + 'px';
+				this.embed_class.position = "Embed--bottomright";
+			}
+
+			if (this.project.options.dimmed_background == true) {
+				this.player_class.dimmed = "Project--dimmedbg";
+			}
+
+			if (this.project.options.glass_background == true) {
+				this.player_class.glass = "Project--glassbg";
+			}
+		},
+		resetOffsets: function resetOffsets() {
+			this.player_styles.offsets.marginTop = 0;
+			this.player_styles.offsets.marginLeft = 0;
+			this.player_styles.offsets.marginBottom = 0;
+			this.player_styles.offsets.marginRight = 0;
+		},
+		playProject: function playProject() {
+			var _this3 = this;
+
+			// Dispose Video
+			if (this.video) {
+				this.video.dispose();
+				$(".project-element").hide();
+			}
+
+			var delay = parseInt(this.project.options.auto_display_after) * 1000;
+			var video_template = '\n\t\t\t<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'>\n\n\t\t          <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
+
+			$("#video-section").empty().html(video_template);
+
+			setTimeout(function () {
+				_this3.is_visible = true;
+				setTimeout(function () {
+					return _this3.renderTransparentVideo();
+				}, 300);
+				$('#project-player-bg').fadeIn("fast");
+			}, delay);
+
+			// close on click background
+			$("body").on("click", "div#project-player-bg", function (e) {
+				if ($(e.target).is('div#project-player-bg')) {
+					_this3.video.pause();
+
+					$('#project-player-bg').fadeOut("fast");
+				}
+				e.preventDefault();
+				return;
+			});
+
+			// close button
+			$("body").on("click", "a.close-project", function (e) {
+				e.preventDefault();
+				_this3.video.pause();
+				$('#project-player-bg').fadeOut("fast");
+			});
+
+			//close form
+			$("body").on("click", "a.close-form", function (e) {
+				e.preventDefault();
+				$('#project-formoverlay').fadeOut("fast");
+				return false;
+			});
+
+			//close video embed
+			$("body").on("click", "div#project-embed-video>a.close-embed", function (e) {
+				e.preventDefault();
+				var project_embed = $("div#project-embed-video").find('iframe');
+				var embed_source = $(project_embed).attr("src");
+				if (embed_source == undefined) {
+					$(project_embed).attr("src", embed_source);
+				}
+				$('div#project-player-container>div#project-embed-video').fadeOut("fast");
+				return false;
+			});
+		},
+		projectOptions: function projectOptions() {
+			var _this4 = this;
+
+			// if close on exit is true
+			this.video.on("ended", function () {
+				if (_this4.project.options.stop_showing.exit_on_end === true) {
+					$('#project-player-bg').fadeOut("fast");
+				}
+			});
+
+			// if close on click is true
+			if (this.project.options.stop_showing.clicked === true) {
+				$("#project-player-container").on("click", function (e) {
+					if ($(e.target).is('canvas#output')) {
+						_this4.video.pause();
+
+						$('#project-player-bg').fadeOut("fast");
+					}
+					e.preventDefault();
+					return;
+				});
+			}
+		},
+		projectActions: function projectActions() {
+			var url_length = this.project.actions.link_url.length;
+			var url = this.project.actions.link_url;
+
+			// textoverlay start and duration
+			this.textoverlaystart = parseInt(this.project.actions.textoverlay_start);
+			this.textoverlayduration = parseInt(this.project.actions.textoverlay_duration) * 1000;
+
+			//clicktocall start and duration
+			this.clicktocallstart = parseInt(this.project.actions.clicktocall_start);
+			this.clicktocallduration = parseInt(this.project.actions.clicktocall_duration) * 1000;
+
+			// buttonoverlay
+			this.buttonoverlaystart = parseInt(this.project.actions.buttonoverlay_start);
+			this.buttonoverlayduration = parseInt(this.project.actions.buttonoverlay_duration) * 1000;
+
+			// formoverlay
+			this.formoverlaystart = parseInt(this.project.actions.formoverlay_start);
+			this.formoverlayduration = parseInt(this.project.actions.formoverlay_duration) * 1000;
+
+			//link url
+			if (url_length > 0) {
+				$("#project-player-container").one("click", function (e) {
+					if ($(e.target).is('canvas#output')) {
+						window.open(url, '_blank');
+					}
+					e.preventDefault();
+					return;
+				});
+			}
+
+			//textoverlay valignment
+			if (this.project.actions.textoverlay_valignment == 'middle') {
+				this.textoverlay_class.valignment = "Textoverlay--middle";
+			}
+
+			if (this.project.actions.textoverlay_valignment == 'top') {
+				this.textoverlay_class.valignment = "Textoverlay--top";
+			}
+
+			if (this.project.actions.textoverlay_valignment == 'bottom') {
+				this.textoverlay_class.valignment = "Textoverlay--bottom";
+			}
+
+			//textoverlay alignment
+			if (this.project.actions.textoverlay_alignment == 'left') {
+				this.textoverlay_class.alignment = "Textoverlay--left";
+			}
+
+			if (this.project.actions.textoverlay_alignment == 'center') {
+				this.textoverlay_class.alignment = "Textoverlay--center";
+			}
+
+			if (this.project.actions.textoverlay_alignment == 'right') {
+				this.textoverlay_class.alignment = "Textoverlay--right";
+			}
+
+			// clicktocall alignment
+			if (this.project.actions.clicktocall_valignment == 'middle') {
+				this.clicktocall_class.valignment = "Clicktocall--middle";
+			}
+
+			if (this.project.actions.clicktocall_valignment == 'top') {
+				this.clicktocall_class.valignment = "Clicktocall--top";
+			}
+
+			if (this.project.actions.clicktocall_valignment == 'bottom') {
+				this.clicktocall_class.valignment = "Clicktocall--bottom";
+			}
+
+			//clicktocall alignment
+			if (this.project.actions.clicktocall_alignment == 'left') {
+				this.clicktocall_class.alignment = "Clicktocall--left";
+			}
+
+			if (this.project.actions.clicktocall_alignment == 'center') {
+				this.clicktocall_class.alignment = "Clicktocall--center";
+			}
+
+			if (this.project.actions.clicktocall_alignment == 'right') {
+				this.clicktocall_class.alignment = "Clicktocall--right";
+			}
+
+			// button overlay alignment
+			if (this.project.actions.buttonoverlay_valignment == 'middle') {
+				this.buttonoverlay_class.valignment = "Buttonoverlay--middle";
+			}
+
+			if (this.project.actions.buttonoverlay_valignment == 'top') {
+				this.buttonoverlay_class.valignment = "Buttonoverlay--top";
+			}
+
+			if (this.project.actions.buttonoverlay_valignment == 'bottom') {
+				this.buttonoverlay_class.valignment = "Buttonoverlay--bottom";
+			}
+
+			// button overlay alignment
+			if (this.project.actions.buttonoverlay_alignment == 'left') {
+				this.buttonoverlay_class.alignment = "Buttonoverlay--left";
+			}
+
+			if (this.project.actions.buttonoverlay_alignment == 'center') {
+				this.buttonoverlay_class.alignment = "Buttonoverlay--center";
+			}
+
+			if (this.project.actions.buttonoverlay_alignment == 'right') {
+				this.buttonoverlay_class.alignment = "Buttonoverlay--right";
+			}
+		},
+		//end of projectActions
+
+		addActionsToVideo: function addActionsToVideo() {
+			var _this5 = this;
+
+			this.video.on("timeupdate", function () {
+				_this5.videoElements();
+				_this5.vidtime = Math.floor(_this5.video.currentTime());
+				_this5.vidduration = Math.floor(_this5.video.duration());
+			});
+		},
+		videoElements: function videoElements() {
+			var _this6 = this;
+
+			//textoverlay show & duration
+			// if the start time is greater than the total duration the textoverlay will display at the end
+
+			if (this.textoverlaystart > this.vidduration && this.vidduration != 0) {
+
+				if (this.vidtime === this.vidduration) {
+					$("#project-text-overlay").fadeIn("fast", function () {
+						if (_this6.textoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-text-overlay").fadeOut("fast");
+							}, _this6.textoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.textoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-text-overlay").fadeOut("fast");
+						return false;
+					});
+				}
+			} else {
+
+				if (this.vidtime === this.textoverlaystart) {
+					$("#project-text-overlay").fadeIn("fast", function () {
+						if (_this6.textoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-text-overlay").fadeOut("fast");
+							}, _this6.textoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.textoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-text-overlay").fadeOut("fast");
+						return false;
+					});
+				}
+			}
+
+			//clicktocall show & duration
+			// if the start time is greater than the total duration the clicktocall will display at the end
+			if (this.clicktocallstart > this.vidduration && this.vidduration != 0) {
+
+				if (this.vidtime === this.vidduration) {
+					$("#project-clicktocall").fadeIn("fast", function () {
+						if (_this6.clicktocallduration > 0) {
+							setTimeout(function () {
+								$("#project-clicktocall").fadeOut("fast");
+							}, _this6.clicktocallduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.clicktocallduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-clicktocall").fadeOut("fast");
+						return false;
+					});
+				}
+			} else {
+
+				if (this.vidtime === this.clicktocallstart) {
+					$("#project-clicktocall").fadeIn("fast", function () {
+						if (_this6.clicktocallduration > 0) {
+							setTimeout(function () {
+								$("#project-clicktocall").fadeOut("fast");
+							}, _this6.clicktocallduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.clicktocallduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-clicktocall").fadeOut("fast");
+						return false;
+					});
+				}
+			}
+
+			//buttonoverlay show & duration
+			// if the start time is greater than the total duration the buttonoverlay will display at the end
+			if (this.buttonoverlaystart > this.vidduration && this.vidduration != 0) {
+
+				if (this.vidtime === this.vidduration) {
+					$("#project-buttonoverlay").fadeIn("fast", function () {
+						if (_this6.buttonoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-buttonoverlay").fadeOut("fast");
+							}, _this6.buttonoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.buttonoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-buttonoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+			} else {
+
+				if (this.vidtime === this.buttonoverlaystart) {
+					$("#project-buttonoverlay").fadeIn("fast", function () {
+						if (_this6.buttonoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-buttonoverlay").fadeOut("fast");
+							}, _this6.buttonoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.buttonoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-buttonoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+			}
+
+			//formoverlay show & duration
+			// if the start time is greater than the total duration the formoverlay will display at the end
+
+			if (this.formoverlaystart > this.vidduration && this.vidduration != 0) {
+
+				if (this.vidtime === this.vidduration) {
+					$("#project-formoverlay").fadeIn("fast", function () {
+						if (_this6.formoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-formoverlay").fadeOut("fast");
+							}, _this6.formoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.formoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-formoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+			} else {
+
+				if (this.vidtime === this.formoverlaystart) {
+
+					$("#project-formoverlay").fadeIn("fast", function () {
+						if (_this6.formoverlayduration > 0) {
+							setTimeout(function () {
+								$("#project-formoverlay").fadeOut("fast");
+							}, _this6.formoverlayduration);
+							return false;
+						}
+					});
+				}
+
+				// if duration is set to 0
+				if (this.formoverlayduration === 0) {
+					this.video.on("ended", function () {
+						$("#project-formoverlay").fadeOut("fast");
+						return false;
+					});
+				}
+			}
+			//end of elements
+		},
+		videoEnded: function videoEnded() {
+			var _this7 = this;
+
+			this.video.on("ended", function () {
+				if (_this7.project.options.external_video.embed_code != "") {
+					var embed_duration = parseInt(_this7.project.options.external_video.duration) * 1000;
+					$("div#project-embed-video").fadeIn("fast");
+					if (embed_duration > 0) {
+						setTimeout(function () {
+							var project_embed = $("div#project-embed-video").find('iframe');
+							var embed_source = $(project_embed).attr("src");
+							if (embed_source == undefined) {
+								$(project_embed).attr("src", embed_source);
+							}
+							$("div#project-embed-video").fadeOut("fast");
+						}, embed_duration);
+					}
+				}
+			});
+		}
+	}
+};
+
+},{"../templates/project-player.html":6}],5:[function(require,module,exports){
+'use strict';
+
 var _vue = require('vue');
 
 var _vue2 = _interopRequireDefault(_vue);
+
+var _ProjectPlayer = require('./components/ProjectPlayer.js');
+
+var _ProjectPlayer2 = _interopRequireDefault(_ProjectPlayer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11549,10 +12258,19 @@ new _vue2.default({
 
 
 	data: {
-		premades: []
+		premades: [],
+		active_project: null
+	},
+
+	components: {
+		ProjectPlayer: _ProjectPlayer2.default
 	},
 
 	methods: {
+		showPreview: function showPreview(premade) {
+			this.active_project = premade;
+			this.$broadcast('show_preview');
+		},
 		addProject: function addProject(filename) {
 			var _this2 = this;
 
@@ -11573,6 +12291,8 @@ new _vue2.default({
 
 });
 
-},{"vue":3,"vue-resource":2}]},{},[4]);
+},{"./components/ProjectPlayer.js":4,"vue":3,"vue-resource":2}],6:[function(require,module,exports){
+module.exports = '<div :class="[player_class.dimmed]" v-show="is_visible" id="project-player-bg">\n\n  <div id="project-player-container"\n     :style="[player_styles.offsets]"\n     :class="[player_class.position, player_class.glass]"\n  >\n  <div class="loader-3">\n      <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>\n      <span class="sr-only">Loading...</span>\n  </div>\n\n  <!-- embed video -->\n   <div v-if="has_Video"\n        id="project-embed-video"\n        :class="[embed_class.position]"\n    >\n      <a href="#" class="close-embed text-danger"><i class="fa fa-times"></i></a>\n      <span v-html="project.options.external_video.embed_code"></span>\n    </div>\n\n    <!-- textoverlay -->\n    <div v-if="has_Textoverlay" id="project-text-overlay"\n        :class="[textoverlay_class.valignment, textoverlay_class.alignment, \'project-element\']"\n        :style="{ fontFamily:project.actions.textoverlay_fontfamily,\n                  fontSize:project.actions.textoverlay_fontsize+\'px\',\n                  fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n                  fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n                  color: project.actions.textoverlay_textcolor\n                }"\n    >\n\n        <span v-if="has_Line1"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_1 }}\n        </span><br/>\n        <span v-if="has_Line2"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_2 }}\n        </span>\n    </div>\n\n\n    <!-- click to call -->\n    <div v-if="has_Phonenumber"\n         id="project-clicktocall"\n         :class="[clicktocall_class.valignment, clicktocall_class.alignment, \'project-element\']"\n         :style="{ fontFamily:project.actions.clicktocall_fontfamily,\n                   fontSize:project.actions.clicktocall_fontsize+\'px\',\n                   fontWeight: project.actions.clicktocall_bold ? \'bold\' : null,\n                   fontStyle: project.actions.clicktocall_italic ? \'italic\': null\n                 }"\n    >\n\n\n      <a class="btn btn-default" href="tel:{{ project.actions.clicktocall }}"\n        :style="{\n          backgroundColor: project.actions.clicktocall_backgroundcolor,\n          color: project.actions.clicktocall_textcolor\n        }"\n      >\n        {{ project.actions.clicktocall }}\n      </a>\n\n\n    </div>\n\n    <!-- button overlay -->\n    <div v-if="has_Buttonoverlay"\n        id="project-buttonoverlay"\n        :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, \'project-element\']"\n        :style="{ fontFamily:project.actions.buttonoverlay_fontfamily,\n         fontSize:project.actions.buttonoverlay_fontsize+\'px\',\n         fontWeight: project.actions.buttonoverlay_bold ? \'bold\' : null,\n         fontStyle: project.actions.buttonoverlay_italic ? \'italic\': null\n        }"\n    >\n          <button class="btn btn-default"\n                  :style="{\n                      color: project.actions.buttonoverlay_textcolor,\n                      backgroundColor: project.actions.buttonoverlay_backgroundcolor\n                  }"\n          >\n            {{ project.actions.buttonoverlay_label ? project.actions.buttonoverlay_label: \'Default\'}}\n          </button>\n    </div>\n\n    <!-- form overlay -->\n\n    <div v-if="has_Autoresponder" id="project-formoverlay" class="project-element">\n          <section class="panel">\n            <a href="#" class="close-form text-danger"><i class="fa fa-times"></i></a>\n            <header class="panel-heading text-center">\n               <h4\n                :style="{\n                  fontFamily: project.actions.formoverlay_titlefontfamily,\n                  fontSize: formoverlay_titlesize,\n                  fontWeight: project.actions.formoverlay_titlebold ? \'bold\' : null,\n                  fontStyle: project.actions.formoverlay_titleitalic ? \'italic\': null,\n                  color: project.actions.formoverlay_titlecolor\n                }"\n               >\n                {{ project.actions.formoverlay_title }}\n\n              </h4>\n            </header>\n             <div class="panel-body">\n               <form class="form-horizontal tasi-form text-left">\n                  <div class="form-group">\n                    <div class="col-lg-12 col-md-12">\n                        <input type="text" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="usernameField" placeholder="Enter your name.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor\n                               }"\n                        >\n                        <input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="usernameField" placeholder="Enter your email.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor\n                               }"\n                        >\n                        <button id="formoverlay-btn" type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"\n                              :style="{\n                                borderWidth: project.actions.formoverlay_buttonbordersize + \'px\',\n                                color: project.actions.formoverlay_buttoncolor,\n                                borderColor: project.actions.formoverlay_buttoncolor,\n                                backgroundColor: project.actions.formoverlay_buttonbackgroundcolor\n                              }"\n                        >\n                              {{ project.actions.formoverlay_buttontext }}\n                        </button>\n                    </div>\n                  </div>\n                 </form>\n             </div>\n          </section>\n    </div>\n\n\n     <div id="video-section">\n\n     </div>\n\n\n  </div> <!-- end of project-player-container -->\n</div> <!-- end of player background -->\n\n';
+},{}]},{},[5]);
 
 //# sourceMappingURL=premade.js.map

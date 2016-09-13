@@ -63,7 +63,6 @@ export default {
 			buttonoverlayduration: 0,
 			formoverlaystart: 0,
 			formoverlayduration: 0
-
 		}
 	},
 
@@ -238,7 +237,6 @@ export default {
 				});
 				this.videoEnded();
 			});
-
 
 
 

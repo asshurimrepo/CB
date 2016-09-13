@@ -1,5 +1,7 @@
 import Vue from "vue";
 
+import ProjectPlayer from './components/ProjectPlayer.js';
+
 Vue.use(require('vue-resource'));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
@@ -13,10 +15,21 @@ new Vue({
 	},
 
 	data: {
-		premades: []
+		premades: [],
+		active_project: null
+	},
+
+	components: {
+		ProjectPlayer
 	},
 
 	methods: {
+
+		showPreview(premade){
+			this.active_project = premade;
+			this.$broadcast('show_preview');
+		},
+
 		addProject(filename){
 			swal({
 				 title: "Add to Project?",
@@ -33,9 +46,8 @@ new Vue({
 						}
 					);
 			});
-
-
 		}
+
 	}
 
 

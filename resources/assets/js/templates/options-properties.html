@@ -242,3 +242,60 @@
     </form>
     </section>
 </div>
+
+
+<!-- Video Settings Tab -->
+<div id="videosettings" class="tab-pane fade">
+    <section class="panel sliders">
+    <form class="form-horizontal tasi-form text-left">
+      <div class="form-group">
+        <div class="col-lg-12 col-md-12">
+          <tooltip class="pull-right" title="How much of the background color to remove from semi-transparent pixels" placement="left"></tooltip>
+          <label for="weight" class="control-label"><strong>Weight: </strong></label>
+            <div id="slider-range-weight" class="slider"></div>
+              <div class="slider-info">
+                  Value:
+                  <span class="slider-info" id="slider-range-weight-amount"></span>
+                  <input type="hidden" v-model="project.options.video_settings.weight" id="videoWeight">
+              </div>
+        </div>
+      </div> <!-- 1st form-group -->
+      <div class="form-group">
+        <div class="col-lg-12 col-md-12">
+          <tooltip class="pull-right" title="It depends on the video. Just 'balance' it!" placement="left"></tooltip>
+          <label for="balance" class="control-label"><strong>Balance: </strong></label>
+            <div id="slider-range-balance" class="slider"></div>
+              <div class="slider-info">
+                  Value:
+                  <span class="slider-info" id="slider-range-balance-amount"></span>
+                  <input type="hidden" v-model="project.options.video_settings.balance" id="videoBalance">
+              </div>
+        </div>
+      </div> <!-- 2nd form-group -->
+      <div class="form-group">
+        <div class="col-lg-12 col-md-12">
+          <tooltip class="pull-right" title="The minimum resulting alpha value of keyed pixels" placement="left"></tooltip>
+          <label for="clipblack" class="control-label"><strong>Clip Black: </strong></label>
+            <div id="slider-range-clipblack" class="slider"></div>
+              <div class="slider-info">
+                  Value:
+                  <span class="slider-info" id="slider-range-clipblack-amount"></span>
+                  <input type="hidden" v-model="project.options.video_settings.clip_black" id="videoClipBlack">
+              </div>
+        </div>
+      </div> <!-- 3rd form-group -->
+      <div class="form-group">
+        <div class="col-lg-12 col-md-12">
+          <tooltip class="pull-right" title="The maximum resulting alpha value of keyed pixels" placement="left"></tooltip>
+          <label for="clipwhite" class="control-label"><strong>Clip White: </strong></label>
+            <div id="slider-range-clipwhite" class="slider"></div>
+              <div class="slider-info">
+                  Value:
+                  <span class="slider-info" id="slider-range-clipwhite-amount"></span>
+                  <input type="hidden" v-model="project.options.video_settings.clip_white" id="videoClipWhite">
+              </div>
+        </div>
+      </div> <!-- 3rd form-group -->
+    </form>
+    </section>
+</div>
