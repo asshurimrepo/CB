@@ -295,3 +295,26 @@ div#project-embed-video>a.close-embed{
     top: 0;
     float: right;
 }
+
+
+
+
+
+div#video-preview-container{
+	position: fixed;
+	bottom: 65px;
+	max-width: 45%;
+}
+
+div#preview-player{
+	width:100%;
+	background: transparent !important;
+}
+
+video#preview-player_html5_api{
+	display: none;
+}
+
+canvas#output-preview{
+	width: 100%;
+}

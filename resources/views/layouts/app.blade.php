@@ -173,44 +173,6 @@
                 repeat: false,
                 onHover: true
             });
-            var Sliders = function () {
-                $("#slider-range-weight").slider({
-                    range: "min",
-                    min: 0,
-                    max: 10,
-                    slide: function (event, ui) {
-                        $("#slider-range-weight-amount").text(ui.value/10);
-                        $("#videoWeight").val(ui.value/10);
-                    }
-                });
-                $("#slider-range-balance").slider({
-                    range: "min",
-                    min: 0,
-                    max: 10,
-                    slide: function (event, ui) {
-                        $("#slider-range-balance-amount").text(ui.value/10);
-                        $("#videoBalance").val(ui.value/10);
-                    }
-                });
-                $("#slider-range-clipblack").slider({
-                    range: "min",
-                    min: 0,
-                    max: 10,
-                    slide: function (event, ui) {
-                        $("#slider-range-clipblack-amount").text(ui.value/10);
-                        $("#videoClipBlack").val(ui.value/10);
-                    }
-                });
-                $("#slider-range-clipwhite").slider({
-                    range: "min",
-                    min: 0,
-                    max: 10,
-                    slide: function (event, ui) {
-                        $("#slider-range-clipwhite-amount").text(ui.value/10);
-                        $("#videoClipWhite").val(ui.value/10);
-                    }
-                });
-            }();
         });
     </script>
 

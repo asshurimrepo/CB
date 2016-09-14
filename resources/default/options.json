@@ -18,7 +18,7 @@
 		"embed_code": ""
 	},
 	"video_settings": {
-		"weight" : 1,
+		"weight": 1,
 		"balance": 1,
 		"clip_black": 0.8,
 		"clip_white": 1

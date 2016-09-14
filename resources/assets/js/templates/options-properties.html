@@ -246,6 +246,7 @@
 
 <!-- Video Settings Tab -->
 <div id="videosettings" class="tab-pane fade">
+  <div class="col-lg-6 col-md-6">
     <section class="panel sliders">
     <form class="form-horizontal tasi-form text-left">
       <div class="form-group">
@@ -255,7 +256,7 @@
             <div id="slider-range-weight" class="slider"></div>
               <div class="slider-info">
                   Value:
-                  <span class="slider-info" id="slider-range-weight-amount"></span>
+                  <span class="slider-info" id="slider-range-weight-amount">{{ project.options.video_settings.weight*100 }}</span>
                   <input type="hidden" v-model="project.options.video_settings.weight" id="videoWeight">
               </div>
         </div>
@@ -267,7 +268,7 @@
             <div id="slider-range-balance" class="slider"></div>
               <div class="slider-info">
                   Value:
-                  <span class="slider-info" id="slider-range-balance-amount"></span>
+                  <span class="slider-info" id="slider-range-balance-amount">{{ project.options.video_settings.balance*100 }}</span>
                   <input type="hidden" v-model="project.options.video_settings.balance" id="videoBalance">
               </div>
         </div>
@@ -279,7 +280,7 @@
             <div id="slider-range-clipblack" class="slider"></div>
               <div class="slider-info">
                   Value:
-                  <span class="slider-info" id="slider-range-clipblack-amount"></span>
+                  <span class="slider-info" id="slider-range-clipblack-amount">{{ project.options.video_settings.clip_black*100 }}</span>
                   <input type="hidden" v-model="project.options.video_settings.clip_black" id="videoClipBlack">
               </div>
         </div>
@@ -291,11 +292,29 @@
             <div id="slider-range-clipwhite" class="slider"></div>
               <div class="slider-info">
                   Value:
-                  <span class="slider-info" id="slider-range-clipwhite-amount"></span>
+                  <span class="slider-info" id="slider-range-clipwhite-amount">{{ project.options.video_settings.clip_white*100 }}</span>
                   <input type="hidden" v-model="project.options.video_settings.clip_white" id="videoClipWhite">
               </div>
         </div>
       </div> <!-- 3rd form-group -->
     </form>
     </section>
+  </div>
+
+  <div class="col-lg-6 col-md-6">
+      <div id="video-preview-container">
+        <canvas id="output-preview"></canvas>
+        <video id="preview-player" class="video-js" preload="auto" data-setup='{"poster":"/image/{{this.project.filename}}"}' width="300">
+
+                <source src="/video/{{this.project.filename}}" type="video/mp4">
+
+                <p class="vjs-no-js">
+                  To view this video please enable JavaScript, and consider upgrading to a web browser that
+                  <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                </p>
+
+          </video>
+      </div>
+  </div>
+
 </div>
