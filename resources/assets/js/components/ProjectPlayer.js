@@ -63,6 +63,7 @@ export default {
 			buttonoverlayduration: 0,
 			formoverlaystart: 0,
 			formoverlayduration: 0
+
 		}
 	},
 
@@ -210,7 +211,7 @@ export default {
 			          // chroma['screen'] = [255/255,255/255,255/255,1];
 			          // chroma.screen =  [238/255,233/255,232/255,1];
 			          chroma['clipWhite'] = 1;
-			          chroma['clipBlack'] = 1;
+			          chroma['clipBlack'] = 0.8;
 			          chroma['weight'] = 1;
 			          seriously.go();
 
@@ -237,6 +238,7 @@ export default {
 				});
 				this.videoEnded();
 			});
+
 
 
 
