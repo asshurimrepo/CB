@@ -272,7 +272,7 @@
       <div class="form-group">
         <div class="col-lg-12 col-md-12">
           <tooltip class="pull-right" title="The minimum resulting alpha value of keyed pixels" placement="left"></tooltip>
-          <label for="clipblack" class="control-label"><strong>Clip Black: {{ project.options.video_settings.clipBlack }}</strong></label>
+          <label for="clipblack" class="control-label"><strong>Clip Black: {{ project.options.video_settings.clip_black }}</strong></label>
             <div id="slider-range-clipblack" class="slider"></div>
               <div class="slider-info">
                   <input type="hidden" v-model="project.options.video_settings.clipBlack" id="videoClipBlack">
@@ -282,7 +282,7 @@
       <div class="form-group">
         <div class="col-lg-12 col-md-12">
           <tooltip class="pull-right" title="The maximum resulting alpha value of keyed pixels" placement="left"></tooltip>
-          <label for="clipwhite" class="control-label"><strong>Clip White: {{ project.options.video_settings.clipWhite }}</strong></label>
+          <label for="clipwhite" class="control-label"><strong>Clip White: {{ project.options.video_settings.clip_white }}</strong></label>
             <div id="slider-range-clipwhite" class="slider"></div>
               <div class="slider-info">
                   <input type="hidden" v-model="project.options.video_settings.clipWhite" id="videoClipWhite">
@@ -294,18 +294,8 @@
   </div>
 
   <div class="col-lg-6 col-md-6">
-      <div id="video-preview-container">
-        <canvas id="output-preview"></canvas>
-        <video id="preview-player" class="video-js" preload="auto" data-setup='{"poster":"/image/{{this.project.filename}}"}' width="300">
+      <div id="preview-section">
 
-                <source src="/video/{{this.project.filename}}" type="video/mp4">
-
-                <p class="vjs-no-js">
-                  To view this video please enable JavaScript, and consider upgrading to a web browser that
-                  <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                </p>
-
-          </video>
       </div>
   </div>
 

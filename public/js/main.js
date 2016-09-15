@@ -11951,8 +11951,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
 var _ToolTip = require('../components/ToolTip');
 
 var _ToolTip2 = _interopRequireDefault(_ToolTip);
@@ -11972,7 +11970,7 @@ exports.default = {
     data: function data() {
         return {
             vPlayer: null,
-            player: null,
+            video: null,
             chroma: null
         };
     },
@@ -11984,32 +11982,25 @@ exports.default = {
 
     watch: {
         project: function project() {
+            var _this = this;
+
             $(".options-ref").change();
 
-            /*  // Dispose Video
-              if(this.player){
-                  this.player.dispose();
-                  $(".project-element").hide();
-              }*/
-
-            if (_typeof(this.project.options.video_settings.weight) == undefined) {
-                this.$set('project.options.video_settings.weight', 1);
+            // Dispose Video
+            if (this.video) {
+                this.video.dispose();
             }
 
-            if (_typeof(this.project.options.video_settings.balance) == undefined) {
-                this.$set('project.options.video_settings.balance', 1);
-            }
+            var video_template = '\n              <div id="video-preview-container">\n                <canvas id="output-preview"></canvas>\n                    <video id="preview-player" class="video-js" preload="auto" data-setup=\'{"poster":"/image/' + this.project.filename + '"}\' width="300">\n                        <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n                        <p class="vjs-no-js">\n                          To view this video please enable JavaScript, and consider upgrading to a web browser that\n                          <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n                        </p>\n                    </video>\n              </div>\n            ';
 
-            if (_typeof(this.project.options.video_settings.clipBlack) == undefined) {
-                this.$set('project.options.video_settings.clipBlack', 1);
-            }
-
-            if (_typeof(this.project.options.video_settings.clipWhite) == undefined) {
-                this.$set('project.options.video_settings.clipWhite', 1);
-            }
+            $("#preview-section").empty().html(video_template);
 
             this.sliders();
             this.renderPreview();
+
+            $("#project-options").on("hide.bs.modal", function () {
+                _this.video.pause();
+            });
         }
     },
 
@@ -12018,7 +12009,7 @@ exports.default = {
             this.$set('project.options.' + $this.target.id, $this.target.checked);
         },
         sliders: function sliders() {
-            var _this = this;
+            var _this2 = this;
 
             $("#slider-range-weight").slider({
                 range: "min",
@@ -12028,8 +12019,8 @@ exports.default = {
                 slide: function slide(event, ui) {
                     $("#slider-range-weight-amount").text(ui.value);
                     $("#videoWeight").val(ui.value);
-                    _this.project.options.video_settings.weight = ui.value / 100;
-                    _this.chroma['weight'] = ui.value / 100;
+                    _this2.project.options.video_settings.weight = ui.value / 100;
+                    _this2.chroma['weight'] = ui.value / 100;
                 }
             });
             $("#slider-range-balance").slider({
@@ -12040,52 +12031,57 @@ exports.default = {
                 slide: function slide(event, ui) {
                     $("#slider-range-balance-amount").text(ui.value);
                     $("#videoBalance").val(ui.value);
-                    _this.project.options.video_settings.balance = ui.value / 100;
-                    _this.chroma['balance'] = ui.value / 100;
+                    _this2.project.options.video_settings.balance = ui.value / 100;
+                    _this2.chroma['balance'] = ui.value / 100;
                 }
             });
             $("#slider-range-clipblack").slider({
                 range: "min",
-                value: this.project.options.video_settings.clipBlack * 100,
+                value: this.project.options.video_settings.clip_black * 100,
                 min: 0,
                 max: 100,
                 slide: function slide(event, ui) {
                     $("#slider-range-clipblack-amount").text(ui.value);
                     $("#videoClipBlack").val(ui.value);
-                    _this.project.options.video_settings.clipBlack = ui.value / 100;
-                    _this.chroma['clipBlack'] = ui.value / 100;
+                    _this2.project.options.video_settings.clip_black = ui.value / 100;
+                    _this2.chroma['clipBlack'] = ui.value / 100;
                 }
             });
             $("#slider-range-clipwhite").slider({
                 range: "min",
-                value: this.project.options.video_settings.clipWhite * 100,
+                value: this.project.options.video_settings.clip_white * 100,
                 min: 0,
                 max: 100,
                 slide: function slide(event, ui) {
                     $("#slider-range-clipwhite-amount").text(ui.value);
                     $("#videoClipWhite").val(ui.value);
-                    _this.project.options.video_settings.clipWhite = ui.value / 100;
-                    _this.chroma['clipWhite'] = ui.value / 100;
+                    _this2.project.options.video_settings.clip_white = ui.value / 100;
+                    _this2.chroma['clipWhite'] = ui.value / 100;
                 }
             });
         },
         renderPreview: function renderPreview() {
-            var _this2 = this;
+            var _this3 = this;
 
-            this.player = videojs('preview-player', { "controls": "true", "preload": "auto" });
+            this.video = videojs('preview-player', { "controls": "true", "preload": "auto" });
+            this.video.hide();
 
-            this.player.ready(function () {
-                _this2.player.on("loadedmetadata", function () {
+            this.video.ready(function () {
+                _this3.video.on("loadedmetadata", function () {
+                    _this3.video.show();
 
                     // rigz script
-                    $("video#preview-player_html5_api").attr("height", _this2.vPlayer.videoHeight);
-                    $("video#preview-player_html5_api").attr("width", _this2.vPlayer.videoWidth);
+                    $("video#preview-player_html5_api").attr("height", _this3.vPlayer.videoHeight);
+                    $("video#preview-player_html5_api").attr("width", _this3.vPlayer.videoWidth);
 
                     $("#preview-player").prepend($("canvas#output-preview"));
-                    $("canvas#output-preview").get(0).setAttribute("width", _this2.vPlayer.videoWidth);
-                    $("canvas#output-preview").get(0).setAttribute("height", _this2.vPlayer.videoHeight);
+                    $("canvas#output-preview").get(0).setAttribute("width", _this3.vPlayer.videoWidth);
+                    $("canvas#output-preview").get(0).setAttribute("height", _this3.vPlayer.videoHeight);
 
                     $("#preview-player").prepend($("canvas#output-preview"));
+
+                    _this3.video.play();
+
                     // rigz script
 
                     var seriously, target;
@@ -12093,18 +12089,22 @@ exports.default = {
                     seriously = new Seriously();
 
                     target = seriously.target('#output-preview');
-                    _this2.chroma = seriously.effect('chroma');
+                    _this3.chroma = seriously.effect('chroma');
 
-                    _this2.chroma.source = "#preview-player_html5_api";
-                    target.source = _this2.chroma;
+                    _this3.chroma.source = "#preview-player_html5_api";
+                    target.source = _this3.chroma;
 
-                    _this2.chroma['clipWhite'] = _this2.project.options.video_settings.clipWhite;
-                    _this2.chroma['clipBlack'] = _this2.project.options.video_settings.clipBlack;
-                    _this2.chroma['weight'] = _this2.project.options.video_settings.weight;
-
+                    _this3.chroma['clipWhite'] = _this3.project.options.video_settings.clip_white;
+                    _this3.chroma['clipBlack'] = _this3.project.options.video_settings.clip_black;
+                    _this3.chroma['balance'] = _this3.project.options.video_settings.balance;
+                    _this3.chroma['weight'] = _this3.project.options.video_settings.weight;
                     seriously.go();
-                    // this.video.play();
 
+                    function update(elment) {
+                        var id = $(elment).attr('id');
+                        var value = $(elment).val();
+                        this.chroma[id] = value;
+                    }
                 });
             });
             this.vPlayer = document.getElementById("preview-player_html5_api");
@@ -12380,7 +12380,6 @@ exports.default = {
 
 			this.video.ready(function () {
 				_this2.video.on("loadedmetadata", function () {
-
 					// rigz script
 					// this.video.height(this.vPlayer.videoHeight);
 					$("video#project-player_html5_api").attr("height", _this2.vPlayer.videoHeight);
@@ -12409,30 +12408,30 @@ exports.default = {
 
 					chroma.source = "#project-player_html5_api";
 					target.source = chroma;
-					// chroma['screen'] = [255/255,255/255,255/255,1];
-					// chroma.screen =  [238/255,233/255,232/255,1];
-					chroma['clipWhite'] = 1;
-					chroma['clipBlack'] = 0.8;
-					chroma['weight'] = 1;
+
+					chroma['balance'] = _this2.project.options.video_settings.balance;
+					chroma['clipWhite'] = _this2.project.options.video_settings.clip_white;
+					chroma['clipBlack'] = _this2.project.options.video_settings.clip_black;
+					chroma['weight'] = _this2.project.options.video_settings.weight;
 					seriously.go();
 
-					function update(elment) {
-						var id = $(elment).attr('id');
-						var value = $(elment).val();
+					// function update(elment) {
+					//   var id = $(elment).attr('id')
+					//   var value = $(elment).val();
 
-						$("#" + id + "Value").html(value);
+					//   $("#"+id+"Value").html(value);
 
-						if ($.inArray(id, ['red', 'green', 'blue']) > -1) {
-							var red = parseFloat($("#red").val());
-							var green = parseFloat($("#green").val());
-							var blue = parseFloat($("#blue").val());
-							id = "screen";
-							value = [red, green, blue, 1];
-							chroma.screen = value;
-						}
+					//   if ($.inArray(id, ['red','green','blue']) > - 1) {
+					//     var red = parseFloat($("#red").val());
+					//     var green = parseFloat($("#green").val());
+					//     var blue = parseFloat($("#blue").val());
+					//     id = "screen";
+					//     value = [red,green,blue,1];
+					//     chroma.screen = value;
+					//   }
 
-						chroma[id] = value;
-					}
+					//   chroma[id] = value;
+					// }
 				});
 				_this2.videoEnded();
 			});
@@ -13035,7 +13034,7 @@ module.exports = '<div :data-color-format="format" :data-color="color" class="in
 },{}],21:[function(require,module,exports){
 module.exports = '<div class="modal fade" id="project-embed" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-link"></i>  Embed</h4>\n          </div>\n          <div class="modal-body">\n          	<div class="row">\n          		<div class="col-md-12">\n\n							</div>\n						</div>\n          </div>\n          <div class="modal-footer">\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
 },{}],22:[function(require,module,exports){
-module.exports = '<!-- Properties Tab -->\n<div id="home" class="tab-pane fade in active">\n  	<section class="panel">\n  		<form class="form-horizontal tasi-form text-left">\n			<div class="form-group">\n				<div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="Title field for this video" placement="left"></tooltip>\n				  <label for="title" class="control-label"><strong>Title: </strong></label>\n				  	<input type="text" class="form-control m-bot15" id="propertyTitle" v-model="project.title" placeholder="Enter Title">\n				</div>\n			</div> <!-- 1st form-group -->\n\n			<div class="form-group">\n              <div class="col-lg-12 col-md-12">\n                <tooltip class="pull-right" title="Video positioning for this video" placement="left"></tooltip>\n              </div>\n				        <div class="col-lg-4 col-sm-4">\n					          <label for="position" class="control-label"><strong>Position: </strong></label>\n                  	<select id=\'propertyPosition\' v-model="project.options.position" class="form-control m-bot15">\n            						<option value="centered">Centered</option>\n            						<option value="top-left">Top left</option>\n            						<option value="top-right">Top right</option>\n            						<option value="bottom-left">Bottom left</option>\n            						<option value="bottom-right">Bottom right</option>\n                    </select>\n              	</div>\n              	<div class="col-lg-4 col-sm-4">\n	                 <label for="offsetx" class="control-label"><strong>Offset X: </strong></label>\n	                  <div class="spinner">\n                      <div class="input-group input-small">\n                        <input type="text" id=\'propertyOffsetX\' class="spinner-input form-control" v-model="project.options.offset_x" placeholder="0">\n                      	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                          <button type="button" class="btn spinner-up btn-xs btn-default">\n                              <i class="fa fa-angle-up"></i>\n                          </button>\n                          <button type="button" class="btn spinner-down btn-xs btn-default">\n                              <i class="fa fa-angle-down"></i>\n                          </button>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                <div class="col-lg-4 col-sm-4">\n        					<label for="offsety" class="control-label"><strong>Offset Y: </strong></label>\n        						<div class="spinner">\n                      <div class="input-group input-small">\n                          <input type="text" id=\'propertyOffsetY\' class="spinner-input form-control" v-model="project.options.offset_y" placeholder="0">\n                          	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                              <button type="button" class="btn spinner-up btn-xs btn-default">\n                                  <i class="fa fa-angle-up"></i>\n                              </button>\n                              <button type="button" class="btn spinner-down btn-xs btn-default">\n                                  <i class="fa fa-angle-down"></i>\n                              </button>\n                            </div>\n                        </div>\n                    </div>\n		              </div>\n              </div> <!-- 3rd form-group -->\n\n            <div class="form-group">\n             <div class="col-lg-12 col-md-12">\n                <tooltip class="pull-right" title="Delay options for this video" placement="left"></tooltip>\n              </div>\n				      <div class="col-lg-4 col-sm-4">\n  		          <label for="automatically" class="control-label">\n                  	  <strong> Delay: </strong>\n                </label>\n                <div class="row m-bot15">\n                    <div class="col-sm-6 text-center">\n                      <div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                        <input type="checkbox" id="auto_display" v-model="project.options.auto_display" class="options-ref" />\n                      </div>\n                    </div>\n                </div>\n            	</div>\n            	<div class="col-lg-8 col-sm-8">\n                	<div v-show="project.options.auto_display">\n                      	<label for="afterseconds" class="control-label">\n                      	  <strong> After (Seconds): </strong>\n                      	</label>\n						            <div class="spinner">\n                            <div class="input-group input-small">\n                                  <input type="text" id=\'propertyDisplayAfter\' v-model="project.options.auto_display_after" class="spinner-input form-control" placeholder="0">\n                                  	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                                      <button type="button" class="btn spinner-up btn-xs btn-default">\n                                          <i class="fa fa-angle-up"></i>\n                                      </button>\n                                      <button type="button" class="btn spinner-down btn-xs btn-default">\n                                          <i class="fa fa-angle-down"></i>\n                                      </button>\n                                    </div>\n                            </div>\n                        </div>\n					</div>\n            	</div>\n            </div> <!-- 4th form-group -->\n            <div class="form-group">\n            	<div class="col-lg-12 col-sm-12 row">\n					          <label for="dimmed" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Dimmed Background: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'dimmed_background\' v-model="project.options.dimmed_background" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Dimmed background for this video" placement="right"></tooltip>\n                      </div>\n            	</div>\n            	    <div class="col-lg-12 col-sm-12 row">\n					          <label for="glass" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Glass Background: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'glass_background\' v-model="project.options.glass_background" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Glass background for this video" placement="right"></tooltip>\n                      </div>\n            	     </div>\n            </div>\n           	<div class="form-group">\n            	<div class="m-bot15 col-lg-12 col-sm-12 row">\n            		<label for="stopshowing" class="control-label col-md-4 col-sm-4">\n            			Stop Showing When\n            		</label>\n            	</div>\n              <div class="col-lg-12 col-sm-12 row">\n                   <label for="exitonend" class="control-label col-md-4 col-sm-4">\n                          <strong> Exit On End: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                            <div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'stop_showing.exit_on_end\' v-model="project.options.stop_showing.exit_on_end" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Video will automatically exit after playing" placement="right"></tooltip>\n                      </div>\n              </div>\n            	<div class="col-lg-12 col-sm-12 row">\n					          <label for="exitonend" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Clicked: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'stop_showing.clicked\' v-model="project.options.stop_showing.clicked" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Video will no longer play next time the user visit the page after it was clicked" placement="right"></tooltip>\n                      </div>\n            	     </div>\n            	<div class="col-lg-12 col-sm-12 row">\n					         <label for="exitonend" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Closed: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'stop_showing.closed\' v-model="project.options.stop_showing.closed" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Video will no longer play next time the user visit the page after it was closed" placement="right"></tooltip>\n                      </div>\n            	</div>\n            </div> <!-- 6th form-group -->\n            <div class="form-group">\n              <div class="col-lg-12 col-md-12">\n                  <tooltip class="pull-right" title="Video will play again after the specified minutes for cookie life" placement="left"></tooltip>\n              </div>\n            	<div class="col-lg-8 col-md-8">\n				          <label for="cookielife" class="control-label"><strong>Cookie Life: </strong></label>\n					         <div class="spinner">\n                        <div class="input-group input-small">\n                              <input type="text" id=\'propertyCookieLife\' class="spinner-input form-control" v-model="project.options.cookie_life" placeholder="0">\n                              	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                                  <button type="button" class="btn spinner-up btn-xs btn-default">\n                                      <i class="fa fa-angle-up"></i>\n                                  </button>\n                                  <button type="button" class="btn spinner-down btn-xs btn-default">\n                                      <i class="fa fa-angle-down"></i>\n                                  </button>\n                                </div>\n                        </div>\n                    </div>\n				      </div>\n			       </div> <!-- 6th form-group -->\n  		</form>\n  	</section>\n</div>\n\n\n<!-- IFrame Tab -->\n<div id="iframe" class="tab-pane fade">\n    <section class="panel">\n    <form class="form-horizontal tasi-form text-left">\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="Show another page in the background when playing this video instead of the background set e.g dimmed" placement="left"></tooltip>\n          <label for="iframeurl" class="control-label"><strong>URL: </strong></label>\n            <input type="text" class="form-control m-bot15" v-model="project.options.iframe" id="IframeURL" placeholder="http://">\n        </div>\n      </div> <!-- 1st form-group -->\n    </form>\n    </section>\n</div>\n\n<!-- External Video -->\n<div id="externalvideo" class="tab-pane fade">\n    <section class="panel">\n      <form class="form-horizontal tasi-form text-left">\n        <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="External video that will play after this video & duration of the external video" placement="left"></tooltip>\n        </div>\n        <div class="col-lg-4 col-md-4">\n          <label for="duration" class="control-label"><strong>Duration: </strong></label>\n            <div class="spinner">\n            <div class="input-group input-small">\n                          <input type="text" id=\'propertyExtVideoDuration\' v-model="project.options.external_video.duration" class="spinner-input form-control" >\n                          <div class="spinner-buttons input-group-btn btn-group-vertical">\n                            <button type="button" class="btn spinner-up btn-xs btn-default">\n                                <i class="fa fa-angle-up"></i>\n                            </button>\n                            <button type="button" class="btn spinner-down btn-xs btn-default">\n                                <i class="fa fa-angle-down"></i>\n                            </button>\n                          </div>\n                      </div>\n                    </div>\n            </div>\n        <div class="col-lg-8 col-md-8">\n          <label for="embed" class="control-label"><strong>Embed Code: </strong></label>\n            <input type="text" class="form-control m-bot15" v-model="project.options.external_video.embed_code" id="propertyExtVideoURL" >\n        </div>\n      </div> <!-- 2nd form-group -->\n    </form>\n    </section>\n</div>\n\n\n<!-- Video Settings Tab -->\n<div id="videosettings" class="tab-pane fade">\n  <div class="col-lg-6 col-md-6">\n    <section class="panel sliders">\n    <form class="form-horizontal tasi-form text-left" v-show="typeof project.options.video_settings != undefined">\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="How much of the background color to remove from semi-transparent pixels" placement="left"></tooltip>\n          <label for="weight" class="control-label"><strong>Weight: {{ project.options.video_settings.weight }}</strong></label>\n            <div id="slider-range-weight" class="slider"></div>\n              <div class="slider-info">\n                  <input type="hidden" v-model="project.options.video_settings.weight" id="videoWeight">\n              </div>\n        </div>\n      </div> <!-- 1st form-group -->\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="It depends on the video. Just \'balance\' it!" placement="left"></tooltip>\n          <label for="balance" class="control-label"><strong>Balance: {{ project.options.video_settings.balance }}</strong></label>\n            <div id="slider-range-balance" class="slider"></div>\n              <div class="slider-info">\n                  <input type="hidden" v-model="project.options.video_settings.balance" id="videoBalance">\n              </div>\n        </div>\n      </div> <!-- 2nd form-group -->\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="The minimum resulting alpha value of keyed pixels" placement="left"></tooltip>\n          <label for="clipblack" class="control-label"><strong>Clip Black: {{ project.options.video_settings.clipBlack }}</strong></label>\n            <div id="slider-range-clipblack" class="slider"></div>\n              <div class="slider-info">\n                  <input type="hidden" v-model="project.options.video_settings.clipBlack" id="videoClipBlack">\n              </div>\n        </div>\n      </div> <!-- 3rd form-group -->\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="The maximum resulting alpha value of keyed pixels" placement="left"></tooltip>\n          <label for="clipwhite" class="control-label"><strong>Clip White: {{ project.options.video_settings.clipWhite }}</strong></label>\n            <div id="slider-range-clipwhite" class="slider"></div>\n              <div class="slider-info">\n                  <input type="hidden" v-model="project.options.video_settings.clipWhite" id="videoClipWhite">\n              </div>\n        </div>\n      </div> <!-- 3rd form-group -->\n    </form>\n    </section>\n  </div>\n\n  <div class="col-lg-6 col-md-6">\n      <div id="video-preview-container">\n        <canvas id="output-preview"></canvas>\n        <video id="preview-player" class="video-js" preload="auto" data-setup=\'{"poster":"/image/{{this.project.filename}}"}\' width="300">\n\n                <source src="/video/{{this.project.filename}}" type="video/mp4">\n\n                <p class="vjs-no-js">\n                  To view this video please enable JavaScript, and consider upgrading to a web browser that\n                  <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n                </p>\n\n          </video>\n      </div>\n  </div>\n\n</div>\n';
+module.exports = '<!-- Properties Tab -->\n<div id="home" class="tab-pane fade in active">\n  	<section class="panel">\n  		<form class="form-horizontal tasi-form text-left">\n			<div class="form-group">\n				<div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="Title field for this video" placement="left"></tooltip>\n				  <label for="title" class="control-label"><strong>Title: </strong></label>\n				  	<input type="text" class="form-control m-bot15" id="propertyTitle" v-model="project.title" placeholder="Enter Title">\n				</div>\n			</div> <!-- 1st form-group -->\n\n			<div class="form-group">\n              <div class="col-lg-12 col-md-12">\n                <tooltip class="pull-right" title="Video positioning for this video" placement="left"></tooltip>\n              </div>\n				        <div class="col-lg-4 col-sm-4">\n					          <label for="position" class="control-label"><strong>Position: </strong></label>\n                  	<select id=\'propertyPosition\' v-model="project.options.position" class="form-control m-bot15">\n            						<option value="centered">Centered</option>\n            						<option value="top-left">Top left</option>\n            						<option value="top-right">Top right</option>\n            						<option value="bottom-left">Bottom left</option>\n            						<option value="bottom-right">Bottom right</option>\n                    </select>\n              	</div>\n              	<div class="col-lg-4 col-sm-4">\n	                 <label for="offsetx" class="control-label"><strong>Offset X: </strong></label>\n	                  <div class="spinner">\n                      <div class="input-group input-small">\n                        <input type="text" id=\'propertyOffsetX\' class="spinner-input form-control" v-model="project.options.offset_x" placeholder="0">\n                      	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                          <button type="button" class="btn spinner-up btn-xs btn-default">\n                              <i class="fa fa-angle-up"></i>\n                          </button>\n                          <button type="button" class="btn spinner-down btn-xs btn-default">\n                              <i class="fa fa-angle-down"></i>\n                          </button>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                <div class="col-lg-4 col-sm-4">\n        					<label for="offsety" class="control-label"><strong>Offset Y: </strong></label>\n        						<div class="spinner">\n                      <div class="input-group input-small">\n                          <input type="text" id=\'propertyOffsetY\' class="spinner-input form-control" v-model="project.options.offset_y" placeholder="0">\n                          	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                              <button type="button" class="btn spinner-up btn-xs btn-default">\n                                  <i class="fa fa-angle-up"></i>\n                              </button>\n                              <button type="button" class="btn spinner-down btn-xs btn-default">\n                                  <i class="fa fa-angle-down"></i>\n                              </button>\n                            </div>\n                        </div>\n                    </div>\n		              </div>\n              </div> <!-- 3rd form-group -->\n\n            <div class="form-group">\n             <div class="col-lg-12 col-md-12">\n                <tooltip class="pull-right" title="Delay options for this video" placement="left"></tooltip>\n              </div>\n				      <div class="col-lg-4 col-sm-4">\n  		          <label for="automatically" class="control-label">\n                  	  <strong> Delay: </strong>\n                </label>\n                <div class="row m-bot15">\n                    <div class="col-sm-6 text-center">\n                      <div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                        <input type="checkbox" id="auto_display" v-model="project.options.auto_display" class="options-ref" />\n                      </div>\n                    </div>\n                </div>\n            	</div>\n            	<div class="col-lg-8 col-sm-8">\n                	<div v-show="project.options.auto_display">\n                      	<label for="afterseconds" class="control-label">\n                      	  <strong> After (Seconds): </strong>\n                      	</label>\n						            <div class="spinner">\n                            <div class="input-group input-small">\n                                  <input type="text" id=\'propertyDisplayAfter\' v-model="project.options.auto_display_after" class="spinner-input form-control" placeholder="0">\n                                  	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                                      <button type="button" class="btn spinner-up btn-xs btn-default">\n                                          <i class="fa fa-angle-up"></i>\n                                      </button>\n                                      <button type="button" class="btn spinner-down btn-xs btn-default">\n                                          <i class="fa fa-angle-down"></i>\n                                      </button>\n                                    </div>\n                            </div>\n                        </div>\n					</div>\n            	</div>\n            </div> <!-- 4th form-group -->\n            <div class="form-group">\n            	<div class="col-lg-12 col-sm-12 row">\n					          <label for="dimmed" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Dimmed Background: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'dimmed_background\' v-model="project.options.dimmed_background" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Dimmed background for this video" placement="right"></tooltip>\n                      </div>\n            	</div>\n            	    <div class="col-lg-12 col-sm-12 row">\n					          <label for="glass" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Glass Background: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'glass_background\' v-model="project.options.glass_background" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Glass background for this video" placement="right"></tooltip>\n                      </div>\n            	     </div>\n            </div>\n           	<div class="form-group">\n            	<div class="m-bot15 col-lg-12 col-sm-12 row">\n            		<label for="stopshowing" class="control-label col-md-4 col-sm-4">\n            			Stop Showing When\n            		</label>\n            	</div>\n              <div class="col-lg-12 col-sm-12 row">\n                   <label for="exitonend" class="control-label col-md-4 col-sm-4">\n                          <strong> Exit On End: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                            <div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'stop_showing.exit_on_end\' v-model="project.options.stop_showing.exit_on_end" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Video will automatically exit after playing" placement="right"></tooltip>\n                      </div>\n              </div>\n            	<div class="col-lg-12 col-sm-12 row">\n					          <label for="exitonend" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Clicked: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'stop_showing.clicked\' v-model="project.options.stop_showing.clicked" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Video will no longer play next time the user visit the page after it was clicked" placement="right"></tooltip>\n                      </div>\n            	     </div>\n            	<div class="col-lg-12 col-sm-12 row">\n					         <label for="exitonend" class="control-label col-md-4 col-sm-4">\n                      	  <strong> Closed: </strong>\n                    </label>\n                      <div class="row m-bot15 col-md-6 col-sm-6">\n                          <div class="col-sm-6 text-center">\n                          	<div class="switch" data-on-label="<i class=\' fa fa-check\'></i>" data-off-label="<i class=\'fa fa-times\'></i>">\n                              <input type="checkbox" id=\'stop_showing.closed\' v-model="project.options.stop_showing.closed" class="options-ref" />\n                            </div>\n                          </div>\n                          <tooltip class="pull-left" title="Video will no longer play next time the user visit the page after it was closed" placement="right"></tooltip>\n                      </div>\n            	</div>\n            </div> <!-- 6th form-group -->\n            <div class="form-group">\n              <div class="col-lg-12 col-md-12">\n                  <tooltip class="pull-right" title="Video will play again after the specified minutes for cookie life" placement="left"></tooltip>\n              </div>\n            	<div class="col-lg-8 col-md-8">\n				          <label for="cookielife" class="control-label"><strong>Cookie Life: </strong></label>\n					         <div class="spinner">\n                        <div class="input-group input-small">\n                              <input type="text" id=\'propertyCookieLife\' class="spinner-input form-control" v-model="project.options.cookie_life" placeholder="0">\n                              	<div class="spinner-buttons input-group-btn btn-group-vertical">\n                                  <button type="button" class="btn spinner-up btn-xs btn-default">\n                                      <i class="fa fa-angle-up"></i>\n                                  </button>\n                                  <button type="button" class="btn spinner-down btn-xs btn-default">\n                                      <i class="fa fa-angle-down"></i>\n                                  </button>\n                                </div>\n                        </div>\n                    </div>\n				      </div>\n			       </div> <!-- 6th form-group -->\n  		</form>\n  	</section>\n</div>\n\n\n<!-- IFrame Tab -->\n<div id="iframe" class="tab-pane fade">\n    <section class="panel">\n    <form class="form-horizontal tasi-form text-left">\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="Show another page in the background when playing this video instead of the background set e.g dimmed" placement="left"></tooltip>\n          <label for="iframeurl" class="control-label"><strong>URL: </strong></label>\n            <input type="text" class="form-control m-bot15" v-model="project.options.iframe" id="IframeURL" placeholder="http://">\n        </div>\n      </div> <!-- 1st form-group -->\n    </form>\n    </section>\n</div>\n\n<!-- External Video -->\n<div id="externalvideo" class="tab-pane fade">\n    <section class="panel">\n      <form class="form-horizontal tasi-form text-left">\n        <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="External video that will play after this video & duration of the external video" placement="left"></tooltip>\n        </div>\n        <div class="col-lg-4 col-md-4">\n          <label for="duration" class="control-label"><strong>Duration: </strong></label>\n            <div class="spinner">\n            <div class="input-group input-small">\n                          <input type="text" id=\'propertyExtVideoDuration\' v-model="project.options.external_video.duration" class="spinner-input form-control" >\n                          <div class="spinner-buttons input-group-btn btn-group-vertical">\n                            <button type="button" class="btn spinner-up btn-xs btn-default">\n                                <i class="fa fa-angle-up"></i>\n                            </button>\n                            <button type="button" class="btn spinner-down btn-xs btn-default">\n                                <i class="fa fa-angle-down"></i>\n                            </button>\n                          </div>\n                      </div>\n                    </div>\n            </div>\n        <div class="col-lg-8 col-md-8">\n          <label for="embed" class="control-label"><strong>Embed Code: </strong></label>\n            <input type="text" class="form-control m-bot15" v-model="project.options.external_video.embed_code" id="propertyExtVideoURL" >\n        </div>\n      </div> <!-- 2nd form-group -->\n    </form>\n    </section>\n</div>\n\n\n<!-- Video Settings Tab -->\n<div id="videosettings" class="tab-pane fade">\n  <div class="col-lg-6 col-md-6">\n    <section class="panel sliders">\n    <form class="form-horizontal tasi-form text-left" v-show="typeof project.options.video_settings != undefined">\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="How much of the background color to remove from semi-transparent pixels" placement="left"></tooltip>\n          <label for="weight" class="control-label"><strong>Weight: {{ project.options.video_settings.weight }}</strong></label>\n            <div id="slider-range-weight" class="slider"></div>\n              <div class="slider-info">\n                  <input type="hidden" v-model="project.options.video_settings.weight" id="videoWeight">\n              </div>\n        </div>\n      </div> <!-- 1st form-group -->\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="It depends on the video. Just \'balance\' it!" placement="left"></tooltip>\n          <label for="balance" class="control-label"><strong>Balance: {{ project.options.video_settings.balance }}</strong></label>\n            <div id="slider-range-balance" class="slider"></div>\n              <div class="slider-info">\n                  <input type="hidden" v-model="project.options.video_settings.balance" id="videoBalance">\n              </div>\n        </div>\n      </div> <!-- 2nd form-group -->\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="The minimum resulting alpha value of keyed pixels" placement="left"></tooltip>\n          <label for="clipblack" class="control-label"><strong>Clip Black: {{ project.options.video_settings.clip_black }}</strong></label>\n            <div id="slider-range-clipblack" class="slider"></div>\n              <div class="slider-info">\n                  <input type="hidden" v-model="project.options.video_settings.clipBlack" id="videoClipBlack">\n              </div>\n        </div>\n      </div> <!-- 3rd form-group -->\n      <div class="form-group">\n        <div class="col-lg-12 col-md-12">\n          <tooltip class="pull-right" title="The maximum resulting alpha value of keyed pixels" placement="left"></tooltip>\n          <label for="clipwhite" class="control-label"><strong>Clip White: {{ project.options.video_settings.clip_white }}</strong></label>\n            <div id="slider-range-clipwhite" class="slider"></div>\n              <div class="slider-info">\n                  <input type="hidden" v-model="project.options.video_settings.clipWhite" id="videoClipWhite">\n              </div>\n        </div>\n      </div> <!-- 3rd form-group -->\n    </form>\n    </section>\n  </div>\n\n  <div class="col-lg-6 col-md-6">\n      <div id="preview-section">\n\n      </div>\n  </div>\n\n</div>\n';
 },{}],23:[function(require,module,exports){
 module.exports = '<div class="modal fade" id="project-options" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-gears"></i>  Options</h4>\n          </div>\n          <div class="modal-body">\n          	<div class="row">\n          		<div class="col-md-12">\n              			<section class="panel row">\n                  			<ul class="nav nav-tabs options-tab">\n  											  <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-pencil-square-o"></i> Properties</a></li>\n  											  <li class="hidden"><a data-toggle="tab" href="#iframe"><i class="fa fa-code"></i> IFrame</a></li>\n  											  <li><a data-toggle="tab" href="#externalvideo"><i class="fa fa-video-camera"></i> External Video</a></li>\n                          <li><a data-toggle="tab" href="#videosettings"><i class="fa fa-wrench"></i> Video Settings</a></li>\n  											</ul>\n                    </section>\n                    <div class="tab-content">\n                        <properties :project="project"></properties>\n                    </div>\n							</div>\n						</div>\n          </div>\n          <div class="modal-footer">\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n              <button class="btn btn-primary"\n                      type="button"\n                      :disabled="is_saving"\n                      @click="save"\n              >\n                      <i class="fa fa-save"></i> {{ is_saving ? \'Saving...\' : \'Save\' }}\n              </button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->\n';
 },{}],24:[function(require,module,exports){

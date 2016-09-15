@@ -12536,6 +12536,9 @@ div#video-preview-container {
   bottom: 65px;
   max-width: 45%; }
 
+.vjs-fullscreen-control.vjs-control.vjs-button, .vjs-progress-control.vjs-control {
+  display: none; }
+
 div#preview-player {
   width: 100%;
   background: transparent !important; }
@@ -12544,7 +12547,8 @@ video#preview-player_html5_api {
   display: none; }
 
 canvas#output-preview {
-  width: 100%; }
+  width: 100%;
+  margin-top: 17px; }
 
 .always-bottom {
   position: fixed !important; }

@@ -4,7 +4,6 @@ export default {
 
 	ready() {
        $(".options-ref").change(this.updateSwitchable);
-
     },
 
 	props: ['project'],
@@ -12,7 +11,7 @@ export default {
     data() {
         return {
            vPlayer: null,
-           player: null,
+           video: null,
            chroma: null
         }
     },
@@ -25,34 +24,33 @@ export default {
         project() {
             $(".options-ref").change();
 
-          /*  // Dispose Video
-            if(this.player){
-                this.player.dispose();
-                $(".project-element").hide();
-            }*/
-
-            if(typeof this.project.options.video_settings.weight == undefined)
-            {
-                this.$set('project.options.video_settings.weight', 1);
+            // Dispose Video
+            if(this.video){
+                this.video.dispose();
             }
 
-            if(typeof this.project.options.video_settings.balance == undefined)
-            {
-                this.$set('project.options.video_settings.balance', 1);
-            }
+            let video_template = `
+              <div id="video-preview-container">
+                <canvas id="output-preview"></canvas>
+                    <video id="preview-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}"}' width="300">
+                        <source src="/video/${this.project.filename}" type="video/mp4">
 
-            if(typeof this.project.options.video_settings.clipBlack == undefined)
-            {
-                this.$set('project.options.video_settings.clipBlack', 1);
-            }
+                        <p class="vjs-no-js">
+                          To view this video please enable JavaScript, and consider upgrading to a web browser that
+                          <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                        </p>
+                    </video>
+              </div>
+            `;
 
-            if(typeof this.project.options.video_settings.clipWhite == undefined)
-            {
-                this.$set('project.options.video_settings.clipWhite', 1);
-            }
+            $("#preview-section").empty().html(video_template);
 
              this.sliders();
              this.renderPreview();
+
+            $("#project-options").on("hide.bs.modal",() => {
+                this.video.pause();
+            });
         }
     },
 
@@ -87,34 +85,36 @@ export default {
                 });
                 $("#slider-range-clipblack").slider({
                     range: "min",
-                    value: this.project.options.video_settings.clipBlack*100,
+                    value: this.project.options.video_settings.clip_black*100,
                     min: 0,
                     max: 100,
                     slide: (event, ui) => {
                         $("#slider-range-clipblack-amount").text(ui.value);
                         $("#videoClipBlack").val(ui.value);
-                        this.project.options.video_settings.clipBlack = ui.value/100;
+                        this.project.options.video_settings.clip_black = ui.value/100;
                         this.chroma['clipBlack'] = ui.value/100;
                     }
                 });
                 $("#slider-range-clipwhite").slider({
                     range: "min",
-                    value: this.project.options.video_settings.clipWhite*100,
+                    value: this.project.options.video_settings.clip_white*100,
                     min: 0,
                     max: 100,
                     slide: (event, ui) => {
                         $("#slider-range-clipwhite-amount").text(ui.value);
                         $("#videoClipWhite").val(ui.value);
-                        this.project.options.video_settings.clipWhite = ui.value/100;
+                        this.project.options.video_settings.clip_white = ui.value/100;
                         this.chroma['clipWhite'] = ui.value/100;
                     }
                 });
         },
         renderPreview(){
-            this.player = videojs('preview-player', { "controls": "true", "preload": "auto" });
+            this.video = videojs('preview-player', { "controls": "true", "preload": "auto" });
+            this.video.hide();
 
-            this.player.ready(() => {
-                this.player.on("loadedmetadata",() => {
+            this.video.ready(() => {
+                this.video.on("loadedmetadata",() => {
+                    this.video.show();
 
                     // rigz script
                     $("video#preview-player_html5_api").attr("height", this.vPlayer.videoHeight);
@@ -126,6 +126,10 @@ export default {
 
 
                     $("#preview-player").prepend($("canvas#output-preview"));
+
+
+                    this.video.play();
+
                     // rigz script
 
                       var seriously,
@@ -139,13 +143,19 @@ export default {
                       this.chroma.source = "#preview-player_html5_api";
                       target.source = this.chroma;
 
-                      this.chroma['clipWhite'] = this.project.options.video_settings.clipWhite;
-                      this.chroma['clipBlack'] = this.project.options.video_settings.clipBlack;
+                      this.chroma['clipWhite'] = this.project.options.video_settings.clip_white;
+                      this.chroma['clipBlack'] = this.project.options.video_settings.clip_black;
+                      this.chroma['balance'] = this.project.options.video_settings.balance;
                       this.chroma['weight'] = this.project.options.video_settings.weight;
-
                       seriously.go();
-                      // this.video.play();
 
+
+
+                      function update(elment) {
+                        var id = $(elment).attr('id')
+                        var value = $(elment).val();
+                        this.chroma[id] = value;
+                      }
 
                 });
             });

@@ -177,7 +177,6 @@ export default {
 
 			this.video.ready(() => {
 				this.video.on("loadedmetadata",() => {
-
 					// rigz script
 					// this.video.height(this.vPlayer.videoHeight);
 					$("video#project-player_html5_api").attr("height", this.vPlayer.videoHeight);
@@ -208,32 +207,32 @@ export default {
 
 			          chroma.source = "#project-player_html5_api";
 			          target.source = chroma;
-			          // chroma['screen'] = [255/255,255/255,255/255,1];
-			          // chroma.screen =  [238/255,233/255,232/255,1];
-			          chroma['clipWhite'] = 1;
-			          chroma['clipBlack'] = 0.8;
-			          chroma['weight'] = 1;
+
+			          chroma['balance'] = this.project.options.video_settings.balance;
+			          chroma['clipWhite'] = this.project.options.video_settings.clip_white;
+			          chroma['clipBlack'] = this.project.options.video_settings.clip_black;
+			          chroma['weight'] = this.project.options.video_settings.weight;
 			          seriously.go();
 
 
 
-			          function update(elment) {
-			            var id = $(elment).attr('id')
-			            var value = $(elment).val();
+			          // function update(elment) {
+			          //   var id = $(elment).attr('id')
+			          //   var value = $(elment).val();
 
-			            $("#"+id+"Value").html(value);
+			          //   $("#"+id+"Value").html(value);
 
-			            if ($.inArray(id, ['red','green','blue']) > - 1) {
-			              var red = parseFloat($("#red").val());
-			              var green = parseFloat($("#green").val());
-			              var blue = parseFloat($("#blue").val());
-			              id = "screen";
-			              value = [red,green,blue,1];
-			              chroma.screen = value;
-			            }
+			          //   if ($.inArray(id, ['red','green','blue']) > - 1) {
+			          //     var red = parseFloat($("#red").val());
+			          //     var green = parseFloat($("#green").val());
+			          //     var blue = parseFloat($("#blue").val());
+			          //     id = "screen";
+			          //     value = [red,green,blue,1];
+			          //     chroma.screen = value;
+			          //   }
 
-			            chroma[id] = value;
-			          }
+			          //   chroma[id] = value;
+			          // }
 
 				});
 				this.videoEnded();
