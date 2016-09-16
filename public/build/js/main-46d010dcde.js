@@ -12066,47 +12066,42 @@ exports.default = {
             this.video = videojs('preview-player', { "controls": "true", "preload": "auto" });
             this.video.hide();
 
-            this.video.ready(function () {
-                _this3.video.on("loadedmetadata", function () {
-                    _this3.video.show();
+            this.video.on("loadedmetadata", function () {
 
-                    // rigz script
-                    $("video#preview-player_html5_api").attr("height", _this3.vPlayer.videoHeight);
-                    $("video#preview-player_html5_api").attr("width", _this3.vPlayer.videoWidth);
+                // rigz script
+                $("video#preview-player_html5_api").attr("height", _this3.vPlayer.videoHeight);
+                $("video#preview-player_html5_api").attr("width", _this3.vPlayer.videoWidth);
 
-                    $("#preview-player").prepend($("canvas#output-preview"));
-                    $("canvas#output-preview").get(0).setAttribute("width", _this3.vPlayer.videoWidth);
-                    $("canvas#output-preview").get(0).setAttribute("height", _this3.vPlayer.videoHeight);
+                $("#preview-player").prepend($("canvas#output-preview"));
+                $("canvas#output-preview").get(0).setAttribute("width", _this3.vPlayer.videoWidth);
+                $("canvas#output-preview").get(0).setAttribute("height", _this3.vPlayer.videoHeight);
 
-                    $("#preview-player").prepend($("canvas#output-preview"));
+                $("#preview-player").prepend($("canvas#output-preview"));
 
-                    _this3.video.play();
+                var seriously, target;
 
-                    // rigz script
+                seriously = new Seriously();
 
-                    var seriously, target;
+                target = seriously.target('#output-preview');
+                _this3.chroma = seriously.effect('chroma');
 
-                    seriously = new Seriously();
+                _this3.chroma.source = "#preview-player_html5_api";
+                target.source = _this3.chroma;
 
-                    target = seriously.target('#output-preview');
-                    _this3.chroma = seriously.effect('chroma');
-
-                    _this3.chroma.source = "#preview-player_html5_api";
-                    target.source = _this3.chroma;
-
-                    _this3.chroma['clipWhite'] = _this3.project.options.video_settings.clip_white;
-                    _this3.chroma['clipBlack'] = _this3.project.options.video_settings.clip_black;
-                    _this3.chroma['balance'] = _this3.project.options.video_settings.balance;
-                    _this3.chroma['weight'] = _this3.project.options.video_settings.weight;
-                    seriously.go();
-
-                    function update(elment) {
-                        var id = $(elment).attr('id');
-                        var value = $(elment).val();
-                        this.chroma[id] = value;
-                    }
-                });
+                _this3.chroma['clipWhite'] = _this3.project.options.video_settings.clip_white;
+                _this3.chroma['clipBlack'] = _this3.project.options.video_settings.clip_black;
+                _this3.chroma['balance'] = _this3.project.options.video_settings.balance;
+                _this3.chroma['weight'] = _this3.project.options.video_settings.weight;
+                seriously.go();
             });
+
+            this.video.on("play", function () {
+                return _this3.video.show();
+            });
+            $("[href='#videosettings']").click(function () {
+                return _this3.video.play();
+            });
+
             this.vPlayer = document.getElementById("preview-player_html5_api");
         }
     }

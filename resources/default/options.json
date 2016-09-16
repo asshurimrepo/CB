@@ -20,7 +20,7 @@
 	"video_settings": {
 		"weight": 1,
 		"balance": 1,
-		"clipBlack": 0.8,
-		"clipWhite": 1
+		"clip_black": 0.8,
+		"clip_white": 1
 	}
 }
