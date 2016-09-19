@@ -1,0 +1,40 @@
+div#premade-preview-container{
+	position: fixed;
+	z-index: 1048;
+	right: 0;
+	bottom: 0;
+}
+
+div#premade-player{
+	width:400px;
+	background: transparent !important;
+	height: auto !important;
+}
+
+.vjs-fullscreen-control.vjs-control.vjs-button, .vjs-progress-control.vjs-control {
+	display: none !important;
+}
+
+video#premade-player_html5_api{
+	display: none;
+}
+
+a.close-premade{
+	z-index: 1049;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    display: none;
+}
+
+#premade-preview-container:hover a.close-premade{
+	display: block;
+  -webkit-transition: all .2s ease-in-out;
+       -o-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+
+
+canvas#output-premade{
+	margin-bottom: -2px;
+}

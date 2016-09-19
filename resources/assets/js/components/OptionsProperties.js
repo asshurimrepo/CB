@@ -113,7 +113,7 @@ export default {
             this.video.hide();
 
             this.video.on("loadedmetadata",() => {
-                
+
                 // rigz script
                 $("video#preview-player_html5_api").attr("height", this.vPlayer.videoHeight);
                 $("video#preview-player_html5_api").attr("width", this.vPlayer.videoWidth);
