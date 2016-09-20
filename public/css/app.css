@@ -12581,6 +12581,12 @@ a.close-premade {
 canvas#output-premade {
   margin-bottom: -2px; }
 
+#video-preview-container > #preview-spinner {
+  position: absolute;
+  top: 50%;
+  left: 42.5%;
+  transform: translate(-50%, -50%); }
+
 .always-bottom {
   position: fixed !important; }
 
