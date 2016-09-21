@@ -215,25 +215,6 @@ export default {
 			          seriously.go();
 
 
-
-			          // function update(elment) {
-			          //   var id = $(elment).attr('id')
-			          //   var value = $(elment).val();
-
-			          //   $("#"+id+"Value").html(value);
-
-			          //   if ($.inArray(id, ['red','green','blue']) > - 1) {
-			          //     var red = parseFloat($("#red").val());
-			          //     var green = parseFloat($("#green").val());
-			          //     var blue = parseFloat($("#blue").val());
-			          //     id = "screen";
-			          //     value = [red,green,blue,1];
-			          //     chroma.screen = value;
-			          //   }
-
-			          //   chroma[id] = value;
-			          // }
-
 				});
 				this.videoEnded();
 			});
@@ -292,10 +273,14 @@ export default {
 
 			if(this.project.options.dimmed_background == true) {
 				this.player_class.dimmed = "Project--dimmedbg";
+			}else if(this.project.options.dimmed_background == false){
+				this.player_class.dimmed = "";
 			}
 
 			if(this.project.options.glass_background == true) {
 				this.player_class.glass = "Project--glassbg";
+			}else if(this.project.options.glass_background == false){
+				this.player_class.glass = "";
 			}
 		},
 

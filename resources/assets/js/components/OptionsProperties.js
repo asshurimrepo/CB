@@ -40,6 +40,7 @@ export default {
                           <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                         </p>
                     </video>
+                 <i id="preview-spinner" class="fa fa-cog fa-spin fa-3x fa-fw"></i>
               </div>
             `;
 
@@ -50,6 +51,7 @@ export default {
 
             $("#project-options").on("hide.bs.modal",() => {
                 this.video.pause();
+                $("[href='#home']").trigger('click');
             });
         }
     },
@@ -140,11 +142,17 @@ export default {
                   this.chroma['balance'] = this.project.options.video_settings.balance;
                   this.chroma['weight'] = this.project.options.video_settings.weight;
                   seriously.go();
-
             });
 
-            this.video.on("play", () => this.video.show() );
-            $("[href='#videosettings']").click(() => this.video.play() );
+            this.video.on("play", () => {
+                this.video.show();
+                 $("#video-preview-container>#preview-spinner").fadeOut("fast");
+            });
+
+            $("[href='#videosettings']").click(() => {
+
+                this.video.play();
+            });
 
             this.vPlayer = document.getElementById("preview-player_html5_api");
         }
