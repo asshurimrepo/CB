@@ -17,6 +17,13 @@ Route::get('/', function () {
 
 Route::auth();
 
+Route::group(['middleware' => 'web'], function(){
+	// Handles Showing Image
+	Route::get('/image/{filename}', 'ImagesController@show');
+	// Handles Showing Videos
+	Route::get('/video/{filename}', 'VideosController@show');
+});
+
 Route::group(['middleware' => 'auth'], function(){
 	Route::get('/home', 'HomeController@index');
 	Route::get('/help', 'PagesController@help');
@@ -31,10 +38,6 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/upload', 'UploadProjectsController@create');
 	Route::post('/upload', 'UploadProjectsController@store');
 
-	// Handles Showing Image
-	Route::get('/image/{filename}', 'ImagesController@show');
-	// Handles Showing Videos
-	Route::get('/video/{filename}', 'VideosController@show');
 	/*Route::get('/{filename}', 'VideosController@show')
 		->where('filename', '(video*).*');*/
 
