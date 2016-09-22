@@ -12327,7 +12327,7 @@ canvas#buffer {
   height: 100%; }
 
 #project-player-container.Project--glassbg {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 10px 4px #c3c3c3; }
 
 #project-player-container.Project--centered {
@@ -12488,14 +12488,21 @@ canvas#buffer {
   transition: all .2s ease-in-out; }
 
 #project-player-container > div.loader-3 {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  background: url("../img/vidload.gif") 50% 50% no-repeat transparent;
+  /*    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;*/
+  /*background: url('../img/vidload.gif') 50% 50% no-repeat transparent;*/
+  background: transparent;
   overflow: hidden;
-  display: none; }
+  /*display: none;*/ }
+
+#project-player-container > div.loader-3 > i {
+  position: absolute;
+  left: 45%;
+  top: 35%;
+  transform: translate(-50%, -50%); }
 
 div#project-embed-video.Embed--centered {
   top: 50%;
@@ -12547,8 +12554,11 @@ video#preview-player_html5_api {
   display: none; }
 
 canvas#output-preview {
-  width: 100%;
-  margin-top: 17px; }
+  width: 140%;
+  margin-top: 17px;
+  position: relative;
+  bottom: 61px;
+  left: -20%; }
 
 div#premade-preview-container {
   position: fixed;

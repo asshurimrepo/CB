@@ -32,7 +32,7 @@ export default {
             let video_template = `
               <div id="video-preview-container">
                 <canvas id="output-preview"></canvas>
-                    <video id="preview-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}"}' width="300">
+                    <video id="preview-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}.png"}' width="300">
                         <source src="/video/${this.project.filename}" type="video/mp4">
 
                         <p class="vjs-no-js">
@@ -152,6 +152,7 @@ export default {
             $("[href='#videosettings']").click(() => {
 
                 this.video.play();
+                $("#preview-player").find("div:first").remove();
             });
 
             this.vPlayer = document.getElementById("preview-player_html5_api");

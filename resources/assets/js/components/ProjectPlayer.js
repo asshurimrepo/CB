@@ -192,6 +192,7 @@ export default {
 					// for testing
 
 					this.video.play();
+					$("div.loader-3>i.fa-cog").hide();
 					this.addActionsToVideo();
 					// rigz script
 
@@ -296,13 +297,14 @@ export default {
 			// Dispose Video
 			if(this.video){
 				this.video.dispose();
+				$("div.loader-3>i.fa-cog").show();
 				$(".project-element").hide();
 			}
 
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
 			let video_template = `
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
-			<video id="project-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}"}'>
+			<video id="project-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}.png"}'>
 
 		          <source src="/video/${this.project.filename}" type="video/mp4">
 
