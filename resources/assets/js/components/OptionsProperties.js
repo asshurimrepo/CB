@@ -28,7 +28,7 @@ export default {
             if(this.video){
                 this.video.dispose();
             }
-
+            $("#preview-player").find("div:first").remove();
             let video_template = `
               <div id="video-preview-container">
                 <canvas id="output-preview"></canvas>
@@ -152,7 +152,6 @@ export default {
             $("[href='#videosettings']").click(() => {
 
                 this.video.play();
-                $("#preview-player").find("div:first").remove();
             });
 
             this.vPlayer = document.getElementById("preview-player_html5_api");

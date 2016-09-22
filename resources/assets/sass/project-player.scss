@@ -320,6 +320,8 @@ div#video-preview-container{
 
 div#preview-player{
 	width:100%;
+	height: 100%;
+	overflow: hidden;
 	background: transparent !important;
 }
 
@@ -331,6 +333,6 @@ canvas#output-preview{
 	width: 140%;
 	margin-top: 17px;
     position: relative;
-    bottom: 61px;
+    bottom: -2px;
     left: -20%;
 }
