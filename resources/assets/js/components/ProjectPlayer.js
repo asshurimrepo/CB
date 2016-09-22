@@ -174,7 +174,6 @@ export default {
 		renderTransparentVideo() {
 			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
 			// this.video.height(this.project.height*2);
-
 			this.video.ready(() => {
 				this.video.on("loadedmetadata",() => {
 					// rigz script

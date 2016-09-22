@@ -12038,7 +12038,7 @@ exports.default = {
             if (this.video) {
                 this.video.dispose();
             }
-
+            $("#preview-player").find("div:first").remove();
             var video_template = '\n              <div id="video-preview-container">\n                <canvas id="output-preview"></canvas>\n                    <video id="preview-player" class="video-js" preload="auto" data-setup=\'{"poster":"/image/' + this.project.filename + '.png"}\' width="300">\n                        <source src="/video/' + this.project.filename + '" type="video/mp4">\n\n                        <p class="vjs-no-js">\n                          To view this video please enable JavaScript, and consider upgrading to a web browser that\n                          <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n                        </p>\n                    </video>\n                 <i id="preview-spinner" class="fa fa-cog fa-spin fa-3x fa-fw"></i>\n              </div>\n            ';
 
             $("#preview-section").empty().html(video_template);
@@ -12152,7 +12152,6 @@ exports.default = {
             $("[href='#videosettings']").click(function () {
 
                 _this3.video.play();
-                $("#preview-player").find("div:first").remove();
             });
 
             this.vPlayer = document.getElementById("preview-player_html5_api");
@@ -12425,7 +12424,6 @@ exports.default = {
 
 			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
 			// this.video.height(this.project.height*2);
-
 			this.video.ready(function () {
 				_this2.video.on("loadedmetadata", function () {
 					// rigz script
