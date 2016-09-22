@@ -22,6 +22,8 @@ Route::group(['middleware' => 'web'], function(){
 	Route::get('/image/{filename}', 'ImagesController@show');
 	// Handles Showing Videos
 	Route::get('/video/{filename}', 'VideosController@show');
+
+	Route::get('/embed/caster.js', 'EmbedController@show');
 });
 
 Route::group(['middleware' => 'auth'], function(){
