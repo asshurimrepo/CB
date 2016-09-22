@@ -12487,7 +12487,7 @@ canvas#buffer {
   /* IE6-9 */
   transition: all .2s ease-in-out; }
 
-#project-player-container > div.loader-3 {
+div.loader-3 {
   /*    position: absolute;
     left: 0px;
     top: 0px;
@@ -12498,7 +12498,7 @@ canvas#buffer {
   overflow: hidden;
   /*display: none;*/ }
 
-#project-player-container > div.loader-3 > i {
+div.loader-3 > i {
   position: absolute;
   left: 45%;
   top: 35%;
