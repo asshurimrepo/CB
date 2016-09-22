@@ -191,7 +191,7 @@ export default {
 					// for testing
 
 					this.video.play();
-					$("div.loader-3>i.fa-cog").hide();
+					$("div.loader-3>i").hide();
 					this.addActionsToVideo();
 					// rigz script
 
@@ -303,7 +303,7 @@ export default {
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
 			let video_template = `
 			  <div class="loader-3">
-			      <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+			      <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 			      <span class="sr-only">Loading...</span>
 			  </div>
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
