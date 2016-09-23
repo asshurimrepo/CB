@@ -11,8 +11,8 @@
 <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 <script>
         var casterScript = document.createElement('script');
-        casterScript.setAttribute("src", "http://casterbuddy.com/embed/caster.js?ID=279");
+        casterScript.setAttribute("src", "http://casterbuddy.com/embed/caster.js?ID=269");
         document.querySelector('body').appendChild(casterScript);
 </script>
-<div id="caster-embed-279"><project-player :project="active_project"></project-player></div></body>
+<div id="caster-embed-269"><project-player :project="active_project"></project-player></div></body>
 </html>

@@ -21,7 +21,7 @@ Route::group(['middleware' => 'web'], function(){
 
 	header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization, X-Request-With');
+    header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization, X-Request-With, referer, range, accept-encoding');
 
 	// Handles Showing Image
 	Route::get('/image/{filename}', 'ImagesController@show');
