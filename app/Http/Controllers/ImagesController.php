@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use File;
 use Response;
+use App\User;
 
 class ImagesController extends Controller
 {
@@ -26,6 +27,11 @@ class ImagesController extends Controller
     public function defaultImage()
     {
     	return $this->renderImage('img/default.png');
+    }
+
+    public function embed(User $user, $filename)
+    {
+       return $this->renderImage("data/{$user->email}/done/{$filename}");
     }
 
     public function renderImage($path)

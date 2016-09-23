@@ -20,8 +20,10 @@ Route::auth();
 Route::group(['middleware' => 'web'], function(){
 	// Handles Showing Image
 	Route::get('/image/{filename}', 'ImagesController@show');
+	Route::get('/embed/image/{user}/{filename}', 'ImagesController@embed');
 	// Handles Showing Videos
 	Route::get('/video/{filename}', 'VideosController@show');
+	Route::get('/embed/video/{user}/{filename}', 'VideosController@embed');
 
 	Route::get('/embed/caster.js', 'EmbedController@show');
 });

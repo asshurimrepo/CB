@@ -1,0 +1,263 @@
+#project-player {
+  background: transparent !important;
+  height: auto !important; }
+  #project-player canvas#output {
+    margin-bottom: -2px; }
+  #project-player .vjs-fullscreen-control.vjs-control.vjs-button, #project-player .vjs-progress-control.vjs-control, #project-player video {
+    display: none !important; }
+  #project-player .vjs-big-play-button {
+    display: none !important; }
+
+canvas#buffer {
+  display: none; }
+
+#project-player-bg {
+  position: fixed;
+  z-index: 1048;
+  top: 0;
+  left: 0; }
+  #project-player-bg #project-player-container {
+    position: fixed; }
+
+#project-player-bg.Project--dimmedbg {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%; }
+
+#project-player-container.Project--glassbg {
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 10px 4px #c3c3c3; }
+
+#project-player-container.Project--centered {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+#project-player-container.Project--topleft {
+  top: 0;
+  left: 0; }
+
+#project-player-container.Project--topright {
+  top: 0;
+  right: 0; }
+
+#project-player-container.Project--bottomleft {
+  bottom: 0;
+  left: 0; }
+
+#project-player-container.Project--bottomright {
+  bottom: 0;
+  right: 0; }
+
+#project-player-container a.close-project {
+  position: absolute;
+  z-index: 1049;
+  right: 5px;
+  top: 0;
+  display: none; }
+
+#project-player-container:hover a.close-project {
+  display: block;
+  transition: all .2s ease-in-out; }
+
+#project-text-overlay {
+  position: absolute;
+  z-index: 1049;
+  width: 100%;
+  display: none; }
+
+#project-text-overlay > span {
+  padding: 2px 4px; }
+
+#project-text-overlay.Textoverlay--top {
+  top: 0; }
+
+#project-text-overlay.Textoverlay--middle {
+  top: 50%;
+  transform: translateY(-50%); }
+
+#project-text-overlay.Textoverlay--bottom {
+  bottom: 0; }
+
+#project-text-overlay.Textoverlay--left {
+  text-align: left; }
+
+#project-text-overlay.Textoverlay--center {
+  text-align: center; }
+
+#project-text-overlay.Textoverlay--right {
+  text-align: right; }
+
+#project-clicktocall {
+  position: absolute;
+  z-index: 1049;
+  width: 100%;
+  display: none; }
+
+#project-clicktocall > a {
+  padding: 2px 4px; }
+
+#project-clicktocall.Clicktocall--top {
+  top: 0; }
+
+#project-clicktocall.Clicktocall--middle {
+  top: 50%;
+  transform: translateY(-50%); }
+
+#project-clicktocall.Clicktocall--bottom {
+  bottom: 0; }
+
+#project-clicktocall.Clicktocall--left {
+  text-align: left; }
+
+#project-clicktocall.Clicktocall--center {
+  text-align: center; }
+
+#project-clicktocall.Clicktocall--right {
+  text-align: right; }
+
+#project-buttonoverlay {
+  position: absolute;
+  z-index: 1049;
+  width: 100%;
+  display: none; }
+
+#project-buttonoverlay > button {
+  border: 0 !important;
+  transition: all .2s ease-in-out; }
+
+#project-buttonoverlay > button:hover,
+#project-buttonoverlay > button:focus {
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33000000', endColorstr='#00000000',GradientType=0 );
+  /* IE6-9 */ }
+
+#project-buttonoverlay.Buttonoverlay--top {
+  top: 0; }
+
+#project-buttonoverlay.Buttonoverlay--middle {
+  top: 50%;
+  transform: translateY(-50%); }
+
+#project-buttonoverlay.Buttonoverlay--bottom {
+  bottom: 0; }
+
+#project-buttonoverlay.Buttonoverlay--left {
+  text-align: left; }
+
+#project-buttonoverlay.Buttonoverlay--center {
+  text-align: center; }
+
+#project-buttonoverlay.Buttonoverlay--right {
+  text-align: right; }
+
+#project-formoverlay {
+  position: absolute;
+  z-index: 1049;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 30px;
+  display: none; }
+
+#project-formoverlay > section.panel {
+  width: 65%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 0px 10px 1px #797979; }
+
+#project-formoverlay > section.panel > a.close-form {
+  position: relative;
+  z-index: 1049;
+  right: 5px;
+  float: right; }
+
+#project-formoverlay #formoverlay-btn:hover,
+#project-formoverlay #formoverlay-btn:focus {
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33000000', endColorstr='#00000000',GradientType=0 );
+  /* IE6-9 */
+  transition: all .2s ease-in-out; }
+
+div.loader-3 {
+  /*    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;*/
+  /*background: url('../img/vidload.gif') 50% 50% no-repeat transparent;*/
+  background: transparent;
+  overflow: hidden;
+  /*display: none;*/ }
+
+div.loader-3 > i {
+  position: absolute;
+  left: 45%;
+  top: 35%;
+  transform: translate(-50%, -50%); }
+
+div#project-embed-video.Embed--centered {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+div#project-embed-video.Embed--topleft {
+  top: 0;
+  left: 0; }
+
+div#project-embed-video.Embed--topright {
+  top: 0;
+  right: 0; }
+
+div#project-embed-video.Embed--bottomleft {
+  bottom: 0;
+  left: 0; }
+
+div#project-embed-video.Embed--bottomright {
+  bottom: 0;
+  right: 0; }
+
+#project-embed-video {
+  position: inherit;
+  display: none;
+  z-index: 1050;
+  margin-bottom: -4px; }
+
+div#project-embed-video > a.close-embed {
+  position: absolute;
+  z-index: 1049;
+  right: 4px;
+  top: 0;
+  float: right; }
+
+div#video-preview-container {
+  position: fixed;
+  bottom: 65px;
+  max-width: 45%; }
+
+.vjs-fullscreen-control.vjs-control.vjs-button, .vjs-progress-control.vjs-control {
+  display: none; }
+
+div#preview-player {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent !important; }
+
+video#preview-player_html5_api {
+  display: none; }
+
+canvas#output-preview {
+  width: 140%;
+  margin-top: 17px;
+  position: relative;
+  bottom: -2px;
+  left: -20%; }
+
+/*# sourceMappingURL=project-player.css.map */

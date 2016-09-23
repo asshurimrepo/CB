@@ -1,4 +1,7 @@
 // var seeThru = require('seethru');
+var  jQueryCaster = require('jquery');
+var  videoCasterJS = require('video.js');
+
 
 export default {
 	template: require('../templates/project-player.html'),

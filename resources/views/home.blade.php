@@ -2,10 +2,13 @@
 
 @section('scripts')
     {{-- Video Caster Core Scripts --}}
+    <link rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/github.min.css">
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <script src="{{ elixir('js/main.js') }}"></script>
 @endsection
 
 @section('content')
+
 
 <div class="loader-2"></div>
 
@@ -34,6 +37,6 @@
 
 <project-options :project="active_project"></project-options>
 <project-actions :project="active_project"></project-actions>
-<project-embed :project="active_project"></project-embed>
+<project-embed :project="active_project">{{ url('/') }}</project-embed>
 <project-player :project="active_project"></project-player>
 @endsection
