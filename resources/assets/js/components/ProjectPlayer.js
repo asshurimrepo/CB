@@ -321,7 +321,7 @@ export default {
 
 		   	</video>
 
-			<canvas id="output"></canvas>
+			<canvas id="output" crossorigin></canvas>
 		   	`;
 
 
