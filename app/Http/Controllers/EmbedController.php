@@ -12,7 +12,7 @@ class EmbedController extends Controller
 {
     public function show()
     {
-    	$path = "js/main.js";
+    	$path = "js/caster.js";
 
 	    if(!File::exists($path)) abort(404);
 

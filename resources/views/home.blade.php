@@ -2,8 +2,7 @@
 
 @section('scripts')
     {{-- Video Caster Core Scripts --}}
-    {{-- <script src="{{ elixir('js/main.js') }}"></script> --}}
-    <script src="http://caster-buddy.dev/embed/caster.js?ID=1"></script>
+    <script src="{{ elixir('js/main.js') }}"></script>
 @endsection
 
 @section('content')
