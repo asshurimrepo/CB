@@ -177,12 +177,13 @@ export default {
 		renderTransparentVideo() {
 			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
 			// this.video.height(this.project.height*2);
+			$("video#project-player_html5_api").attr("crossorigin", "anonymous");
+			$("video#project-player_html5_api>source").attr("crossorigin", "anonymous");
+			
 			this.video.ready(() => {
 				this.video.on("loadedmetadata",() => {
 					// rigz script
 					// this.video.height(this.vPlayer.videoHeight);
-					$("video#project-player_html5_api").attr("crossorigin", "");
-					$("video#project-player_html5_api>source").attr("crossorigin", "");
 					$("video#project-player_html5_api").attr("height", this.vPlayer.videoHeight);
 					$("video#project-player_html5_api").attr("width", this.vPlayer.videoWidth);
 
