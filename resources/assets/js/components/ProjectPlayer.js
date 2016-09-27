@@ -182,6 +182,7 @@ export default {
 					// rigz script
 					// this.video.height(this.vPlayer.videoHeight);
 					$("video#project-player_html5_api").attr("crossorigin", "");
+					$("video#project-player_html5_api>source").attr("crossorigin", "");
 					$("video#project-player_html5_api").attr("height", this.vPlayer.videoHeight);
 					$("video#project-player_html5_api").attr("width", this.vPlayer.videoWidth);
 

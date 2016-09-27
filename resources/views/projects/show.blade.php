@@ -15,7 +15,7 @@
         casterScript.setAttribute("src", "http://casterbuddy.com/embed/caster.js?ID=270");
         document.querySelector('body').appendChild(casterScript);
 </script>
-<div id="caster-embed-270"><project-player :project="active_project"></project-player></div>
+<div id="caster-embed-270"><project-player :project="active_project"></project-player></div></div>
 
 </body>
 </html>
