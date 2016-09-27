@@ -20,6 +20,7 @@
         var casterScript = document.createElement('script');
         casterScript.setAttribute("src", "http://casterbuddy.com/embed/caster.js?ID=270");
         document.querySelector('body').appendChild(casterScript);
+        console.log('pushed');
 </script>
 <div id="caster-embed-270"><project-player :project="active_project"></project-player></div>
 </body>
