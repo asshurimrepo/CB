@@ -8,29 +8,14 @@
           <div class="modal-body">
           	<div class="row">
           		<div class="col-md-12">
-                    
-<pre class="prettyprint">
-&lt;link rel="stylesheet" href="<slot></slot>/css/app.css" /&gt;
-&lt;link rel="stylesheet" href="<slot></slot>/css/project-player.css" /&gt;
-&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" /&gt;
-&lt;script src="<slot></slot>/js/seriously.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="<slot></slot>/js/seriously.chroma.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;link href="http://vjs.zencdn.net/5.10.8/video-js.css" rel="stylesheet"&gt;
-&lt;script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-        var casterScript = document.createElement('script');
-        casterScript.setAttribute("src", "<slot></slot>/embed/caster.js?ID={{project.id}}");
-        document.querySelector('body').appendChild(casterScript);
-&lt;/script&gt;
-&lt;div id="caster-embed-{{project.id}}"&gt;&lt;project-player :project="active_project"&gt;&lt;/project-player&gt;&lt;/div&gt;
-</pre>
-      
-							</div>
+                <pre class="prettyprint" id="code">&lt;link rel="stylesheet" href="<slot></slot>/css/app.css" /&gt; &lt;link rel="stylesheet" href="<slot></slot>/css/project-player.css" /&gt; &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" /&gt; &lt;script src="<slot></slot>/js/seriously.js" type="text/javascript"&gt;&lt;/script&gt; &lt;script src="<slot></slot>/js/seriously.chroma.js" type="text/javascript"&gt;&lt;/script&gt; &lt;link href="http://vjs.zencdn.net/5.10.8/video-js.css" rel="stylesheet"&gt; &lt;script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"&gt;&lt;/script&gt; &lt;script&gt; var casterScript = document.createElement('script'); casterScript.setAttribute("src", "<slot></slot>/embed/caster.js?ID={{project.id}}"); document.querySelector('body').appendChild(casterScript); &lt;/script&gt; &lt;div id="caster-embed-{{project.id}}"&gt;&lt;project-player :project="active_project"&gt;&lt;/project-player&gt;&lt;/div&gt; 
+                </pre>
+              </div>
 						</div>
           </div>
           <div class="modal-footer">
+              <button data-dismiss="copy" data-clipboard-target="#code" class="btn btn-success copy-btn" type="button"><i class="fa fa-clipboard"></i> Copy</button>
               <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>
-
           </div>
       </div>
   </div>

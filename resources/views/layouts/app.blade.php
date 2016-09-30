@@ -180,6 +180,16 @@
     <script src="/js/seriously.js" type="text/javascript"></script>
     <script src="/js/seriously.chroma.js" type="text/javascript"></script>
 
+    <!-- clipboard -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var clipboard = new Clipboard('.copy-btn');
+            clipboard.on('success', function(e) {
+                console.log(e);
+            });
+        });
+    </script>
     @yield('scripts')
 
     </body>
