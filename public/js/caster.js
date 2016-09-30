@@ -46628,6 +46628,8 @@ exports.default = {
 			$("body").on("click", "a.close-form", function (e) {
 				e.preventDefault();
 				$('#project-formoverlay').fadeOut("fast");
+				$('#usernameField').val('');
+				$('#emailField').val('');
 				return false;
 			});
 
@@ -46932,6 +46934,8 @@ exports.default = {
 						if (_this6.formoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-formoverlay").fadeOut("fast");
+								$('#usernameField').val('');
+								$('#emailField').val('');
 							}, _this6.formoverlayduration);
 							return false;
 						}
@@ -46942,6 +46946,8 @@ exports.default = {
 				if (this.formoverlayduration === 0) {
 					this.video.on("ended", function () {
 						$("#project-formoverlay").fadeOut("fast");
+						$('#usernameField').val('');
+						$('#emailField').val('');
 						return false;
 					});
 				}
@@ -46953,6 +46959,8 @@ exports.default = {
 						if (_this6.formoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-formoverlay").fadeOut("fast");
+								$('#usernameField').val('');
+								$('#emailField').val('');
 							}, _this6.formoverlayduration);
 							return false;
 						}
@@ -47018,9 +47026,13 @@ exports.default = {
 			this.$http.post('/autoresponder/' + this.project.actions.autoresponder + '/subscribe', data).then(function (response) {
 				if (response.data == 1) {
 					$('#project-formoverlay').fadeOut("fast");
+					$('#usernameField').val('');
+					$('#emailField').val('');
 				}
 			}).catch(function () {
-				return $('#project-formoverlay').fadeOut("fast");
+				$('#project-formoverlay').fadeOut("fast");
+				$('#usernameField').val('');
+				$('#emailField').val('');
 			});
 		}
 	}
