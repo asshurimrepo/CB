@@ -57,7 +57,9 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/autoresponder/aweber/authorize', 'AutoResponderController@aweberAuthorize');
 	Route::post('/autoresponder/aweber/access_token', 'AutoResponderController@aweberAccessToken');
 	Route::post('/autoresponder/aweber', 'AutoResponderController@aweber');
-
+	Route::post('/autoresponder/mailchimp/subscribe', 'AutoResponderController@mailchimpSubscribe');
+	Route::post('/autoresponder/getresponse/subscribe', 'AutoResponderController@getresponseSubscribe');
+	Route::post('/autoresponder/aweber/subscribe', 'AutoResponderController@aweberSubscribe');
 	// Handles Video Processer
 	Route::post('/video-processer/{project}', 'VideoProcesserController@distillVideo');
 	Route::post('/video-processer/{project}/process-frames', 'VideoProcesserController@processFrames');

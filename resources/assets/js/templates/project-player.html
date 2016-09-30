@@ -114,15 +114,18 @@
                                 borderWidth: project.actions.formoverlay_fieldbordersize + 'px',
                                 borderColor: project.actions.formoverlay_fieldbordercolor
                                }"
+                               v-model="project.actions.autoresponder_username"
                         >
                         <input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}"
-                               id="usernameField" placeholder="Enter your email.."
+                               id="emailField" placeholder="Enter your email.."
                                :style="{
                                 borderWidth: project.actions.formoverlay_fieldbordersize + 'px',
                                 borderColor: project.actions.formoverlay_fieldbordercolor
                                }"
+                               v-model="project.actions.autoresponder_email"
                         >
                         <button id="formoverlay-btn" type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"
+                              @click="subscribe"
                               :style="{
                                 borderWidth: project.actions.formoverlay_buttonbordersize + 'px',
                                 color: project.actions.formoverlay_buttoncolor,

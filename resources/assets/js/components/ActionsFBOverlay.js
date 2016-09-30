@@ -152,7 +152,8 @@ export default {
                     this.isLoading = false;
                 }
             ).catch(() => this.isLoading = false);
-        }
+        },
+
     }
 
 }

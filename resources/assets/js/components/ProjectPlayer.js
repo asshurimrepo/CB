@@ -178,7 +178,6 @@ export default {
 			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
 			// this.video.height(this.project.height*2);
 			$("video#project-player_html5_api").attr("crossorigin", "anonymous");
-			$("video#project-player_html5_api>source").attr("crossorigin", "anonymous");
 			
 			this.video.ready(() => {
 				this.video.on("loadedmetadata",() => {
@@ -313,10 +312,10 @@ export default {
 			      <span class="sr-only">Loading...</span>
 			  </div>
 			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
-			<video id="project-player" class="video-js" preload="auto" data-setup='{"poster":"/image/${this.project.filename}.png"}'>
-
-		          <source src="/video/${this.project.filename}" type="video/mp4">
-
+			<video id="project-player" class="video-js" preload="auto" 
+				   data-setup='{"poster":"/image/${this.project.filename}.png"}'
+				   src="/video/${this.project.filename}" type="video/mp4"
+			>
 		          <p class="vjs-no-js">
 		            To view this video please enable JavaScript, and consider upgrading to a web browser that
 		            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -736,8 +735,41 @@ export default {
 					}
 				}
 			});
+		},
+
+		subscribe(){
+			let autoresponder_type = (this.project.actions.autoresponder).toLowerCase();
+
+			let key = this.$get('project.actions.autoresponder_data.'+autoresponder_type+'.key');			
+			let list_name = this.$get('project.actions.autoresponder_data.'+autoresponder_type+'.list');
+			let email = this.$get('project.actions.autoresponder_email');
+			let user_name = this.$get('project.actions.autoresponder_username');
+
+			if(email == ""){
+				return;
+			}
+
+			var data = {
+					email: email,
+					username: user_name,
+					list: list_name,
+					key: key
+				};
+
+			if(autoresponder_type == 'aweber'){
+
+				let aweber_data = this.$get('project.actions.autoresponder_data.'+autoresponder_type);
+
+				$.extend(data,aweber_data);
+			}	
+
+			this.$http.post('/autoresponder/' + this.project.actions.autoresponder + '/subscribe', data).then(
+                response => {
+                	if(response.data == 1){
+                		$('#project-formoverlay').fadeOut("fast");
+                	}
+                }
+            ).catch(() => $('#project-formoverlay').fadeOut("fast"));
 		}
-
-
 	}
 }

@@ -42,15 +42,15 @@ class AutoResponderController extends Controller
 
     public function aweberAccessToken(Request $request)
     {
-    	$application = new \AWeberAPI($this->consumerKey, $this->consumerSecret);
+        	$application = new \AWeberAPI($this->consumerKey, $this->consumerSecret);
 
-    	$application->user->requestToken = session()->get('request_token');
-		$application->user->tokenSecret = session()->get('token_secret');
-		$application->user->verifier = $request->get('key');
+        	$application->user->requestToken = session()->get('request_token');
+    		$application->user->tokenSecret = session()->get('token_secret');
+    		$application->user->verifier = $request->get('key');
 
-		list($access_token, $access_secret) = $application->getAccessToken();
+    		list($access_token, $access_secret) = $application->getAccessToken();
 
-		return compact('access_token', 'access_secret');
+    		return compact('access_token', 'access_secret');
     }
 
     public function aweber(Request $request)
@@ -65,5 +65,18 @@ class AutoResponderController extends Controller
 
     }
 
+    public function mailchimpSubscribe(Request $request){
+        MailChimp::subscribe($request->get('email'),$request->get('username'),$request->get('list'),$request->get('key'));
+        return 1;
+    }
+    public function getresponseSubscribe(Request $request){
+        GetResponse::subscribe($request->get('email'),$request->get('username'),$request->get('list'),$request->get('key'));
+        return 1;
+    }
+    public function aweberSubscribe(Request $request){
+        $application = new \AWeberAPI($this->consumerKey, $this->consumerSecret);
+        Aweber::subscribe($application,$request->get('email'),$request->get('username'),$request->get('list'),$request->get('access_token'),$request->get('access_secret'));
+        return 1;
+    }
 }
 

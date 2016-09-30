@@ -54,5 +54,7 @@
 	"formoverlay_buttonbackgroundcolor": "rgba(120,205,81,1)",
 	"autoresponder_name": "",
 	"autoresponder": "aweber",
-	"autoresponder_data": {"mailchimp": {"lists": []},"getresponse": {"lists": []},"aweber": {"lists": [],"authorization_url": null,"access_secret": "", "access_token": ""}}
+	"autoresponder_data": {"mailchimp": {"lists": []},"getresponse": {"lists": []},"aweber": {"lists": [],"authorization_url": null,"access_secret": "", "access_token": ""}},
+	"autoresponder_username": "",
+	"autoresponder_email": ""
 }
