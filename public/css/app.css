@@ -12487,6 +12487,9 @@ canvas#buffer {
   /* IE6-9 */
   transition: all .2s ease-in-out; }
 
+div#video-section {
+  max-width: 400px; }
+
 div.loader-3 {
   /*    position: absolute;
     left: 0px;
