@@ -361,8 +361,8 @@ export default {
 			$("body").on("click","a.close-form", (e) => {
 				e.preventDefault();
 				$('#project-formoverlay').fadeOut("fast");
-				$('#usernameField').val('');
-				$('#emailField').val('');
+				$('#subscriber-username').val('');
+				$('#subscriber-email').val('');
 				return false;
 			});
 
@@ -676,8 +676,8 @@ export default {
 						if(this.formoverlayduration > 0){
 							setTimeout(() => {
 								$("#project-formoverlay").fadeOut("fast");
-								$('#usernameField').val('');
-								$('#emailField').val('');
+								$('#subscriber-username').val('');
+								$('#subscriber-email').val('');
 							},this.formoverlayduration);
 							return false;
 						}
@@ -689,8 +689,8 @@ export default {
 				if(this.formoverlayduration === 0){
 					this.video.on("ended",() => {
 						$("#project-formoverlay").fadeOut("fast");
-						$('#usernameField').val('');
-						$('#emailField').val('');								
+						$('#subscriber-username').val('');
+						$('#subscriber-email').val('');								
 						return false;
 					});
 				}
@@ -703,8 +703,8 @@ export default {
 						if(this.formoverlayduration > 0){
 							setTimeout(() => {
 								$("#project-formoverlay").fadeOut("fast");
-								$('#usernameField').val('');
-								$('#emailField').val('');
+								$('#subscriber-username').val('');
+								$('#subscriber-email').val('');
 							},this.formoverlayduration);
 							return false;
 						}
@@ -775,14 +775,14 @@ export default {
                 response => {
                 	if(response.data == 1){
                 		$('#project-formoverlay').fadeOut("fast");
-						$('#usernameField').val('');
-						$('#emailField').val('');
+						$('#subscriber-username').val('');
+						$('#subscriber-email').val('');
                 	}
                 }
             ).catch(() => {
             	$('#project-formoverlay').fadeOut("fast");
-				$('#usernameField').val('');
-				$('#emailField').val('');            	
+				$('#subscriber-username').val('');
+				$('#subscriber-email').val('');            	
             });
 		}
 	}
