@@ -676,8 +676,6 @@ export default {
 						if(this.formoverlayduration > 0){
 							setTimeout(() => {
 								$("#project-formoverlay").fadeOut("fast");
-								$('#subscriber-username').val('');
-								$('#subscriber-email').val('');
 							},this.formoverlayduration);
 							return false;
 						}
@@ -688,9 +686,7 @@ export default {
 				// if duration is set to 0
 				if(this.formoverlayduration === 0){
 					this.video.on("ended",() => {
-						$("#project-formoverlay").fadeOut("fast");
-						$('#subscriber-username').val('');
-						$('#subscriber-email').val('');								
+						$("#project-formoverlay").fadeOut("fast");						
 						return false;
 					});
 				}
@@ -703,8 +699,6 @@ export default {
 						if(this.formoverlayduration > 0){
 							setTimeout(() => {
 								$("#project-formoverlay").fadeOut("fast");
-								$('#subscriber-username').val('');
-								$('#subscriber-email').val('');
 							},this.formoverlayduration);
 							return false;
 						}
@@ -775,14 +769,14 @@ export default {
                 response => {
                 	if(response.data == 1){
                 		$('#project-formoverlay').fadeOut("fast");
-						$('#subscriber-username').val('');
-						$('#subscriber-email').val('');
+						this.project.actions.autoresponder_username = '';
+						this.project.actions.autoresponder_email = '';
                 	}
                 }
             ).catch(() => {
             	$('#project-formoverlay').fadeOut("fast");
-				$('#subscriber-username').val('');
-				$('#subscriber-email').val('');            	
+				this.project.actions.autoresponder_username = '';
+				this.project.actions.autoresponder_email = '';          	
             });
 		}
 	}

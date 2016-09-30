@@ -46934,8 +46934,6 @@ exports.default = {
 						if (_this6.formoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-formoverlay").fadeOut("fast");
-								$('#subscriber-username').val('');
-								$('#subscriber-email').val('');
 							}, _this6.formoverlayduration);
 							return false;
 						}
@@ -46946,8 +46944,6 @@ exports.default = {
 				if (this.formoverlayduration === 0) {
 					this.video.on("ended", function () {
 						$("#project-formoverlay").fadeOut("fast");
-						$('#subscriber-username').val('');
-						$('#subscriber-email').val('');
 						return false;
 					});
 				}
@@ -46959,8 +46955,6 @@ exports.default = {
 						if (_this6.formoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-formoverlay").fadeOut("fast");
-								$('#subscriber-username').val('');
-								$('#subscriber-email').val('');
 							}, _this6.formoverlayduration);
 							return false;
 						}
@@ -46998,6 +46992,8 @@ exports.default = {
 			});
 		},
 		subscribe: function subscribe() {
+			var _this8 = this;
+
 			var autoresponder_type = this.project.actions.autoresponder.toLowerCase();
 
 			var key = this.$get('project.actions.autoresponder_data.' + autoresponder_type + '.key');
@@ -47026,13 +47022,13 @@ exports.default = {
 			this.$http.post('/autoresponder/' + this.project.actions.autoresponder + '/subscribe', data).then(function (response) {
 				if (response.data == 1) {
 					$('#project-formoverlay').fadeOut("fast");
-					$('#subscriber-username').val('');
-					$('#subscriber-email').val('');
+					_this8.project.actions.autoresponder_username = '';
+					_this8.project.actions.autoresponder_email = '';
 				}
 			}).catch(function () {
 				$('#project-formoverlay').fadeOut("fast");
-				$('#subscriber-username').val('');
-				$('#subscriber-email').val('');
+				_this8.project.actions.autoresponder_username = '';
+				_this8.project.actions.autoresponder_email = '';
 			});
 		}
 	}
