@@ -1,3 +1,4 @@
+@import url(player-base/css/bootstrap.css);
 #project-player {
   background: transparent !important;
   height: auto !important; }

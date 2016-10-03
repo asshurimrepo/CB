@@ -311,11 +311,11 @@ export default {
 			      <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 			      <span class="sr-only">Loading...</span>
 			  </div>
-			<a href="#" class="close-project text-default"><i class="fa fa-times"></i></a>
+			<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>
 			<video id="project-player" class="video-js" preload="auto" 
 				   data-setup='{"poster":"/image/${this.project.filename}.png"}'
-				   src="/video/${this.project.filename}" type="video/mp4"
 			>
+				  <source src="/video/${this.project.filename}" type="video/mp4">
 		          <p class="vjs-no-js">
 		            To view this video please enable JavaScript, and consider upgrading to a web browser that
 		            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
