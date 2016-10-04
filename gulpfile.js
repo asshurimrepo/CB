@@ -14,7 +14,8 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix.sass('app.scss')
        .sass('auth.scss')
-       .sass('project-player.scss');
+       .sass('project-player.scss')
+       .sass('premade-player.scss');
 
     mix.browserify('main.js').version('js/main.js');
 
