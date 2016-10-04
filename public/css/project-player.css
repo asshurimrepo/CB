@@ -151,6 +151,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   text-align: center; }
 
 .panel-heading {
+  position: relative;
+  top: 0;
+  left: 0;
   padding-top: 10px;
   padding-right: 15px;
   padding-bottom: 10px;
@@ -164,7 +167,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   border-right-color: #eff2f7;
   border-left-color: #eff2f7;
   font-size: 16px;
-  font-weight: 300; }
+  font-weight: 300;
+  background: transparent;
+  text-transform: none;
+  margin-left: 0;
+  margin-right: 0; }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: inherit;
