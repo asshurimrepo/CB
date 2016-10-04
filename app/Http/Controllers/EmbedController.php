@@ -40,6 +40,7 @@ class EmbedController extends Controller
 	    $type = File::mimeType($path);
 
 	    $file = str_replace('@id', $id, $file);
+	    $file = str_replace('@url', url('/'), $file);
 	    $file = str_replace("\n", "", $file);
 
    		$response = Response::make($file, 200);
