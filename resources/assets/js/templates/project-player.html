@@ -112,7 +112,8 @@
                                id="subscriber-username" placeholder="Enter your name.."
                                :style="{
                                 borderWidth: project.actions.formoverlay_fieldbordersize + 'px',
-                                borderColor: project.actions.formoverlay_fieldbordercolor
+                                borderColor: project.actions.formoverlay_fieldbordercolor,
+                                fontFamily: project.actions.formoverlay_titlefontfamily
                                }"
                                v-model="project.actions.autoresponder_username"
                         >
@@ -120,7 +121,8 @@
                                id="subscriber-email" placeholder="Enter your email.."
                                :style="{
                                 borderWidth: project.actions.formoverlay_fieldbordersize + 'px',
-                                borderColor: project.actions.formoverlay_fieldbordercolor
+                                borderColor: project.actions.formoverlay_fieldbordercolor,
+                                fontFamily: project.actions.formoverlay_titlefontfamily
                                }"
                                v-model="project.actions.autoresponder_email"
                         >
@@ -130,7 +132,8 @@
                                 borderWidth: project.actions.formoverlay_buttonbordersize + 'px',
                                 color: project.actions.formoverlay_buttoncolor,
                                 borderColor: project.actions.formoverlay_buttoncolor,
-                                backgroundColor: project.actions.formoverlay_buttonbackgroundcolor
+                                backgroundColor: project.actions.formoverlay_buttonbackgroundcolor,
+                                fontFamily: project.actions.formoverlay_titlefontfamily
                               }"
                         >
                               {{ project.actions.formoverlay_buttontext }}

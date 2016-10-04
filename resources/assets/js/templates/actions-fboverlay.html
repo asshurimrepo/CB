@@ -316,12 +316,14 @@
 		                         						<div class="col-lg-12 col-md-12">
 		                          							<input type="text" class="form-control m-bot15 {{formoverlay_fieldsize}}" id="subscriber-username" placeholder="Enter your name.." v-model="project.actions.formoverlay_name" :style="{
 		              					 							borderWidth: project.actions.formoverlay_fieldbordersize + 'px',
-		              					 							borderColor: project.actions.formoverlay_fieldbordercolor
+		              					 							borderColor: project.actions.formoverlay_fieldbordercolor,
+		              					 							fontFamily: project.actions.formoverlay_titlefontfamily
 		              					 						}"
 		                          							>
 		                          							<input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}" id="subscriber-email" placeholder="Enter your email.." v-model="project.actions.formoverlay_email" :style="{
 		              					 							borderWidth: project.actions.formoverlay_fieldbordersize + 'px',
-		              					 							borderColor: project.actions.formoverlay_fieldbordercolor
+		              					 							borderColor: project.actions.formoverlay_fieldbordercolor,
+		              					 							fontFamily: project.actions.formoverlay_titlefontfamily
 		              					 						}"
 		              					 					>
 		                          							<button type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"
@@ -329,7 +331,8 @@
 		              					 							borderWidth: project.actions.formoverlay_buttonbordersize + 'px',
 		              					 							color: project.actions.formoverlay_buttoncolor,
 		              					 							borderColor: project.actions.formoverlay_buttoncolor,
-		              					 							backgroundColor: project.actions.formoverlay_buttonbackgroundcolor
+		              					 							backgroundColor: project.actions.formoverlay_buttonbackgroundcolor,
+		              					 							fontFamily: project.actions.formoverlay_titlefontfamily
 		              					 						}"
 		              					 					>
 		                          								{{ project.actions.formoverlay_buttontext }}
