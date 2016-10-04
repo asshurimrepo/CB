@@ -1,12 +1,12 @@
 /*Scripts*/
 var casterJS = document.createElement('script');
-casterJS.setAttribute("src", "//caster-buddy.dev/embed/caster.js?ID=@id"); 
+casterJS.setAttribute("src", "@url/embed/caster.js?ID=@id"); 
 
 var seriouslyJs = document.createElement('script');
-seriouslyJs.setAttribute("src", "//caster-buddy.dev/js/seriously.js"); 
+seriouslyJs.setAttribute("src", "@url/js/seriously.js"); 
 
 var seriouslyChromaJs = document.createElement('script');
-seriouslyChromaJs.setAttribute("src", "//caster-buddy.dev/js/seriously.chroma.js"); 
+seriouslyChromaJs.setAttribute("src", "@url/js/seriously.chroma.js"); 
 
 var videoJS = document.createElement('script');
 videoJS.setAttribute("src", "//vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"); 
@@ -14,7 +14,7 @@ videoJS.setAttribute("src", "//vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js");
 /*Styles*/
 var playerStyle = document.createElement('link'); 
 playerStyle.setAttribute('rel', 'stylesheet');
-playerStyle.setAttribute("href", "//caster-buddy.dev/css/project-player.css");
+playerStyle.setAttribute("href", "@url/css/project-player.css");
 
 var fontAwesomeStyle = document.createElement('link');
 fontAwesomeStyle.setAttribute('rel', 'stylesheet');
