@@ -32,6 +32,7 @@ Route::group(['middleware' => 'web'], function(){
 	Route::get('/embed/video/{user}/{filename}', 'VideosController@embed');
 
 	Route::get('/embed/caster.js', 'EmbedController@show');
+	Route::get('/embed.js/{id}', 'EmbedController@create');
 });
 
 Route::group(['middleware' => 'auth'], function(){

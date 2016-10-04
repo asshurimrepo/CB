@@ -32,6 +32,22 @@ class EmbedController extends Controller
 	    return $response;
     }
 
+    public function create($id)
+    {
+    	$path = "js/embed.js";
+
+	    $file = File::get($path);
+	    $type = File::mimeType($path);
+
+	    $file = str_replace('@id', $id, $file);
+	    $file = str_replace("\n", "", $file);
+
+   		$response = Response::make($file, 200);
+	    $response->header("Content-Type", $type);
+
+	    return $response;
+    }
+
     public function updateCode($file, $project)
     {
     	$file = str_replace('active_project: {}', "active_project:" . $project->toJson(), $file);
