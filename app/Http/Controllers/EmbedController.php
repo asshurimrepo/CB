@@ -53,6 +53,7 @@ class EmbedController extends Controller
     {
     	$file = str_replace('active_project: {}', "active_project:" . $project->toJson(), $file);
 	    $file = str_replace('@id', $project->id, $file);
+	    $file = str_replace('//@embed', "", $file);
 	    $file = str_replace('$(', 'jQueryCaster(', $file);
 	    $file = str_replace('videojs', 'videoCasterJS', $file);
 	    $file = str_replace('Dom.jQueryCaster(', 'Dom.$(', $file);
