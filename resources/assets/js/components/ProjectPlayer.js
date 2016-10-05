@@ -194,8 +194,6 @@ export default {
 					$("canvas#output").css('width', '400px');
 					$("#project-player").css('width', '400px');
 					// for testing
-
-					this.video.play();
 					$("div.loader-3>i").hide();
 					this.addActionsToVideo();
 					// rigz script
@@ -219,7 +217,8 @@ export default {
 			          chroma['weight'] = this.project.options.video_settings.weight;
 			          seriously.go();
 
-
+						this.video.show();
+						this.video.play();
 				});
 				this.videoEnded();
 			});
@@ -335,8 +334,7 @@ export default {
 				this.is_visible = true;
 				setTimeout(() => this.renderTransparentVideo(), 300);
 				$('#project-player-bg').fadeIn("fast");
-
-
+				this.video.hide();
 			}, delay);
 
 			// close on click background

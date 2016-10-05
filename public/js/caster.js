@@ -46496,8 +46496,6 @@ exports.default = {
 					$("canvas#output").css('width', '400px');
 					$("#project-player").css('width', '400px');
 					// for testing
-
-					_this2.video.play();
 					$("div.loader-3>i").hide();
 					_this2.addActionsToVideo();
 					// rigz script
@@ -46518,6 +46516,9 @@ exports.default = {
 					chroma['clipBlack'] = _this2.project.options.video_settings.clip_black;
 					chroma['weight'] = _this2.project.options.video_settings.weight;
 					seriously.go();
+
+					_this2.video.show();
+					_this2.video.play();
 				});
 				_this2.videoEnded();
 			});
@@ -46604,6 +46605,7 @@ exports.default = {
 					return _this3.renderTransparentVideo();
 				}, 300);
 				$('#project-player-bg').fadeIn("fast");
+				_this3.video.hide();
 			}, delay);
 
 			// close on click background

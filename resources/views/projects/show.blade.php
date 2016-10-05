@@ -3,5 +3,7 @@
   <meta charset="UTF-8">
   <title>Embed Tests</title>
 </head>
-<body><script src="http://casterbuddy.com/embed.js/281"></script></body>
+<body>
+<!-- <script src="http://casterbuddy.com/embed.js/281"></script> -->
+<script src="http://casterbuddy.dev/embed.js/13"></script></body>
 </html>
