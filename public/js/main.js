@@ -47569,10 +47569,10 @@ exports.default = {
 			// if the start time is greater than the total duration the formoverlay will display at the end
 
 			if (this.formoverlaystart > this.vidduration && this.vidduration != 0) {
-				this.project.actions.autoresponder_username = '';
-				this.project.actions.autoresponder_email = '';
 
 				if (this.vidtime === this.vidduration) {
+					this.project.actions.autoresponder_username = '';
+					this.project.actions.autoresponder_email = '';
 					$("#project-formoverlay").fadeIn("fast", function () {
 						if (_this6.formoverlayduration > 0) {
 							setTimeout(function () {
@@ -47591,11 +47591,10 @@ exports.default = {
 					});
 				}
 			} else {
-				this.project.actions.autoresponder_username = '';
-				this.project.actions.autoresponder_email = '';
 
 				if (this.vidtime === this.formoverlaystart) {
-
+					this.project.actions.autoresponder_username = '';
+					this.project.actions.autoresponder_email = '';
 					$("#project-formoverlay").fadeIn("fast", function () {
 						if (_this6.formoverlayduration > 0) {
 							setTimeout(function () {
