@@ -6,7 +6,6 @@
 <body>
 <!-- <script src="http://casterbuddy.com/embed.js/281"></script> -->
 <!-- <script src="http://casterbuddy.dev/embed.js/13"></script> -->
-<!-- <script src="http://casterbuddy.dev/embed.js/11"></script> -->
-<script src="http://casterbuddy.com/embed.js/270"></script>
+<script src="http://casterbuddy.dev/embed.js/11"></script>
 </body>
 </html>

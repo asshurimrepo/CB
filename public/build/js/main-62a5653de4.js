@@ -47156,7 +47156,7 @@ exports.default = {
 					chroma['weight'] = _this2.project.options.video_settings.weight;
 					seriously.go();
 
-					_this2.video.show();
+					$("div#project-player").css('height', 'auto');
 					_this2.video.play();
 				});
 				_this2.videoEnded();
@@ -47244,7 +47244,6 @@ exports.default = {
 					return _this3.renderTransparentVideo();
 				}, 300);
 				$('#project-player-bg').fadeIn("fast");
-				_this3.video.hide();
 			}, delay);
 
 			// close on click background

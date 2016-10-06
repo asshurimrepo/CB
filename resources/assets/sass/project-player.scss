@@ -490,7 +490,9 @@ canvas#buffer {
 	left: 0;
 	#project-player-container {
 		position: fixed;
-		#project-player{}
+		#project-player{
+      height: 0;
+    }
 	}
 }
 

@@ -12783,6 +12783,8 @@ canvas#buffer {
   left: 0; }
   #project-player-bg #project-player-container {
     position: fixed; }
+    #project-player-bg #project-player-container #project-player {
+      height: 0; }
 
 #project-player-bg.Project--dimmedbg {
   background: rgba(0, 0, 0, 0.6);
