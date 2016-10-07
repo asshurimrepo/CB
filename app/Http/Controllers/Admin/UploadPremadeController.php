@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
@@ -10,7 +10,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use File;
 
-class UploadProjectsController extends Controller
+class UploadPremadeController extends \App\Http\Controllers\Controller
 {
-    use \App\Http\Controllers\Projects\UploadTrait;
+   use \App\Http\Controllers\Projects\UploadTrait;
 }

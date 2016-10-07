@@ -54,7 +54,7 @@
 	            <div class="horizontal-menu navbar-collapse collapse ">
 	                <ul class="nav nav-caster navbar-nav">
 	                    <li class="visible-xs">
-	                        <a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Add New Premade</a>
+	                        <a href="/admin/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload New Premade Casters</a>
 	                    </li>
 	                </ul>
 	            </div>
@@ -62,7 +62,7 @@
 	            <div class="top-nav hidden-xs">
 	                <ul class="nav pull-left top-menu">
 	                    <li class="popovers" data-content="Upload your green screen video here!" data-placement="bottom" data-trigger="hover" data-delay="500">
-	                        <span><a href="/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload New Premade Casters</a></span>
+	                        <span><a href="/admin/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload New Premade Casters</a></span>
 	                    </li>
 	                </ul>
 	            </div>

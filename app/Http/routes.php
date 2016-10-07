@@ -81,4 +81,7 @@ Route::group(['middleware' => ['superuser', 'web'], 'prefix' => 'admin', 'namesp
 
 	Route::resource('/', 'PremadeController');
 
+	// Handles Uploads
+	Route::get('/upload', 'UploadPremadeController@create');
+	Route::post('/upload', 'UploadPremadeController@store');
 });
