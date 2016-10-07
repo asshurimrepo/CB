@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('scripts')
     {{-- Video Caster Core Scripts --}}
@@ -12,7 +12,7 @@
 
 
 
-
+	
 
 
 @endsection

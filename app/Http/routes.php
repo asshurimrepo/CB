@@ -77,8 +77,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Admin'
 	Route::post('verify', 'AuthController@verify');
 });
 
-Route::group(['middleware' => ['auth', 'web'], 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
+Route::group(['middleware' => ['superuser', 'web'], 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
 
-	Route::resource('/', 'AuthController');
+	Route::resource('/', 'PremadeController');
 
 });

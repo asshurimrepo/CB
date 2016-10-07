@@ -27,8 +27,4 @@ class AuthController extends Controller
         return redirect()->back()->withInput($request->all());
 
     }
-
-    public function index(){
-    	return view('premade');
-    }
 }
