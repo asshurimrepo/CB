@@ -314,7 +314,7 @@ export default {
 			  </div>
 			<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>
 			<video id="project-player" class="video-js" preload="auto" 
-				   data-setup='{"poster":"/image/${this.project.filename}.png"}'
+				   data-setup='{"poster":"/image/${this.project.filename}"}'
 			>
 				  <source src="/video/${this.project.filename}" type="video/mp4">
 		          <p class="vjs-no-js">
