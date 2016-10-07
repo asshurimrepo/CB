@@ -72,8 +72,13 @@ Route::group(['middleware' => ['auth', 'web']], function(){
 });
 
 /*Routes on Super User*/
+Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
+	Route::get('login', 'AuthController@page');
+	Route::post('verify', 'AuthController@verify');
+});
+
 Route::group(['middleware' => ['auth', 'web'], 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
 
-	Route::get('auth', 'AuthController@login');
+	Route::resource('/', 'AuthController');
 
 });
