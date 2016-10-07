@@ -16,6 +16,7 @@ export default {
 		return {
 			/*Player*/
 			animation_request: null,
+			is_embed: false,
 			vPlayer: null,
 			buffer: null,
 			output: null,

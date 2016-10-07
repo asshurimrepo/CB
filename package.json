@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "cookies-js": "^1.2.2",
+    "js-cookie": "^2.1.3",
     "seethru": "^3.0.0",
     "vue": "^1.0.26",
     "vue-resource": "^0.9.3"

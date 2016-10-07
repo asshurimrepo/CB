@@ -5,6 +5,7 @@ import ProjectOptions from './components/Options.js';
 import ProjectActions from './components/Actions.js';
 import ProjectEmbed from './components/Embed.js';
 import ProjectPlayer from './components/ProjectPlayer.js';
+import * as CasterCookies from "js-cookie";
 
 Vue.use(require('vue-resource'));
 
