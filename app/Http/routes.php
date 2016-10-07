@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::auth();
 
+/*Routes for Resource on Casters*/
 Route::group(['middleware' => 'web'], function(){
 
 	header('Access-Control-Allow-Origin: *');
@@ -35,7 +36,8 @@ Route::group(['middleware' => 'web'], function(){
 	Route::get('/embed.js/{id}', 'EmbedController@create');
 });
 
-Route::group(['middleware' => 'auth'], function(){
+/*Routes for Member User*/
+Route::group(['middleware' => ['auth', 'web']], function(){
 	Route::get('/home', 'HomeController@index');
 	Route::get('/help', 'PagesController@help');
 
@@ -67,4 +69,11 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::post('/video-processer/{project}/process-single-frame/{img}', 'VideoProcesserController@processSingleFrame');
 	Route::post('/video-processer/{project}/recompose-video', 'VideoProcesserController@recomposeVideo');
 	Route::post('/video-processer/{project}/finishing', 'VideoProcesserController@cleanUpVideo');
+});
+
+/*Routes on Super User*/
+Route::group(['middleware' => ['auth', 'web'], 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
+
+	Route::get('auth', 'AuthController@login');
+
 });
