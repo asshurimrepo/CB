@@ -11,8 +11,10 @@ new Vue({
 	ready(){
 		console.log('Ready Caster Embed!');
 
+		/*Get Caster ID Cookie if not exists Show Player and set the cookie to its specified time else do nothing*/
 		if(CasterCookies.get('caster@id') === undefined){
-			CasterCookies.set('caster@id', true, { expires: this.active_project.options.cookie_life, path: '' });
+			CasterCookies.set('caster@id', true, { expires: 1, path: '' });
+
 			this.$broadcast('show_preview');
 		}
 	},
