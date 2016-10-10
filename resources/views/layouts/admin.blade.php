@@ -53,6 +53,7 @@
 	            <!--logo end-->
 	            <div class="horizontal-menu navbar-collapse collapse ">
 	                <ul class="nav nav-caster navbar-nav">
+                        <li class="{{ Request::is('admin') ? 'active' : '' }}"><a href="/">Home</a></li>
 	                    <li class="visible-xs">
 	                        <a href="/admin/upload" class="btn btn-danger navbar-btn btn-sm upload-hover"><i class="fa fa-upload"></i> Upload New Premade Casters</a>
 	                    </li>

@@ -13,7 +13,63 @@
                 <header class="panel-heading">
                     Premade Videos
                 </header>
-                <table class="table table-striped table-advance table-hover">
+                    <div class="panel-body">
+                        <ul class="grid cs-style-3">
+                            <li>
+                              <figure>
+                                  <img src="img/gallery/4.jpg" alt="img04">
+                                  <figcaption>
+                                      <h3>Mindblowing</h3>
+                                      <span>lorem ipsume </span>
+                                      <a class="fancybox" rel="group" href="img/gallery/4.jpg">Take a look</a>
+                                  </figcaption>
+                              </figure>
+                            </li>
+                            <li>
+                              <figure>
+                                  <img src="img/gallery/4.jpg" alt="img04">
+                                  <figcaption>
+                                      <h3>Mindblowing</h3>
+                                      <span>lorem ipsume </span>
+                                      <a class="fancybox" rel="group" href="img/gallery/4.jpg">Take a look</a>
+                                  </figcaption>
+                              </figure>
+                            </li>
+                            <li>
+                              <figure>
+                                  <img src="img/gallery/4.jpg" alt="img04">
+                                  <figcaption>
+                                      <h3>Mindblowing</h3>
+                                      <span>lorem ipsume </span>
+                                      <a class="fancybox" rel="group" href="img/gallery/4.jpg">Take a look</a>
+                                  </figcaption>
+                              </figure>
+                            </li>
+                            <li>
+                              <figure>
+                                  <img src="img/gallery/4.jpg" alt="img04">
+                                  <figcaption>
+                                      <h3>Mindblowing</h3>
+                                      <span>lorem ipsume </span>
+                                      <a class="fancybox" rel="group" href="img/gallery/4.jpg">Take a look</a>
+                                  </figcaption>
+                              </figure>
+                            </li>
+                            <li>
+                              <figure>
+                                  <img src="img/gallery/4.jpg" alt="img04">
+                                  <figcaption>
+                                      <h3>Mindblowing</h3>
+                                      <span>lorem ipsume </span>
+                                      <a class="fancybox" rel="group" href="img/gallery/4.jpg">Take a look</a>
+                                  </figcaption>
+                              </figure>
+                            </li>                                                                                    
+                        </ul>
+                    </div>
+
+
+                <!-- <table class="table table-striped table-advance table-hover">
                     <tbody>
                       <tr v-for="premade in premades">
                         <th>#@{{$index + 1}}</th>
@@ -28,7 +84,7 @@
                         </td>
                     </tr>
                     </tbody>
-                </table>
+                </table> -->
             </section>
         </div>
         <!-- preview player -->

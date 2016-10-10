@@ -176,6 +176,9 @@
         });
     </script>
 
+    <script src="js/modernizr.custom.js"></script>
+    <script src="js/toucheffects.js"></script>
+
     <!-- seriously.js -->
     <script src="/js/seriously.js" type="text/javascript"></script>
     <script src="/js/seriously.chroma.js" type="text/javascript"></script>
@@ -188,8 +191,12 @@
             clipboard.on('success', function(e) {
                 console.log(e);
             });
+
+            // jQuery(".fancybox").fancybox();
         });
     </script>
+
+    <!-- <script src="js/toucheffects.js"></script> -->
     @yield('scripts')
 
     </body>
