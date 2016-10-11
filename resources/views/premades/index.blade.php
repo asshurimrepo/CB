@@ -1,8 +1,5 @@
 @extends('layouts.app')
 
-@section('scripts')
-	<script src="/js/premade.js"></script>
-@endsection
 
 @section('content')
 
@@ -19,9 +16,9 @@
                               <figure>
                                   <img src="img/gallery/4.jpg" alt="img04">
                                   <figcaption>
-                                      <h3>Mindblowing</h3>
-                                      <span>lorem ipsume </span>
-                                      <a class="fancybox" rel="group" href="img/gallery/4.jpg">Take a look</a>
+                                      <h3>Special Offer</h3>
+                                      <span>Button Click </span>
+                                      <a class="fancybox" rel="group" href="premade/1">Take a look</a>
                                   </figcaption>
                               </figure>
                             </li>
@@ -29,9 +26,9 @@
                               <figure>
                                   <img src="img/gallery/4.jpg" alt="img04">
                                   <figcaption>
-                                      <h3>Mindblowing</h3>
-                                      <span>lorem ipsume </span>
-                                      <a class="fancybox" rel="group" href="img/gallery/4.jpg">Take a look</a>
+                                      <h3>Instant Access</h3>
+                                      <span>Button Click </span>
+                                      <a class="fancybox" rel="group" href="premade/2">Take a look</a>
                                   </figcaption>
                               </figure>
                             </li>
@@ -39,9 +36,9 @@
                               <figure>
                                   <img src="img/gallery/4.jpg" alt="img04">
                                   <figcaption>
-                                      <h3>Mindblowing</h3>
-                                      <span>lorem ipsume </span>
-                                      <a class="fancybox" rel="group" href="img/gallery/4.jpg">Take a look</a>
+                                      <h3>Latest Tips</h3>
+                                      <span>Email Optin </span>
+                                      <a class="fancybox" rel="group" href="premade/3">Take a look</a>
                                   </figcaption>
                               </figure>
                             </li>
@@ -49,9 +46,9 @@
                               <figure>
                                   <img src="img/gallery/4.jpg" alt="img04">
                                   <figcaption>
-                                      <h3>Mindblowing</h3>
-                                      <span>lorem ipsume </span>
-                                      <a class="fancybox" rel="group" href="img/gallery/4.jpg">Take a look</a>
+                                      <h3>Free Products</h3>
+                                      <span>Email Optin </span>
+                                      <a class="fancybox" rel="group" href="premade/4">Take a look</a>
                                   </figcaption>
                               </figure>
                             </li>
@@ -59,9 +56,9 @@
                               <figure>
                                   <img src="img/gallery/4.jpg" alt="img04">
                                   <figcaption>
-                                      <h3>Mindblowing</h3>
-                                      <span>lorem ipsume </span>
-                                      <a class="fancybox" rel="group" href="img/gallery/4.jpg">Take a look</a>
+                                      <h3>Instant Access</h3>
+                                      <span>Email Optin </span>
+                                      <a class="fancybox" rel="group" href="premade/5">Take a look</a>
                                   </figcaption>
                               </figure>
                             </li>                                                                                    
@@ -86,10 +83,6 @@
                     </tbody>
                 </table> -->
             </section>
-        </div>
-        <!-- preview player -->
-        <div id="premade-preview-container">
-            <div id="premade-section"></div>
         </div>
     </div>
         <!-- <project-player :project="active_project"></project-player> -->

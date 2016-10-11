@@ -11751,12 +11751,9 @@ new _vue2.default({
   el: "#premade-app",
 
   ready: function ready() {
-    var _this = this;
-
     console.log('Ready Premade!');
-    this.$http.get('/premade/data').then(function (response) {
-      return _this.premades = response.data;
-    });
+    // this.$http.get('/premade/data').then(response => this.premades = response.data);
+    this.premades = window.premades;
   },
 
 
@@ -11767,19 +11764,19 @@ new _vue2.default({
 
   methods: {
     renderPremade: function renderPremade() {
-      var _this2 = this;
+      var _this = this;
 
       this.video = videojs('premade-player', { "controls": "true", "preload": "auto" });
 
       this.video.on("loadedmetadata", function () {
 
         // rigz script
-        $("video#premade-player_html5_api").attr("height", _this2.vPlayer.videoHeight);
-        $("video#premade-player_html5_api").attr("width", _this2.vPlayer.videoWidth);
+        $("video#premade-player_html5_api").attr("height", _this.vPlayer.videoHeight);
+        $("video#premade-player_html5_api").attr("width", _this.vPlayer.videoWidth);
 
         $("#premade-player").prepend($("canvas#output-premade"));
-        $("canvas#output-premade").get(0).setAttribute("width", _this2.vPlayer.videoWidth);
-        $("canvas#output-premade").get(0).setAttribute("height", _this2.vPlayer.videoHeight);
+        $("canvas#output-premade").get(0).setAttribute("width", _this.vPlayer.videoWidth);
+        $("canvas#output-premade").get(0).setAttribute("height", _this.vPlayer.videoHeight);
 
         $("#premade-player").prepend($("canvas#output-premade"));
 
@@ -11792,15 +11789,15 @@ new _vue2.default({
         seriously = new Seriously();
 
         target = seriously.target('#output-premade');
-        _this2.chroma = seriously.effect('chroma');
+        _this.chroma = seriously.effect('chroma');
 
-        _this2.chroma.source = "#premade-player_html5_api";
-        target.source = _this2.chroma;
+        _this.chroma.source = "#premade-player_html5_api";
+        target.source = _this.chroma;
 
-        _this2.chroma['clipWhite'] = 1;
-        _this2.chroma['clipBlack'] = 0.8;
-        _this2.chroma['balance'] = 1;
-        _this2.chroma['weight'] = 1;
+        _this.chroma['clipWhite'] = 1;
+        _this.chroma['clipBlack'] = 0.8;
+        _this.chroma['balance'] = 1;
+        _this.chroma['weight'] = 1;
         seriously.go();
       });
       this.vPlayer = document.getElementById("premade-player_html5_api");
@@ -11808,7 +11805,7 @@ new _vue2.default({
       this.video.show();
     },
     showPreview: function showPreview(premade) {
-      var _this3 = this;
+      var _this2 = this;
 
       // Dispose Video
       if (this.video) {
@@ -11823,12 +11820,12 @@ new _vue2.default({
       // close button
       $("body").on("click", "a.close-premade", function (e) {
         e.preventDefault();
-        _this3.video.pause();
+        _this2.video.pause();
         $("#premade-section").empty();
       });
     },
     addProject: function addProject(filename) {
-      var _this4 = this;
+      var _this3 = this;
 
       swal({
         title: "Add to Project?",
@@ -11838,7 +11835,7 @@ new _vue2.default({
         closeOnConfirm: false,
         showLoaderOnConfirm: true
       }, function () {
-        _this4.$http.post('/premade/add-to-project', { filename: filename }).then(function (response) {
+        _this3.$http.post('/premade/add-to-project', { filename: filename }).then(function (response) {
           swal("Good job!", "You added new video to your project!", "success");
         });
       });

@@ -12337,7 +12337,7 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
   font-weight: 300; }
 
 .grid figcaption span:before {
-  content: 'by '; }
+  content: ' '; }
 
 .grid figcaption a {
   text-align: center;

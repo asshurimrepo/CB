@@ -16,9 +16,16 @@ class PremadeVideosController extends Controller
     	return view('premades.index');
     }
 
-    public function data()
+    // public function data()
+    // {
+    // 	return Premade::all();
+    // }
+
+    public function show($id)
     {
-    	return Premade::all();
+        $premades = Premade::where('category_id',$id)->get()->toJson();
+        // return $premades;
+        return view('premades.video', compact('premades'));
     }
 
     public function create()

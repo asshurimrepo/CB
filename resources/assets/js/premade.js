@@ -9,7 +9,8 @@ new Vue({
 
 	ready(){
 		console.log('Ready Premade!');
-		this.$http.get('/premade/data').then(response => this.premades = response.data);
+		// this.$http.get('/premade/data').then(response => this.premades = response.data);
+    this.premades = window.premades;
 	},
 
 	data: {
