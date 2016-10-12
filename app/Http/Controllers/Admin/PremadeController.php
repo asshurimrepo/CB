@@ -32,6 +32,11 @@ class PremadeController extends Controller
         return $premades;
     }
 
+    public function destroy(Premade $premades)
+    {
+    	$premades->delete();
+    }
+
     public function js()
     {
     	$path = "js/admin-premade.js";
@@ -41,6 +46,7 @@ class PremadeController extends Controller
 
 	    $file = str_replace("\'/image/\' + filename", "\'/premades/\' + filename + \'.png\'", $file);
 	    $file = str_replace("/video/", "/premades/", $file);
+	    $file = str_replace(".delete('/project/'", ".delete('/admin/premades/'", $file);
 	    $file = str_replace("this.\$http.put('/project/'", "this.\$http.put('/admin/premades/'", $file);
 
 

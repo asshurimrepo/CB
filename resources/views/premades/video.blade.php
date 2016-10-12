@@ -9,7 +9,7 @@
 
 @section('content')
 <div class="col-md-12">
-      <div id="premade-app" class="row product-list">
+      <div id="premade-app" class="row product-list" style="display: flex; flex-wrap: wrap;">
           <div class="col-md-3 col-sm-6" v-for="premade in premades">
             <section class="panel">
               <!-- Title & Preview Image -->
