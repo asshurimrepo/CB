@@ -21,5 +21,6 @@ elixir(function(mix) {
 
     mix.browserify('upload.js').
     	browserify('premade.js').
-    	browserify('caster.js');
+    	browserify('caster.js').
+    	browserify('admin-premade.js');
 });

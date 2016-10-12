@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Premade extends Model
 {
-    protected $fillable = ['active', 'title', 'filename'];
+	use Projects\Attributes;
+
+    protected $fillable = ['active', 'title', 'filename', 'options', 'actions', 'category_id'];
 }

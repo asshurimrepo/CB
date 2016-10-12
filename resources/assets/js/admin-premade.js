@@ -16,7 +16,7 @@ new Vue({
 	el: "#caster-app",
 
 	ready() {
-		console.log('Ready to KickAss!!');
+		console.log('Admin Ready TO Kickass!!');
 
         $('.colorpicker-default').colorpicker();
 
@@ -49,7 +49,7 @@ new Vue({
 
 	methods: {
 		loadProjects() {
-			this.$http.get('/project').then(response => {
+			this.$http.get('/admin/premades').then(response => {
 				$('.loader-2').fadeOut("slow");
 				this.projects = response.data;
 			}).catch(() => this.isTimeout = true);

@@ -25,7 +25,7 @@
 
 <div class="row">
     <div class="col-md-12">
-      <div class="row product-list">
+      <div class="row product-list" style="display: flex; flex-wrap: wrap;">
             <project v-for="project in projects"
                      :data="project"
             >

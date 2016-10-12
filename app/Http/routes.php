@@ -34,6 +34,23 @@ Route::group(['middleware' => 'web'], function(){
 
 	Route::get('/embed/caster.js', 'EmbedController@show');
 	Route::get('/embed.js/{id}', 'EmbedController@create');
+
+	// Handles Autorespoders
+	Route::post('/autoresponder/mailchimp', 'AutoResponderController@mailchimp');
+	Route::post('/autoresponder/getresponse', 'AutoResponderController@getresponse');
+	Route::get('/autoresponder/aweber/authorize', 'AutoResponderController@aweberAuthorize');
+	Route::post('/autoresponder/aweber/access_token', 'AutoResponderController@aweberAccessToken');
+	Route::post('/autoresponder/aweber', 'AutoResponderController@aweber');
+	Route::post('/autoresponder/mailchimp/subscribe', 'AutoResponderController@mailchimpSubscribe');
+	Route::post('/autoresponder/getresponse/subscribe', 'AutoResponderController@getresponseSubscribe');
+	Route::post('/autoresponder/aweber/subscribe', 'AutoResponderController@aweberSubscribe');
+	
+	// Handles Video Processer
+	Route::post('/video-processer/{project}', 'VideoProcesserController@distillVideo');
+	Route::post('/video-processer/{project}/process-frames', 'VideoProcesserController@processFrames');
+	Route::post('/video-processer/{project}/process-single-frame/{img}', 'VideoProcesserController@processSingleFrame');
+	Route::post('/video-processer/{project}/recompose-video', 'VideoProcesserController@recomposeVideo');
+	Route::post('/video-processer/{project}/finishing', 'VideoProcesserController@cleanUpVideo');
 });
 
 /*Routes for Member User*/
@@ -55,22 +72,6 @@ Route::group(['middleware' => ['auth', 'web']], function(){
 
 	/*Route::get('/{filename}', 'VideosController@show')
 		->where('filename', '(video*).*');*/
-
-	// Handles Autorespoders
-	Route::post('/autoresponder/mailchimp', 'AutoResponderController@mailchimp');
-	Route::post('/autoresponder/getresponse', 'AutoResponderController@getresponse');
-	Route::get('/autoresponder/aweber/authorize', 'AutoResponderController@aweberAuthorize');
-	Route::post('/autoresponder/aweber/access_token', 'AutoResponderController@aweberAccessToken');
-	Route::post('/autoresponder/aweber', 'AutoResponderController@aweber');
-	Route::post('/autoresponder/mailchimp/subscribe', 'AutoResponderController@mailchimpSubscribe');
-	Route::post('/autoresponder/getresponse/subscribe', 'AutoResponderController@getresponseSubscribe');
-	Route::post('/autoresponder/aweber/subscribe', 'AutoResponderController@aweberSubscribe');
-	// Handles Video Processer
-	Route::post('/video-processer/{project}', 'VideoProcesserController@distillVideo');
-	Route::post('/video-processer/{project}/process-frames', 'VideoProcesserController@processFrames');
-	Route::post('/video-processer/{project}/process-single-frame/{img}', 'VideoProcesserController@processSingleFrame');
-	Route::post('/video-processer/{project}/recompose-video', 'VideoProcesserController@recomposeVideo');
-	Route::post('/video-processer/{project}/finishing', 'VideoProcesserController@cleanUpVideo');
 });
 
 /*Routes on Super User*/
@@ -82,6 +83,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Admin'
 Route::group(['middleware' => ['superuser', 'web'], 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
 
 	Route::resource('/', 'PremadeController');
+	Route::resource('/premades', 'PremadeController');
+	Route::get('/main.js', 'PremadeController@js');
 
 	// Handles Uploads
 	Route::get('/upload', 'UploadPremadeController@create');
