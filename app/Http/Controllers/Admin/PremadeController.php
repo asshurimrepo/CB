@@ -20,6 +20,18 @@ class PremadeController extends Controller
     	return view('admin.premades.index');
     }
 
+    public function update(Premade $premades, Request $request)
+    {
+    	$premades_data = $request->all();
+        $premades_data['options'] = json_encode($request->get('options'));
+        $premades_data['actions'] = json_encode($request->get('actions'));
+
+        $premades->fill($premades_data);
+        $premades->save();
+
+        return $premades;
+    }
+
     public function js()
     {
     	$path = "js/admin-premade.js";
@@ -29,6 +41,7 @@ class PremadeController extends Controller
 
 	    $file = str_replace("\'/image/\' + filename", "\'/premades/\' + filename + \'.png\'", $file);
 	    $file = str_replace("/video/", "/premades/", $file);
+	    $file = str_replace("this.\$http.put('/project/'", "this.\$http.put('/admin/premades/'", $file);
 
 
    		$response = Response::make($file, 200);
