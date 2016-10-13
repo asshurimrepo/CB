@@ -41,7 +41,7 @@
 
                           <button type="button"
                               class="btn btn-danger btn-sm"
-                              @click="addProject(premade.filename)"
+                              @click="addProject(premade)"
                           >
                               <i class="fa fa-plus"></i> Add to Project
                           </button>

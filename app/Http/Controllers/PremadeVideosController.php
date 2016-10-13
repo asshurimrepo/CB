@@ -57,13 +57,18 @@ class PremadeVideosController extends Controller
         $filename = str_random(5) . $request->get('filename');
         $email = auth()->user()->email;
 
+        // return $email;
+
         list($width, $height) = getimagesize("premades/{$request->get('filename')}.png");
 
         $project = new Project;
+        $project->fill($request->all());
         $project->user_id = auth()->user()->id;
         $project->filename = $filename;
         $project->width = $width;
         $project->height = $height;
+        $project->options = json_encode($request->get('options'));
+        $project->actions = json_encode($request->get('actions'));
         $project->title = $title;
         $project->active = 1;
 
@@ -71,6 +76,8 @@ class PremadeVideosController extends Controller
 
         File::copy("premades/{$request->get('filename')}", "data/{$email}/done/{$filename}");
         File::copy("premades/{$request->get('filename')}.png", "data/{$email}/done/{$filename}.png");
+
+        return $project;
     }
 
     public function js()

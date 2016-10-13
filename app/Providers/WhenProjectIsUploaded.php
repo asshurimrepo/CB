@@ -18,11 +18,11 @@ class WhenProjectIsUploaded extends ServiceProvider
      */
     public function boot()
     {
-        Project::created(function ($project) {
+        /*Project::created(function ($project) {
             $project->options = File::get('../resources/default/options.json');
             $project->actions = File::get('../resources/default/actions.json');
             $project->save();
-        });
+        });*/
 
         Project::deleted(function ($project) {
             $email = auth()->user()->email;
