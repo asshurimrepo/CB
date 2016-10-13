@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Premade;
 use App\Project;
-use File;
+use File, Response;
 
 class PremadeVideosController extends Controller
 {
@@ -71,5 +71,21 @@ class PremadeVideosController extends Controller
 
         File::copy("premades/{$request->get('filename')}", "data/{$email}/done/{$filename}");
         File::copy("premades/{$request->get('filename')}.png", "data/{$email}/done/{$filename}.png");
+    }
+
+    public function js()
+    {
+        $path = "js/premade.js";
+
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        $file = str_replace("\'/image/\' + filename", "\'/premades/\' + filename + \'.png\'", $file);
+        $file = str_replace("/video/", "/premades/", $file);
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
     }
 }

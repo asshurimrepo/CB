@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth', 'web']], function(){
 	Route::get('/premade/data', 'PremadeVideosController@data');
 	Route::resource('/premade', 'PremadeVideosController');
 	Route::post('/premade/add-to-project', 'PremadeVideosController@addToProject');
+	Route::get('/premade.js', 'PremadeVideosController@js');
 
 	Route::get('/premade/{id}', 'PremadeVideosController@show');
 

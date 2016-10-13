@@ -4,7 +4,7 @@
   <script type="text/javascript">
     window.premades = {!! $premades !!};
   </script>
-  <script src="/js/premade.js"></script>
+  <script src="/premade.js"></script>
 @endsection
 
 @section('content')
@@ -49,13 +49,11 @@
                   </div>
             </section>
           </div>
+
+          <project-player :project="active_project"></project-player>
       </div>
 </div>
 
 
-<!-- preview player -->
-<div id="premade-preview-container">
-    <div id="premade-section"></div>
-</div>
 
 @endsection
