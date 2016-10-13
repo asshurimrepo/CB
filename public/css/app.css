@@ -10619,7 +10619,8 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
   color: #5A5A5A;
   display: inline-block;
   margin-top: 20px;
-  font-size: 16px; }
+  font-size: 16px;
+  padding: 10px; }
 
 .product-list .price {
   color: #fc5959;
