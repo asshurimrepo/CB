@@ -1,3 +1,4 @@
+import Tooltip from '../components/ToolTip';
 export default {
 
 	template: require('../templates/project.html'),
@@ -6,7 +7,12 @@ export default {
 
 	ready(){
 		console.log('Project Component is Ready!');
+
 		this.$data = this.data;
+	},
+
+	components:{
+		Tooltip
 	},
 
 	filters: {

@@ -3,7 +3,7 @@
 		<!-- Title & Preview Image -->
 		<div class="pro-img-box text-center">
               <h3>
-                  <a href="#" class="pro-title">{{ title | truncate '20' }}</a>
+                  <a href="#" class="pro-title popovers" data-content="{{ title }}" data-placement="top" data-trigger="hover" data-delay="500">{{ title | truncate '20' }}</a>
               </h3>
 
               <div class="vid-thumbnail">
@@ -47,7 +47,7 @@
                       	</a>
                       </li>
                       <li class="divider"></li>
-                      <li><a href="#" data-toggle="modal"
+                      <li class="user-only"><a href="#" data-toggle="modal"
                            @click="showEmbed"><span class="text-warning"><i class="fa fa-link"></i> Embed </span></a></li>
                     </ul>
                 </div><!-- /btn-group -->

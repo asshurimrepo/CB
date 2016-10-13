@@ -48,7 +48,10 @@ class PremadeController extends Controller
 	    $file = str_replace("/video/", "/premades/", $file);
 	    $file = str_replace(".delete('/project/'", ".delete('/admin/premades/'", $file);
 	    $file = str_replace("this.\$http.put('/project/'", "this.\$http.put('/admin/premades/'", $file);
-
+        $file = str_replace("divider", "hidden", $file);
+        $file = str_replace("user-only", "hidden", $file);
+        $file = str_replace("<!--admin-only", "", $file);
+        $file = str_replace("admin-only-->", "", $file);
 
    		$response = Response::make($file, 200);
 	    $response->header("Content-Type", $type);
