@@ -11523,15 +11523,25 @@ setTimeout(function () {
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":1}],4:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _vue = require("vue");
+var _vue = require('vue');
 
 var _vue2 = _interopRequireDefault(_vue);
+
+var _AddCategory = require('./components/AddCategory.js');
+
+var _AddCategory2 = _interopRequireDefault(_AddCategory);
+
+var _EditCategory = require('./components/EditCategory.js');
+
+var _EditCategory2 = _interopRequireDefault(_EditCategory);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue2.default.use(require('vue-resource'));
+
+_vue2.default.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 
 new _vue2.default({
 	el: "#categories-app",
@@ -11541,30 +11551,153 @@ new _vue2.default({
 		active: {}
 	},
 
-	ready: function ready() {
-		var _this = this;
-
-		console.log("Categories are ready!");
-
-		this.$http.get('/admin/categories').then(function (response) {
-			return _this.categories = response.data;
-		});
+	components: {
+		AddCategory: _AddCategory2.default, EditCategory: _EditCategory2.default
 	},
 
+	ready: function ready() {
+		console.log("Categories are ready!");
+
+		this.loadData();
+	},
+
+
+	events: {
+		newCategoryAdded: function newCategoryAdded() {
+			this.loadData();
+		},
+		categoryUpdated: function categoryUpdated() {
+			this.loadData();
+		}
+	},
 
 	methods: {
 		setActive: function setActive(category) {
 			this.active = category;
 		},
-		edit: function edit(category) {
-			this.setActive(category);
+		loadData: function loadData() {
+			var _this = this;
+
+			this.$http.get('/admin/categories').then(function (response) {
+				return _this.categories = response.data;
+			});
 		},
-		delete: function _delete(category) {
+		addNewCategory: function addNewCategory() {
+			$("#category-add-new").modal('show');
+			console.log('add new');
+		},
+		editCategory: function editCategory(category) {
+			console.log('edit category');
 			this.setActive(category);
+			$("#category-edit").modal('show');
+		},
+		deleteCategory: function deleteCategory(category) {
+			var _this2 = this;
+
+			this.setActive(category);
+
+			swal({ title: "Are you sure?",
+				text: "You will not be able to recover from this!",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Yes, delete it!",
+				cancelButtonText: "No, cancel please!",
+				closeOnConfirm: false,
+				closeOnCancel: false }, function (isConfirm) {
+				if (isConfirm) {
+					swal("Deleted!", "It has been deleted.", "success");
+
+					_this2.$http.delete('/admin/categories/' + category.id).then(function () {
+						return _this2.loadData();
+					});
+				} else {
+					swal("Cancelled", "Your Project file is safe :)", "error");
+				}
+			});
 		}
 	}
 });
 
-},{"vue":3,"vue-resource":2}]},{},[4]);
+},{"./components/AddCategory.js":5,"./components/EditCategory.js":6,"vue":3,"vue-resource":2}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	template: require('../templates/add-category.html'),
+
+	data: function data() {
+		return {
+			category: {
+				name: null,
+				file: null
+			},
+
+			is_saving: false
+		};
+	},
+
+
+	methods: {
+		save: function save() {
+			var _this = this;
+
+			this.is_saving = true;
+
+			this.$http.post('/admin/categories', this.category).then(function () {
+				swal('Great!', 'You have just added new Category to the pack!', 'success');
+				_this.is_saving = false;
+				_this.$dispatch('newCategoryAdded');
+			}).catch(function (reason) {
+				swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');
+				_this.is_saving = false;
+			});
+		}
+	}
+};
+
+},{"../templates/add-category.html":7}],6:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	template: require('../templates/edit-category.html'),
+
+	props: ['category'],
+
+	data: function data() {
+		return {
+			is_saving: false
+		};
+	},
+
+
+	methods: {
+		save: function save() {
+			var _this = this;
+
+			this.is_saving = true;
+
+			this.$http.put('/admin/categories/' + this.category.id, this.category).then(function () {
+				swal('Great!', 'You have just updated this category!', 'success');
+				_this.is_saving = false;
+				_this.$dispatch('categoryUpdated');
+			}).catch(function (reason) {
+				swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');
+				_this.is_saving = false;
+			});
+		}
+	}
+};
+
+},{"../templates/edit-category.html":8}],7:[function(require,module,exports){
+module.exports = '<div class="modal fade" id="category-add-new" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-link"></i>  Add New Category</h4>\n          </div>\n          <div class="modal-body">\n              <div class="form-group">\n                <label for="name">Category Name:</label>\n                <input required type="text" id="name" class="form-control" v-model="category.name">\n              </div>\n          </div>\n          <div class="modal-footer">\n              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Add New</button>\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
+},{}],8:[function(require,module,exports){
+module.exports = '<div class="modal fade" id="category-edit" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-link"></i>  Add New Category</h4>\n          </div>\n          <div class="modal-body">\n              <div class="form-group">\n                <label for="name">Category Name:</label>\n                <input required type="text" id="name" class="form-control" v-model="category.name">\n              </div>\n\n              <div class="form-group">\n                <label for="slug">Slug:</label>\n                <input required type="text" id="slug" class="form-control" v-model="category.slug">\n              </div>\n          </div>\n          <div class="modal-footer">\n              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Save</button>\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
+},{}]},{},[4]);
 
 //# sourceMappingURL=categories.js.map

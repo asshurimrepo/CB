@@ -11,8 +11,9 @@ class Category extends Model
 	 *
 	 * @var array
 	 */
-    protected $fillable = ['slug', 'name'];
+    protected $fillable = ['slug', 'name', 'featured_img'];
 
+    
     public function premades()
     {
     	return $this->hasMany(\App\Premade::class);

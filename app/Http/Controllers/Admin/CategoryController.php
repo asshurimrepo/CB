@@ -40,9 +40,15 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Category $categories)
     {
-        //
+        $inputs = $request->all();
+        $inputs['slug'] = str_slug($inputs['name']);
+
+        $categories->fill($inputs);
+        $categories->save();
+
+        return $categories;
     }
 
     /**
@@ -74,9 +80,15 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $categories)
     {
-        //
+        $inputs = $request->all();
+        $inputs['slug'] = str_slug($inputs['slug']);
+
+        $categories->fill($inputs);
+        $categories->save();
+
+        return $categories;
     }
 
     /**
@@ -85,8 +97,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $categories)
     {
-        //
+        $categories->delete();
+        return $categories;
     }
 }

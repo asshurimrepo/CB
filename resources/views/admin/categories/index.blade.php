@@ -13,7 +13,7 @@
   <div class="panel-body">
 	
 		<p>
-  			<button class="btn btn-info"><i class="fa fa-plus"></i> Add New Category</button>
+  			<button class="btn btn-info" @click="addNewCategory"><i class="fa fa-plus"></i> Add New Category</button>
 		</p>
 
 		<table class="table table-stripped table-bordered">
@@ -30,16 +30,18 @@
 					<td>@{{ category.name }}</td>
 					<td>@{{ category.slug }}</td>
 					<td>
-						<button :click="edit(category)" class="btn btn-sm btn-primary">Edit</button>
-						<button :click="delete(category)" class="btn btn-sm btn-danger">Delete</button>
+						<button @click="editCategory(category)" class="btn btn-sm btn-primary">Edit</button>
+						<button @click="deleteCategory(category)" class="btn btn-sm btn-danger">Delete</button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 
   </div>
+
+<add-category></add-category>
+<edit-category :category="active"></edit-category>
 </section>
-	
 	
 
 @stop
