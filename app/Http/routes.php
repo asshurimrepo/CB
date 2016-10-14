@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +51,12 @@ Route::group(['middleware' => 'web'], function(){
 	Route::post('/video-processer/{project}/process-single-frame/{img}', 'VideoProcesserController@processSingleFrame');
 	Route::post('/video-processer/{project}/recompose-video', 'VideoProcesserController@recomposeVideo');
 	Route::post('/video-processer/{project}/finishing', 'VideoProcesserController@cleanUpVideo');
+
+	//Reroute Unauthorized Registration
+	Route::get('/register', function () {
+    	return redirect('/');
+	});
+
 });
 
 /*Routes for Member User*/

@@ -176,7 +176,7 @@ export default {
 
 	methods: {
 		renderTransparentVideo() {
-			this.video = videojs('project-player', { "controls": "true", "preload": "auto" });
+			this.video = videojs('project-player', { "controls": "false", "preload": "auto" });
 			// this.video.height(this.project.height*2);
 			//@embed$("video#project-player_html5_api").attr("crossorigin", "anonymous");
 			// $("video#project-player_html5_api>source").attr("crossorigin", "anonymous");
@@ -376,6 +376,7 @@ export default {
 				$('div#project-player-container>div#project-embed-video').fadeOut("fast");
 				return false;
 			});
+
 
 		},
 
