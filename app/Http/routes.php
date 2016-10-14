@@ -83,9 +83,13 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Admin'
 
 Route::group(['middleware' => ['superuser', 'web'], 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
 
+	// Premade Videos
 	Route::resource('/', 'PremadeController');
 	Route::resource('/premades', 'PremadeController');
 	Route::get('/main.js', 'PremadeController@js');
+
+	// Categories
+	Route::resource('/categories', 'CategoryController');
 
 	// Handles Uploads
 	Route::get('/upload', 'UploadPremadeController@create');

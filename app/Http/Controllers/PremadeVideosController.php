@@ -52,13 +52,10 @@ class PremadeVideosController extends Controller
     public function addToProject(Request $request)
     {
         $exploded_filename = explode('.', $request->get('filename'));
-        $title = $exploded_filename[0];
         
         $filename = str_random(5) . $request->get('filename');
         $email = auth()->user()->email;
-
-        // return $email;
-
+        
         list($width, $height) = getimagesize("premades/{$request->get('filename')}.png");
 
         $project = new Project;
@@ -69,7 +66,6 @@ class PremadeVideosController extends Controller
         $project->height = $height;
         $project->options = json_encode($request->get('options'));
         $project->actions = json_encode($request->get('actions'));
-        $project->title = $title;
         $project->active = 1;
 
         $project->save();

@@ -11531,177 +11531,40 @@ var _vue2 = _interopRequireDefault(_vue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-require("./utilities/randomLoadingMessage");
-
 _vue2.default.use(require('vue-resource'));
-_vue2.default.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
-
-$.ajaxSetup({
-	headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') }
-});
 
 new _vue2.default({
-	el: "#upload-section",
+	el: "#categories-app",
+
+	data: {
+		categories: [],
+		active: {}
+	},
 
 	ready: function ready() {
 		var _this = this;
 
-		console.log('Upload is Ready!');
+		console.log("Categories are ready!");
 
-		$('#fileupload').fileupload({
-			dataType: 'json',
-			done: this.done,
-			add: function add(e, data) {
-				window.funnie_text = setInterval(function () {
-					$(".funnies").hide().fadeIn(1000);
-					_this.funnies = randomLoadingMessage();
-				}, 15000);
-
-				data.submit();
-			},
-			progressall: function progressall(e, data) {
-				_this.in_progress = true;
-				_this.$set('progress', parseInt(data.loaded / data.total * 100, 10));
-			}
+		this.$http.get('/admin/categories').then(function (response) {
+			return _this.categories = response.data;
 		});
-
-		$(".btn-upload").click(function () {
-			$("[name='file']").click();
-		});
-
-		this.funnies = randomLoadingMessage();
 	},
 
-
-	data: {
-		in_progress: false,
-		progress: 0,
-		process_is_done: false,
-		funnies: "",
-		step: 1,
-		frames: [],
-		current_frame: 0
-	},
-
-	computed: {
-		process_text: function process_text() {
-			if (this.step == 1) return 'Uploading...';
-			if (this.step == 2) return 'Processing...';
-			if (this.step == 3) return "Converting " + this.current_frame + " out of " + this.frames.length + " Frames...";
-			if (this.step == 4) return 'Composing your new video...';
-			if (this.step == 5) return 'Wrapping up! :)';
-		}
-	},
 
 	methods: {
-		done: function done(e, data) {
-			// this.process(data.result.id);
-			this.finishingUp(data.result.id);
+		setActive: function setActive(category) {
+			this.active = category;
 		},
-		process: function process(id) {
-			var _this2 = this;
-
-			this.step = 2;
-			this.progress = 0;
-			this.updateProgress(20, 2000, 4000);
-
-			this.$http.post('/video-processer/' + id).then(function () {
-				_this2.progress = 20;
-				setTimeout(function () {
-					return _this2.processFrames(id);
-				}, 500);
-			});
+		edit: function edit(category) {
+			this.setActive(category);
 		},
-		processFrames: function processFrames(id) {
-			var _this3 = this;
-
-			// this.updateProgress(80, 5000, 10000);
-			this.step = 3;
-
-			this.$http.post('/video-processer/' + id + '/process-frames').then(function (response) {
-				_this3.frames = response.data;
-				_this3.processSingleFrame(id, 0);
-			});
-		},
-		processSingleFrame: function processSingleFrame(id, current_frame) {
-			var _this4 = this;
-
-			this.progress = current_frame / this.frames.length * 100 - 20;
-			this.current_frame = current_frame;
-
-			if (current_frame >= this.frames.length) {
-				this.recomposeVideo(id);
-				return;
-			}
-
-			var image = this.frames[current_frame].split("/");
-
-			this.$http.post('/video-processer/' + id + '/process-single-frame/' + image[3]).then(function (response) {
-				current_frame += 1;
-				_this4.processSingleFrame(id, current_frame);
-			});
-		},
-		recomposeVideo: function recomposeVideo(id) {
-			var _this5 = this;
-
-			this.updateProgress(91, 2000, 4000);
-			this.step = 4;
-
-			this.$http.post('/video-processer/' + id + '/recompose-video').then(function () {
-				_this5.progress = 91;
-				setTimeout(function () {
-					return _this5.finishingUp(id);
-				}, 500);
-			});
-		},
-		finishingUp: function finishingUp(id) {
-			var _this6 = this;
-
-			this.updateProgress(95, 1000, 4000);
-			this.step = 5;
-
-			this.$http.post('/video-processer/' + id + '/finishing').then(function () {
-				_this6.progress = 100;
-				_this6.process_is_done = true;
-			});
-		},
-		updateProgress: function updateProgress(max, min_s, max_s) {
-			var _this7 = this;
-
-			if (this.progress >= max) {
-				return;
-			}
-
-			this.progress += this.getRandomNumber(1, 6);
-
-			if (max < this.progress) {
-				this.progress = max;
-			}
-
-			setTimeout(function () {
-				return _this7.updateProgress(max, min_s, max_s);
-			}, this.getRandomNumber(min_s, max_s));
-		},
-		getRandomNumber: function getRandomNumber(min, max) {
-			min = Math.ceil(min);
-			max = Math.floor(max);
-
-			console.log(Math.floor(Math.random() * (max - min + 1)) + min);
-
-			return Math.floor(Math.random() * (max - min + 1)) + min;
+		delete: function _delete(category) {
+			this.setActive(category);
 		}
 	}
 });
 
-},{"./utilities/randomLoadingMessage":5,"vue":3,"vue-resource":2}],5:[function(require,module,exports){
-"use strict";
+},{"vue":3,"vue-resource":2}]},{},[4]);
 
-window.randomLoadingMessage = function () {
-    var lines = new Array("Locating the required gigapixels to render...", "Spinning up the hamster...", "Shovelling coal into the server...", "Programming the flux capacitor", 'the architects are still drafting', 'would you prefer chicken, steak, or tofu?', 'we love you just the way you are', 'checking the gravitational constant in your locale', 'go ahead -- hold your breath', "at least you're not on hold", "a few bits tried to escape, but we caught them");
-
-    return lines[Math.round(Math.random() * (lines.length - 1))];
-};
-
-},{}]},{},[4]);
-
-//# sourceMappingURL=upload.js.map
+//# sourceMappingURL=categories.js.map
