@@ -43,6 +43,8 @@ export default {
 					swal('Great!', 'You have just added new Category to the pack!', 'success');
 					this.is_saving = false;
 					this.$dispatch('newCategoryAdded');
+					this.category = {name: null, featured_img: null};
+					$("#category-add-new").modal('hide');
 				} )
 				.catch( reason => {
 					swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');

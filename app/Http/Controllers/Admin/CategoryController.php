@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            return Category::all();
+            return Category::orderBy('id', 'desc')->get();
         }
 
         return view('admin.categories.index');
