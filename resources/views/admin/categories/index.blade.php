@@ -8,7 +8,7 @@
 
 <section class="panel" id="categories-app">
   <header class="panel-heading">
-      <h4><i class="fa fa-cogs"></i> Categories</h4>
+      <h4><i class="fa fa-th-large"></i> Categories</h4>
   </header>
   <div class="panel-body">
 	

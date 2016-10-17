@@ -100,4 +100,7 @@ Route::group(['middleware' => ['superuser', 'web'], 'prefix' => 'admin', 'namesp
 	// Handles Uploads
 	Route::get('/upload', 'UploadPremadeController@create');
 	Route::post('/upload', 'UploadPremadeController@store');
+
+	// Members
+	Route::resource('/members', 'MemberController');
 });

@@ -12,7 +12,7 @@
 <div class="col-lg-12">
 	<section class="panel">
 	  <header class="panel-heading">
-	      <h4><i class="fa fa-users"></i> Premade Videos</h4>
+	      <h4><i class="fa fa-video-camera"></i> Premade Videos</h4>
 	  </header>
 	  <div class="panel-body" style="background: #eff1f7;">
 	  	<div class="row">
