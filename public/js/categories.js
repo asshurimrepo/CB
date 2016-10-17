@@ -11632,7 +11632,7 @@ exports.default = {
 		return {
 			category: {
 				name: null,
-				file: null
+				featured_img: null
 			},
 
 			is_saving: false
@@ -11641,18 +11641,40 @@ exports.default = {
 
 
 	methods: {
-		save: function save() {
+		onFileChange: function onFileChange(e) {
+			var files = e.target.files || e.dataTransfer.files;
+
+			if (!files.length) return;
+
+			this.createImage(files[0]);
+		},
+		createImage: function createImage(file) {
 			var _this = this;
+
+			var image = new Image();
+			var reader = new FileReader();
+			var vm = this;
+
+			reader.onload = function (e) {
+				// this.category.featured_img = e.target.result;
+				_this.category.featured_img = e.target.result;
+				// console.log(e.target.result);
+			};
+
+			reader.readAsDataURL(file);
+		},
+		save: function save() {
+			var _this2 = this;
 
 			this.is_saving = true;
 
 			this.$http.post('/admin/categories', this.category).then(function () {
 				swal('Great!', 'You have just added new Category to the pack!', 'success');
-				_this.is_saving = false;
-				_this.$dispatch('newCategoryAdded');
+				_this2.is_saving = false;
+				_this2.$dispatch('newCategoryAdded');
 			}).catch(function (reason) {
 				swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');
-				_this.is_saving = false;
+				_this2.is_saving = false;
 			});
 		}
 	}
@@ -11677,27 +11699,49 @@ exports.default = {
 
 
 	methods: {
-		save: function save() {
+		onFileChange: function onFileChange(e) {
+			var files = e.target.files || e.dataTransfer.files;
+
+			if (!files.length) return;
+
+			this.createImage(files[0]);
+		},
+		createImage: function createImage(file) {
 			var _this = this;
+
+			var image = new Image();
+			var reader = new FileReader();
+			var vm = this;
+
+			reader.onload = function (e) {
+				// this.category.featured_img = e.target.result;
+				_this.category.featured_img = e.target.result;
+				// console.log(e.target.result);
+			};
+
+			reader.readAsDataURL(file);
+		},
+		save: function save() {
+			var _this2 = this;
 
 			this.is_saving = true;
 
 			this.$http.put('/admin/categories/' + this.category.id, this.category).then(function () {
 				swal('Great!', 'You have just updated this category!', 'success');
-				_this.is_saving = false;
-				_this.$dispatch('categoryUpdated');
+				_this2.is_saving = false;
+				_this2.$dispatch('categoryUpdated');
 			}).catch(function (reason) {
 				swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');
-				_this.is_saving = false;
+				_this2.is_saving = false;
 			});
 		}
 	}
 };
 
 },{"../templates/edit-category.html":8}],7:[function(require,module,exports){
-module.exports = '<div class="modal fade" id="category-add-new" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-link"></i>  Add New Category</h4>\n          </div>\n          <div class="modal-body">\n              <div class="form-group">\n                <label for="name">Category Name:</label>\n                <input required type="text" id="name" class="form-control" v-model="category.name">\n              </div>\n          </div>\n          <div class="modal-footer">\n              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Add New</button>\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
+module.exports = '<div class="modal fade" id="category-add-new" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-link"></i>  Add New Category</h4>\n          </div>\n          <div class="modal-body">\n              <div class="form-group">\n                <label for="name">Category Name:</label>\n                <input required type="text" id="name" class="form-control" v-model="category.name">\n              </div>\n\n              <div class="form-group">\n                <label for="name">Placeholder Image:</label>\n                <input required \n                       type="file" \n                       id="featured_img" \n                       name="featured_img" \n                       @change="onFileChange"\n                >\n              </div>\n\n              <div class="form-group">\n                <img :src="category.featured_img" class="img-responsive" />\n              </div>\n          </div>\n          <div class="modal-footer">\n              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Add New</button>\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
 },{}],8:[function(require,module,exports){
-module.exports = '<div class="modal fade" id="category-edit" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-link"></i>  Add New Category</h4>\n          </div>\n          <div class="modal-body">\n              <div class="form-group">\n                <label for="name">Category Name:</label>\n                <input required type="text" id="name" class="form-control" v-model="category.name">\n              </div>\n\n              <div class="form-group">\n                <label for="slug">Slug:</label>\n                <input required type="text" id="slug" class="form-control" v-model="category.slug">\n              </div>\n          </div>\n          <div class="modal-footer">\n              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Save</button>\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
+module.exports = '<div class="modal fade" id="category-edit" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-link"></i>  Add New Category</h4>\n          </div>\n          <div class="modal-body">\n              <div class="form-group">\n                <label for="name">Category Name:</label>\n                <input required type="text" id="name" class="form-control" v-model="category.name">\n              </div>\n\n              <div class="form-group">\n                <label for="slug">Slug:</label>\n                <input required type="text" id="slug" class="form-control" v-model="category.slug">\n              </div>\n\n              <div class="form-group">\n                <label for="name">Placeholder Image:</label>\n                <input required \n                       type="file" \n                       id="featured_img" \n                       name="featured_img" \n                       @change="onFileChange"\n                >\n              </div>\n\n              <div class="form-group">\n                <img :src="category.featured_img" class="img-responsive" />\n              </div>\n          </div>\n          <div class="modal-footer">\n              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Save</button>\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
 },{}]},{},[4]);
 
 //# sourceMappingURL=categories.js.map

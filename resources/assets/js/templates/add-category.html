@@ -10,6 +10,20 @@
                 <label for="name">Category Name:</label>
                 <input required type="text" id="name" class="form-control" v-model="category.name">
               </div>
+
+              <div class="form-group">
+                <label for="name">Placeholder Image:</label>
+                <input required 
+                       type="file" 
+                       id="featured_img" 
+                       name="featured_img" 
+                       @change="onFileChange"
+                >
+              </div>
+
+              <div class="form-group">
+                <img :src="category.featured_img" class="img-responsive" />
+              </div>
           </div>
           <div class="modal-footer">
               <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Add New</button>

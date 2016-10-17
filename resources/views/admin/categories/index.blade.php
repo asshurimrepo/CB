@@ -19,6 +19,7 @@
 		<table class="table table-stripped table-bordered">
 			<thead>
 				<tr>
+					<th style="width: 200px;"></th>
 					<th>Name</th>
 					<th>Slug</th>
 					<th>Actions</th>
@@ -27,6 +28,7 @@
 
 			<tbody>
 				<tr v-for="category in categories">
+					<td><img :src="category.featured_img" class="img-responsive"></td>
 					<td>@{{ category.name }}</td>
 					<td>@{{ category.slug }}</td>
 					<td>
