@@ -22,6 +22,7 @@ new Vue({
 
 		this.loadProjects();
 		this.getAWeberAuthorizationURL();
+		this.loadCategories();
 	},
 
 	data: {
@@ -34,6 +35,7 @@ new Vue({
 
 			actions: {}
 		},
+		categories: [],
 		isTimeout: false
 	},
 
@@ -48,6 +50,13 @@ new Vue({
 	},
 
 	methods: {
+		loadCategories() {
+			this.$http.get('/admin/categories/lists').then(response => {
+				this.categories = response.data;
+				this.$broadcast('categoriesIsLoaded', this.categories);
+			});
+		},
+
 		loadProjects() {
 			this.$http.get('/admin/premades').then(response => {
 				$('.loader-2').fadeOut("slow");

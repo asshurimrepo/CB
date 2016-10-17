@@ -12,56 +12,20 @@
                 </header>
                     <div class="panel-body">
                         <ul class="grid cs-style-3">
-                            <li>
+                          @foreach($categories as $category)
+
+                          <li>
                               <figure>
-                                  <img src="img/gallery/4.jpg" alt="img04">
+                                  <img src="{{ $category->featured_img }}">
                                   <figcaption>
-                                      <h3>Special Offer</h3>
-                                      <span>Button Click </span>
-                                      <a class="fancybox" rel="group" href="premade/1">Take a look</a>
+                                      <h3>{{ $category->name }}</h3>
+                                      <span>{{ $category->sub_text }}</span>
+                                      <a class="fancybox" rel="group" href="premade/{{ $category->id }}">Take a look</a>
                                   </figcaption>
                               </figure>
                             </li>
-                            <li>
-                              <figure>
-                                  <img src="img/gallery/4.jpg" alt="img04">
-                                  <figcaption>
-                                      <h3>Instant Access</h3>
-                                      <span>Button Click </span>
-                                      <a class="fancybox" rel="group" href="premade/2">Take a look</a>
-                                  </figcaption>
-                              </figure>
-                            </li>
-                            <li>
-                              <figure>
-                                  <img src="img/gallery/4.jpg" alt="img04">
-                                  <figcaption>
-                                      <h3>Latest Tips</h3>
-                                      <span>Email Optin </span>
-                                      <a class="fancybox" rel="group" href="premade/3">Take a look</a>
-                                  </figcaption>
-                              </figure>
-                            </li>
-                            <li>
-                              <figure>
-                                  <img src="img/gallery/4.jpg" alt="img04">
-                                  <figcaption>
-                                      <h3>Free Products</h3>
-                                      <span>Email Optin </span>
-                                      <a class="fancybox" rel="group" href="premade/4">Take a look</a>
-                                  </figcaption>
-                              </figure>
-                            </li>
-                            <li>
-                              <figure>
-                                  <img src="img/gallery/4.jpg" alt="img04">
-                                  <figcaption>
-                                      <h3>Instant Access</h3>
-                                      <span>Email Optin </span>
-                                      <a class="fancybox" rel="group" href="premade/5">Take a look</a>
-                                  </figcaption>
-                              </figure>
-                            </li>                                                                                    
+                        
+                          @endforeach
                         </ul>
                     </div>
 

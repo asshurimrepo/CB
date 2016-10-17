@@ -7,13 +7,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Premade;
 use App\Project;
+use App\Category;
 use File, Response;
 
 class PremadeVideosController extends Controller
 {
     public function index()
     {
-    	return view('premades.index');
+        $categories = Category::all();
+
+    	return view('premades.index', compact('categories'));
     }
 
     // public function data()

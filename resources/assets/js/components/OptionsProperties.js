@@ -12,12 +12,19 @@ export default {
         return {
            vPlayer: null,
            video: null,
-           chroma: null
+           chroma: null,
+           categories: []
         }
     },
 
     components: {
         Tooltip
+    },
+
+    events: {
+        categoriesIsLoaded(categories) {
+            this.categories = categories;
+        } 
     },
 
     watch: {

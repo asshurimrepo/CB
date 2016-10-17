@@ -11,7 +11,7 @@ class Category extends Model
 	 *
 	 * @var array
 	 */
-    protected $fillable = ['slug', 'name', 'featured_img'];
+    protected $fillable = ['slug', 'name', 'featured_img', 'sub_text'];
 
     
     public function premades()
