@@ -14,8 +14,13 @@
 
 
 </head>
-<body>
-	
+<body style="background: transparent !important;">
+
+	<div class="loader-3">
+	      <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+	      <span class="sr-only">Loading...</span>
+  	</div>	
+
 	<video id="embed-casters" style="width: 100%; display: none;">
 		<source src="/embed/video/{{ $project->user_id }}/{{ $project->filename }}">
 	</video>
@@ -70,9 +75,18 @@
 					id: 'casterbuddy',
 					currentTime: video.currentTime(),
 					width: $("canvas").width(),
-					height: $("canvas").height()
+					height: $("canvas").height(),
+					duration: video.duration(),
+					ended: false
 				}, "*");
-		  });
+		 });
+
+		video.on("ended", function () {
+			parent.postMessage({
+					id: 'casterbuddy',
+					ended: true
+			}, "*");
+		});
 	</script>
 </body>
 </html>

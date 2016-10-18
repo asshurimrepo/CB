@@ -1,6 +1,6 @@
 // var seeThru = require('seethru');
 var  jQueryCaster = require('jquery');
-var  videoCasterJS = require('video.js');
+// var  videoCasterJS = require('video.js');
 
 
 export default {
@@ -77,7 +77,6 @@ export default {
 			setTimeout(() => {
 				this.updatePlayer();
 				this.playProject();
-				$("div.loader-3").fadeOut("fast");
 			}, 200);
 		}
 	},
@@ -177,7 +176,64 @@ export default {
 
 	methods: {
 		renderTransparentVideo() {
-			this.addActionsToVideo();	
+			this.video = videojs('project-player', { "controls": "false", "preload": "auto" });
+			// this.video.height(this.project.height*2);
+			//@embed$("video#project-player_html5_api").attr("crossorigin", "anonymous");
+			//$("video#project-player_html5_api>source").attr("crossorigin", "");
+			this.video.ready(() => {
+				this.video.on("loadedmetadata",() => {
+					// rigz script
+					// this.video.height(this.vPlayer.videoHeight);
+					$("video#project-player_html5_api").attr("height", this.vPlayer.videoHeight);
+					$("video#project-player_html5_api").attr("width", this.vPlayer.videoWidth);
+
+					$("#project-player").prepend($("canvas#output"));
+					$("canvas#output").get(0).setAttribute("width", this.vPlayer.videoWidth);
+					$("canvas#output").get(0).setAttribute("height", this.vPlayer.videoHeight);
+
+					// for testing
+					$("canvas#output").css('width', '400px');
+					$("#project-player").css('width', '400px');
+					// for testing
+					$("div.loader-3>i").hide();
+					this.addActionsToVideo();
+					// rigz script
+
+
+			          var seriously,
+			            chroma,
+			            target;
+
+			          seriously = new Seriously();
+
+			          target = seriously.target('#output');
+			          chroma = seriously.effect('chroma');
+
+			          chroma.source = "#project-player_html5_api";
+			          target.source = chroma;
+
+			          chroma['balance'] = this.project.options.video_settings.balance;
+			          chroma['clipWhite'] = this.project.options.video_settings.clip_white;
+			          chroma['clipBlack'] = this.project.options.video_settings.clip_black;
+			          chroma['weight'] = this.project.options.video_settings.weight;
+			          seriously.go();
+
+			          	$("div#project-player").css('height','auto');
+						this.video.play();
+						
+				});
+				this.videoEnded();
+			});
+
+
+
+
+			this.projectOptions();
+			this.projectActions();
+
+			this.vPlayer = document.getElementById("project-player_html5_api");
+
+
 		},
 
 
@@ -242,34 +298,51 @@ export default {
 		},
 
 		playProject() {
-			$(".project-element").hide();
+
+			// Dispose Video
+			if(this.video){
+				this.video.dispose();
+				$("div.loader-3>i.fa-cog").show();
+				$(".project-element").hide();
+			}
 
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
-
 			let video_template = `
-		        <div class="loader-3">
-	              <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
-	              <span class="sr-only">Loading...</span>
-          		</div>
-          		<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>  
-				<iframe id="project-player" src="http://casterbuddy.dev/embed/iframe/${this.project.id}" height="300px" frameborder="0" width="100%" scrolling="no"></iframe>
+			  <div class="loader-3">
+			      <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+			      <span class="sr-only">Loading...</span>
+			  </div>
+			<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>
+			<video id="project-player" class="video-js" preload="auto" 
+				   data-setup='{"poster":"/image/${this.project.filename}"}'
+			>
+				  <source src="/video/${this.project.filename}" type="video/mp4">
+		          <p class="vjs-no-js">
+		            To view this video please enable JavaScript, and consider upgrading to a web browser that
+		            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+		          </p>
+
+		   	</video>
+
+			<canvas id="output"></canvas>
 		   	`;
 
 
 		   	$("#video-section").empty().html(video_template);
 
+
+
 			setTimeout(() => {
 				this.is_visible = true;
 				setTimeout(() => this.renderTransparentVideo(), 300);
-				// $("div#video-section").css("min-height","0px");
 				$('#project-player-bg').fadeIn("fast");
 			}, delay);
-
 
 			// close on click background
 			$("body").on("click","div#project-player-bg", (e) => {
 				if($(e.target).is('div#project-player-bg')){
 					this.video.pause();
+
 					$('#project-player-bg').fadeOut("fast");
 				}
 				e.preventDefault();
@@ -279,14 +352,8 @@ export default {
 			// close button
 			$("body").on("click","a.close-project", (e) => {
 				e.preventDefault();
-				// let vid = $('iframe#project-player').remove();
-				// let embed_source = $(vid).attr("src");
-				// if(embed_source != undefined){
-				// 	$(vid).attr("src", embed_source);
-				// 	$('#project-player-bg').fadeOut("fast");
-				// }
+				this.video.pause();
 				$('#project-player-bg').fadeOut("fast");
-				$('iframe#project-player').remove();
 			});
 
 			//close form
@@ -450,47 +517,14 @@ export default {
 		}, //end of projectActions
 
 		addActionsToVideo() {
-			// this.video.on("timeupdate",() => {
-			// 	this.videoElements();
-			// });
-				var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-				var eventer = window[eventMethod];
-				var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-
-				// Listen to message from child window
-				eventer(messageEvent,(e) => {
-				    var key = e.message ? "message" : "data";
-				    var data = e[key];
-
-					if(typeof data != "object" || typeof data.id == "undefined" || data.id != "casterbuddy") {
-					  return;
-					}
-
-
-					// When Video is ended
-					if(data.ended) {
-						console.log('ended');
-						this.videoElements(data);
-
-						if(this.project.options.stop_showing.exit_on_end === true){
-							$('iframe#project-player').fadeOut("fast");
-						}
-
-						return;
-					}
-
-					this.vidtime = Math.floor(data.currentTime);
-					this.vidduration = Math.floor(data.duration);
-					this.videoElements(data);
-
-					// Adjust Height According to Content Hieght of the Iframe Caster
-				    $("iframe#project-player").height(data.height);
-
-				    console.log(data);
-				},false);
+			this.video.on("timeupdate",() => {
+				this.videoElements();
+				this.vidtime = Math.floor(this.video.currentTime());
+				this.vidduration = Math.floor(this.video.duration());
+			});
 		},
 
-		videoElements(data){
+		videoElements(){
 			//textoverlay show & duration
 			// if the start time is greater than the total duration the textoverlay will display at the end
 
@@ -509,10 +543,10 @@ export default {
 
 				// if duration is set to 0
 				if(this.textoverlayduration === 0){
-					if(data.ended == true){
+					this.video.on("ended",() => {
 						$("#project-text-overlay").fadeOut("fast");
 						return false;
-					}
+					});
 				}
 
 			}else{
@@ -531,10 +565,10 @@ export default {
 
 				// if duration is set to 0
 				if(this.textoverlayduration === 0){
-					if(data.ended == true){
+					this.video.on("ended",() => {
 						$("#project-text-overlay").fadeOut("fast");
 						return false;
-					}
+					});
 				}
 
 			}
@@ -556,10 +590,10 @@ export default {
 
 				// if duration is set to 0
 				if(this.clicktocallduration === 0){
-					if(data.ended == true){
+					this.video.on("ended",() => {
 						$("#project-clicktocall").fadeOut("fast");
 						return false;
-					}
+					});
 				}
 
 			}else{
@@ -577,10 +611,10 @@ export default {
 
 				// if duration is set to 0
 				if(this.clicktocallduration === 0){
-					if(data.ended == true){
+					this.video.on("ended",() => {
 						$("#project-clicktocall").fadeOut("fast");
 						return false;
-					}
+					});
 				}
 
 			}
@@ -603,10 +637,10 @@ export default {
 
 				// if duration is set to 0
 				if(this.buttonoverlayduration === 0){
-					if(data.ended == true){
+					this.video.on("ended",() => {
 						$("#project-buttonoverlay").fadeOut("fast");
 						return false;
-					}
+					});
 				}
 
 			}else{
@@ -624,10 +658,10 @@ export default {
 
 				// if duration is set to 0
 				if(this.buttonoverlayduration === 0){
-					if(data.ended == true){
+					this.video.on("ended",() => {
 						$("#project-buttonoverlay").fadeOut("fast");
 						return false;
-					}
+					});
 				}
 
 			}
@@ -653,10 +687,10 @@ export default {
 
 				// if duration is set to 0
 				if(this.formoverlayduration === 0){
-					if(data.ended == true){
+					this.video.on("ended",() => {
 						$("#project-formoverlay").fadeOut("fast");						
 						return false;
-					}
+					});
 				}
 
 			}else{
@@ -678,10 +712,10 @@ export default {
 
 				// if duration is set to 0
 				if(this.formoverlayduration === 0){
-					if(data.ended == true){
+					this.video.on("ended",() => {
 						$("#project-formoverlay").fadeOut("fast");
 						return false;
-					}
+					});
 				}
 
 			}
