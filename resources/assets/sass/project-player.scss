@@ -311,9 +311,7 @@ input {
   margin-right: auto;
   margin-left: auto;
 }
-div#video-section {
-  max-width: 400px;
-}
+
 div.loader-3 {
   background-image: initial;
   background-position-x: initial;
@@ -713,6 +711,7 @@ canvas#buffer {
 
 div#video-section{
 	max-width: 400px;
+  min-height: 180px;
 }
 
 div.loader-3{

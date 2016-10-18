@@ -44944,6 +44944,9 @@ function extend() {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 // var seeThru = require('seethru');
 var jQueryCaster = require('jquery');
 var videoCasterJS = require('video.js');
@@ -45023,6 +45026,7 @@ exports.default = {
 			setTimeout(function () {
 				_this.updatePlayer();
 				_this.playProject();
+				$("div.loader-3").fadeOut("fast");
 			}, 200);
 		}
 	},
@@ -45118,58 +45122,7 @@ exports.default = {
 
 	methods: {
 		renderTransparentVideo: function renderTransparentVideo() {
-			var _this2 = this;
-
-			this.video = videojs('project-player', { "controls": "false", "preload": "auto" });
-			// this.video.height(this.project.height*2);
-			//@embed$("video#project-player_html5_api").attr("crossorigin", "");
-			//@embed$("video#project-player_html5_api>source").attr("crossorigin", "");
-			this.video.ready(function () {
-				_this2.video.on("loadedmetadata", function () {
-					// rigz script
-					// this.video.height(this.vPlayer.videoHeight);
-					$("video#project-player_html5_api").attr("height", _this2.vPlayer.videoHeight);
-					$("video#project-player_html5_api").attr("width", _this2.vPlayer.videoWidth);
-
-					$("#project-player").prepend($("canvas#output"));
-					$("canvas#output").get(0).setAttribute("width", _this2.vPlayer.videoWidth);
-					$("canvas#output").get(0).setAttribute("height", _this2.vPlayer.videoHeight);
-
-					// for testing
-					$("canvas#output").css('width', '400px');
-					$("#project-player").css('width', '400px');
-					// for testing
-					$("div.loader-3>i").hide();
-					_this2.addActionsToVideo();
-					// rigz script
-
-
-					var seriously, chroma, target;
-
-					seriously = new Seriously();
-
-					target = seriously.target('#output');
-					chroma = seriously.effect('chroma');
-
-					chroma.source = "#project-player_html5_api";
-					target.source = chroma;
-
-					chroma['balance'] = _this2.project.options.video_settings.balance;
-					chroma['clipWhite'] = _this2.project.options.video_settings.clip_white;
-					chroma['clipBlack'] = _this2.project.options.video_settings.clip_black;
-					chroma['weight'] = _this2.project.options.video_settings.weight;
-					seriously.go();
-
-					$("div#project-player").css('height', 'auto');
-					_this2.video.play();
-				});
-				_this2.videoEnded();
-			});
-
-			this.projectOptions();
-			this.projectActions();
-
-			this.vPlayer = document.getElementById("project-player_html5_api");
+			this.addActionsToVideo();
 		},
 		updatePlayer: function updatePlayer() {
 			this.resetOffsets();
@@ -45228,33 +45181,29 @@ exports.default = {
 			this.player_styles.offsets.marginRight = 0;
 		},
 		playProject: function playProject() {
-			var _this3 = this;
+			var _this2 = this;
 
-			// Dispose Video
-			if (this.video) {
-				this.video.dispose();
-				$("div.loader-3>i.fa-cog").show();
-				$(".project-element").hide();
-			}
+			$(".project-element").hide();
 
 			var delay = parseInt(this.project.options.auto_display_after) * 1000;
-			var video_template = '\n\t\t\t  <div class="loader-3">\n\t\t\t      <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>\n\t\t\t      <span class="sr-only">Loading...</span>\n\t\t\t  </div>\n\t\t\t<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" \n\t\t\t\t   data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'\n\t\t\t>\n\t\t\t\t  <source src="/video/' + this.project.filename + '" type="video/mp4">\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
+
+			var video_template = '\n\t\t        <div class="loader-3">\n\t              <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>\n\t              <span class="sr-only">Loading...</span>\n          \t\t</div>\n          \t\t<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>  \n\t\t\t\t<iframe id="project-player" src="http://casterbuddy.dev/embed/iframe/' + this.project.id + '" height="300px" frameborder="0" width="100%" scrolling="no"></iframe>\n\t\t   \t';
 
 			$("#video-section").empty().html(video_template);
 
 			setTimeout(function () {
-				_this3.is_visible = true;
+				_this2.is_visible = true;
 				setTimeout(function () {
-					return _this3.renderTransparentVideo();
+					return _this2.renderTransparentVideo();
 				}, 300);
+				// $("div#video-section").css("min-height","0px");
 				$('#project-player-bg').fadeIn("fast");
 			}, delay);
 
 			// close on click background
 			$("body").on("click", "div#project-player-bg", function (e) {
 				if ($(e.target).is('div#project-player-bg')) {
-					_this3.video.pause();
-
+					_this2.video.pause();
 					$('#project-player-bg').fadeOut("fast");
 				}
 				e.preventDefault();
@@ -45264,8 +45213,14 @@ exports.default = {
 			// close button
 			$("body").on("click", "a.close-project", function (e) {
 				e.preventDefault();
-				_this3.video.pause();
+				// let vid = $('iframe#project-player').remove();
+				// let embed_source = $(vid).attr("src");
+				// if(embed_source != undefined){
+				// 	$(vid).attr("src", embed_source);
+				// 	$('#project-player-bg').fadeOut("fast");
+				// }
 				$('#project-player-bg').fadeOut("fast");
+				$('iframe#project-player').remove();
 			});
 
 			//close form
@@ -45290,11 +45245,11 @@ exports.default = {
 			});
 		},
 		projectOptions: function projectOptions() {
-			var _this4 = this;
+			var _this3 = this;
 
 			// if close on exit is true
 			this.video.on("ended", function () {
-				if (_this4.project.options.stop_showing.exit_on_end === true) {
+				if (_this3.project.options.stop_showing.exit_on_end === true) {
 					$('#project-player-bg').fadeOut("fast");
 				}
 			});
@@ -45303,7 +45258,7 @@ exports.default = {
 			if (this.project.options.stop_showing.clicked === true) {
 				$("#project-player-container").on("click", function (e) {
 					if ($(e.target).is('canvas#output')) {
-						_this4.video.pause();
+						_this3.video.pause();
 
 						$('#project-player-bg').fadeOut("fast");
 					}
@@ -45424,16 +45379,48 @@ exports.default = {
 		//end of projectActions
 
 		addActionsToVideo: function addActionsToVideo() {
-			var _this5 = this;
+			var _this4 = this;
 
-			this.video.on("timeupdate", function () {
-				_this5.videoElements();
-				_this5.vidtime = Math.floor(_this5.video.currentTime());
-				_this5.vidduration = Math.floor(_this5.video.duration());
-			});
+			// this.video.on("timeupdate",() => {
+			// 	this.videoElements();
+			// });
+			var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+			var eventer = window[eventMethod];
+			var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+			// Listen to message from child window
+			eventer(messageEvent, function (e) {
+				var key = e.message ? "message" : "data";
+				var data = e[key];
+
+				if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) != "object" || typeof data.id == "undefined" || data.id != "casterbuddy") {
+					return;
+				}
+
+				// When Video is ended
+				if (data.ended) {
+					console.log('ended');
+					_this4.videoElements(data);
+
+					if (_this4.project.options.stop_showing.exit_on_end === true) {
+						$('iframe#project-player').fadeOut("fast");
+					}
+
+					return;
+				}
+
+				_this4.vidtime = Math.floor(data.currentTime);
+				_this4.vidduration = Math.floor(data.duration);
+				_this4.videoElements(data);
+
+				// Adjust Height According to Content Hieght of the Iframe Caster
+				$("iframe#project-player").height(data.height);
+
+				console.log(data);
+			}, false);
 		},
-		videoElements: function videoElements() {
-			var _this6 = this;
+		videoElements: function videoElements(data) {
+			var _this5 = this;
 
 			//textoverlay show & duration
 			// if the start time is greater than the total duration the textoverlay will display at the end
@@ -45442,10 +45429,10 @@ exports.default = {
 
 				if (this.vidtime === this.vidduration) {
 					$("#project-text-overlay").fadeIn("fast", function () {
-						if (_this6.textoverlayduration > 0) {
+						if (_this5.textoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-text-overlay").fadeOut("fast");
-							}, _this6.textoverlayduration);
+							}, _this5.textoverlayduration);
 							return false;
 						}
 					});
@@ -45453,19 +45440,19 @@ exports.default = {
 
 				// if duration is set to 0
 				if (this.textoverlayduration === 0) {
-					this.video.on("ended", function () {
+					if (data.ended == true) {
 						$("#project-text-overlay").fadeOut("fast");
 						return false;
-					});
+					}
 				}
 			} else {
 
 				if (this.vidtime === this.textoverlaystart) {
 					$("#project-text-overlay").fadeIn("fast", function () {
-						if (_this6.textoverlayduration > 0) {
+						if (_this5.textoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-text-overlay").fadeOut("fast");
-							}, _this6.textoverlayduration);
+							}, _this5.textoverlayduration);
 							return false;
 						}
 					});
@@ -45473,10 +45460,10 @@ exports.default = {
 
 				// if duration is set to 0
 				if (this.textoverlayduration === 0) {
-					this.video.on("ended", function () {
+					if (data.ended == true) {
 						$("#project-text-overlay").fadeOut("fast");
 						return false;
-					});
+					}
 				}
 			}
 
@@ -45486,10 +45473,10 @@ exports.default = {
 
 				if (this.vidtime === this.vidduration) {
 					$("#project-clicktocall").fadeIn("fast", function () {
-						if (_this6.clicktocallduration > 0) {
+						if (_this5.clicktocallduration > 0) {
 							setTimeout(function () {
 								$("#project-clicktocall").fadeOut("fast");
-							}, _this6.clicktocallduration);
+							}, _this5.clicktocallduration);
 							return false;
 						}
 					});
@@ -45497,19 +45484,19 @@ exports.default = {
 
 				// if duration is set to 0
 				if (this.clicktocallduration === 0) {
-					this.video.on("ended", function () {
+					if (data.ended == true) {
 						$("#project-clicktocall").fadeOut("fast");
 						return false;
-					});
+					}
 				}
 			} else {
 
 				if (this.vidtime === this.clicktocallstart) {
 					$("#project-clicktocall").fadeIn("fast", function () {
-						if (_this6.clicktocallduration > 0) {
+						if (_this5.clicktocallduration > 0) {
 							setTimeout(function () {
 								$("#project-clicktocall").fadeOut("fast");
-							}, _this6.clicktocallduration);
+							}, _this5.clicktocallduration);
 							return false;
 						}
 					});
@@ -45517,10 +45504,10 @@ exports.default = {
 
 				// if duration is set to 0
 				if (this.clicktocallduration === 0) {
-					this.video.on("ended", function () {
+					if (data.ended == true) {
 						$("#project-clicktocall").fadeOut("fast");
 						return false;
-					});
+					}
 				}
 			}
 
@@ -45530,10 +45517,10 @@ exports.default = {
 
 				if (this.vidtime === this.vidduration) {
 					$("#project-buttonoverlay").fadeIn("fast", function () {
-						if (_this6.buttonoverlayduration > 0) {
+						if (_this5.buttonoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-buttonoverlay").fadeOut("fast");
-							}, _this6.buttonoverlayduration);
+							}, _this5.buttonoverlayduration);
 							return false;
 						}
 					});
@@ -45541,19 +45528,19 @@ exports.default = {
 
 				// if duration is set to 0
 				if (this.buttonoverlayduration === 0) {
-					this.video.on("ended", function () {
+					if (data.ended == true) {
 						$("#project-buttonoverlay").fadeOut("fast");
 						return false;
-					});
+					}
 				}
 			} else {
 
 				if (this.vidtime === this.buttonoverlaystart) {
 					$("#project-buttonoverlay").fadeIn("fast", function () {
-						if (_this6.buttonoverlayduration > 0) {
+						if (_this5.buttonoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-buttonoverlay").fadeOut("fast");
-							}, _this6.buttonoverlayduration);
+							}, _this5.buttonoverlayduration);
 							return false;
 						}
 					});
@@ -45561,10 +45548,10 @@ exports.default = {
 
 				// if duration is set to 0
 				if (this.buttonoverlayduration === 0) {
-					this.video.on("ended", function () {
+					if (data.ended == true) {
 						$("#project-buttonoverlay").fadeOut("fast");
 						return false;
-					});
+					}
 				}
 			}
 
@@ -45577,10 +45564,10 @@ exports.default = {
 					this.project.actions.autoresponder_username = '';
 					this.project.actions.autoresponder_email = '';
 					$("#project-formoverlay").fadeIn("fast", function () {
-						if (_this6.formoverlayduration > 0) {
+						if (_this5.formoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-formoverlay").fadeOut("fast");
-							}, _this6.formoverlayduration);
+							}, _this5.formoverlayduration);
 							return false;
 						}
 					});
@@ -45588,10 +45575,10 @@ exports.default = {
 
 				// if duration is set to 0
 				if (this.formoverlayduration === 0) {
-					this.video.on("ended", function () {
+					if (data.ended == true) {
 						$("#project-formoverlay").fadeOut("fast");
 						return false;
-					});
+					}
 				}
 			} else {
 
@@ -45599,10 +45586,10 @@ exports.default = {
 					this.project.actions.autoresponder_username = '';
 					this.project.actions.autoresponder_email = '';
 					$("#project-formoverlay").fadeIn("fast", function () {
-						if (_this6.formoverlayduration > 0) {
+						if (_this5.formoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-formoverlay").fadeOut("fast");
-							}, _this6.formoverlayduration);
+							}, _this5.formoverlayduration);
 							return false;
 						}
 					});
@@ -45610,20 +45597,20 @@ exports.default = {
 
 				// if duration is set to 0
 				if (this.formoverlayduration === 0) {
-					this.video.on("ended", function () {
+					if (data.ended == true) {
 						$("#project-formoverlay").fadeOut("fast");
 						return false;
-					});
+					}
 				}
 			}
 			//end of elements
 		},
 		videoEnded: function videoEnded() {
-			var _this7 = this;
+			var _this6 = this;
 
 			this.video.on("ended", function () {
-				if (_this7.project.options.external_video.embed_code != "") {
-					var embed_duration = parseInt(_this7.project.options.external_video.duration) * 1000;
+				if (_this6.project.options.external_video.embed_code != "") {
+					var embed_duration = parseInt(_this6.project.options.external_video.duration) * 1000;
 					$("div#project-embed-video").fadeIn("fast");
 					if (embed_duration > 0) {
 						setTimeout(function () {
@@ -45639,7 +45626,7 @@ exports.default = {
 			});
 		},
 		subscribe: function subscribe() {
-			var _this8 = this;
+			var _this7 = this;
 
 			var autoresponder_type = this.project.actions.autoresponder.toLowerCase();
 
@@ -45669,13 +45656,13 @@ exports.default = {
 			this.$http.post('/autoresponder/' + this.project.actions.autoresponder + '/subscribe', data).then(function (response) {
 				if (response.data == 1) {
 					$('#project-formoverlay').fadeOut("fast");
-					_this8.project.actions.autoresponder_username = '';
-					_this8.project.actions.autoresponder_email = '';
+					_this7.project.actions.autoresponder_username = '';
+					_this7.project.actions.autoresponder_email = '';
 				}
 			}).catch(function () {
 				$('#project-formoverlay').fadeOut("fast");
-				_this8.project.actions.autoresponder_username = '';
-				_this8.project.actions.autoresponder_email = '';
+				_this7.project.actions.autoresponder_username = '';
+				_this7.project.actions.autoresponder_email = '';
 			});
 		}
 	}
@@ -45740,7 +45727,7 @@ new _vue2.default({
 });
 
 },{"./components/ProjectPlayer.js":158,"vue":154,"vue-resource":153}],160:[function(require,module,exports){
-module.exports = '<div :class="[player_class.dimmed]" v-show="is_visible" id="project-player-bg">\n\n  <div id="project-player-container"\n     :style="[player_styles.offsets]"\n     :class="[player_class.position, player_class.glass]"\n  >\n  <!-- embed video -->\n   <div v-if="has_Video"\n        id="project-embed-video"\n        :class="[embed_class.position]"\n    >\n      <a href="#" class="close-embed text-danger"><i class="fa fa-times"></i></a>\n      <span v-html="project.options.external_video.embed_code"></span>\n    </div>\n\n    <!-- textoverlay -->\n    <div v-if="has_Textoverlay" id="project-text-overlay"\n        :class="[textoverlay_class.valignment, textoverlay_class.alignment, \'project-element\']"\n        :style="{ fontFamily:project.actions.textoverlay_fontfamily,\n                  fontSize:project.actions.textoverlay_fontsize+\'px\',\n                  fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n                  fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n                  color: project.actions.textoverlay_textcolor\n                }"\n    >\n\n        <span v-if="has_Line1"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_1 }}\n        </span><br/>\n        <span v-if="has_Line2"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_2 }}\n        </span>\n    </div>\n\n\n    <!-- click to call -->\n    <div v-if="has_Phonenumber"\n         id="project-clicktocall"\n         :class="[clicktocall_class.valignment, clicktocall_class.alignment, \'project-element\']"\n         :style="{ fontFamily:project.actions.clicktocall_fontfamily,\n                   fontSize:project.actions.clicktocall_fontsize+\'px\',\n                   fontWeight: project.actions.clicktocall_bold ? \'bold\' : null,\n                   fontStyle: project.actions.clicktocall_italic ? \'italic\': null\n                 }"\n    >\n\n\n      <a class="btn btn-default" href="tel:{{ project.actions.clicktocall }}"\n        :style="{\n          backgroundColor: project.actions.clicktocall_backgroundcolor,\n          color: project.actions.clicktocall_textcolor\n        }"\n      >\n        {{ project.actions.clicktocall }}\n      </a>\n\n\n    </div>\n\n    <!-- button overlay -->\n    <div v-if="has_Buttonoverlay"\n        id="project-buttonoverlay"\n        :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, \'project-element\']"\n        :style="{ fontFamily:project.actions.buttonoverlay_fontfamily,\n         fontSize:project.actions.buttonoverlay_fontsize+\'px\',\n         fontWeight: project.actions.buttonoverlay_bold ? \'bold\' : null,\n         fontStyle: project.actions.buttonoverlay_italic ? \'italic\': null\n        }"\n    >\n          <button class="btn btn-default"\n                  :style="{\n                      color: project.actions.buttonoverlay_textcolor,\n                      backgroundColor: project.actions.buttonoverlay_backgroundcolor\n                  }"\n          >\n            {{ project.actions.buttonoverlay_label ? project.actions.buttonoverlay_label: \'Default\'}}\n          </button>\n    </div>\n\n    <!-- form overlay -->\n\n    <div v-if="has_Autoresponder" id="project-formoverlay" class="project-element">\n          <section class="panel">\n            <a href="#" class="close-form text-danger"><i class="fa fa-times"></i></a>\n            <header class="panel-heading text-center">\n               <h4\n                :style="{\n                  fontFamily: project.actions.formoverlay_titlefontfamily,\n                  fontSize: formoverlay_titlesize,\n                  fontWeight: project.actions.formoverlay_titlebold ? \'bold\' : null,\n                  fontStyle: project.actions.formoverlay_titleitalic ? \'italic\': null,\n                  color: project.actions.formoverlay_titlecolor\n                }"\n               >\n                {{ project.actions.formoverlay_title }}\n\n              </h4>\n            </header>\n             <div class="panel-body">\n               <form class="form-horizontal tasi-form text-left">\n                  <div class="form-group">\n                    <div class="col-lg-12 col-md-12">\n                        <input type="text" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="subscriber-username" placeholder="Enter your name.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                               }"\n                               v-model="project.actions.autoresponder_username"\n                        >\n                        <input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="subscriber-email" placeholder="Enter your email.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                               }"\n                               v-model="project.actions.autoresponder_email"\n                        >\n                        <button id="formoverlay-btn" type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"\n                              @click="subscribe"\n                              :style="{\n                                borderWidth: project.actions.formoverlay_buttonbordersize + \'px\',\n                                color: project.actions.formoverlay_buttoncolor,\n                                borderColor: project.actions.formoverlay_buttoncolor,\n                                backgroundColor: project.actions.formoverlay_buttonbackgroundcolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                              }"\n                        >\n                              {{ project.actions.formoverlay_buttontext }}\n                        </button>\n                    </div>\n                  </div>\n                 </form>\n             </div>\n          </section>\n    </div>\n\n\n     <div id="video-section">\n\n     </div>\n\n\n  </div> <!-- end of project-player-container -->\n</div> <!-- end of player background -->\n\n';
+module.exports = '<div :class="[player_class.dimmed]" v-show="is_visible" id="project-player-bg">\n\n  <div id="project-player-container"\n     :style="[player_styles.offsets]"\n     :class="[player_class.position, player_class.glass]"\n  >\n  <!-- embed video -->\n   <div v-if="has_Video"\n        id="project-embed-video"\n        :class="[embed_class.position]"\n    >\n      <a href="#" class="close-embed text-danger"><i class="fa fa-times"></i></a>\n      <span v-html="project.options.external_video.embed_code"></span>\n    </div>\n\n    <!-- textoverlay -->\n    <div v-if="has_Textoverlay" id="project-text-overlay"\n        :class="[textoverlay_class.valignment, textoverlay_class.alignment, \'project-element\']"\n        :style="{ fontFamily:project.actions.textoverlay_fontfamily,\n                  fontSize:project.actions.textoverlay_fontsize+\'px\',\n                  fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n                  fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n                  color: project.actions.textoverlay_textcolor\n                }"\n    >\n\n        <span v-if="has_Line1"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_1 }}\n        </span><br/>\n        <span v-if="has_Line2"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_2 }}\n        </span>\n    </div>\n\n\n    <!-- click to call -->\n    <div v-if="has_Phonenumber"\n         id="project-clicktocall"\n         :class="[clicktocall_class.valignment, clicktocall_class.alignment, \'project-element\']"\n         :style="{ fontFamily:project.actions.clicktocall_fontfamily,\n                   fontSize:project.actions.clicktocall_fontsize+\'px\',\n                   fontWeight: project.actions.clicktocall_bold ? \'bold\' : null,\n                   fontStyle: project.actions.clicktocall_italic ? \'italic\': null\n                 }"\n    >\n\n\n      <a class="btn btn-default" href="tel:{{ project.actions.clicktocall }}"\n        :style="{\n          backgroundColor: project.actions.clicktocall_backgroundcolor,\n          color: project.actions.clicktocall_textcolor\n        }"\n      >\n        {{ project.actions.clicktocall }}\n      </a>\n\n\n    </div>\n\n    <!-- button overlay -->\n    <div v-if="has_Buttonoverlay"\n        id="project-buttonoverlay"\n        :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, \'project-element\']"\n        :style="{ fontFamily:project.actions.buttonoverlay_fontfamily,\n         fontSize:project.actions.buttonoverlay_fontsize+\'px\',\n         fontWeight: project.actions.buttonoverlay_bold ? \'bold\' : null,\n         fontStyle: project.actions.buttonoverlay_italic ? \'italic\': null\n        }"\n    >\n          <button class="btn btn-default"\n                  :style="{\n                      color: project.actions.buttonoverlay_textcolor,\n                      backgroundColor: project.actions.buttonoverlay_backgroundcolor\n                  }"\n          >\n            {{ project.actions.buttonoverlay_label ? project.actions.buttonoverlay_label: \'Default\'}}\n          </button>\n    </div>\n\n    <!-- form overlay -->\n\n    <div v-if="has_Autoresponder" id="project-formoverlay" class="project-element">\n          <section class="panel">\n            <a href="#" class="close-form text-danger"><i class="fa fa-times"></i></a>\n            <header class="panel-heading text-center">\n               <h4\n                :style="{\n                  fontFamily: project.actions.formoverlay_titlefontfamily,\n                  fontSize: formoverlay_titlesize,\n                  fontWeight: project.actions.formoverlay_titlebold ? \'bold\' : null,\n                  fontStyle: project.actions.formoverlay_titleitalic ? \'italic\': null,\n                  color: project.actions.formoverlay_titlecolor\n                }"\n               >\n                {{ project.actions.formoverlay_title }}\n\n              </h4>\n            </header>\n             <div class="panel-body">\n               <form class="form-horizontal tasi-form text-left">\n                  <div class="form-group">\n                    <div class="col-lg-12 col-md-12">\n                        <input type="text" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="subscriber-username" placeholder="Enter your name.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                               }"\n                               v-model="project.actions.autoresponder_username"\n                        >\n                        <input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="subscriber-email" placeholder="Enter your email.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                               }"\n                               v-model="project.actions.autoresponder_email"\n                        >\n                        <button id="formoverlay-btn" type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"\n                              @click="subscribe"\n                              :style="{\n                                borderWidth: project.actions.formoverlay_buttonbordersize + \'px\',\n                                color: project.actions.formoverlay_buttoncolor,\n                                borderColor: project.actions.formoverlay_buttoncolor,\n                                backgroundColor: project.actions.formoverlay_buttonbackgroundcolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                              }"\n                        >\n                              {{ project.actions.formoverlay_buttontext }}\n                        </button>\n                    </div>\n                  </div>\n                 </form>\n             </div>\n          </section>\n    </div>\n\n     <div id="video-section">\n\n     </div>\n\n\n  </div> <!-- end of project-player-container -->\n</div> <!-- end of player background -->\n\n';
 },{}]},{},[159]);
 
 //# sourceMappingURL=premade.js.map
