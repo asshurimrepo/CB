@@ -79,4 +79,10 @@ class EmbedController extends Controller
 
 	    return $response;
     }
+
+    public function iframe(Project $project)
+    {
+    	// return $project;
+    	return view('embed.iframe', compact('project'));
+    }
 }

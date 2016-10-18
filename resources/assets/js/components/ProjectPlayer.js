@@ -1,6 +1,6 @@
 // var seeThru = require('seethru');
 var  jQueryCaster = require('jquery');
-var  videoCasterJS = require('video.js');
+// var  videoCasterJS = require('video.js');
 
 
 export default {
@@ -178,8 +178,8 @@ export default {
 		renderTransparentVideo() {
 			this.video = videojs('project-player', { "controls": "false", "preload": "auto" });
 			// this.video.height(this.project.height*2);
-			//@embed$("video#project-player_html5_api").attr("crossorigin", "");
-			//@embed$("video#project-player_html5_api>source").attr("crossorigin", "");
+			//@embed$("video#project-player_html5_api").attr("crossorigin", "anonymous");
+			//$("video#project-player_html5_api>source").attr("crossorigin", "");
 			this.video.ready(() => {
 				this.video.on("loadedmetadata",() => {
 					// rigz script

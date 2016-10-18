@@ -27,6 +27,7 @@ Route::group(['middleware' => ['web', 'cors']], function(){
 	// Handles Showing Image
 	Route::get('/image/{filename}', 'ImagesController@show');
 	Route::get('/embed/image/{user}/{filename}', 'ImagesController@embed');
+
 	// Handles Showing Videos
 	Route::get('/video/{filename}', 'VideosController@show');
 	Route::get('/embed/video/{user}/{filename}', 'VideosController@embed');
@@ -34,6 +35,7 @@ Route::group(['middleware' => ['web', 'cors']], function(){
 	Route::get('/embed/caster.js', 'EmbedController@show');
 	Route::get('/embed.js/{id}', 'EmbedController@create');
 	Route::get('/embed/js/{filename}', 'EmbedController@loadjs');
+	Route::get('/embed/iframe/{project}', 'EmbedController@iframe');
 
 	// Handles Autorespoders
 	Route::post('/autoresponder/mailchimp', 'AutoResponderController@mailchimp');
