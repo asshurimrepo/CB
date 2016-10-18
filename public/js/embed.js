@@ -3,10 +3,10 @@ var casterJS = document.createElement('script');
 casterJS.setAttribute("src", "@url/embed/caster.js?ID=@id"); 
 
 var seriouslyJs = document.createElement('script');
-seriouslyJs.setAttribute("src", "@url/js/seriously.js"); 
+seriouslyJs.setAttribute("src", "@url/embed/js/seriously.js"); 
 
 var seriouslyChromaJs = document.createElement('script');
-seriouslyChromaJs.setAttribute("src", "@url/js/seriously.chroma.js"); 
+seriouslyChromaJs.setAttribute("src", "@url/embed/js/seriously.chroma.js"); 
 
 var videoJS = document.createElement('script');
 videoJS.setAttribute("src", "//vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"); 
