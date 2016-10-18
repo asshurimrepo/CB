@@ -647,8 +647,7 @@ canvas#buffer {
   transition: all .2s ease-in-out; }
 
 div#video-section {
-  max-width: 400px;
-  min-height: 180px; }
+  width: 400px; }
 
 div.loader-3 {
   position: absolute;
