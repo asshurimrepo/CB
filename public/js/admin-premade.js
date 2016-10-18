@@ -47421,7 +47421,7 @@ exports.default = {
 
 			var delay = parseInt(this.project.options.auto_display_after) * 1000;
 
-			var video_template = '\n\t\t        <div class="loader-3">\n\t              <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>\n\t              <span class="sr-only">Loading...</span>\n          \t\t</div>\n          \t\t<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>  \n\t\t\t\t<iframe id="project-player" src="/embed/iframe/' + this.project.id + '" height="300px" frameborder="0" width="100%" scrolling="no"></iframe>\n\t\t   \t';
+			var video_template = '\n\t\t        <div class="loader-3">\n\t              <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>\n\t              <span class="sr-only">Loading...</span>\n          \t\t</div>\n          \t\t<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>  \n\t\t\t\t<iframe id="project-player" src="/embed/iframe/' + this.project.id + '" height="430px" frameborder="0" width="100%" scrolling="no"></iframe>\n\t\t   \t';
 
 			$("#video-section").empty().html(video_template);
 
