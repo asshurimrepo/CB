@@ -18,12 +18,11 @@ Route::get('/', function () {
 Route::auth();
 
 /*Routes for Resource on Casters*/
-Route::group(['middleware' => 'web'], function(){
-
-	header('Access-Control-Allow-Origin: *');
+Route::group(['middleware' => ['web', 'cors']], function(){
+	/*header('Access-Control-Allow-Origin: *');
 	header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Accept-Language, Content-Language, Authorization, X-Request-With, X-Access-Token, X-Application-Name, X-Request-Sent-Time');
+    header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Accept-Language, Content-Language, Authorization, X-Request-With, X-Access-Token, X-Application-Name, X-Request-Sent-Time');*/
 
 	// Handles Showing Image
 	Route::get('/image/{filename}', 'ImagesController@show');
@@ -44,13 +43,6 @@ Route::group(['middleware' => 'web'], function(){
 	Route::post('/autoresponder/mailchimp/subscribe', 'AutoResponderController@mailchimpSubscribe');
 	Route::post('/autoresponder/getresponse/subscribe', 'AutoResponderController@getresponseSubscribe');
 	Route::post('/autoresponder/aweber/subscribe', 'AutoResponderController@aweberSubscribe');
-	
-	// Handles Video Processer
-	Route::post('/video-processer/{project}', 'VideoProcesserController@distillVideo');
-	Route::post('/video-processer/{project}/process-frames', 'VideoProcesserController@processFrames');
-	Route::post('/video-processer/{project}/process-single-frame/{img}', 'VideoProcesserController@processSingleFrame');
-	Route::post('/video-processer/{project}/recompose-video', 'VideoProcesserController@recomposeVideo');
-	Route::post('/video-processer/{project}/finishing', 'VideoProcesserController@cleanUpVideo');
 
 	//Reroute Unauthorized Registration
 	Route::get('/register', function () {
@@ -79,6 +71,13 @@ Route::group(['middleware' => ['auth', 'web']], function(){
 
 	/*Route::get('/{filename}', 'VideosController@show')
 		->where('filename', '(video*).*');*/
+
+	// Handles Video Processer
+	Route::post('/video-processer/{project}', 'VideoProcesserController@distillVideo');
+	Route::post('/video-processer/{project}/process-frames', 'VideoProcesserController@processFrames');
+	Route::post('/video-processer/{project}/process-single-frame/{img}', 'VideoProcesserController@processSingleFrame');
+	Route::post('/video-processer/{project}/recompose-video', 'VideoProcesserController@recomposeVideo');
+	Route::post('/video-processer/{project}/finishing', 'VideoProcesserController@cleanUpVideo');
 });
 
 /*Routes on Super User*/
