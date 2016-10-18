@@ -46398,8 +46398,8 @@ exports.default = {
 
 			this.video = videojs('project-player', { "controls": "false", "preload": "auto" });
 			// this.video.height(this.project.height*2);
-			//@embed$("video#project-player_html5_api").attr("crossorigin", "anonymous");
-			// $("video#project-player_html5_api>source").attr("crossorigin", "anonymous");
+			//@embed$("video#project-player_html5_api").attr("crossorigin", "");
+			//@embed$("video#project-player_html5_api>source").attr("crossorigin", "");
 			this.video.ready(function () {
 				_this2.video.on("loadedmetadata", function () {
 					// rigz script
@@ -46514,7 +46514,7 @@ exports.default = {
 			}
 
 			var delay = parseInt(this.project.options.auto_display_after) * 1000;
-			var video_template = '\n\t\t\t  <div class="loader-3">\n\t\t\t      <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>\n\t\t\t      <span class="sr-only">Loading...</span>\n\t\t\t  </div>\n\t\t\t<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" \n\t\t\t\t   data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'\n\t\t\t>\n\t\t\t\t  <source src="/video/' + this.project.filename + '" type="video/mp4">\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t\t<canvas id="output" crossorigin></canvas>\n\t\t   \t';
+			var video_template = '\n\t\t\t  <div class="loader-3">\n\t\t\t      <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>\n\t\t\t      <span class="sr-only">Loading...</span>\n\t\t\t  </div>\n\t\t\t<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>\n\t\t\t<video id="project-player" class="video-js" preload="auto" \n\t\t\t\t   data-setup=\'{"poster":"/image/' + this.project.filename + '"}\'\n\t\t\t>\n\t\t\t\t  <source src="/video/' + this.project.filename + '" type="video/mp4">\n\t\t          <p class="vjs-no-js">\n\t\t            To view this video please enable JavaScript, and consider upgrading to a web browser that\n\t\t            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n\t\t          </p>\n\n\t\t   \t</video>\n\n\t\t\t<canvas id="output"></canvas>\n\t\t   \t';
 
 			$("#video-section").empty().html(video_template);
 
