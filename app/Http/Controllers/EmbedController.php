@@ -61,6 +61,7 @@ class EmbedController extends Controller
 	    $file = str_replace('this.jQueryCaster(', 'this.$(', $file);
 	    $file = str_replace("/image/", url("/embed/image/{$project->user_id}") . "/", $file);
 	    $file = str_replace("/video/", url("/embed/video/{$project->user_id}") . "/", $file);
+	    $file = str_replace("/embed/iframe/", url("/embed/iframe/") . "/", $file);
 
 	    return $file;
     }

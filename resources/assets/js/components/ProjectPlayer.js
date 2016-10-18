@@ -252,7 +252,7 @@ export default {
 	              <span class="sr-only">Loading...</span>
           		</div>
           		<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>  
-				<iframe id="project-player" src="http://casterbuddy.dev/embed/iframe/${this.project.id}" height="300px" frameborder="0" width="100%" scrolling="no"></iframe>
+				<iframe id="project-player" src="/embed/iframe/${this.project.id}" height="300px" frameborder="0" width="100%" scrolling="no"></iframe>
 		   	`;
 
 
