@@ -21,7 +21,8 @@ new Vue({
 	ready() {
 		console.log("Members are ready!");
 
-		this.loadData();
+		this.members = window.users;
+		// this.loadData();
 	},
 
 	events: {
@@ -40,7 +41,7 @@ new Vue({
 		},
 
 		loadData() {
-			this.$http.get('/admin/members').then(response => this.members = response.data);
+			this.$http.get('/admin/members/lists').then(response => this.members = response.data);
 		},
 
 		addNewMember() {

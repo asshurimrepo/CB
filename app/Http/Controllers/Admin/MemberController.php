@@ -19,11 +19,15 @@ class MemberController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()) {
-            return User::where('user_role','!=','admin')->get();
-        }
+       $users = User::where('user_role','!=','admin')->get();
 
-        return view('admin.members.index');
+        return view('admin.members.index', compact('users'));
+    }
+
+    
+    public function lists()
+    {
+        return User::where('user_role','!=','admin')->get();
     }
 
     /**
@@ -56,7 +60,6 @@ class MemberController extends Controller
     public function update(Request $request, User $members)
     {
         $inputs = $request->all();
-        // // $inputs['slug'] = str_slug($inputs['slug']);
 
         if(array_key_exists("password",$inputs)){
             $inputs['password'] = Hash::make($request->get('password'));

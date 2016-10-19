@@ -11633,7 +11633,8 @@ new _vue2.default({
 	ready: function ready() {
 		console.log("Members are ready!");
 
-		this.loadData();
+		this.members = window.users;
+		// this.loadData();
 	},
 
 
@@ -11653,7 +11654,7 @@ new _vue2.default({
 		loadData: function loadData() {
 			var _this = this;
 
-			this.$http.get('/admin/members').then(function (response) {
+			this.$http.get('/admin/members/lists').then(function (response) {
 				return _this.members = response.data;
 			});
 		},
