@@ -26,7 +26,7 @@
 			</thead>
 
 			<tbody>
-				<tr v-for="member in members" track-by="$index">
+				<tr v-for="member in members" track-by="id">
 					<td>@{{ member.name }}</td>
 					<td>@{{ member.email }}</td>
 					<td>
