@@ -45607,6 +45607,7 @@ exports.default = {
 				if (data.ended) {
 					console.log('ended');
 					_this4.videoElements(data);
+					_this4.videoEnded();
 
 					if (_this4.project.options.stop_showing.exit_on_end === true) {
 						$('iframe#project-player').fadeOut("fast");
@@ -45812,27 +45813,23 @@ exports.default = {
 			//end of elements
 		},
 		videoEnded: function videoEnded() {
-			var _this6 = this;
-
-			this.video.on("ended", function () {
-				if (_this6.project.options.external_video.embed_code != "") {
-					var embed_duration = parseInt(_this6.project.options.external_video.duration) * 1000;
-					$("div#project-embed-video").fadeIn("fast");
-					if (embed_duration > 0) {
-						setTimeout(function () {
-							var project_embed = $("div#project-embed-video").find('iframe');
-							var embed_source = $(project_embed).attr("src");
-							if (embed_source == undefined) {
-								$(project_embed).attr("src", embed_source);
-							}
-							$("div#project-embed-video").fadeOut("fast");
-						}, embed_duration);
-					}
+			if (this.project.options.external_video.embed_code != "") {
+				var embed_duration = parseInt(this.project.options.external_video.duration) * 1000;
+				$("div#project-embed-video").fadeIn("fast");
+				if (embed_duration > 0) {
+					setTimeout(function () {
+						var project_embed = $("div#project-embed-video").find('iframe');
+						var embed_source = $(project_embed).attr("src");
+						if (embed_source == undefined) {
+							$(project_embed).attr("src", embed_source);
+						}
+						$("div#project-embed-video").fadeOut("fast");
+					}, embed_duration);
 				}
-			});
+			}
 		},
 		subscribe: function subscribe() {
-			var _this7 = this;
+			var _this6 = this;
 
 			var autoresponder_type = this.project.actions.autoresponder.toLowerCase();
 
@@ -45862,13 +45859,13 @@ exports.default = {
 			this.$http.post('/autoresponder/' + this.project.actions.autoresponder + '/subscribe', data).then(function (response) {
 				if (response.data == 1) {
 					$('#project-formoverlay').fadeOut("fast");
-					_this7.project.actions.autoresponder_username = '';
-					_this7.project.actions.autoresponder_email = '';
+					_this6.project.actions.autoresponder_username = '';
+					_this6.project.actions.autoresponder_email = '';
 				}
 			}).catch(function () {
 				$('#project-formoverlay').fadeOut("fast");
-				_this7.project.actions.autoresponder_username = '';
-				_this7.project.actions.autoresponder_email = '';
+				_this6.project.actions.autoresponder_username = '';
+				_this6.project.actions.autoresponder_email = '';
 			});
 		}
 	}

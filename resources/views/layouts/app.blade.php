@@ -189,7 +189,8 @@
         $(document).ready(function(){
             var clipboard = new Clipboard('.copy-btn');
             clipboard.on('success', function(e) {
-                console.log(e);
+                // console.log(e);
+                $('#clipboard-confirm').fadeIn(400).delay(900).fadeOut(600); 
             });
 
             // jQuery(".fancybox").fancybox();

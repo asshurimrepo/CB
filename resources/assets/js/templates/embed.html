@@ -8,20 +8,30 @@
           <div class="modal-body">
           	<div class="row">
           		<div class="col-md-12">
-                <pre class="prettyprint" id="code">&lt;script src="<slot></slot>/embed.js/{{project.id}}"&gt;&lt;/script&gt;</pre>
+                <div class="panel-heading text-center">
+                  <pre class="prettyprint" id="code">&lt;script src="<slot></slot>/embed.js/{{project.id}}"&gt;&lt;/script&gt;</pre>
+                </div>
               </div>
 						</div>
+            <br/>
             <div class="row">
               <div class="col-md-12">
-
+                <i class="fa fa-info-circle"></i>
+                Paste the script anywhere inside the <code>&lt;body&gt;&lt;/body&gt;</code> tags of the html in your website.
               </div>
             </div>
           </div>
           <div class="modal-footer">
-              <button data-dismiss="copy" data-clipboard-target="#code" class="btn btn-success copy-btn" type="button"><i class="fa fa-clipboard"></i> Copy</button>
+              <button id="copy-button" data-dismiss="copy" data-clipboard-target="#code" class="btn btn-success copy-btn" type="button"><i class="fa fa-clipboard"></i> Copy</button>
               <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>
           </div>
       </div>
   </div>
+      <div class="modal-dialog">
+          <div id="clipboard-confirm" class="alert alert-success fade in col-md-5">
+              <strong><i class="fa fa-check"></i> Succesful!</strong>  Copied to clipboard
+          </div>
+      </div>
 </div>
+
 <!-- Options modal -->

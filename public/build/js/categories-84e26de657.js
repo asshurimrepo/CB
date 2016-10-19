@@ -11737,92 +11737,17 @@ module.exports = Vue;
 },{"_process":1}],4:[function(require,module,exports){
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = {
-	template: require('../templates/add-member.html'),
-
-	data: function data() {
-		return {
-			member: {
-				name: null,
-				file: null
-			},
-
-			is_saving: false
-		};
-	},
-
-
-	methods: {
-		save: function save() {
-			var _this = this;
-
-			this.is_saving = true;
-
-			this.$http.post('/admin/members', this.member).then(function () {
-				swal('Great!', 'You have just added new Member to the pack!', 'success');
-				_this.is_saving = false;
-				_this.$dispatch('newMemberAdded');
-			}).catch(function (reason) {
-				swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');
-				_this.is_saving = false;
-			});
-		}
-	}
-};
-
-},{"../templates/add-member.html":7}],5:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = {
-	template: require('../templates/edit-member.html'),
-
-	props: ['member'],
-
-	data: function data() {
-		return {
-			is_saving: false
-		};
-	},
-
-
-	methods: {
-		save: function save() {
-			var _this = this;
-
-			this.is_saving = true;
-
-			this.$http.put('/admin/members/' + this.member.id, this.member).then(function () {
-				swal('Great!', 'You have just updated this member!', 'success');
-				_this.is_saving = false;
-				_this.$dispatch('memberUpdated');
-			}).catch(function (reason) {
-				swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');
-				_this.is_saving = false;
-			});
-		}
-	}
-};
-
-},{"../templates/edit-member.html":8}],6:[function(require,module,exports){
-'use strict';
-
 var _vue = require('vue');
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _AddMember = require('./components/AddMember.js');
+var _AddCategory = require('./components/AddCategory.js');
 
-var _AddMember2 = _interopRequireDefault(_AddMember);
+var _AddCategory2 = _interopRequireDefault(_AddCategory);
 
-var _EditMember = require('./components/EditMember.js');
+var _EditCategory = require('./components/EditCategory.js');
 
-var _EditMember2 = _interopRequireDefault(_EditMember);
+var _EditCategory2 = _interopRequireDefault(_EditCategory);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11831,57 +11756,57 @@ _vue2.default.use(require('vue-resource'));
 _vue2.default.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 
 new _vue2.default({
-	el: "#members-app",
+	el: "#categories-app",
 
 	data: {
-		members: [],
+		categories: [],
 		active: {}
 	},
 
 	components: {
-		AddMember: _AddMember2.default, EditMember: _EditMember2.default
+		AddCategory: _AddCategory2.default, EditCategory: _EditCategory2.default
 	},
 
 	ready: function ready() {
-		console.log("Members are ready!");
+		console.log("Categories are ready!");
 
 		this.loadData();
 	},
 
 
 	events: {
-		newMemberAdded: function newMemberAdded() {
+		newCategoryAdded: function newCategoryAdded() {
 			this.loadData();
 		},
-		memberUpdated: function memberUpdated() {
+		categoryUpdated: function categoryUpdated() {
 			this.loadData();
 		}
 	},
 
 	methods: {
-		setActive: function setActive(member) {
-			this.active = member;
+		setActive: function setActive(category) {
+			this.active = category;
 		},
 		loadData: function loadData() {
 			var _this = this;
 
-			this.$http.get('/admin/members').then(function (response) {
-				return _this.members = response.data;
+			this.$http.get('/admin/categories').then(function (response) {
+				return _this.categories = response.data;
 			});
 		},
-		addNewMember: function addNewMember() {
-			$("#member-add-new").modal('show');
+		addNewCategory: function addNewCategory() {
+			$("#category-add-new").modal('show');
 			console.log('add new');
 		},
-		editMember: function editMember(member) {
-			console.log('edit member');
-			this.setActive(member);
-			$("#member-edit").modal('show');
+		editCategory: function editCategory(category) {
+			console.log('edit category');
+			this.setActive(category);
+			$("#category-edit").modal('show');
 		},
-		deleteMember: function deleteMember(member) {
+		deleteCategory: function deleteCategory(category) {
 			var _this2 = this;
 
-			this.setActive(member);
+			this.setActive(category);
 
 			swal({ title: "Are you sure?",
 				text: "You will not be able to recover from this!",
@@ -11895,7 +11820,7 @@ new _vue2.default({
 				if (isConfirm) {
 					swal("Deleted!", "It has been deleted.", "success");
 
-					_this2.$http.delete('/admin/members/' + member.id).then(function () {
+					_this2.$http.delete('/admin/categories/' + category.id).then(function () {
 						return _this2.loadData();
 					});
 				} else {
@@ -11906,10 +11831,131 @@ new _vue2.default({
 	}
 });
 
-},{"./components/AddMember.js":4,"./components/EditMember.js":5,"vue":3,"vue-resource":2}],7:[function(require,module,exports){
-module.exports = '<div class="modal fade" id="member-add-new" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-plus"></i>  Add New Member</h4>\n          </div>\n          <div class="modal-body">\n              <div class="form-group">\n                <label for="name">Member Name:</label>\n                <input required type="text" id="name" class="form-control" v-model="member.name">\n              </div>\n              <div class="form-group">\n                <label for="email">Member Email:</label>\n                <input required type="email" id="email" class="form-control" v-model="member.email">\n              </div>\n              <div class="form-group">\n                <label for="password">New Password:</label>\n                <input required type="password" id="password" class="form-control" v-model="member.password">\n              </div>\n          </div>\n          <div class="modal-footer">\n              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Add New</button>\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
-},{}],8:[function(require,module,exports){
-module.exports = '<div class="modal fade" id="member-edit" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-pencil"></i>  Edit Member</h4>\n          </div>\n          <div class="modal-body">\n              <div class="form-group">\n                <label for="name">Member Name:</label>\n                <input required type="text" id="name" class="form-control" v-model="member.name">\n              </div>\n              <div class="form-group">\n                <label for="email">Member Email:</label>\n                <input required type="email" id="email" class="form-control" v-model="member.email">\n              </div>\n              <div class="form-group">\n                <label for="password">New Password:</label>\n                <input required type="password" id="password" class="form-control" v-model="member.password">\n              </div>\n          </div>\n          <div class="modal-footer">\n              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Save</button>\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
-},{}]},{},[6]);
+},{"./components/AddCategory.js":5,"./components/EditCategory.js":6,"vue":3,"vue-resource":2}],5:[function(require,module,exports){
+'use strict';
 
-//# sourceMappingURL=members.js.map
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	template: require('../templates/add-category.html'),
+
+	data: function data() {
+		return {
+			category: {
+				name: null,
+				featured_img: null
+			},
+
+			is_saving: false
+		};
+	},
+
+
+	methods: {
+		onFileChange: function onFileChange(e) {
+			var files = e.target.files || e.dataTransfer.files;
+
+			if (!files.length) return;
+
+			this.createImage(files[0]);
+		},
+		createImage: function createImage(file) {
+			var _this = this;
+
+			var image = new Image();
+			var reader = new FileReader();
+			var vm = this;
+
+			reader.onload = function (e) {
+				// this.category.featured_img = e.target.result;
+				_this.category.featured_img = e.target.result;
+				// console.log(e.target.result);
+			};
+
+			reader.readAsDataURL(file);
+		},
+		save: function save() {
+			var _this2 = this;
+
+			this.is_saving = true;
+
+			this.$http.post('/admin/categories', this.category).then(function () {
+				swal('Great!', 'You have just added new Category to the pack!', 'success');
+				_this2.is_saving = false;
+				_this2.$dispatch('newCategoryAdded');
+				_this2.category = { name: null, featured_img: null };
+				$("#category-add-new").modal('hide');
+			}).catch(function (reason) {
+				swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');
+				_this2.is_saving = false;
+			});
+		}
+	}
+};
+
+},{"../templates/add-category.html":7}],6:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	template: require('../templates/edit-category.html'),
+
+	props: ['category'],
+
+	data: function data() {
+		return {
+			is_saving: false
+		};
+	},
+
+
+	methods: {
+		onFileChange: function onFileChange(e) {
+			var files = e.target.files || e.dataTransfer.files;
+
+			if (!files.length) return;
+
+			this.createImage(files[0]);
+		},
+		createImage: function createImage(file) {
+			var _this = this;
+
+			var image = new Image();
+			var reader = new FileReader();
+			var vm = this;
+
+			reader.onload = function (e) {
+				// this.category.featured_img = e.target.result;
+				_this.category.featured_img = e.target.result;
+				// console.log(e.target.result);
+			};
+
+			reader.readAsDataURL(file);
+		},
+		save: function save() {
+			var _this2 = this;
+
+			this.is_saving = true;
+
+			this.$http.put('/admin/categories/' + this.category.id, this.category).then(function () {
+				swal('Great!', 'You have just updated this category!', 'success');
+				_this2.is_saving = false;
+				_this2.$dispatch('categoryUpdated');
+			}).catch(function (reason) {
+				swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');
+				_this2.is_saving = false;
+			});
+		}
+	}
+};
+
+},{"../templates/edit-category.html":8}],7:[function(require,module,exports){
+module.exports = '<div class="modal fade" id="category-add-new" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-plus"></i>  Add New Category</h4>\n          </div>\n          <div class="modal-body">\n              <div class="form-group">\n                <label for="name">Category Name:</label>\n                <input required type="text" id="name" class="form-control" v-model="category.name">\n              </div>\n\n              <div class="form-group">\n                <label for="sub_text">Sub Text:</label>\n                <input required type="text" id="sub_text" class="form-control" v-model="category.sub_text">\n              </div>\n\n              <!-- <div class="form-group">\n                <label for="featured_img">Placeholder Image:</label>\n                <input required \n                       type="file" \n                       id="featured_img" \n                       name="featured_img" \n                       @change="onFileChange"\n                >\n              </div>\n\n              <div class="form-group">\n                <img :src="category.featured_img" class="img-responsive" />\n              </div> -->\n          </div>\n          <div class="modal-footer">\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Add New</button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
+},{}],8:[function(require,module,exports){
+module.exports = '<div class="modal fade" id="category-edit" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n      <div class="modal-content">\n          <div class="embed-modal modal-header text-center">\n              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\n              <h4 class="modal-title"><i class="fa fa-pencil"></i>  Edit Category</h4>\n          </div>\n          <div class="modal-body">\n              <div class="form-group">\n                <label for="name">Category Name:</label>\n                <input required type="text" id="name" class="form-control" v-model="category.name">\n              </div>\n\n              <div class="form-group">\n                <label for="slug">Slug:</label>\n                <input required type="text" id="slug" class="form-control" v-model="category.slug">\n              </div>\n\n              <!-- <div class="form-group">\n                <label for="name">Placeholder Image:</label>\n                <input required \n                       type="file" \n                       id="featured_img" \n                       name="featured_img" \n                       @change="onFileChange"\n                >\n              </div>\n\n              <div class="form-group">\n                <img :src="category.featured_img" class="img-responsive" />\n              </div> -->\n          </div>\n          <div class="modal-footer">\n              <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>\n              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Save</button>\n          </div>\n      </div>\n  </div>\n</div>\n<!-- Options modal -->';
+},{}]},{},[4]);
+
+//# sourceMappingURL=categories.js.map
