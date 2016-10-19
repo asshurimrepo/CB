@@ -15,13 +15,13 @@
                 <input required type="email" id="email" class="form-control" v-model="member.email">
               </div>
               <div class="form-group">
-                <label for="password">New Password:</label>
+                <label for="password">Member Password:</label>
                 <input required type="password" id="password" class="form-control" v-model="member.password">
               </div>
           </div>
           <div class="modal-footer">
-              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Add New</button>
               <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times"></i> Close</button>
+              <button @click="save()" :disabled="is_saving" class="btn btn-success" type="button"><i class="fa fa-clipboard"></i> Add New</button>              
           </div>
       </div>
   </div>
