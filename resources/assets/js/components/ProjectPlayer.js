@@ -257,7 +257,7 @@ export default {
 
 			let video_template = `
           		<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>  
-				<iframe id="project-player" src="/embed/iframe/${this.project.id}" width="100%" style="min-height: 100px; transition: all 1s;" frameborder="0"  scrolling="no"></iframe>
+				<iframe id="project-player" src="/embed/iframe/${this.project.id}" width="100%" style="min-height: 100px; transition: all .6s;" frameborder="0"  scrolling="no"></iframe>
 		   	`;
 
 		   	$("#video-section").empty().html(video_template);

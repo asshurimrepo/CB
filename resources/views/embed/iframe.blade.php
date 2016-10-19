@@ -41,6 +41,15 @@
 			left: 50%;
 			transform: translate(-50%, -50%);
 		}
+
+		canvas#output {
+			opacity: 0;
+			transition: all .5s;
+		}
+
+		canvas#output.ready {
+			opacity: 1;
+		}
 	</style>
 </head>
 <body style="background: transparent !important; min-height: 100px;">
@@ -116,6 +125,10 @@
 			video.on("loadedmetadata", function () {
 				$(".loader-3").hide();
 				var vPlayer = document.getElementById("embed-casters_html5_api");
+
+				setTimeout(function(){
+					$("canvas#output").addClass('ready');
+				}, 500);
 
 				$("canvas#output").get(0).setAttribute("width", vPlayer.videoWidth);
 				$("canvas#output").get(0).setAttribute("height", vPlayer.videoHeight);
