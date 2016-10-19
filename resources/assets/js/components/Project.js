@@ -9,6 +9,7 @@ export default {
 		console.log('Project Component is Ready!');
 
 		this.$data = this.data;
+		
 	},
 
 	components:{
@@ -25,6 +26,21 @@ export default {
 			return string.length > limit ? string.substr(0, limit) + '...' : string;
 	    }
   	},
+  	computed: {
+  	// 	badge(){
+  	// 		if(this.isNew == true ){
+			// 	$('.badge-indicator').css("background","#f1c500");
+			// 	return;
+			// }
+			// if(this.isNew == false && this.isUpdated == true){
+			// 	$('.badge-indicator').css("background","#41cac0");
+			// 	return;
+			// }
+
+  	// 		return;		
+  	// 	}
+  	},
+
 	methods: {
 		showOptions() {
 			console.log('Showing Options for ' + this.title);
