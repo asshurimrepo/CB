@@ -22,11 +22,13 @@ elixir(function(mix) {
         'js/categories.js',
         'js/admin-premade.js',
         'js/premade.js',
+        'js/members.js',
       ]);
 
     mix.browserify('upload.js').
     	browserify('premade.js').
     	browserify('caster.js').
     	browserify('categories.js').
-    	browserify('admin-premade.js');
+      browserify('admin-premade.js').
+    	browserify('members.js');
 });

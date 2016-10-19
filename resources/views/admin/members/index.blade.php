@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('scripts')
-	<script src="/js/members.js"></script>
+	<script src="{{ elixir('js/members.js') }}"></script>
 @stop
 
 @section('content')
