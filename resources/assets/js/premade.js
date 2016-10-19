@@ -10,7 +10,7 @@ new Vue({
 
 	ready(){
 		console.log('Ready Premade!');
-    this.premades = window.premades;
+    	this.premades = window.premades;
 	},
 
 	data: {
@@ -39,7 +39,13 @@ new Vue({
 				() => {
 					this.$http.post('/premade/add-to-project', premade).then(
 						response => {
-							  swal("Good job!", "You added new video to your project!", "success")
+							swal({
+								title: "Good job!",
+								text: "You added new video to your project!",
+								type: "success"
+							},() => {
+								window.location.href = "/home";
+							});
 						}
 					);
 			});
