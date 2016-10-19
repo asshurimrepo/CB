@@ -12301,6 +12301,11 @@ ul.nav-tabs > li.active > a[data-toggle='tab']
 .textoverlay-container > span {
   padding: 2px 4px; }
 
+div#clipboard-confirm {
+  display: none;
+  transform: translateX(-50%);
+  left: 50%; }
+
 .grid {
   list-style: none; }
 

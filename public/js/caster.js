@@ -46876,11 +46876,6 @@ exports.default = {
 		addActionsToVideo: function addActionsToVideo() {
 			var _this4 = this;
 
-			// this.video.on("timeupdate",() => {
-			// 	this.videoElements();
-			// });
-
-			// Listen to message from child window
 			eventer(messageEvent, function (e) {
 				var key = e.message ? "message" : "data";
 				var data = e[key];
