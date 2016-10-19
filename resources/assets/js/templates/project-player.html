@@ -1,8 +1,8 @@
-<div :class="[player_class.dimmed]" v-show="is_visible" id="project-player-bg">
+<div v-show="is_visible" id="project-player-bg">
 
   <div id="project-player-container"
      :style="[player_styles.offsets]"
-     :class="[player_class.position, player_class.glass]"
+     :class="[player_class.position, player_class.glass, player_class.extra]"
   >
   <!-- embed video -->
    <div v-if="has_Video"

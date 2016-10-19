@@ -42,6 +42,13 @@
 		
 		$(document).ready(function(){
 
+			$("body").on('click', 'canvas#output', function () {
+				parent.postMessage({
+					id: "casterbuddy",
+					action: "clicked"
+				}, "*");
+			});
+
 			video.on("loadedmetadata", function () {
 				var vPlayer = document.getElementById("embed-casters_html5_api");
 
