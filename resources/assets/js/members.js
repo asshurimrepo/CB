@@ -54,7 +54,7 @@ new Vue({
 			$("#member-edit").modal('show');
 		},
 
-		deleteCategory(member) {
+		deleteMember(member) {
 			this.setActive(member);
 
 			swal({ title: "Are you sure?",

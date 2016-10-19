@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
+use Hash;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -18,7 +19,7 @@ class MemberController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            return User::all();
+            return User::where('user_role','!=','admin')->get();
         }
 
         return view('admin.members.index');
@@ -34,6 +35,7 @@ class MemberController extends Controller
     {
         $inputs = $request->all();
         // $inputs['slug'] = str_slug($inputs['name']);
+        $inputs['password'] = Hash::make($request->get('password'));
 
         $members->fill($inputs);
         $members->save();
@@ -51,8 +53,11 @@ class MemberController extends Controller
     public function update(Request $request, User $members)
     {
         $inputs = $request->all();
-        // $inputs['slug'] = str_slug($inputs['slug']);
+        // // $inputs['slug'] = str_slug($inputs['slug']);
 
+        if(array_key_exists("password",$inputs)){
+            $inputs['password'] = Hash::make($request->get('password'));
+        }
         $members->fill($inputs);
         $members->save();
 
