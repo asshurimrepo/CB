@@ -15,8 +15,8 @@
                           @foreach($categories as $category)
 
                           <li>
-                              <figure>
-                                  <img src="{{ $category->featured_img }}">
+                              <figure style="background: #ebebeb;">
+                                  <h2 style="padding:100px 0; text-align: center;">{{ $category->name }}</h2>
                                   <figcaption>
                                       <h3>{{ $category->name }}</h3>
                                       <span>{{ $category->sub_text }}</span>
