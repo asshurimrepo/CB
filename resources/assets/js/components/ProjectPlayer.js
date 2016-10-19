@@ -2,12 +2,15 @@
 var  jQueryCaster = require('jquery');
 var  videoCasterJS = require('video.js');
 
+var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+var eventer = window[eventMethod];
+var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
 export default {
 	template: require('../templates/project-player.html'),
 
 	ready(){
-
+		this.addActionsToVideo();
 	},
 
 	props: ['project'],
@@ -177,7 +180,7 @@ export default {
 
 	methods: {
 		renderTransparentVideo() {
-			this.addActionsToVideo();	
+			// this.addActionsToVideo();	
 		},
 
 		reactToAnyAction(data) {
@@ -307,12 +310,11 @@ export default {
 			//close video embed
 			$("body").on("click","div#project-embed-video>a.close-embed", (e) => {
 				e.preventDefault();
-				let project_embed = $("div#project-embed-video").find('iframe');
-				let embed_source = $(project_embed).attr("src");
-				if(embed_source == undefined){
-					$(project_embed).attr("src", embed_source);
-				}
-				$('div#project-player-container>div#project-embed-video').fadeOut("fast");
+				$("#caster-elements").remove();
+
+				let caster_elements = $("<span>").attr("id", "caster-elements");
+				$("#project-embed-video").append(caster_elements);
+
 				return false;
 			});
 
@@ -456,14 +458,6 @@ export default {
 		}, //end of projectActions
 
 		addActionsToVideo() {
-			// this.video.on("timeupdate",() => {
-			// 	this.videoElements();
-			// });
-				var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-				var eventer = window[eventMethod];
-				var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-
-				// Listen to message from child window
 				eventer(messageEvent,(e) => {
 				    var key = e.message ? "message" : "data";
 				    var data = e[key];
@@ -702,19 +696,10 @@ export default {
 		videoEnded(){
 			console.log('Triggered Video Ended Methods');
 
+			// Add External Video Embed Code
 			if(this.project.options.external_video.embed_code != ""){
-				let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
-				$("div#project-embed-video").fadeIn("fast");
-				if (embed_duration > 0){
-					setTimeout(() => {
-						let project_embed = $("div#project-embed-video").find('iframe');
-						let embed_source = $(project_embed).attr("src");
-						if(embed_source == undefined){
-							$(project_embed).attr("src", embed_source);
-						}
-						$("div#project-embed-video").fadeOut("fast");
-					},embed_duration);
-				}
+				console.log('add external video embed code');
+				$("#caster-elements").append(this.project.options.external_video.embed_code);
 			}
 			
 			// Remove Dimmed Background if Exit on end is true

@@ -13272,7 +13272,6 @@ div#project-embed-video.Embed--bottomright {
 
 #project-embed-video {
   position: inherit;
-  display: none;
   z-index: 1050;
   margin-bottom: -4px; }
 
