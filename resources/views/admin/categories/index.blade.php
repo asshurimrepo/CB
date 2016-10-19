@@ -26,7 +26,7 @@
 			</thead>
 
 			<tbody>
-				<tr v-for="cat in categories">
+				<tr v-for="cat in categories" track-by="$index">
 					<td>@{{ cat.name }}</td>
 					<td>@{{ cat.slug }}</td>
 					<td>
