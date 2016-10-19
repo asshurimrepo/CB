@@ -459,7 +459,8 @@ label {
   font-weight: bold; }
 
 #project-player {
-  background: transparent !important; }
+  background: transparent !important;
+  margin-bottom: -5px !important; }
   #project-player canvas#output {
     margin-bottom: -2px; }
   #project-player .vjs-fullscreen-control.vjs-control.vjs-button, #project-player .vjs-progress-control.vjs-control, #project-player video {

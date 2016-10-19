@@ -36,6 +36,7 @@ Route::group(['middleware' => ['web', 'cors']], function(){
 	Route::get('/embed.js/{id}', 'EmbedController@create');
 	Route::get('/embed/js/{filename}', 'EmbedController@loadjs');
 	Route::get('/embed/iframe/{project}', 'EmbedController@iframe');
+	Route::get('/embed/iframe/premade/{project}', 'EmbedController@iframePremade');
 
 	// Handles Autorespoders
 	Route::post('/autoresponder/mailchimp', 'AutoResponderController@mailchimp');

@@ -22,7 +22,7 @@
   	</div>	
 
 	<video id="embed-casters" style="width: 100%; display: none;">
-		<source type="video/mp4" src="/embed/video/{{ $project->user_id }}/{{ $project->filename }}">
+		<source type="video/mp4" src="{{ $source }}">
 	</video>
 
 	<canvas id="output" style="width: 100%;"></canvas>

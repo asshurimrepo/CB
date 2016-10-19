@@ -45,7 +45,7 @@ class PremadeController extends Controller
 	    $type = File::mimeType($path);
 
 	    $file = str_replace("\'/image/\' + filename", "\'/premades/\' + filename + \'.png\'", $file);
-	    $file = str_replace("/video/", "/premades/", $file);
+        $file = str_replace("/embed/iframe/", "/embed/iframe/premade/", $file);
 	    $file = str_replace(".delete('/project/'", ".delete('/admin/premades/'", $file);
 	    $file = str_replace("this.\$http.put('/project/'", "this.\$http.put('/admin/premades/'", $file);
         $file = str_replace("divider", "hidden", $file);

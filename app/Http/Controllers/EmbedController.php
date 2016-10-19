@@ -8,6 +8,7 @@ use App\Http\Requests;
 use File;
 use Response;
 use App\Project;
+use App\Premade;
 
 class EmbedController extends Controller
 {
@@ -84,6 +85,14 @@ class EmbedController extends Controller
     public function iframe(Project $project)
     {
     	// return $project;
-    	return view('embed.iframe', compact('project'));
+    	$source = "/embed/video/{$project->user_id}/{$project->filename}";
+    	return view('embed.iframe', compact('project', 'source'));
+    }
+
+    public function iframePremade(Premade $project)
+    {
+    	// return $project;
+    	$source = "/premades/{$project->filename}";
+    	return view('embed.iframe', compact('project', 'source'));
     }
 }

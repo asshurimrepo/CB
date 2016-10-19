@@ -19,6 +19,7 @@
 				<div class="col-md-12">
 				  <div class="row product-list" style="display: flex; flex-wrap: wrap;">
 				        <project v-for="project in projects"
+				        		 track-by="$index"
 				                 :data="project"
 				        >
 				        </project>
