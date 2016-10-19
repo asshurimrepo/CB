@@ -42,6 +42,4 @@
 <add-member></add-member>
 <edit-member :member="active"></edit-member>
 </section>
-	
-
 @stop

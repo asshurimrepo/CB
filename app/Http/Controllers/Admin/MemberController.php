@@ -30,7 +30,7 @@ class MemberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Member $members)
+    public function store(Request $request, User $members)
     {
         $inputs = $request->all();
         // $inputs['slug'] = str_slug($inputs['name']);
@@ -48,7 +48,7 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Member $members)
+    public function update(Request $request, User $members)
     {
         $inputs = $request->all();
         // $inputs['slug'] = str_slug($inputs['slug']);
@@ -65,7 +65,7 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Member $members)
+    public function destroy(User $members)
     {
         $members->delete();
         return $members;
