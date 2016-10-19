@@ -47141,7 +47141,6 @@ exports.default = {
 			buttonoverlayduration: 0,
 			formoverlaystart: 0,
 			formoverlayduration: 0
-
 		};
 	},
 
@@ -47251,6 +47250,14 @@ exports.default = {
 		renderTransparentVideo: function renderTransparentVideo() {
 			this.addActionsToVideo();
 		},
+		reactToAnyAction: function reactToAnyAction(data) {
+			console.log(data.action);
+
+			// Exit When clicked
+			if (data.action == "clicked" && this.project.options.stop_showing.clicked) {
+				$("a.close-project").click();
+			}
+		},
 		updatePlayer: function updatePlayer() {
 			this.resetOffsets();
 
@@ -47290,7 +47297,7 @@ exports.default = {
 			}
 
 			if (this.project.options.dimmed_background == true) {
-				this.player_class.extra = "Project--dimmed-bg";
+				this.player_class.extra += " Project--dimmed-bg";
 			} else if (this.project.options.dimmed_background == false) {
 				this.player_class.extra = "";
 			}
@@ -47524,6 +47531,11 @@ exports.default = {
 					return;
 				}
 
+				if (data.action) {
+					_this4.reactToAnyAction(data);
+					return;
+				}
+
 				// When Video is ended
 				if (data.ended) {
 					console.log('ended');
@@ -47734,6 +47746,8 @@ exports.default = {
 			//end of elements
 		},
 		videoEnded: function videoEnded() {
+			console.log('Triggered Video Ended Methods');
+
 			if (this.project.options.external_video.embed_code != "") {
 				var embed_duration = parseInt(this.project.options.external_video.duration) * 1000;
 				$("div#project-embed-video").fadeIn("fast");
@@ -47749,9 +47763,10 @@ exports.default = {
 				}
 			}
 
-			console.log('Trigger Video Ended Methods');
-			// Remove Dimmed Background
-			this.player_class.extra.replace('Project--dimmed-bg', '');
+			// Remove Dimmed Background if Exit on end is true
+			if (this.project.options.stop_showing.exit_on_end === true) {
+				this.player_class.extra = this.player_class.extra.replace('Project--dimmed-bg', null);
+			}
 		},
 		subscribe: function subscribe() {
 			var _this6 = this;

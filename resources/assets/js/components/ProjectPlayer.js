@@ -67,8 +67,7 @@ export default {
 			buttonoverlaystart: 0,
 			buttonoverlayduration: 0,
 			formoverlaystart: 0,
-			formoverlayduration: 0
-
+			formoverlayduration: 0,
 		}
 	},
 
@@ -181,8 +180,14 @@ export default {
 			this.addActionsToVideo();	
 		},
 
+		reactToAnyAction(data) {
+			console.log(data.action);
 
-
+			// Exit When clicked
+			if(data.action == "clicked" && this.project.options.stop_showing.clicked) {
+				$("a.close-project").click();
+			}
+		},
 
 		updatePlayer(){
 			this.resetOffsets();
@@ -223,7 +228,7 @@ export default {
 			}
 
 			if(this.project.options.dimmed_background == true) {
-				this.player_class.extra = "Project--dimmed-bg";
+				this.player_class.extra += " Project--dimmed-bg";
 			}else if(this.project.options.dimmed_background == false){
 				this.player_class.extra = "";
 			}
@@ -467,6 +472,10 @@ export default {
 					  return;
 					}
 
+					if(data.action) {
+						this.reactToAnyAction(data);
+						return;
+					}
 
 					// When Video is ended
 					if(data.ended) {
@@ -691,24 +700,27 @@ export default {
 		},
 
 		videoEnded(){
-				if(this.project.options.external_video.embed_code != ""){
-					let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
-					$("div#project-embed-video").fadeIn("fast");
-					if (embed_duration > 0){
-						setTimeout(() => {
-							let project_embed = $("div#project-embed-video").find('iframe');
-							let embed_source = $(project_embed).attr("src");
-							if(embed_source == undefined){
-								$(project_embed).attr("src", embed_source);
-							}
-							$("div#project-embed-video").fadeOut("fast");
-						},embed_duration);
-					}
+			console.log('Triggered Video Ended Methods');
+
+			if(this.project.options.external_video.embed_code != ""){
+				let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
+				$("div#project-embed-video").fadeIn("fast");
+				if (embed_duration > 0){
+					setTimeout(() => {
+						let project_embed = $("div#project-embed-video").find('iframe');
+						let embed_source = $(project_embed).attr("src");
+						if(embed_source == undefined){
+							$(project_embed).attr("src", embed_source);
+						}
+						$("div#project-embed-video").fadeOut("fast");
+					},embed_duration);
 				}
+			}
 			
-			console.log('Trigger Video Ended Methods');
-			// Remove Dimmed Background
-			this.player_class.extra.replace('Project--dimmed-bg', '');
+			// Remove Dimmed Background if Exit on end is true
+			if(this.project.options.stop_showing.exit_on_end === true) {
+				this.player_class.extra = this.player_class.extra.replace('Project--dimmed-bg', null);
+			}
 		},
 
 		subscribe(){

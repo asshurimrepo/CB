@@ -495,12 +495,6 @@ canvas#buffer {
 	}
 }
 
-#project-player-bg.Project--dimmedbg{
-	background: rgba(0,0,0,0.6);
-	width: 100%;
-    height: 100%;
-}
-
 .Project--dimmed-bg:before {
   content: "";
   display: block;
@@ -511,6 +505,7 @@ canvas#buffer {
   right: 0;
   top: 0;
   bottom: 0;
+  transition: all 1s ease-in-out;
 }
 
 #project-player-container.Project--glassbg{
