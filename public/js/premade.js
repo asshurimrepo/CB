@@ -45735,7 +45735,13 @@ new _vue2.default({
 				showLoaderOnConfirm: true
 			}, function () {
 				_this.$http.post('/premade/add-to-project', premade).then(function (response) {
-					swal("Good job!", "You added new video to your project!", "success");
+					swal({
+						title: "Good job!",
+						text: "You added new video to your project!",
+						type: "success"
+					}, function () {
+						window.location.href = "/home";
+					});
 				});
 			});
 		}
