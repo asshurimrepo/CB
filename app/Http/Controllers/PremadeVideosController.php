@@ -87,7 +87,7 @@ class PremadeVideosController extends Controller
         $type = File::mimeType($path);
 
         $file = str_replace("\'/image/\' + filename", "\'/premades/\' + filename + \'.png\'", $file);
-        $file = str_replace("/video/", "/premades/", $file);
+        $file = str_replace("/embed/iframe/", "/embed/iframe/premade/", $file);
 
         $response = Response::make($file, 200);
         $response->header("Content-Type", $type);
