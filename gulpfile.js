@@ -17,7 +17,12 @@ elixir(function(mix) {
        .sass('project-player.scss')
        .sass('premade-player.scss');
 
-    mix.browserify('main.js').version('js/main.js');
+    mix.browserify('main.js').version([
+        'js/main.js', 
+        'js/categories.js',
+        'js/admin-premade.js',
+        'js/premade.js',
+      ]);
 
     mix.browserify('upload.js').
     	browserify('premade.js').

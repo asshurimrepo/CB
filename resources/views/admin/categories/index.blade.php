@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('scripts')
-	<script src="/js/categories.js"></script>
+	<script src="{{ elixir('js/categories.js') }}"></script>
 @stop
 
 @section('content')
