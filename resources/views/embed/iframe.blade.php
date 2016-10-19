@@ -44,26 +44,27 @@
 	</style>
 </head>
 <body style="background: transparent !important; min-height: 100px;">
-
+	
+	{{-- Controls --}}
 	<div class="controls">
-		<button class="btn hide"><i class="fa fa-play"></i></button>
-		<button class="btn"><i class="fa fa-pause"></i></button>
-
-		<button class="btn hide"><i class="fa fa-volume-off"></i></button>
-		<button class="btn"><i class="fa fa-volume-up"></i></button>
+		<button class="btn play-toggle"><i class="fa fa-pause"></i></button>
+		<button class="btn mute-toggle"><i class="fa fa-volume-up"></i></button>
 	</div>
-
+	
+	{{-- Loader --}}
 	<div class="loader-3">
 	      <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 	      <span class="sr-only">Loading...</span>
   	</div>	
-
+	
+	{{-- Video Source --}}
 	<video id="embed-casters" style="width: 100%; display: none;">
 		<source type="video/mp4" src="{{ $source }}">
 	</video>
-
+	
+	{{-- Image Canvas --}}
 	<canvas id="output" style="width: 100%;"></canvas>
-
+	
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 	<!-- seriously.js -->
@@ -88,6 +89,28 @@
 				$(".controls").fadeIn('fast');
 			}).on('mouseleave', function () {
 				$(".controls").fadeOut('fast');
+			});
+
+			$(".play-toggle").click(function(){
+				if(video.paused()){
+					$(this).find('i').removeClass('fa-play').addClass('fa-pause');
+					video.play();
+					return;
+				}
+
+				$(this).find('i').removeClass('fa-pause').addClass('fa-play');
+				video.pause();
+			});
+
+			$(".mute-toggle").click(function(){
+				if(video.muted()) {
+					video.muted(false);
+					$(this).find('i').removeClass('fa-volume-off').addClass('fa-volume-up');
+					return;
+				}
+
+				video.muted(true);
+				$(this).find('i').removeClass('fa-volume-up').addClass('fa-volume-off');
 			});
 
 			video.on("loadedmetadata", function () {
