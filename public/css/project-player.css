@@ -486,6 +486,17 @@ canvas#buffer {
   width: 100%;
   height: 100%; }
 
+.Project--dimmed-bg:before {
+  content: "";
+  display: block;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
 #project-player-container.Project--glassbg {
   background: rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 10px 4px #c3c3c3; }
@@ -648,7 +659,9 @@ canvas#buffer {
   transition: all .2s ease-in-out; }
 
 div#video-section {
-  width: 400px; }
+  width: 400px;
+  position: relative;
+  z-index: 999; }
 
 div.loader-3 {
   position: absolute;

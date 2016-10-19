@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use Hash;
+use App\Events\UserRegistered;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -39,6 +40,8 @@ class MemberController extends Controller
 
         $members->fill($inputs);
         $members->save();
+
+        event(new UserRegistered($members));
 
         return $members;
     }

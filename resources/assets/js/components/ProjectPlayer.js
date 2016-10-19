@@ -42,7 +42,8 @@ export default {
 			player_class: {
 				position: "",
 				dimmed: false,
-				glass: false
+				glass: false,
+				extra: ""
 			},
 
 			textoverlay_class: {
@@ -222,9 +223,9 @@ export default {
 			}
 
 			if(this.project.options.dimmed_background == true) {
-				this.player_class.dimmed = "Project--dimmedbg";
+				this.player_class.extra = "Project--dimmed-bg";
 			}else if(this.project.options.dimmed_background == false){
-				this.player_class.dimmed = "";
+				this.player_class.extra = "";
 			}
 
 			if(this.project.options.glass_background == true) {
@@ -687,7 +688,6 @@ export default {
 
 			}
 			//end of elements
-
 		},
 
 		videoEnded(){
@@ -706,6 +706,9 @@ export default {
 					}
 				}
 			
+			console.log('Trigger Video Ended Methods');
+			// Remove Dimmed Background
+			this.player_class.extra.replace('Project--dimmed-bg', '');
 		},
 
 		subscribe(){
