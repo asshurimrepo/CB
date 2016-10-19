@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 
 @section('scripts')
+	<script>
+		var users = {!! json_encode($users) !!};
+	</script>
 	<script src="{{ elixir('js/members.js') }}"></script>
 @stop
 
@@ -26,7 +29,7 @@
 			</thead>
 
 			<tbody>
-				<tr v-for="member in members" track-by="$index">
+				<tr v-for="member in members" track-by="id">
 					<td>@{{ member.name }}</td>
 					<td>@{{ member.email }}</td>
 					<td>
