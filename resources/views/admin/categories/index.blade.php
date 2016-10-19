@@ -19,7 +19,6 @@
 		<table class="table table-stripped table-bordered">
 			<thead>
 				<tr>
-					<th style="width: 200px;"></th>
 					<th>Name</th>
 					<th>Slug</th>
 					<th>Actions</th>
@@ -27,13 +26,12 @@
 			</thead>
 
 			<tbody>
-				<tr v-for="category in categories">
-					<td><img :src="category.featured_img" class="img-responsive"></td>
-					<td>@{{ category.name }}</td>
-					<td>@{{ category.slug }}</td>
+				<tr v-for="cat in categories">
+					<td>@{{ cat.name }}</td>
+					<td>@{{ cat.slug }}</td>
 					<td>
-						<button @click="editCategory(category)" class="btn btn-sm btn-primary">Edit</button>
-						<button @click="deleteCategory(category)" class="btn btn-sm btn-danger">Delete</button>
+						<button @click="editCategory(cat)" class="btn btn-sm btn-primary">Edit</button>
+						<button @click="deleteCategory(cat)" class="btn btn-sm btn-danger">Delete</button>
 					</td>
 				</tr>
 			</tbody>
