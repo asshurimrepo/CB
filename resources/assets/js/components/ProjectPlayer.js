@@ -256,14 +256,9 @@ export default {
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
 
 			let video_template = `
-		        <div class="loader-3">
-	              <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
-	              <span class="sr-only">Loading...</span>
-          		</div>
           		<a href="#" class="close-project text-danger"><i class="fa fa-times"></i></a>  
-				<iframe id="project-player" src="/embed/iframe/${this.project.id}" width="100%" height="300px" frameborder="0"  scrolling="no"></iframe>
+				<iframe id="project-player" src="/embed/iframe/${this.project.id}" width="100%" style="min-height: 100px; transition: all 1s;" frameborder="0"  scrolling="no"></iframe>
 		   	`;
-
 
 		   	$("#video-section").empty().html(video_template);
 

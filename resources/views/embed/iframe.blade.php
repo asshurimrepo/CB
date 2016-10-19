@@ -9,12 +9,49 @@
 	<!-- Video.js file -->
 	<link href="http://vjs.zencdn.net/5.10.8/video-js.css" rel="stylesheet">
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+
 	<!-- If you'd like to support IE8 -->
 	<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 
+	<style>
+		.controls {
+			position: fixed;
+			bottom: 10px;
+			left: 0;
+			width: 100%;
+			text-align: center;
+			/*transition: all 1s;*/
+			display: none;
+		}
 
+		.controls button {
+			font-size: 20px; 
+			display: inline-block;
+			/*padding: 5px;*/
+			border-radius: 5px;
+			color: #000;
+			/*background: #fafafa;*/
+		}
+
+		.loader-3 {
+			position: fixed;
+			z-index: 9999;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	</style>
 </head>
-<body style="background: transparent !important;">
+<body style="background: transparent !important; min-height: 100px;">
+
+	<div class="controls">
+		<button class="btn hide"><i class="fa fa-play"></i></button>
+		<button class="btn"><i class="fa fa-pause"></i></button>
+
+		<button class="btn hide"><i class="fa fa-volume-off"></i></button>
+		<button class="btn"><i class="fa fa-volume-up"></i></button>
+	</div>
 
 	<div class="loader-3">
 	      <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
@@ -47,9 +84,14 @@
 					id: "casterbuddy",
 					action: "clicked"
 				}, "*");
+			}).on('mouseenter', function () {
+				$(".controls").fadeIn('fast');
+			}).on('mouseleave', function () {
+				$(".controls").fadeOut('fast');
 			});
 
 			video.on("loadedmetadata", function () {
+				$(".loader-3").hide();
 				var vPlayer = document.getElementById("embed-casters_html5_api");
 
 				$("canvas#output").get(0).setAttribute("width", vPlayer.videoWidth);
