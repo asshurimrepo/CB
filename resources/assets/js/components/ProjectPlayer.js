@@ -471,6 +471,7 @@ export default {
 					if(data.ended) {
 						console.log('ended');
 						this.videoElements(data);
+						this.videoEnded();
 
 						if(this.project.options.stop_showing.exit_on_end === true){
 							$('iframe#project-player').fadeOut("fast");
@@ -690,7 +691,6 @@ export default {
 		},
 
 		videoEnded(){
-			this.video.on("ended", () => {
 				if(this.project.options.external_video.embed_code != ""){
 					let embed_duration = parseInt(this.project.options.external_video.duration)*1000;
 					$("div#project-embed-video").fadeIn("fast");
@@ -705,7 +705,7 @@ export default {
 						},embed_duration);
 					}
 				}
-			});
+			
 		},
 
 		subscribe(){
