@@ -33,21 +33,22 @@ class PremadeVideosController extends Controller
 
     public function create()
     {
-    	Premade::truncate();
-    	$files = File::allFiles('premades');
+    	// Premade::truncate();
+    	// $files = File::allFiles('premades');
 
-    	foreach ($files as $file) {
-    		if($file->getExtension() == 'png')
-    		{
-    			continue;
-    		}
+    	// foreach ($files as $file) {
+    	// 	if($file->getExtension() == 'png')
+    	// 	{
+    	// 		continue;
+    	// 	}
 
-    		Premade::create([
-    			'title' => str_replace($file->getExtension(), "", $file->getFilename()),
-    			'filename' => $file->getFilename(),
-    			'active' => 1
-    		]);
-    	}
+    	// 	Premade::create([
+    	// 		'title' => str_replace($file->getExtension(), "", $file->getFilename()),
+    	// 		'filename' => $file->getFilename(),
+     //            'category_id' => 1,
+    	// 		'active' => 1
+    	// 	]);
+    	// }
 
         return redirect('/premade');
     }
