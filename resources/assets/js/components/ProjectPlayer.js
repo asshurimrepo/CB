@@ -262,7 +262,6 @@ export default {
 
 			$(".project-element").hide();
 			$("#project-player-container").removeClass("video-ended");
-			$("#video-section").css("height","0px");
 
 			let delay = parseInt(this.project.options.auto_display_after)*1000;
 
@@ -467,11 +466,18 @@ export default {
 							$('iframe#project-player').fadeOut("fast");
 						}
 
-						$("#project-player-container").addClass("video-ended");
-						// console.log($(".project-element:visible"));
+						// When there is project elements present add class video-ended (has white background)
+						if($("#project-player-container").find(".project-element").length > 0) {
+							console.log('retain window');
+							
+							$("#project-player-container").addClass("video-ended");
+							$("#video-section").css("height",Math.floor(data.height)+"px");
+						}
+						
 						return;
 					}
 
+					// do the rest
 					this.vidtime = Math.floor(data.currentTime);
 					this.vidduration = Math.floor(data.duration);
 					this.videoElements(data);
@@ -633,9 +639,9 @@ export default {
 			if(this.formoverlaystart > this.vidduration  && this.vidduration != 0){
 
 				if(this.vidtime === this.vidduration){
-				this.project.actions.autoresponder_username = '';
-				this.project.actions.autoresponder_email = '';
-				$("#video-section").css("height",Math.floor(data.height)+"px");
+					this.project.actions.autoresponder_username = '';
+					this.project.actions.autoresponder_email = '';
+
 					$("#project-formoverlay").fadeIn("fast",() =>{
 						if(this.formoverlayduration > 0){
 							setTimeout(() => {
@@ -658,9 +664,9 @@ export default {
 			}else{
 
 				if(this.vidtime === this.formoverlaystart){
-				this.project.actions.autoresponder_username = '';
-				this.project.actions.autoresponder_email = '';
-				$("#video-section").css("height",Math.floor(data.height)+"px");
+					this.project.actions.autoresponder_username = '';
+					this.project.actions.autoresponder_email = '';
+
 					$("#project-formoverlay").fadeIn("fast",() =>{
 						if(this.formoverlayduration > 0){
 							setTimeout(() => {

@@ -172,7 +172,9 @@
 		video.on("ended", function () {
 			parent.postMessage({
 					id: 'casterbuddy',
-					ended: true
+					ended: true,
+					width: $("canvas").width(),
+					height: $("canvas").height()
 			}, "*");
 		});
 	</script>
