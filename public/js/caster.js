@@ -45131,6 +45131,8 @@ new _vue2.default({
 
 			this.$broadcast('show_preview');
 		}
+
+		// this.$broadcast('show_preview');
 	},
 
 

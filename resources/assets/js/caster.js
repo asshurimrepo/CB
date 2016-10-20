@@ -19,6 +19,8 @@ new Vue({
 
 			this.$broadcast('show_preview');
 		}
+
+		// this.$broadcast('show_preview');
 	},
 
 	components: {
