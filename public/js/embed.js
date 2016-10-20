@@ -1,11 +1,13 @@
 /*Scripts*/
+var hash_id = Math.floor(Math.random() * 10000);
+
 var casterJS = document.createElement('script');
-casterJS.setAttribute("src", "@url/embed/caster.js?ID=@id"); 
+casterJS.setAttribute("src", "@url/embed/caster.js?ID=@id&ref=" + hash_id); 
 
 /*Styles*/
 var playerStyle = document.createElement('link'); 
 playerStyle.setAttribute('rel', 'stylesheet');
-playerStyle.setAttribute("href", "@url/css/project-player.css");
+playerStyle.setAttribute("href", "@url/css/project-player.css?ref=" + hash_id);
 
 var fontAwesomeStyle = document.createElement('link');
 fontAwesomeStyle.setAttribute('rel', 'stylesheet');
