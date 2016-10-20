@@ -32,6 +32,7 @@
 			border-radius: 5px;
 			color: #000;
 			/*background: #fafafa;*/
+			background: rgba(255,255,255,0.65);
 		}
 
 		.loader-3 {
@@ -125,13 +126,15 @@
 			video.on("loadedmetadata", function () {
 				$(".loader-3").hide();
 				var vPlayer = document.getElementById("embed-casters_html5_api");
+				var projects = $(this).find("#project-player-container");
 
 				setTimeout(function(){
 					$("canvas#output").addClass('ready');
 				}, 500);
 
-				$("canvas#output").get(0).setAttribute("width", vPlayer.videoWidth);
-				$("canvas#output").get(0).setAttribute("height", vPlayer.videoHeight);
+				$("canvas#output").get(0).setAttribute("width", Math.floor(vPlayer.videoWidth));
+				$("canvas#output").get(0).setAttribute("height", Math.floor(vPlayer.videoHeight));
+
 
 				var seriously,
 		            chroma,

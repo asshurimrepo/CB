@@ -1,6 +1,6 @@
 <div id="project-1" class="col-md-3 col-sm-6">
   <div v-show="isNew || isUpdated" class="badge-container">
-      <span class="status-text">{{ isNew ? 'New' : 'Updated' }}</span>
+      <span class="status-text" :style="{fontSize: isNew ? '12px' : '8px'}">{{ isNew ? 'New' : 'Updated' }}</span>
       <div class="badge-indicator" :style="{background: isNew ? '#ffda36' : '#41cac0'}"></div>
   </div>
 
