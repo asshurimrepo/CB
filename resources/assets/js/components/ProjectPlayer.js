@@ -191,6 +191,10 @@ export default {
 				$("a.close-project").click();
 			}
 
+			this.linkURL();
+		},
+
+		linkURL() {
 			let url_length = this.project.actions.link_url.length;
 			let url = this.project.actions.link_url;
 
@@ -443,6 +447,12 @@ export default {
 		}, //end of projectActions
 
 		addActionsToVideo() {
+				// Add Behavior on Text Overlay
+				$("#project-text-overlay").click(() => {
+					console.log('Text overlay clicked!');
+					this.linkURL();
+				});
+
 				eventer(messageEvent,(e) => {
 				    var key = e.message ? "message" : "data";
 				    var data = e[key];
@@ -469,7 +479,7 @@ export default {
 						// When there is project elements present add class video-ended (has white background)
 						if($("#project-player-container").find(".project-element").length > 0) {
 							console.log('retain window');
-							
+
 							$("#project-player-container").addClass("video-ended");
 							$("#video-section").css("height",Math.floor(data.height)+"px");
 						}

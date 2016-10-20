@@ -47293,6 +47293,9 @@ exports.default = {
 				$("a.close-project").click();
 			}
 
+			this.linkURL();
+		},
+		linkURL: function linkURL() {
 			var url_length = this.project.actions.link_url.length;
 			var url = this.project.actions.link_url;
 
@@ -47536,6 +47539,12 @@ exports.default = {
 
 		addActionsToVideo: function addActionsToVideo() {
 			var _this3 = this;
+
+			// Add Behavior on Text Overlay
+			$("#project-text-overlay").click(function () {
+				console.log('Text overlay clicked!');
+				_this3.linkURL();
+			});
 
 			eventer(messageEvent, function (e) {
 				var key = e.message ? "message" : "data";
