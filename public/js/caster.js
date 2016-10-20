@@ -46400,13 +46400,15 @@ new _vue2.default({
 		console.log('Ready Caster Embed!');
 
 		/*Get Caster ID Cookie if not exists Show Player and set the cookie to its specified time else do nothing*/
-		/*var cookie_time = parseInt(this.active_project.options.cookie_life)*(1/1440);
-  	if(CasterCookies.get('caster@id') === undefined){
-  	CasterCookies.set('caster@id', true, { expires: cookie_time, path: '' });
-  		this.$broadcast('show_preview');
-  }*/
+		var cookie_time = parseInt(this.active_project.options.cookie_life) * (1 / 1440);
 
-		this.$broadcast('show_preview');
+		if (CasterCookies.get('caster@id') === undefined) {
+			CasterCookies.set('caster@id', true, { expires: cookie_time, path: '' });
+
+			this.$broadcast('show_preview');
+		}
+
+		// this.$broadcast('show_preview');
 	},
 
 
