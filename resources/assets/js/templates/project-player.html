@@ -16,17 +16,16 @@
     <!-- textoverlay -->
     <div v-if="has_Textoverlay" id="project-text-overlay"
         :class="[textoverlay_class.valignment, textoverlay_class.alignment, 'project-element']"
-        :style="{ fontFamily:project.actions.textoverlay_fontfamily,
-                  fontSize:project.actions.textoverlay_fontsize+'px',
-                  fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
-                  fontStyle: project.actions.textoverlay_italic ? 'italic': null,
-                  color: project.actions.textoverlay_textcolor
-                }"
     >
 
         <span v-if="has_Line1"
           :style="{
-            backgroundColor: project.actions.textoverlay_backgroundcolor
+            backgroundColor: project.actions.textoverlay_backgroundcolor,
+            fontFamily:project.actions.textoverlay_fontfamily,
+            fontSize:project.actions.textoverlay_fontsize+'px',
+            fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
+            fontStyle: project.actions.textoverlay_italic ? 'italic': null,
+            color: project.actions.textoverlay_textcolor
           }"
         >
           {{ project.actions.textoverlay_line_1 }}
@@ -45,18 +44,17 @@
     <div v-if="has_Phonenumber"
          id="project-clicktocall"
          :class="[clicktocall_class.valignment, clicktocall_class.alignment, 'project-element']"
-         :style="{ fontFamily:project.actions.clicktocall_fontfamily,
-                   fontSize:project.actions.clicktocall_fontsize+'px',
-                   fontWeight: project.actions.clicktocall_bold ? 'bold' : null,
-                   fontStyle: project.actions.clicktocall_italic ? 'italic': null
-                 }"
     >
 
 
       <a class="btn btn-default" href="tel:{{ project.actions.clicktocall }}"
         :style="{
           backgroundColor: project.actions.clicktocall_backgroundcolor,
-          color: project.actions.clicktocall_textcolor
+          color: project.actions.clicktocall_textcolor,
+          fontFamily:project.actions.clicktocall_fontfamily,
+          fontSize: project.actions.clicktocall_fontsize+'px',
+          fontWeight: project.actions.clicktocall_bold ? 'bold' : null,
+          fontStyle: project.actions.clicktocall_italic ? 'italic': null
         }"
       >
         {{ project.actions.clicktocall }}
@@ -69,16 +67,15 @@
     <div v-if="has_Buttonoverlay"
         id="project-buttonoverlay"
         :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, 'project-element']"
-        :style="{ fontFamily:project.actions.buttonoverlay_fontfamily,
-         fontSize:project.actions.buttonoverlay_fontsize+'px',
-         fontWeight: project.actions.buttonoverlay_bold ? 'bold' : null,
-         fontStyle: project.actions.buttonoverlay_italic ? 'italic': null
-        }"
     >
           <button class="btn btn-default"
                   :style="{
                       color: project.actions.buttonoverlay_textcolor,
-                      backgroundColor: project.actions.buttonoverlay_backgroundcolor
+                      backgroundColor: project.actions.buttonoverlay_backgroundcolor,
+                      fontFamily:project.actions.buttonoverlay_fontfamily,
+                     fontSize:project.actions.buttonoverlay_fontsize+'px',
+                     fontWeight: project.actions.buttonoverlay_bold ? 'bold' : null,
+                     fontStyle: project.actions.buttonoverlay_italic ? 'italic': null
                   }"
           >
             {{ project.actions.buttonoverlay_label ? project.actions.buttonoverlay_label: 'Default'}}
