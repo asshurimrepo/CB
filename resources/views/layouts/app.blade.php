@@ -8,7 +8,7 @@
         <meta name="usermail" content="{{ auth()->user()->email }}" />
 
         {{-- Core Css --}}
-        <link rel="stylesheet" href="/css/app.css" />
+        <link rel="stylesheet" href="{{ elixir('css/app.css') }}" />
 
         <!--external css-->
         <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />

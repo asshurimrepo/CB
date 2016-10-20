@@ -23,6 +23,8 @@ elixir(function(mix) {
         'js/admin-premade.js',
         'js/premade.js',
         'js/members.js',
+        'css/project-player.css',
+        'css/app.css',
       ]);
 
     mix.browserify('upload.js').
