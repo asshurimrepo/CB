@@ -87,7 +87,7 @@
 
 	<script>
 		var project = {!! json_encode($project) !!}
-		var video = videojs('embed-casters', { "controls": "false", "preload": "auto" });
+		var video = videojs('embed-casters', { "controls": "false", "autoplay": true, "preload": "auto" });
 		
 		$(document).ready(function(){
 
@@ -125,6 +125,8 @@
 			});
 
 			video.on("loadedmetadata", function () {
+		        video.play();
+
 				var vPlayer = document.getElementById("embed-casters_html5_api");
 				var projects = $(this).find("#project-player-container");
 
@@ -153,8 +155,6 @@
 		          chroma['clipBlack'] = project.options.video_settings.clip_black;
 		          chroma['weight'] = project.options.video_settings.weight;
 		          seriously.go();
-
-		          video.play();
 			});
 		});
 
