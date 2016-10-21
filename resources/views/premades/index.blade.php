@@ -16,7 +16,9 @@
 
                           <li>
                               <figure style="background: #ebebeb;">
-                                  <h2 style="padding:100px 0; text-align: center;">{{ $category->name }}</h2>
+                                  <a href="premade/{{ $category->id }}"><h2 style="padding:100px 0; text-align: center;">
+                                     {{ $category->name }}
+                                  </h2></a>
                                   <figcaption>
                                       <h3>{{ $category->name }}</h3>
                                       <span>{{ $category->sub_text }}</span>
