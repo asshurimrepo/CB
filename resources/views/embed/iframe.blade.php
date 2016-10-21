@@ -69,7 +69,8 @@
 	
 	{{-- Video Source --}}
 	<video id="embed-casters" style="width: 100%; display: none;">
-		<source type="video/mp4" src="{{ $source }}">
+		<source src="{{ $source }}.webm" type="video/webm">
+		<source src="{{ $source }}" type="video/mp4">
 	</video>
 	
 	{{-- Image Canvas --}}
