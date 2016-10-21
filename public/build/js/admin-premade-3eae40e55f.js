@@ -46197,6 +46197,7 @@ exports.default = {
 
 			$(".project-element").hide();
 			$("#project-player-container").removeClass("video-ended");
+			$("#video-section").css("height", "auto");
 
 			var delay = parseInt(this.project.options.auto_display_after) * 1000;
 
@@ -46373,7 +46374,7 @@ exports.default = {
 			var _this3 = this;
 
 			// Add Behavior on Text Overlay
-			$("#project-text-overlay").click(function () {
+			$("body").on('click', '#project-text-overlay', function () {
 				console.log('Text overlay clicked!');
 				_this3.linkURL();
 			});
@@ -46402,8 +46403,8 @@ exports.default = {
 					}
 
 					// When there is project elements present add class video-ended (has white background)
-					if ($("#project-player-container").find(".project-element").length > 0) {
-						console.log('retain window');
+					if ($("#project-player-container").find(".project-element:visible").length > 0) {
+						console.log($(".project-element:visible"));
 
 						$("#project-player-container").addClass("video-ended");
 						$("#video-section").css("height", Math.floor(data.height) + "px");
