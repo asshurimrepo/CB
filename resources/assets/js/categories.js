@@ -21,7 +21,7 @@ new Vue({
 	ready() {
 		console.log("Categories are ready!");
 
-		this.loadData();
+		this.categories = window.categories;
 	},
 
 	events: {
@@ -40,7 +40,7 @@ new Vue({
 		},
 
 		loadData() {
-			this.$http.get('/admin/categories').then(response => this.categories = response.data);
+			this.$http.get('/admin/categories/all').then(response => this.categories = response.data);
 		},
 
 		addNewCategory() {
