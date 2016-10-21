@@ -448,7 +448,7 @@ export default {
 
 		addActionsToVideo() {
 				// Add Behavior on Text Overlay
-				$("#project-text-overlay").click(() => {
+				$("body").on('click', '#project-text-overlay', () => {
 					console.log('Text overlay clicked!');
 					this.linkURL();
 				});

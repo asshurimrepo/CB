@@ -47541,7 +47541,7 @@ exports.default = {
 			var _this3 = this;
 
 			// Add Behavior on Text Overlay
-			$("#project-text-overlay").click(function () {
+			$("body").on('click', '#project-text-overlay', function () {
 				console.log('Text overlay clicked!');
 				_this3.linkURL();
 			});

@@ -13167,11 +13167,11 @@ canvas#buffer {
   position: absolute;
   z-index: 1049;
   width: 100%;
-  display: none; }
+  display: none;
+  cursor: pointer; }
 
 #project-text-overlay > span {
-  padding: 4px 6px;
-  pointer-events: visible; }
+  padding: 4px 6px; }
 
 #project-text-overlay.Textoverlay--top {
   top: 0; }

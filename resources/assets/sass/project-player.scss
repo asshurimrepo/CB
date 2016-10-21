@@ -569,11 +569,11 @@ canvas#buffer {
   z-index: 1049;
   width: 100%;
   display: none;
+  cursor: pointer;
 }
 
 #project-text-overlay>span{
   padding: 4px 6px;
-  pointer-events: visible;
 }
 
 #project-text-overlay.Textoverlay--top{
