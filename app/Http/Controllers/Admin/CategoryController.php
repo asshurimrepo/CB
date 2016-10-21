@@ -17,11 +17,14 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()) {
-            return Category::orderBy('id', 'desc')->get();
-        }
+       $categories = $this->all();
 
-        return view('admin.categories.index');
+        return view('admin.categories.index', compact('categories'));
+    }
+
+    public function all()
+    {
+        return Category::orderBy('id', 'desc')->get();
     }
 
     /**

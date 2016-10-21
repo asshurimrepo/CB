@@ -11558,7 +11558,7 @@ new _vue2.default({
 	ready: function ready() {
 		console.log("Categories are ready!");
 
-		this.loadData();
+		this.categories = window.categories;
 	},
 
 
@@ -11578,7 +11578,7 @@ new _vue2.default({
 		loadData: function loadData() {
 			var _this = this;
 
-			this.$http.get('/admin/categories').then(function (response) {
+			this.$http.get('/admin/categories/all').then(function (response) {
 				return _this.categories = response.data;
 			});
 		},

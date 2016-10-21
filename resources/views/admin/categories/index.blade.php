@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 
 @section('scripts')
+	<script>
+		var categories = {!! json_encode($categories) !!}
+	</script>
 	<script src="{{ elixir('js/categories.js') }}"></script>
 @stop
 

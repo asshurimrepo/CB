@@ -98,6 +98,7 @@ Route::group(['middleware' => ['superuser', 'web'], 'prefix' => 'admin', 'namesp
 	Route::get('/main.js', 'PremadeController@js');
 
 	// Categories
+	Route::get('/categories/all', 'CategoryController@all');
 	Route::get('/categories/lists', 'CategoryController@lists');
 	Route::resource('/categories', 'CategoryController');
 
