@@ -28,6 +28,7 @@ new Vue({
 	events: {
 		newMemberAdded() {
 			this.loadData();
+			$("#member-add-new").modal('hide');
 		},
 
 		memberUpdated() {

@@ -5,7 +5,8 @@ export default {
 		return {
 			member: {
 				name: null,
-				file: null
+				email: null,
+				password: null
 			},
 
 			is_saving: false
@@ -21,6 +22,7 @@ export default {
 					swal('Great!', 'You have just added new Member to the pack!', 'success');
 					this.is_saving = false;
 					this.$dispatch('newMemberAdded');
+					this.member = {name: null, email: null, password: null};
 				} )
 				.catch( reason => {
 					swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');

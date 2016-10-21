@@ -47,7 +47,7 @@ export default {
 					$("#category-add-new").modal('hide');
 				} )
 				.catch( reason => {
-					swal('Crap!', 'Something just went wrong! Please Try Again!', 'error');
+					swal('Oh No!', 'Something just went wrong! Please Try Again!', 'error');
 					this.is_saving = false;
 				} );
 		}
