@@ -75,6 +75,7 @@ class PremadeVideosController extends Controller
         $project->save();
 
         File::copy("premades/{$request->get('filename')}", "data/{$email}/done/{$filename}");
+        File::copy("premades/{$request->get('filename')}", "data/{$email}/done/{$filename}.webm");
         File::copy("premades/{$request->get('filename')}.png", "data/{$email}/done/{$filename}.png");
 
         return $project;
