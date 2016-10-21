@@ -74,7 +74,7 @@
 	</video>
 	
 	{{-- Image Canvas --}}
-	<canvas id="output" style="width: 100%;"></canvas>
+	<canvas id="output" class="hide" style="width: 100%;"></canvas>
 	
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -160,6 +160,12 @@
 		});
 
 		video.on("timeupdate", function () {
+				if(!video.currentTime()) {
+					return;
+				}
+
+				$("canvas#output").removeClass('hide');
+
 				parent.postMessage({
 					id: 'casterbuddy',
 					currentTime: video.currentTime(),
