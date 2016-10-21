@@ -125,7 +125,6 @@
 			});
 
 			video.on("loadedmetadata", function () {
-				$(".loader-3").hide();
 				var vPlayer = document.getElementById("embed-casters_html5_api");
 				var projects = $(this).find("#project-player-container");
 
@@ -164,7 +163,10 @@
 					return;
 				}
 
-				$("canvas#output").removeClass('hide');
+				if($("canvas#output").hasClass('hide')) {
+					$("canvas#output").removeClass('hide');
+					$(".loader-3").hide();
+				}
 
 				parent.postMessage({
 					id: 'casterbuddy',
