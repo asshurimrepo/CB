@@ -16,14 +16,14 @@ class Project extends Model
 
     public function getIsNewAttribute()
     {
-    	$days = $this->created_at->diff(Carbon::now())->days;
-    	return $days < 1 ? true : false;
+    	$hours = $this->created_at->diff(Carbon::now())->h;
+    	return $hours < 1 ? true : false;
     }
 
     public function getIsUpdatedAttribute()
     {
-    	$days = $this->updated_at->diff(Carbon::now())->days;
-    	return $days < 1 ? true : false;
+    	$hours = $this->updated_at->diff(Carbon::now())->h;
+    	return $hours < 1 ? true : false;
     }
 
 }
