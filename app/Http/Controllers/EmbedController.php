@@ -43,6 +43,7 @@ class EmbedController extends Controller
 	    $file = str_replace('@id', $id, $file);
 	    $file = str_replace('@url', url('/'), $file);
 	    $file = str_replace("\n", "", $file);
+	    $file = str_replace("http:", "", $file);
 	    $file = str_replace("css/project-player.css", elixir('css/project-player.css'), $file);
 
    		$response = Response::make($file, 200);
