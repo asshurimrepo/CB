@@ -200,7 +200,8 @@ export default {
 
 			//link url
 			if(url_length > 0){				
-				window.open (url, '_blank');
+				var win = window.open(url, '_blank');
+  				win.focus();
 			}
 		},
 
