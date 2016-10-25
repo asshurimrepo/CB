@@ -199,9 +199,12 @@ export default {
 			let url = this.project.actions.link_url;
 
 			//link url
-			if(url_length > 0){				
-				var win = window.open(url, '_blank');
-  				win.focus();
+			if(url_length > 0){
+				if(navigator.userAgent.indexOf("Firefox") > 0){
+					window.location.href = url;
+				}else{
+					window.open(url, '_blank');
+				}				
 			}
 		},
 
