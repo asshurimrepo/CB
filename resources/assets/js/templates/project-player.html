@@ -13,33 +13,7 @@
       <span id="caster-elements"></span>
     </div>
 
-    <!-- textoverlay -->
-    <div v-if="has_Textoverlay" id="project-text-overlay"
-        :class="[textoverlay_class.valignment, textoverlay_class.alignment, 'project-element']"
-    >
-
-        <span v-if="has_Line1"
-          :style="{
-            backgroundColor: project.actions.textoverlay_backgroundcolor,
-            fontFamily:project.actions.textoverlay_fontfamily,
-            fontSize:project.actions.textoverlay_fontsize+'px',
-            fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
-            fontStyle: project.actions.textoverlay_italic ? 'italic': null,
-            color: project.actions.textoverlay_textcolor
-          }"
-        >
-          {{ project.actions.textoverlay_line_1 }}
-        </span><br/>
-        <span v-if="has_Line2"
-          :style="{
-            backgroundColor: project.actions.textoverlay_backgroundcolor
-          }"
-        >
-          {{ project.actions.textoverlay_line_2 }}
-        </span>
-    </div>
-
-
+    
     <!-- click to call -->
     <div v-if="has_Phonenumber"
          id="project-clicktocall"
@@ -144,6 +118,37 @@
 
     <div class="after-message">
       <span>Thank you for subscribing!</span>
+    </div>
+
+    <!-- textoverlay -->
+    <div v-if="has_Textoverlay" id="project-text-overlay"
+        :class="[textoverlay_class.valignment, textoverlay_class.alignment, 'project-element']"
+    >
+
+        <a :href="project.actions.link_url" v-if="has_Line1"
+          :style="{
+            backgroundColor: project.actions.textoverlay_backgroundcolor,
+            fontFamily:project.actions.textoverlay_fontfamily,
+            fontSize:project.actions.textoverlay_fontsize+'px',
+            fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
+            fontStyle: project.actions.textoverlay_italic ? 'italic': null,
+            color: project.actions.textoverlay_textcolor
+          }"
+        >
+          {{ project.actions.textoverlay_line_1 }}
+        </a><br/>
+        <a :href="project.actions.link_url" v-if="has_Line2"
+          :style="{
+            backgroundColor: project.actions.textoverlay_backgroundcolor,
+            fontFamily:project.actions.textoverlay_fontfamily,
+            fontSize:project.actions.textoverlay_fontsize+'px',
+            fontWeight: project.actions.textoverlay_bold ? 'bold' : null,
+            fontStyle: project.actions.textoverlay_italic ? 'italic': null,
+            color: project.actions.textoverlay_textcolor
+          }"
+        >
+          {{ project.actions.textoverlay_line_2 }}
+        </a>
     </div>
 
      <div id="video-section">

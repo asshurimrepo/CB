@@ -543,7 +543,7 @@ canvas#buffer {
   display: none;
   cursor: pointer; }
 
-#project-text-overlay > span {
+#project-text-overlay > a {
   padding: 4px 6px; }
 
 #project-text-overlay.Textoverlay--top {

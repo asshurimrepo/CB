@@ -449,7 +449,7 @@ export default {
 
 		addActionsToVideo() {
 				// Add Behavior on Text Overlay
-				$("body").on('click', '#project-text-overlay', () => {
+				$("body").on('click', '#video-section', () => {
 					console.log('Text overlay clicked!');
 					this.linkURL();
 				});
@@ -519,13 +519,13 @@ export default {
 					});
 				}
 
-				// if duration is set to 0
+				/*// if duration is set to 0
 				if(this.textoverlayduration === 0){
 					if(data.ended == true){
 						$("#project-text-overlay").fadeOut("fast");
 						return false;
 					}
-				}
+				}*/
 
 			}else{
 
@@ -542,12 +542,12 @@ export default {
 				}
 
 				// if duration is set to 0
-				if(this.textoverlayduration === 0){
+				/*if(this.textoverlayduration === 0){
 					if(data.ended == true){
 						$("#project-text-overlay").fadeOut("fast");
 						return false;
 					}
-				}
+				}*/
 
 			}
 
