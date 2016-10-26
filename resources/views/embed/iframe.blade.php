@@ -89,7 +89,7 @@
 
 	<script>
 		var project = {!! json_encode($project) !!}
-		var video = videojs('embed-casters', { "controls": "false", "autoplay": true, "preload": "auto" });
+		var video = videojs('embed-casters', { "controls": "false", "autoplay": true });
 		
 		$(document).ready(function(){
 
