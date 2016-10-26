@@ -775,4 +775,21 @@ div.after-message > span {
   bottom: 0;
   right: 0; }
 
+#close-iframe {
+  position: fixed;
+  top: 5px;
+  right: 20px;
+  font-size: 30px;
+  z-index: 999;
+  background: #ebebeb;
+  border-radius: 100%;
+  height: 40px;
+  width: 40px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
 /*# sourceMappingURL=project-player.css.map */

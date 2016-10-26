@@ -45158,7 +45158,21 @@ exports.default = {
 			}
 		},
 		updatePlayer: function updatePlayer() {
+			var _this2 = this;
+
 			this.resetOffsets();
+
+			// If Iframe Exists Show Iframe right away!
+			if (this.project.options.iframe) {
+				this.showIframe = true;
+				$("body").addClass('Scroll--none');
+
+				// Add Event for close iframe
+				$("body").on('click', '#close-iframe', function () {
+					_this2.showIframe = false;
+					$("body").removeClass('Scroll--none');
+				});
+			}
 
 			if (this.project.options.position == 'centered') {
 				this.player_class.position = "Project--centered";
@@ -45214,7 +45228,7 @@ exports.default = {
 			this.player_styles.offsets.marginRight = 0;
 		},
 		playProject: function playProject() {
-			var _this2 = this;
+			var _this3 = this;
 
 			$(".project-element").hide();
 			$("#project-player-container").removeClass("video-ended");
@@ -45227,17 +45241,17 @@ exports.default = {
 			$("#video-section").empty().html(video_template);
 
 			setTimeout(function () {
-				_this2.is_visible = true;
+				_this3.is_visible = true;
 				// setTimeout(() => this.renderTransparentVideo(), 300);
 				// $("div#video-section").css("min-height","0px");
-				_this2.projectActions();
+				_this3.projectActions();
 				$('#project-player-bg').fadeIn("fast");
 			}, delay);
 
 			// close on click background
 			$("body").on("click", "div#project-player-bg", function (e) {
 				if ($(e.target).is('div#project-player-bg')) {
-					_this2.video.pause();
+					_this3.video.pause();
 					$('#project-player-bg').fadeOut("fast");
 				}
 				e.preventDefault();
@@ -45392,12 +45406,12 @@ exports.default = {
 		//end of projectActions
 
 		addActionsToVideo: function addActionsToVideo() {
-			var _this3 = this;
+			var _this4 = this;
 
 			// Add Behavior on Text Overlay
 			$("body").on('click', '#video-section', function () {
 				console.log('Text overlay clicked!');
-				_this3.linkURL();
+				_this4.linkURL();
 			});
 
 			eventer(messageEvent, function (e) {
@@ -45408,23 +45422,18 @@ exports.default = {
 					return;
 				}
 
-				if (_this3.project.options.iframe) {
-					_this3.showIframe = true;
-					$("body").addClass('Scroll--none');
-				}
-
 				if (data.action) {
-					_this3.reactToAnyAction(data);
+					_this4.reactToAnyAction(data);
 					return;
 				}
 
 				// When Video is ended
 				if (data.ended) {
 					console.log('ended');
-					_this3.videoElements(data);
-					_this3.videoEnded();
+					_this4.videoElements(data);
+					_this4.videoEnded();
 
-					if (_this3.project.options.stop_showing.exit_on_end) {
+					if (_this4.project.options.stop_showing.exit_on_end) {
 						$('iframe#project-player').fadeOut("fast");
 					}
 
@@ -45441,9 +45450,9 @@ exports.default = {
 				}
 
 				// do the rest
-				_this3.vidtime = Math.floor(data.currentTime);
-				_this3.vidduration = Math.floor(data.duration);
-				_this3.videoElements(data);
+				_this4.vidtime = Math.floor(data.currentTime);
+				_this4.vidduration = Math.floor(data.duration);
+				_this4.videoElements(data);
 
 				// Adjust Height According to Content Hieght of the Iframe Caster
 				$("iframe#project-player").height(data.height);
@@ -45452,7 +45461,7 @@ exports.default = {
 			}, false);
 		},
 		videoElements: function videoElements(data) {
-			var _this4 = this;
+			var _this5 = this;
 
 			//textoverlay show & duration
 			// if the start time is greater than the total duration the textoverlay will display at the end
@@ -45463,10 +45472,10 @@ exports.default = {
 
 				if (this.vidtime === this.vidduration) {
 					$("#project-text-overlay").fadeIn("fast", function () {
-						if (_this4.textoverlayduration > 0) {
+						if (_this5.textoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-text-overlay").fadeOut("fast");
-							}, _this4.textoverlayduration);
+							}, _this5.textoverlayduration);
 							return false;
 						}
 					});
@@ -45483,10 +45492,10 @@ exports.default = {
 
 				if (this.vidtime === this.textoverlaystart) {
 					$("#project-text-overlay").fadeIn("fast", function () {
-						if (_this4.textoverlayduration > 0) {
+						if (_this5.textoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-text-overlay").fadeOut("fast");
-							}, _this4.textoverlayduration);
+							}, _this5.textoverlayduration);
 							return false;
 						}
 					});
@@ -45507,10 +45516,10 @@ exports.default = {
 
 				if (this.vidtime === this.vidduration) {
 					$("#project-clicktocall").fadeIn("fast", function () {
-						if (_this4.clicktocallduration > 0) {
+						if (_this5.clicktocallduration > 0) {
 							setTimeout(function () {
 								$("#project-clicktocall").fadeOut("fast");
-							}, _this4.clicktocallduration);
+							}, _this5.clicktocallduration);
 							return false;
 						}
 					});
@@ -45527,10 +45536,10 @@ exports.default = {
 
 				if (this.vidtime === this.clicktocallstart) {
 					$("#project-clicktocall").fadeIn("fast", function () {
-						if (_this4.clicktocallduration > 0) {
+						if (_this5.clicktocallduration > 0) {
 							setTimeout(function () {
 								$("#project-clicktocall").fadeOut("fast");
-							}, _this4.clicktocallduration);
+							}, _this5.clicktocallduration);
 							return false;
 						}
 					});
@@ -45551,10 +45560,10 @@ exports.default = {
 
 				if (this.vidtime === this.vidduration) {
 					$("#project-buttonoverlay").fadeIn("fast", function () {
-						if (_this4.buttonoverlayduration > 0) {
+						if (_this5.buttonoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-buttonoverlay").fadeOut("fast");
-							}, _this4.buttonoverlayduration);
+							}, _this5.buttonoverlayduration);
 							return false;
 						}
 					});
@@ -45571,10 +45580,10 @@ exports.default = {
 
 				if (this.vidtime === this.buttonoverlaystart) {
 					$("#project-buttonoverlay").fadeIn("fast", function () {
-						if (_this4.buttonoverlayduration > 0) {
+						if (_this5.buttonoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-buttonoverlay").fadeOut("fast");
-							}, _this4.buttonoverlayduration);
+							}, _this5.buttonoverlayduration);
 							return false;
 						}
 					});
@@ -45599,10 +45608,10 @@ exports.default = {
 					this.project.actions.autoresponder_email = '';
 
 					$("#project-formoverlay").fadeIn("fast", function () {
-						if (_this4.formoverlayduration > 0) {
+						if (_this5.formoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-formoverlay").fadeOut("fast");
-							}, _this4.formoverlayduration);
+							}, _this5.formoverlayduration);
 							return false;
 						}
 					});
@@ -45622,10 +45631,10 @@ exports.default = {
 					this.project.actions.autoresponder_email = '';
 
 					$("#project-formoverlay").fadeIn("fast", function () {
-						if (_this4.formoverlayduration > 0) {
+						if (_this5.formoverlayduration > 0) {
 							setTimeout(function () {
 								$("#project-formoverlay").fadeOut("fast");
-							}, _this4.formoverlayduration);
+							}, _this5.formoverlayduration);
 							return false;
 						}
 					});
@@ -45644,9 +45653,6 @@ exports.default = {
 		videoEnded: function videoEnded() {
 			console.log('Triggered Video Ended Methods');
 
-			this.showIframe = false;
-			$("body").removeClass('Scroll--none');
-
 			// Add External Video Embed Code
 			if (this.project.options.external_video.embed_code != "") {
 				console.log('add external video embed code');
@@ -45659,7 +45665,7 @@ exports.default = {
 			}
 		},
 		subscribe: function subscribe() {
-			var _this5 = this;
+			var _this6 = this;
 
 			var autoresponder_type = this.project.actions.autoresponder.toLowerCase();
 
@@ -45689,14 +45695,14 @@ exports.default = {
 			this.$http.post('/autoresponder/' + this.project.actions.autoresponder + '/subscribe', data).then(function (response) {
 				if (response.data == 1) {
 					$('#project-formoverlay').fadeOut("fast");
-					_this5.project.actions.autoresponder_username = '';
-					_this5.project.actions.autoresponder_email = '';
+					_this6.project.actions.autoresponder_username = '';
+					_this6.project.actions.autoresponder_email = '';
 					$(".after-message").fadeIn(400).delay(900).fadeOut(600);
 				}
 			}).catch(function () {
 				$('#project-formoverlay').fadeOut("fast");
-				_this5.project.actions.autoresponder_username = '';
-				_this5.project.actions.autoresponder_email = '';
+				_this6.project.actions.autoresponder_username = '';
+				_this6.project.actions.autoresponder_email = '';
 			});
 		}
 	}
@@ -45767,7 +45773,7 @@ new _vue2.default({
 });
 
 },{"./components/ProjectPlayer.js":159,"vue":154,"vue-resource":153}],161:[function(require,module,exports){
-module.exports = '<div v-show="is_visible" id="project-player-bg">\n\n  <div id="project-player-container"\n     :style="[player_styles.offsets]"\n     :class="[player_class.position, player_class.glass, player_class.extra]"\n  >\n  <!-- embed video -->\n   <div v-if="has_Video"\n        id="project-embed-video"\n        :class="[embed_class.position]"\n    >\n      <a href="#" class="close-embed text-danger"><i class="fa fa-times"></i></a>\n      <span id="caster-elements"></span>\n    </div>\n\n    \n    <!-- click to call -->\n    <div v-if="has_Phonenumber"\n         id="project-clicktocall"\n         :class="[clicktocall_class.valignment, clicktocall_class.alignment, \'project-element\']"\n    >\n\n\n      <a class="btn btn-default" href="tel:{{ project.actions.clicktocall }}"\n        :style="{\n          backgroundColor: project.actions.clicktocall_backgroundcolor,\n          color: project.actions.clicktocall_textcolor,\n          fontFamily:project.actions.clicktocall_fontfamily,\n          fontSize: project.actions.clicktocall_fontsize+\'px\',\n          fontWeight: project.actions.clicktocall_bold ? \'bold\' : null,\n          fontStyle: project.actions.clicktocall_italic ? \'italic\': null\n        }"\n      >\n        {{ project.actions.clicktocall }}\n      </a>\n\n\n    </div>\n\n    <!-- button overlay -->\n    <div v-if="has_Buttonoverlay"\n        id="project-buttonoverlay"\n        :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, \'project-element\']"\n    >\n          <button class="btn btn-default"\n                  :style="{\n                      color: project.actions.buttonoverlay_textcolor,\n                      backgroundColor: project.actions.buttonoverlay_backgroundcolor,\n                      fontFamily:project.actions.buttonoverlay_fontfamily,\n                     fontSize:project.actions.buttonoverlay_fontsize+\'px\',\n                     fontWeight: project.actions.buttonoverlay_bold ? \'bold\' : null,\n                     fontStyle: project.actions.buttonoverlay_italic ? \'italic\': null\n                  }"\n          >\n            {{ project.actions.buttonoverlay_label ? project.actions.buttonoverlay_label: \'Default\'}}\n          </button>\n    </div>\n\n    <!-- form overlay -->\n\n    <div v-if="has_Autoresponder" id="project-formoverlay" class="project-element">\n          <section class="panel">\n            <a href="#" class="close-form text-danger"><i class="fa fa-times"></i></a>\n            <header class="panel-heading text-center">\n               <h4\n                :style="{\n                  fontFamily: project.actions.formoverlay_titlefontfamily,\n                  fontSize: formoverlay_titlesize,\n                  fontWeight: project.actions.formoverlay_titlebold ? \'bold\' : null,\n                  fontStyle: project.actions.formoverlay_titleitalic ? \'italic\': null,\n                  color: project.actions.formoverlay_titlecolor\n                }"\n               >\n                {{ project.actions.formoverlay_title }}\n\n              </h4>\n            </header>\n             <div class="panel-body">\n               <form class="form-horizontal tasi-form text-left">\n                  <div class="form-group">\n                    <div class="col-lg-12 col-md-12">\n                        <input type="text" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="subscriber-username" placeholder="Enter your name.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                               }"\n                               v-model="project.actions.autoresponder_username"\n                        >\n                        <input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="subscriber-email" placeholder="Enter your email.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                               }"\n                               v-model="project.actions.autoresponder_email"\n                        >\n                        <button id="formoverlay-btn" type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"\n                              @click="subscribe"\n                              :style="{\n                                borderWidth: project.actions.formoverlay_buttonbordersize + \'px\',\n                                color: project.actions.formoverlay_buttoncolor,\n                                borderColor: project.actions.formoverlay_buttoncolor,\n                                backgroundColor: project.actions.formoverlay_buttonbackgroundcolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                              }"\n                        >\n                              {{ project.actions.formoverlay_buttontext }}\n                        </button>\n                    </div>\n                  </div>\n                 </form>\n             </div>\n          </section>\n    </div>\n\n    <div class="after-message">\n      <span>Thank you for subscribing!</span>\n    </div>\n\n    <!-- textoverlay -->\n    <div v-if="has_Textoverlay" id="project-text-overlay"\n        :class="[textoverlay_class.valignment, textoverlay_class.alignment, \'project-element\']"\n    >\n\n        <a :href="project.actions.link_url" v-if="has_Line1"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor,\n            fontFamily:project.actions.textoverlay_fontfamily,\n            fontSize:project.actions.textoverlay_fontsize+\'px\',\n            fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n            fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n            color: project.actions.textoverlay_textcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_1 }}\n        </a><br/>\n        <a :href="project.actions.link_url" v-if="has_Line2"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor,\n            fontFamily:project.actions.textoverlay_fontfamily,\n            fontSize:project.actions.textoverlay_fontsize+\'px\',\n            fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n            fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n            color: project.actions.textoverlay_textcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_2 }}\n        </a>\n    </div>\n\n     <div id="video-section">\n\n     </div>\n\n     <iframe v-if="project.options.iframe && showIframe" id="iframe-background" :src="project.options.iframe" frameborder="0"></iframe>\n\n  </div> <!-- end of project-player-container -->\n</div> <!-- end of player background -->\n\n';
+module.exports = '<div v-show="is_visible" id="project-player-bg">\n\n  <div id="project-player-container"\n     :style="[player_styles.offsets]"\n     :class="[player_class.position, player_class.glass, player_class.extra]"\n  >\n  <!-- embed video -->\n   <div v-if="has_Video"\n        id="project-embed-video"\n        :class="[embed_class.position]"\n    >\n      <a href="#" class="close-embed text-danger"><i class="fa fa-times"></i></a>\n      <span id="caster-elements"></span>\n    </div>\n\n    \n    <!-- click to call -->\n    <div v-if="has_Phonenumber"\n         id="project-clicktocall"\n         :class="[clicktocall_class.valignment, clicktocall_class.alignment, \'project-element\']"\n    >\n\n\n      <a class="btn btn-default" href="tel:{{ project.actions.clicktocall }}"\n        :style="{\n          backgroundColor: project.actions.clicktocall_backgroundcolor,\n          color: project.actions.clicktocall_textcolor,\n          fontFamily:project.actions.clicktocall_fontfamily,\n          fontSize: project.actions.clicktocall_fontsize+\'px\',\n          fontWeight: project.actions.clicktocall_bold ? \'bold\' : null,\n          fontStyle: project.actions.clicktocall_italic ? \'italic\': null\n        }"\n      >\n        {{ project.actions.clicktocall }}\n      </a>\n\n\n    </div>\n\n    <!-- button overlay -->\n    <div v-if="has_Buttonoverlay"\n        id="project-buttonoverlay"\n        :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, \'project-element\']"\n    >\n          <button class="btn btn-default"\n                  :style="{\n                      color: project.actions.buttonoverlay_textcolor,\n                      backgroundColor: project.actions.buttonoverlay_backgroundcolor,\n                      fontFamily:project.actions.buttonoverlay_fontfamily,\n                     fontSize:project.actions.buttonoverlay_fontsize+\'px\',\n                     fontWeight: project.actions.buttonoverlay_bold ? \'bold\' : null,\n                     fontStyle: project.actions.buttonoverlay_italic ? \'italic\': null\n                  }"\n          >\n            {{ project.actions.buttonoverlay_label ? project.actions.buttonoverlay_label: \'Default\'}}\n          </button>\n    </div>\n\n    <!-- form overlay -->\n\n    <div v-if="has_Autoresponder" id="project-formoverlay" class="project-element">\n          <section class="panel">\n            <a href="#" class="close-form text-danger"><i class="fa fa-times"></i></a>\n            <header class="panel-heading text-center">\n               <h4\n                :style="{\n                  fontFamily: project.actions.formoverlay_titlefontfamily,\n                  fontSize: formoverlay_titlesize,\n                  fontWeight: project.actions.formoverlay_titlebold ? \'bold\' : null,\n                  fontStyle: project.actions.formoverlay_titleitalic ? \'italic\': null,\n                  color: project.actions.formoverlay_titlecolor\n                }"\n               >\n                {{ project.actions.formoverlay_title }}\n\n              </h4>\n            </header>\n             <div class="panel-body">\n               <form class="form-horizontal tasi-form text-left">\n                  <div class="form-group">\n                    <div class="col-lg-12 col-md-12">\n                        <input type="text" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="subscriber-username" placeholder="Enter your name.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                               }"\n                               v-model="project.actions.autoresponder_username"\n                        >\n                        <input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="subscriber-email" placeholder="Enter your email.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                               }"\n                               v-model="project.actions.autoresponder_email"\n                        >\n                        <button id="formoverlay-btn" type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"\n                              @click="subscribe"\n                              :style="{\n                                borderWidth: project.actions.formoverlay_buttonbordersize + \'px\',\n                                color: project.actions.formoverlay_buttoncolor,\n                                borderColor: project.actions.formoverlay_buttoncolor,\n                                backgroundColor: project.actions.formoverlay_buttonbackgroundcolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                              }"\n                        >\n                              {{ project.actions.formoverlay_buttontext }}\n                        </button>\n                    </div>\n                  </div>\n                 </form>\n             </div>\n          </section>\n    </div>\n\n    <div class="after-message">\n      <span>Thank you for subscribing!</span>\n    </div>\n\n    <!-- textoverlay -->\n    <div v-if="has_Textoverlay" id="project-text-overlay"\n        :class="[textoverlay_class.valignment, textoverlay_class.alignment, \'project-element\']"\n    >\n\n        <a :href="project.actions.link_url" v-if="has_Line1"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor,\n            fontFamily:project.actions.textoverlay_fontfamily,\n            fontSize:project.actions.textoverlay_fontsize+\'px\',\n            fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n            fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n            color: project.actions.textoverlay_textcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_1 }}\n        </a><br/>\n        <a :href="project.actions.link_url" v-if="has_Line2"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor,\n            fontFamily:project.actions.textoverlay_fontfamily,\n            fontSize:project.actions.textoverlay_fontsize+\'px\',\n            fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n            fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n            color: project.actions.textoverlay_textcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_2 }}\n        </a>\n    </div>\n\n     <div id="video-section">\n\n     </div>\n\n     <div v-if="project.options.iframe && showIframe">\n        <iframe id="iframe-background" :src="project.options.iframe" frameborder="0"></iframe>\n        <a href="#close-iframe" id="close-iframe"><i class="fa fa-times"></i></a>\n     </div>\n\n    \n\n  </div> <!-- end of project-player-container -->\n</div> <!-- end of player background -->\n\n';
 },{}]},{},[160]);
 
 //# sourceMappingURL=premade.js.map

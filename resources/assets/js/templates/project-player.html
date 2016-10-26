@@ -155,7 +155,12 @@
 
      </div>
 
-     <iframe v-if="project.options.iframe && showIframe" id="iframe-background" :src="project.options.iframe" frameborder="0"></iframe>
+     <div v-if="project.options.iframe && showIframe">
+        <iframe id="iframe-background" :src="project.options.iframe" frameborder="0"></iframe>
+        <a href="#close-iframe" id="close-iframe"><i class="fa fa-times"></i></a>
+     </div>
+
+    
 
   </div> <!-- end of project-player-container -->
 </div> <!-- end of player background -->

@@ -212,6 +212,18 @@ export default {
 		updatePlayer(){
 			this.resetOffsets();
 
+			// If Iframe Exists Show Iframe right away!
+			if(this.project.options.iframe) {
+				this.showIframe = true;
+				$("body").addClass('Scroll--none');
+
+				// Add Event for close iframe
+				$("body").on('click', '#close-iframe', () => {
+					this.showIframe = false;
+					$("body").removeClass('Scroll--none');
+				});
+			}
+
 			if(this.project.options.position == 'centered') {
 				this.player_class.position = "Project--centered";
 				this.player_styles.offsets.marginLeft = this.project.options.offset_x + 'px';
@@ -468,12 +480,6 @@ export default {
 					  return;
 					}
 
-					if(this.project.options.iframe) {
-						this.showIframe = true;
-						$("body").addClass('Scroll--none');
-					}
-
-
 					if(data.action) {
 						this.reactToAnyAction(data);
 						return;
@@ -717,9 +723,6 @@ export default {
 
 		videoEnded(){
 			console.log('Triggered Video Ended Methods');
-
-			this.showIframe = false;
-			$("body").removeClass('Scroll--none');
 
 			// Add External Video Embed Code
 			if(this.project.options.external_video.embed_code != ""){
