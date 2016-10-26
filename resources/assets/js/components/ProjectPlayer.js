@@ -18,6 +18,7 @@ export default {
 	data() {
 		return {
 			/*Player*/
+			showIframe: false,
 			animation_request: null,
 			is_embed: false,
 			vPlayer: null,
@@ -458,6 +459,7 @@ export default {
 					this.linkURL();
 				});
 
+				
 				eventer(messageEvent,(e) => {
 				    var key = e.message ? "message" : "data";
 				    var data = e[key];
@@ -465,6 +467,12 @@ export default {
 					if(typeof data != "object" || typeof data.id == "undefined" || data.id != "casterbuddy") {
 					  return;
 					}
+
+					if(this.project.options.iframe) {
+						this.showIframe = true;
+						$("body").addClass('Scroll--none');
+					}
+
 
 					if(data.action) {
 						this.reactToAnyAction(data);
@@ -709,6 +717,9 @@ export default {
 
 		videoEnded(){
 			console.log('Triggered Video Ended Methods');
+
+			this.showIframe = false;
+			$("body").removeClass('Scroll--none');
 
 			// Add External Video Embed Code
 			if(this.project.options.external_video.embed_code != ""){
