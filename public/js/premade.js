@@ -44896,7 +44896,9 @@ function _createXHR(options) {
 
 function noop() {}
 
-},{"global/window":8,"is-function":9,"once":156,"parse-headers":57,"xtend":157}],156:[function(require,module,exports){
+},{"global/window":156,"is-function":9,"once":157,"parse-headers":57,"xtend":158}],156:[function(require,module,exports){
+arguments[4][8][0].apply(exports,arguments)
+},{"dup":8}],157:[function(require,module,exports){
 module.exports = once
 
 once.proto = once(function () {
@@ -44917,7 +44919,7 @@ function once (fn) {
   }
 }
 
-},{}],157:[function(require,module,exports){
+},{}],158:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -44938,14 +44940,14 @@ function extend() {
     return target
 }
 
-},{}],158:[function(require,module,exports){
+},{}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 // var seeThru = require('seethru');
 var jQueryCaster = require('jquery');
@@ -45422,9 +45424,10 @@ exports.default = {
 
 					// When there is project elements present add class video-ended (has white background)
 					if ($("#project-player-container").find(".project-element:visible").length > 0) {
-						console.log($(".project-element:visible"));
-
-						$("#project-player-container").addClass("video-ended");
+						// console.log($(".project-element:visible"));
+						if ($(".project-element:visible").attr("id") != 'project-formoverlay') {
+							$("#project-player-container").addClass("video-ended");
+						}
 						$("#video-section").css("height", Math.floor(data.height) + "px");
 					}
 
@@ -45690,7 +45693,7 @@ exports.default = {
 	}
 };
 
-},{"../templates/project-player.html":160,"jquery":10,"video.js":152}],159:[function(require,module,exports){
+},{"../templates/project-player.html":161,"jquery":10,"video.js":152}],160:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
@@ -45754,8 +45757,8 @@ new _vue2.default({
 
 });
 
-},{"./components/ProjectPlayer.js":158,"vue":154,"vue-resource":153}],160:[function(require,module,exports){
+},{"./components/ProjectPlayer.js":159,"vue":154,"vue-resource":153}],161:[function(require,module,exports){
 module.exports = '<div v-show="is_visible" id="project-player-bg">\n\n  <div id="project-player-container"\n     :style="[player_styles.offsets]"\n     :class="[player_class.position, player_class.glass, player_class.extra]"\n  >\n  <!-- embed video -->\n   <div v-if="has_Video"\n        id="project-embed-video"\n        :class="[embed_class.position]"\n    >\n      <a href="#" class="close-embed text-danger"><i class="fa fa-times"></i></a>\n      <span id="caster-elements"></span>\n    </div>\n\n    \n    <!-- click to call -->\n    <div v-if="has_Phonenumber"\n         id="project-clicktocall"\n         :class="[clicktocall_class.valignment, clicktocall_class.alignment, \'project-element\']"\n    >\n\n\n      <a class="btn btn-default" href="tel:{{ project.actions.clicktocall }}"\n        :style="{\n          backgroundColor: project.actions.clicktocall_backgroundcolor,\n          color: project.actions.clicktocall_textcolor,\n          fontFamily:project.actions.clicktocall_fontfamily,\n          fontSize: project.actions.clicktocall_fontsize+\'px\',\n          fontWeight: project.actions.clicktocall_bold ? \'bold\' : null,\n          fontStyle: project.actions.clicktocall_italic ? \'italic\': null\n        }"\n      >\n        {{ project.actions.clicktocall }}\n      </a>\n\n\n    </div>\n\n    <!-- button overlay -->\n    <div v-if="has_Buttonoverlay"\n        id="project-buttonoverlay"\n        :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, \'project-element\']"\n    >\n          <button class="btn btn-default"\n                  :style="{\n                      color: project.actions.buttonoverlay_textcolor,\n                      backgroundColor: project.actions.buttonoverlay_backgroundcolor,\n                      fontFamily:project.actions.buttonoverlay_fontfamily,\n                     fontSize:project.actions.buttonoverlay_fontsize+\'px\',\n                     fontWeight: project.actions.buttonoverlay_bold ? \'bold\' : null,\n                     fontStyle: project.actions.buttonoverlay_italic ? \'italic\': null\n                  }"\n          >\n            {{ project.actions.buttonoverlay_label ? project.actions.buttonoverlay_label: \'Default\'}}\n          </button>\n    </div>\n\n    <!-- form overlay -->\n\n    <div v-if="has_Autoresponder" id="project-formoverlay" class="project-element">\n          <section class="panel">\n            <a href="#" class="close-form text-danger"><i class="fa fa-times"></i></a>\n            <header class="panel-heading text-center">\n               <h4\n                :style="{\n                  fontFamily: project.actions.formoverlay_titlefontfamily,\n                  fontSize: formoverlay_titlesize,\n                  fontWeight: project.actions.formoverlay_titlebold ? \'bold\' : null,\n                  fontStyle: project.actions.formoverlay_titleitalic ? \'italic\': null,\n                  color: project.actions.formoverlay_titlecolor\n                }"\n               >\n                {{ project.actions.formoverlay_title }}\n\n              </h4>\n            </header>\n             <div class="panel-body">\n               <form class="form-horizontal tasi-form text-left">\n                  <div class="form-group">\n                    <div class="col-lg-12 col-md-12">\n                        <input type="text" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="subscriber-username" placeholder="Enter your name.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                               }"\n                               v-model="project.actions.autoresponder_username"\n                        >\n                        <input type="email" class="form-control m-bot15 {{formoverlay_fieldsize}}"\n                               id="subscriber-email" placeholder="Enter your email.."\n                               :style="{\n                                borderWidth: project.actions.formoverlay_fieldbordersize + \'px\',\n                                borderColor: project.actions.formoverlay_fieldbordercolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                               }"\n                               v-model="project.actions.autoresponder_email"\n                        >\n                        <button id="formoverlay-btn" type="button" class="btn btn-success center-block {{formoverlay_buttonsize}}"\n                              @click="subscribe"\n                              :style="{\n                                borderWidth: project.actions.formoverlay_buttonbordersize + \'px\',\n                                color: project.actions.formoverlay_buttoncolor,\n                                borderColor: project.actions.formoverlay_buttoncolor,\n                                backgroundColor: project.actions.formoverlay_buttonbackgroundcolor,\n                                fontFamily: project.actions.formoverlay_titlefontfamily\n                              }"\n                        >\n                              {{ project.actions.formoverlay_buttontext }}\n                        </button>\n                    </div>\n                  </div>\n                 </form>\n             </div>\n          </section>\n    </div>\n\n    <div class="after-message">\n      <span>Thank you for subscribing!</span>\n    </div>\n\n    <!-- textoverlay -->\n    <div v-if="has_Textoverlay" id="project-text-overlay"\n        :class="[textoverlay_class.valignment, textoverlay_class.alignment, \'project-element\']"\n    >\n\n        <a :href="project.actions.link_url" v-if="has_Line1"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor,\n            fontFamily:project.actions.textoverlay_fontfamily,\n            fontSize:project.actions.textoverlay_fontsize+\'px\',\n            fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n            fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n            color: project.actions.textoverlay_textcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_1 }}\n        </a><br/>\n        <a :href="project.actions.link_url" v-if="has_Line2"\n          :style="{\n            backgroundColor: project.actions.textoverlay_backgroundcolor,\n            fontFamily:project.actions.textoverlay_fontfamily,\n            fontSize:project.actions.textoverlay_fontsize+\'px\',\n            fontWeight: project.actions.textoverlay_bold ? \'bold\' : null,\n            fontStyle: project.actions.textoverlay_italic ? \'italic\': null,\n            color: project.actions.textoverlay_textcolor\n          }"\n        >\n          {{ project.actions.textoverlay_line_2 }}\n        </a>\n    </div>\n\n     <div id="video-section">\n\n     </div>\n\n  </div> <!-- end of project-player-container -->\n</div> <!-- end of player background -->\n\n';
-},{}]},{},[159]);
+},{}]},{},[160]);
 
 //# sourceMappingURL=premade.js.map

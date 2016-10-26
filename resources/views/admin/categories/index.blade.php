@@ -23,6 +23,7 @@
 			<thead>
 				<tr>
 					<th>Name</th>
+					<th>Sub Text</th>
 					<th>Slug</th>
 					<th>Actions</th>
 				</tr>
@@ -31,6 +32,7 @@
 			<tbody>
 				<tr v-for="cat in categories" track-by="id">
 					<td>@{{ cat.name }}</td>
+					<td>@{{ cat.sub_text }}</td>
 					<td>@{{ cat.slug }}</td>
 					<td>
 						<button @click="editCategory(cat)" class="btn btn-sm btn-primary">Edit</button>
