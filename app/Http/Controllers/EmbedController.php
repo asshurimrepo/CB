@@ -84,17 +84,32 @@ class EmbedController extends Controller
 	    return $response;
     }
 
+    protected function hasWebm($filename)
+    {
+    	return File::exists($filename . ".webm");
+    }
+
     public function iframe(Project $project)
     {
+    	$project->load('user');
+
     	// return $project;
+
     	$source = "/embed/video/{$project->user_id}/{$project->filename}";
-    	return view('embed.iframe', compact('project', 'source'));
+    	$hasWebm = $this->hasWebm("data/{$project->user->email}/done/{$project->filename}");
+
+    	// dd($hasWebm);
+
+    	return view('embed.iframe', compact('project', 'source', 'hasWebm'));
     }
 
     public function iframePremade(Premade $project)
     {
     	// return $project;
     	$source = "/premades/{$project->filename}";
-    	return view('embed.iframe', compact('project', 'source'));
+    	$hasWebm = $this->hasWebm("premades/{$project->filename}");
+    	// dd($hasWebm);
+
+    	return view('embed.iframe', compact('project', 'source', 'hasWebm'));
     }
 }

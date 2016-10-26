@@ -26,4 +26,9 @@ class Project extends Model
     	return $hours < 1 ? true : false;
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
