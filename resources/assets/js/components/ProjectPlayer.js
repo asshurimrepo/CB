@@ -483,9 +483,10 @@ export default {
 
 						// When there is project elements present add class video-ended (has white background)
 						if($("#project-player-container").find(".project-element:visible").length > 0) {
-							console.log($(".project-element:visible"));
-
-							$("#project-player-container").addClass("video-ended");
+							// console.log($(".project-element:visible"));
+							if($(".project-element:visible").attr("id") != 'project-formoverlay'){
+								$("#project-player-container").addClass("video-ended");
+							}
 							$("#video-section").css("height",Math.floor(data.height)+"px");
 						}
 						
