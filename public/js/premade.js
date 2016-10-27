@@ -45263,6 +45263,8 @@ exports.default = {
 				e.preventDefault();
 				$('#project-player-bg').fadeOut("fast");
 				$('iframe#project-player').remove();
+				_this3.showIframe = false;
+				$("body").removeClass('Scroll--none');
 			});
 
 			//close form
