@@ -9,7 +9,9 @@
   				  </div>
             <tooltip class="pull-right control-label" title="Click to call overlay in the video. Useful for mobile phones, and it works on web that have e.g Skype" placement="left"></tooltip>
   				</div>
-  				<div class="col-lg-12 col-sm-12 row m-bot15">
+
+          <!-- Vertical Alignment -->
+  				<div class="col-lg-12 col-sm-12 row">
   					<label for="valignment" class="control-label col-md-3 col-sm-3">
               <strong> Vertical Alignment: </strong>
             </label>
@@ -24,6 +26,24 @@
                 <tooltip class="pull-left control-label" title="Vertical alignment of click to call overlay" placement="right"></tooltip>
              </div>
           </div>
+  
+          <div class="col-lg-12 col-md-12 row">
+            <label for="textalignment" class="control-label col-md-3 col-sm-3">
+                  <strong>Horizontal Alignment: </strong>
+            </label>
+              <div class="row col-md-3 col-sm-3 m-bot15 control-label">
+                    <select id='textFontProperty' class="form-control m-bot15" v-model="project.actions.clicktocall_alignment">
+                      <option value="left">Left</option>
+                      <option value="center">Center</option>
+                      <option value="right">Right</option>
+                    </select>
+              </div>
+            <div class="col-md-3 col-sm-3">
+                <tooltip class="pull-left control-label" title="Horizontal alignment of click to call overlay" placement="right"></tooltip>
+             </div>
+
+           </div>
+
         <div class="col-lg-12 col-sm-12 row">
 					<label for="phoneshow" class="control-label col-md-3 col-sm-3">
             	   <strong> Start Time: </strong>
@@ -167,20 +187,7 @@
                 </div>
             </div>
           </div>
-          <div class="form-group">
-          	<div class="col-lg-12 col-md-12">
-							<label for="textalignment" class="control-label col-md-3 col-sm-3">
-                	  <strong> Alignment: </strong>
-              </label>
-                <div class="row col-md-3 col-sm-3">
-                    	<select id='textFontProperty' class="form-control m-bot15" v-model="project.actions.clicktocall_alignment">
-												<option value="left">Left</option>
-												<option value="center">Center</option>
-												<option value="right">Right</option>
-											</select>
-										</div>
-									</div>
-								</div>
+          
 								<div class="form-group">
 									<div class="col-lg-12 col-md-12">
 										<label for="textoverlay" class="m-bot15 control-label col-md-4 col-sm-4"><strong> Text Color: </strong></label>

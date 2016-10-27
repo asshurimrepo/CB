@@ -37,6 +37,25 @@
               					<tooltip class="pull-left" title="Vertical alignment of button overlay" placement="right"></tooltip>
              				</div>
                         </div>
+						
+						<!-- Horizontal Aligment -->
+                    	<div class="col-lg-12 col-md-12">
+							<label for="textalignment" class="control-label col-md-3 col-sm-3">
+                              	  <strong>Horizontal Alignment: </strong>
+                            </label>
+                            <div class="row  m-bot15 col-md-3 col-sm-3">
+                              	<select id='textFontProperty' class="form-control m-bot15" v-model="project.actions.buttonoverlay_alignment">
+									<option value="left">Left</option>
+									<option value="center">Center</option>
+									<option value="right">Right</option>
+								</select>
+							</div>
+
+							<div class="col-md-3 col-sm-3">
+          						<tooltip class="pull-left" title="Horizontal alignment of button overlay" placement="right"></tooltip>
+         					</div>
+						</div>
+
                     	<div class="col-lg-12 col-sm-12">
 							<label for="buttonshow" class="control-label col-md-3 col-sm-3">
                               	   <strong> Start Time: </strong>
@@ -184,20 +203,7 @@
 			                                    </div>
 			                                </div>
 		                                </div>
-		                                <div class="form-group">
-		                                	<div class="col-lg-12 col-md-12">
-												<label for="textalignment" class="control-label col-md-3 col-sm-3">
-			                                      	  <strong> Alignment: </strong>
-			                                    </label>
-			                                    <div class="row col-md-3 col-sm-3">
-		                                          	<select id='textFontProperty' class="form-control m-bot15" v-model="project.actions.buttonoverlay_alignment">
-														<option value="left">Left</option>
-														<option value="center">Center</option>
-														<option value="right">Right</option>
-													</select>
-												</div>
-											</div>
-										</div>
+		                                
 										<div class="form-group">
 											<div class="col-lg-12 col-md-12">
 												<label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4">

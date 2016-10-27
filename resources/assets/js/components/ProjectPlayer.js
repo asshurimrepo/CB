@@ -328,6 +328,8 @@ export default {
 				e.preventDefault();
 				$('#project-player-bg').fadeOut("fast");
 				$('iframe#project-player').remove();
+				this.showIframe = false;
+				$("body").removeClass('Scroll--none');
 			});
 
 			//close form

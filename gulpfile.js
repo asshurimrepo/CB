@@ -17,6 +17,14 @@ elixir(function(mix) {
        .sass('project-player.scss')
        .sass('premade-player.scss');
 
+    mix.browserify('main.js')
+       .browserify('upload.js')
+       .browserify('premade.js')
+       .browserify('caster.js')
+       .browserify('categories.js')
+       .browserify('admin-premade.js')
+       .browserify('members.js');
+
     mix.version([
         'js/main.js', 
         'js/categories.js',
@@ -26,12 +34,4 @@ elixir(function(mix) {
         'css/project-player.css',
         'css/app.css',
       ]);
-
-    mix.browserify('main.js')
-       .browserify('upload.js')
-       .browserify('premade.js')
-       .browserify('caster.js')
-       .browserify('categories.js')
-       .browserify('admin-premade.js')
-       .browserify('members.js');
 });

@@ -600,6 +600,12 @@ canvas#buffer {
   width: 100%;
   display: none; }
 
+#project-iframe-buttonoverlay {
+  position: fixed;
+  z-index: 1049;
+  width: 100%;
+  display: none; }
+
 #project-buttonoverlay > button {
   border: 0 !important;
   pointer-events: visible;
