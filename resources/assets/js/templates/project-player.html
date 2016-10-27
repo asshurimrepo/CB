@@ -160,19 +160,19 @@
         <!-- button overlay -->
         <div v-if="has_iFrameButtonoverlay"
             id="project-iframe-buttonoverlay"
-            :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, 'project-element']"
+            :class="[iframebuttonoverlay_class.valignment, iframebuttonoverlay_class.alignment]"
         >
               <button class="btn btn-default"
                       :style="{
-                          color: project.options.iframe.buttonoverlay_textcolor,
-                          backgroundColor: project.options.iframe.buttonoverlay_backgroundcolor,
-                          fontFamily:project.options.iframe.buttonoverlay_fontfamily,
-                         fontSize:project.options.iframe.buttonoverlay_fontsize+'px',
-                         fontWeight: project.options.iframe.buttonoverlay_bold ? 'bold' : null,
-                         fontStyle: project.options.iframe.buttonoverlay_italic ? 'italic': null
+                          color: project.options.iframe_settings.buttonoverlay_textcolor,
+                          backgroundColor: project.options.iframe_settings.buttonoverlay_backgroundcolor,
+                          fontFamily:project.options.iframe_settings.buttonoverlay_fontfamily,
+                         fontSize:project.options.iframe_settings.buttonoverlay_fontsize+'px',
+                         fontWeight: project.options.iframe_settings.buttonoverlay_bold ? 'bold' : null,
+                         fontStyle: project.options.iframe_settings.buttonoverlay_italic ? 'italic': null
                       }"
               >
-                {{ project.options.iframe.buttonoverlay_label ? project.options.iframe.buttonoverlay_label: 'Default'}}
+                {{ project.options.iframe_settings.buttonoverlay_label }}
               </button>
         </div>
 

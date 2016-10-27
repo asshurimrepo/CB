@@ -24,7 +24,6 @@ a.close-premade {
 
 #premade-preview-container:hover a.close-premade {
   display: block;
-  -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out; }
 
 canvas#output-premade {
@@ -34,7 +33,6 @@ canvas#output-premade {
   position: absolute;
   top: 50%;
   left: 42.5%;
-  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
 /*# sourceMappingURL=premade-player.css.map */

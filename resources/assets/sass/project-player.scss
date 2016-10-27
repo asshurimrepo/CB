@@ -649,13 +649,6 @@ canvas#buffer {
     display: none;
 }
 
-#project-iframe-buttonoverlay{
-  position: fixed;
-    z-index: 1049;
-    width: 100%;
-    display: none;
-}
-
 #project-buttonoverlay>button{
 	border: 0 !important;
   pointer-events: visible;
@@ -884,4 +877,63 @@ div.after-message>span{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+#project-iframe-buttonoverlay{
+/*  position: absolute;
+    z-index: 1049;
+    width: 100%;
+    display: block;*/
+    position: fixed;
+    z-index: 1049;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    display: block;
+}
+
+
+#project-iframe-buttonoverlay>button{
+  border: 0 !important;
+  pointer-events: visible;
+  -webkit-transition: all .2s ease-in-out;
+       -o-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+
+#project-iframe-buttonoverlay>button:hover,
+#project-iframe-buttonoverlay>button:focus{
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
+
+#project-iframe-buttonoverlay.Buttonoverlay--top{
+  top: 0;
+}
+
+#project-iframe-buttonoverlay.Buttonoverlay--middle{
+  top: 50%;
+  /*transform: translateY(-50%);*/
+}
+
+#project-iframe-buttonoverlay.Buttonoverlay--bottom{
+  bottom: 0;
+}
+
+#project-iframe-buttonoverlay.Buttonoverlay--left{
+  text-align: left;
+}
+
+#project-iframe-buttonoverlay.Buttonoverlay--center{
+  text-align: center;
+}
+
+#project-iframe-buttonoverlay.Buttonoverlay--right{
+  text-align: right;
 }

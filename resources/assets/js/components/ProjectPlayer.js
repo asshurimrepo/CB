@@ -65,6 +65,10 @@ export default {
 				valignment: "",
 				alignment: ""
 			},
+			iframebuttonoverlay_class:{
+				valignment: "",
+				alignment: ""
+			},
 			textoverlaystart: 0,
 			textoverlayduration: 0,
 			clicktocallstart: 0,
@@ -475,30 +479,30 @@ export default {
 				this.buttonoverlay_class.alignment = "Buttonoverlay--right";
 			}
 
-			// button overlay alignment
-			if(this.project.options.iframe.buttonoverlay_valignment == 'middle'){
-				this.buttonoverlay_class.valignment = "Buttonoverlay--middle";
+			// button overlay alignment IFRAME
+			if(this.project.options.iframe_settings.buttonoverlay_valignment == 'middle'){
+				this.iframebuttonoverlay_class.valignment = "Buttonoverlay--middle";
 			}
 
-			if (this.project.options.iframe.buttonoverlay_valignment == 'top'){
-				this.buttonoverlay_class.valignment = "Buttonoverlay--top";
+			if (this.project.options.iframe_settings.buttonoverlay_valignment == 'top'){
+				this.iframebuttonoverlay_class.valignment = "Buttonoverlay--top";
 			}
 
-			if(this.project.options.iframe.buttonoverlay_valignment == 'bottom'){
-				this.buttonoverlay_class.valignment = "Buttonoverlay--bottom";
+			if(this.project.options.iframe_settings.buttonoverlay_valignment == 'bottom'){
+				this.iframebuttonoverlay_class.valignment = "Buttonoverlay--bottom";
 			}
 
-			// button overlay alignment
-			if(this.project.options.iframe.buttonoverlay_alignment == 'left'){
-				this.buttonoverlay_class.alignment = "Buttonoverlay--left";
+			// button overlay alignment IFRAME
+			if(this.project.options.iframe_settings.buttonoverlay_alignment == 'left'){
+				this.iframebuttonoverlay_class.alignment = "Buttonoverlay--left";
 			}
 
-			if (this.project.options.iframe.buttonoverlay_alignment == 'center'){
-				this.buttonoverlay_class.alignment = "Buttonoverlay--center";
+			if (this.project.options.iframe_settings.buttonoverlay_alignment == 'center'){
+				this.iframebuttonoverlay_class.alignment = "Buttonoverlay--center";
 			}
 
-			if(this.project.options.iframe.buttonoverlay_alignment == 'right'){
-				this.buttonoverlay_class.alignment = "Buttonoverlay--right";
+			if(this.project.options.iframe_settings.buttonoverlay_alignment == 'right'){
+				this.iframebuttonoverlay_class.alignment = "Buttonoverlay--right";
 			}
 
 
