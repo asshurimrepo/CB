@@ -176,6 +176,16 @@ export default {
     		if(this.project.actions.formoverlay_buttonsize === 'Large') return 'btn-lg';
 
     		return 'btn-sm';
+    	},
+
+    	has_iFrameButtonoverlay(){
+			let button_overlay = this.project.options.iframe.buttonoverlay_label;
+
+			if(button_overlay == ""){
+				return false;
+			}
+
+			return true;    		
     	}
 	},
 
@@ -461,6 +471,33 @@ export default {
 			if(this.project.actions.buttonoverlay_alignment == 'right'){
 				this.buttonoverlay_class.alignment = "Buttonoverlay--right";
 			}
+
+			// button overlay alignment
+			if(this.project.options.iframe.buttonoverlay_valignment == 'middle'){
+				this.buttonoverlay_class.valignment = "Buttonoverlay--middle";
+			}
+
+			if (this.project.options.iframe.buttonoverlay_valignment == 'top'){
+				this.buttonoverlay_class.valignment = "Buttonoverlay--top";
+			}
+
+			if(this.project.options.iframe.buttonoverlay_valignment == 'bottom'){
+				this.buttonoverlay_class.valignment = "Buttonoverlay--bottom";
+			}
+
+			// button overlay alignment
+			if(this.project.options.iframe.buttonoverlay_alignment == 'left'){
+				this.buttonoverlay_class.alignment = "Buttonoverlay--left";
+			}
+
+			if (this.project.options.iframe.buttonoverlay_alignment == 'center'){
+				this.buttonoverlay_class.alignment = "Buttonoverlay--center";
+			}
+
+			if(this.project.options.iframe.buttonoverlay_alignment == 'right'){
+				this.buttonoverlay_class.alignment = "Buttonoverlay--right";
+			}
+
 
 		}, //end of projectActions
 

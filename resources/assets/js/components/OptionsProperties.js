@@ -1,4 +1,6 @@
 import Tooltip from '../components/ToolTip';
+import ColorPicker from '../components/ColorPicker.js';
+
 export default {
 	template: require('../templates/options-properties.html'),
 
@@ -18,7 +20,7 @@ export default {
     },
 
     components: {
-        Tooltip
+        Tooltip, ColorPicker
     },
 
     events: {

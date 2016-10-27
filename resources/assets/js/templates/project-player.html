@@ -156,6 +156,27 @@
      </div>
 
      <div v-if="project.options.iframe && showIframe">
+
+        <!-- button overlay -->
+        <div v-if="has_iFrameButtonoverlay"
+            id="project-buttonoverlay"
+            :class="[buttonoverlay_class.valignment, buttonoverlay_class.alignment, 'project-element']"
+        >
+              <button class="btn btn-default"
+                      :style="{
+                          color: project.options.iframe.buttonoverlay_textcolor,
+                          backgroundColor: project.options.iframe.buttonoverlay_backgroundcolor,
+                          fontFamily:project.options.iframe.buttonoverlay_fontfamily,
+                         fontSize:project.options.iframe.buttonoverlay_fontsize+'px',
+                         fontWeight: project.options.iframe.buttonoverlay_bold ? 'bold' : null,
+                         fontStyle: project.options.iframe.buttonoverlay_italic ? 'italic': null
+                      }"
+              >
+                {{ project.options.iframe.buttonoverlay_label ? project.options.iframe.buttonoverlay_label: 'Default'}}
+              </button>
+        </div>
+
+
         <iframe id="iframe-background" :src="project.options.iframe" frameborder="0"></iframe>
         <a href="#close-iframe" id="close-iframe"><i class="fa fa-times"></i></a>
      </div>
