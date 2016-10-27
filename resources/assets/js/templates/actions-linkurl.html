@@ -37,6 +37,8 @@
                <input type="text" class="form-control m-bot15" id="textoverlay_line_2" v-model="project.actions.textoverlay_line_2">
              </div>
           </div>
+
+        <!-- Vertical Alignment -->
           <div class="col-lg-12 col-sm-12 row">
              <label for="valignment" class="control-label col-md-3 col-sm-3">
                <strong> Vertical Alignment: </strong>
@@ -52,6 +54,25 @@
                 <tooltip class="pull-left" title="Vertical alignment of text overlay" placement="right"></tooltip>
              </div>
           </div>
+          
+          <!-- Horizontal Alignment -->
+          <div class="col-lg-12 col-md-12 row">
+              <label for="textalignment" class="control-label col-md-3 col-sm-3">
+                 <strong>Horizontal Alignment: </strong>
+              </label>
+              <div class="row m-bot15 col-md-3 col-sm-3">
+                    <select id='textAlignment' class="form-control m-bot15" v-model="project.actions.textoverlay_alignment">
+                      <option value="left">Left</option>
+                      <option value="center">Center</option>
+                      <option value="right">Right</option>
+                    </select>
+              </div>
+              <div class="col-md-3 col-sm-3">
+                <tooltip class="pull-left" title="Horizontal alignment of text overlay" placement="right"></tooltip>
+             </div>
+          </div>
+
+
           <div class="col-lg-12 col-sm-12 row">
              <label for="starttime" class="control-label col-md-3 col-sm-3">
                  <strong> Start Time: </strong>
@@ -207,20 +228,7 @@
                     </div>
                 </div>
               </div>
-              <div class="form-group">
-                <div class="col-lg-12 col-md-12">
-                    <label for="textalignment" class="control-label col-md-3 col-sm-3">
-                       <strong> Alignment: </strong>
-                    </label>
-                    <div class="row col-md-3 col-sm-3">
-                          <select id='textAlignment' class="form-control m-bot15" v-model="project.actions.textoverlay_alignment">
-                            <option value="left">Left</option>
-                            <option value="center">Center</option>
-                            <option value="right">Right</option>
-                          </select>
-                    </div>
-                </div>
-              </div>
+              
               <div class="form-group">
                 <div class="col-lg-12 col-md-12">
                   <label for="textpverlay" class="m-bot15 control-label col-md-4 col-sm-4"><strong> Text Color: </strong></label>
