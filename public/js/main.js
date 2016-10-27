@@ -45844,6 +45844,7 @@ exports.default = {
 
 	ready: function ready() {
 		this.addActionsToVideo();
+		// console.log(this.project);
 	},
 
 
@@ -46713,7 +46714,9 @@ new _vue2.default({
 		active_project: {
 			options: {
 				stop_showing: {},
-				external_video: {}
+				external_video: {},
+				iframe_settings: {},
+				video_settings: {}
 			},
 
 			actions: {}

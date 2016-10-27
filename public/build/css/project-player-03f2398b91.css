@@ -21,7 +21,6 @@ a:focus {
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  -ms-touch-action: manipulation;
   touch-action: manipulation;
   cursor: pointer;
   -webkit-user-select: none;
@@ -79,6 +78,7 @@ button, input, optgroup, select, textarea {
   margin-bottom: 0px;
   margin-left: 0px;
   font-style: inherit;
+  -webkit-font-variant-ligatures: inherit;
   font-variant-ligatures: inherit;
   font-variant-caps: inherit;
   font-variant-numeric: inherit;
@@ -257,9 +257,13 @@ input {
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   box-shadow: none;
+  -webkit-transition-duration: 0.15s, 0.15s;
   transition-duration: 0.15s, 0.15s;
+  -webkit-transition-timing-function: ease-in-out, ease-in-out;
   transition-timing-function: ease-in-out, ease-in-out;
+  -webkit-transition-delay: initial, initial;
   transition-delay: initial, initial;
+  -webkit-transition-property: border-color, box-shadow;
   transition-property: border-color, box-shadow; }
 
 .form-control:focus {
@@ -329,6 +333,7 @@ div.loader-3 > i {
   position: absolute;
   left: 45%;
   top: 35%;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
 .sr-only {
@@ -494,6 +499,7 @@ canvas#buffer {
   right: 0;
   top: 0;
   bottom: 0;
+  -webkit-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out; }
 
 #project-player-container.Project--glassbg {
@@ -503,6 +509,7 @@ canvas#buffer {
 #project-player-container.Project--centered {
   top: 50%;
   left: 50%;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
 #project-player-container.Project--topleft {
@@ -530,9 +537,11 @@ canvas#buffer {
 
 #project-player-container:hover a.close-project {
   display: block;
+  -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out; }
 
 #project-player-container.video-ended:hover #video-section {
+  -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
   background: rgba(255, 255, 255, 0.35); }
 
@@ -551,6 +560,7 @@ canvas#buffer {
 
 #project-text-overlay.Textoverlay--middle {
   top: 50%;
+  -webkit-transform: translateY(-50%);
   transform: translateY(-50%); }
 
 #project-text-overlay.Textoverlay--bottom {
@@ -580,6 +590,7 @@ canvas#buffer {
 
 #project-clicktocall.Clicktocall--middle {
   top: 50%;
+  -webkit-transform: translateY(-50%);
   transform: translateY(-50%); }
 
 #project-clicktocall.Clicktocall--bottom {
@@ -609,11 +620,13 @@ canvas#buffer {
 #project-buttonoverlay > button {
   border: 0 !important;
   pointer-events: visible;
+  -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out; }
 
 #project-buttonoverlay > button:hover,
 #project-buttonoverlay > button:focus {
   /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
   /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -625,6 +638,7 @@ canvas#buffer {
 
 #project-buttonoverlay.Buttonoverlay--middle {
   top: 50%;
+  -webkit-transform: translateY(-50%);
   transform: translateY(-50%); }
 
 #project-buttonoverlay.Buttonoverlay--bottom {
@@ -644,6 +658,7 @@ canvas#buffer {
   z-index: 1049;
   width: 100%;
   top: 50%;
+  -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   padding: 30px;
   display: none; }
@@ -664,11 +679,13 @@ canvas#buffer {
 #project-formoverlay #formoverlay-btn:hover,
 #project-formoverlay #formoverlay-btn:focus {
   /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
   /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33000000', endColorstr='#00000000',GradientType=0 );
   /* IE6-9 */
+  -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out; }
 
 div#video-section {
@@ -687,11 +704,13 @@ div.loader-3 > i {
   position: absolute;
   left: 45%;
   top: 35%;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
 div#project-embed-video.Embed--centered {
   top: 50%;
   left: 50%;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
 div#project-embed-video.Embed--topleft {
@@ -758,6 +777,7 @@ div.after-message > span {
   position: inherit;
   top: 50%;
   left: 50%;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   font-weight: bold;
   color: #fff;
@@ -791,11 +811,11 @@ div.after-message > span {
   border-radius: 100%;
   height: 40px;
   width: 40px;
-  display: -ms-flexbox;
+  display: -webkit-box;
   display: flex;
-  -ms-flex-align: center;
+  -webkit-box-align: center;
   align-items: center;
-  -ms-flex-pack: center;
+  -webkit-box-pack: center;
   justify-content: center; }
 
 /*# sourceMappingURL=project-player.css.map */

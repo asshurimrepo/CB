@@ -11,6 +11,7 @@ export default {
 
 	ready(){
 		this.addActionsToVideo();
+		// console.log(this.project);
 	},
 
 	props: ['project'],

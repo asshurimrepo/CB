@@ -35,7 +35,7 @@
 </div>
 
 
-<project-options :project="active_project"></project-options>
+<project-options v-if="active_project" :project="active_project"></project-options>
 <project-actions :project="active_project"></project-actions>
 <project-embed :project="active_project">{{ url('/') }}</project-embed>
 <project-player :project="active_project"></project-player>

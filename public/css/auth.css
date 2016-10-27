@@ -1048,6 +1048,7 @@ img {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
+  -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out; }
 
 .img-circle {
@@ -2067,6 +2068,8 @@ output {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; }
 
 .form-control:focus {
@@ -2407,7 +2410,6 @@ select[multiple].input-lg, textarea.input-lg {
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  -ms-touch-action: manipulation;
   touch-action: manipulation;
   cursor: pointer;
   -webkit-user-select: none;
@@ -2708,6 +2710,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 
 .fade {
   opacity: 0;
+  -webkit-transition: opacity .15s linear;
   transition: opacity .15s linear; }
 
 .fade.in {
@@ -2729,8 +2732,11 @@ tbody.collapse.in {
   position: relative;
   height: 0;
   overflow: hidden;
+  -webkit-transition-timing-function: ease;
   transition-timing-function: ease;
+  -webkit-transition-duration: .35s;
   transition-duration: .35s;
+  -webkit-transition-property: height,visibility;
   transition-property: height,visibility; }
 
 .caret {
@@ -3975,6 +3981,7 @@ a.badge:focus, a.badge:hover {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
+  -webkit-transition: border .2s ease-in-out;
   transition: border .2s ease-in-out; }
 
 .thumbnail a > img, .thumbnail > img {
@@ -4060,6 +4067,12 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
 .alert-danger .alert-link {
   color: #843534; }
 
+@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0; }
+  to {
+    background-position: 0 0; } }
+
 @keyframes progress-bar-stripes {
   from {
     background-position: 40px 0; }
@@ -4084,37 +4097,44 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
   text-align: center;
   background-color: #337ab7;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-transition: width .6s ease;
   transition: width .6s ease; }
 
 .progress-bar-striped, .progress-striped .progress-bar {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px; }
 
 .progress-bar.active, .progress.active .progress-bar {
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite; }
 
 .progress-bar-success {
   background-color: #5cb85c; }
 
 .progress-striped .progress-bar-success {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
 .progress-bar-info {
   background-color: #5bc0de; }
 
 .progress-striped .progress-bar-info {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
 .progress-bar-warning {
   background-color: #f0ad4e; }
 
 .progress-striped .progress-bar-warning {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
 .progress-bar-danger {
   background-color: #d9534f; }
 
 .progress-striped .progress-bar-danger {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
 .media {
@@ -4638,10 +4658,15 @@ button.close {
   outline: 0; }
 
 .modal.fade .modal-dialog {
+  -webkit-transition: -webkit-transform .3s ease-out;
+  transition: -webkit-transform .3s ease-out;
   transition: transform .3s ease-out;
+  transition: transform .3s ease-out, -webkit-transform .3s ease-out;
+  -webkit-transform: translate(0, -25%);
   transform: translate(0, -25%); }
 
 .modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
   transform: translate(0, 0); }
 
 .modal-open .modal {
@@ -4984,6 +5009,7 @@ button.close {
 .carousel-inner > .item {
   position: relative;
   display: none;
+  -webkit-transition: .6s ease-in-out left;
   transition: .6s ease-in-out left; }
 
 .carousel-inner > .item > a > img, .carousel-inner > .item > img {
@@ -4991,17 +5017,25 @@ button.close {
 
 @media all and (transform-3d), (-webkit-transform-3d) {
   .carousel-inner > .item {
+    -webkit-transition: -webkit-transform .6s ease-in-out;
+    transition: -webkit-transform .6s ease-in-out;
     transition: transform .6s ease-in-out;
+    transition: transform .6s ease-in-out, -webkit-transform .6s ease-in-out;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    -webkit-perspective: 1000px;
     perspective: 1000px; }
   .carousel-inner > .item.active.right, .carousel-inner > .item.next {
     left: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
     transform: translate3d(100%, 0, 0); }
   .carousel-inner > .item.active.left, .carousel-inner > .item.prev {
     left: 0;
+    -webkit-transform: translate3d(-100%, 0, 0);
     transform: translate3d(-100%, 0, 0); }
   .carousel-inner > .item.active, .carousel-inner > .item.next.left, .carousel-inner > .item.prev.right {
     left: 0;
+    -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0); } }
 
 .carousel-inner > .active, .carousel-inner > .next, .carousel-inner > .prev {
@@ -5045,6 +5079,8 @@ button.close {
   opacity: .5; }
 
 .carousel-control.left {
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.0001) 100%);
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.0001)));
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.0001) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
   background-repeat: repeat-x; }
@@ -5052,6 +5088,8 @@ button.close {
 .carousel-control.right {
   right: 0;
   left: auto;
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0, rgba(0, 0, 0, 0.5) 100%);
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.0001)), to(rgba(0, 0, 0, 0.5)));
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0, rgba(0, 0, 0, 0.5) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
   background-repeat: repeat-x; }
@@ -5728,32 +5766,46 @@ ul {
   margin-left: .3em; }
 
 .fa-spin {
+  -webkit-animation: spin 2s infinite linear;
   animation: spin 2s infinite linear; }
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(359deg); } }
 
 @keyframes spin {
   0% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg); }
   100% {
+    -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
 
 .fa-rotate-90 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -webkit-transform: rotate(90deg);
   transform: rotate(90deg); }
 
 .fa-rotate-180 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -webkit-transform: rotate(180deg);
   transform: rotate(180deg); }
 
 .fa-rotate-270 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -webkit-transform: rotate(270deg);
   transform: rotate(270deg); }
 
 .fa-flip-horizontal {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -webkit-transform: scale(-1, 1);
   transform: scale(-1, 1); }
 
 .fa-flip-vertical {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -webkit-transform: scale(1, -1);
   transform: scale(1, -1); }
 
 .fa-stack {
@@ -7148,11 +7200,13 @@ ul.sidebar-menu li ul.sub li a {
   padding: 6px 0;
   line-height: 35px;
   height: 35px;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   color: #aeb2b7; }
 
 ul.sidebar-menu li ul.sub li a:hover, ul.sidebar-menu li ul.sub li.active a {
   color: #FF6C60;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   display: block; }
 
@@ -7175,6 +7229,7 @@ ul.sidebar-menu li a {
   padding: 15px 0 15px 10px;
   font-size: 12px;
   outline: none;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease; }
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
@@ -7183,6 +7238,7 @@ ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:fo
   display: block;
   border-radius: 4px;
   -webkit-border-radius: 4px;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease; }
 
 ul.sidebar-menu li a i {
@@ -7474,6 +7530,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
   position: absolute;
   left: 7px;
   top: -18px;
+  -webkit-transition: all 0.25s ease 0s;
   transition: all 0.25s ease 0s;
   width: 0;
   z-index: 10;
@@ -7499,6 +7556,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 .search {
   margin-top: 6px;
   width: 20px;
+  -webkit-transition: all .3s ease;
   transition: all .3s ease;
   border: 1px solid #fff;
   box-shadow: none;
@@ -7511,6 +7569,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
   width: 180px;
   border: 1px solid #eaeaea;
   box-shadow: none;
+  -webkit-transition: all .3s ease;
   transition: all .3s ease;
   color: #c8c8c8;
   font-weight: 300; }
@@ -7619,6 +7678,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
   color: #bfc2cd;
   width: 100%;
   border-radius: 5px 5px 0 0;
+  -webkit-transition: all .3s ease;
   transition: all .3s ease; }
 
 .custom-bar-chart .bar .value:hover {
@@ -8067,7 +8127,7 @@ h3.timeline-title {
   margin: 0;
   padding: 0;
   width: 100%;
-  display: -ms-inline-flexbox;
+  display: -webkit-inline-box;
   display: inline-flex; }
 
 .panel-footer.revenue-foot ul li {
@@ -9611,6 +9671,7 @@ table.sliders tr td {
   top: 0; }
 
 .has-switch > div.switch-animate {
+  -webkit-transition: left 0.25s ease-out;
   transition: left 0.25s ease-out;
   -webkit-backface-visibility: hidden; }
 
@@ -9648,6 +9709,7 @@ table.sliders tr td {
   /*-webkit-box-sizing: border-box;*/
   /*-moz-box-sizing: border-box;*/
   box-sizing: border-box;
+  -webkit-transition: 0.25s ease-out;
   transition: 0.25s ease-out;
   -webkit-backface-visibility: hidden; }
 
@@ -9678,6 +9740,7 @@ table.sliders tr td {
   vertical-align: middle;
   width: 29px;
   z-index: 100;
+  -webkit-transition: 0.25s ease-out;
   transition: 0.25s ease-out;
   -webkit-backface-visibility: hidden; }
 
@@ -9731,6 +9794,7 @@ table.sliders tr td {
   display: inline-block;
   zoom: 1;
   *display: inline;
+  -webkit-transition: 0.14s linear;
   transition: 0.14s linear;
   -webkit-backface-visibility: hidden; }
 
@@ -9795,6 +9859,7 @@ table.sliders tr td {
   display: inline-block;
   zoom: 1;
   *display: inline;
+  -webkit-transition: 0.25s;
   transition: 0.25s;
   -webkit-backface-visibility: hidden; }
 
@@ -9897,6 +9962,7 @@ table.sliders tr td {
 /*ck editor*/
 .cke_top, .cke_bottom {
   background: #F5F5F5 !important;
+  background: -webkit-linear-gradient(center top, #F5F5F5, #F5F5F5) repeat scroll 0 0 #F5F5F5 !important;
   background: -o-linear-gradient(center top, #F5F5F5, #F5F5F5) repeat scroll 0 0 #F5F5F5 !important;
   box-shadow: none;
   padding: 6px 8px 2px; }
@@ -10900,6 +10966,7 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 .pricing-quotation:before, .team-info:before {
   background-color: #EEEEEE;
   border-color: #EEEEEE;
+  -o-border-image: none;
   border-image: none;
   border-right: 1px solid #EEEEEE;
   border-style: none;
@@ -10928,6 +10995,7 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
   border-radius: 4px;
   -webkit-border-radius: 4px;
   color: #797979;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease; }
 
 .vertical-menu li a:hover, .vertical-menu li a:focus, .vertical-menu li.active a {
@@ -10939,6 +11007,7 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
   border-radius: 4px;
   -webkit-border-radius: 4px;
   color: #fff;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease; }
 
 /*fb time line*/
@@ -11170,6 +11239,7 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 
 .chat-room-head .search-btn {
   width: 20px;
+  -webkit-transition: all .3s ease;
   transition: all .3s ease;
   box-shadow: none;
   background: #01a6b2 url("../img/chat-search.png") no-repeat 12px 9px;
@@ -11181,6 +11251,7 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 .chat-room-head .search-btn:focus {
   width: 180px;
   box-shadow: none;
+  -webkit-transition: all .3s ease;
   transition: all .3s ease;
   /*background: #01a6b2;*/
   font-weight: 300;
@@ -11506,6 +11577,7 @@ a.guest-on i {
   text-transform: uppercase;
   background: #fff;
   color: #7A7676;
+  -webkit-transition: all 0.2s ease-out 0s;
   transition: all 0.2s ease-out 0s;
   text-decoration: none;
   border-radius: 5px;
@@ -11866,6 +11938,7 @@ header.purple-bg .search,
 header.blue-bg .search {
   margin-top: 6px;
   width: 20px;
+  -webkit-transition: all .3s ease;
   transition: all .3s ease;
   border: 1px solid #fff;
   box-shadow: none;
@@ -11881,6 +11954,7 @@ header.blue-bg .search:focus {
   width: 180px;
   border: 1px solid #eaeaea;
   box-shadow: none;
+  -webkit-transition: all .3s ease;
   transition: all .3s ease;
   color: #c8c8c8;
   font-weight: 300; }
@@ -12088,6 +12162,8 @@ header.blue-bg .search:focus {
     border: none !important;
     margin-right: 2px !important;
     background-color: #fafafa !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#efefef)) !important;
+    background-image: -webkit-linear-gradient(top, #fafafa, #efefef) !important;
     background-image: linear-gradient(to bottom, #fafafa, #efefef) !important;
     -webkit-filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fafafa', endColorstr='#efefef', GradientType=0) !important;
     filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fafafa', endColorstr='#efefef', GradientType=0) !important;
@@ -12101,6 +12177,8 @@ header.blue-bg .search:focus {
     color: #bcbbbb !important; }
   .fc-button.fc-state-active .fc-button-inner {
     background-color: #e5e4e4 !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e5e4e4), to(#dddcdc)) !important;
+    background-image: -webkit-linear-gradient(top, #e5e4e4, #dddcdc) !important;
     background-image: linear-gradient(to bottom, #e5e4e4, #dddcdc) !important;
     -webkit-filter: progid:dximagetransform.microsoft.gradient(startColorstr='#e5e4e4', endColorstr='#dddcdc', GradientType=0) !important;
     filter: progid:dximagetransform.microsoft.gradient(startColorstr='#e5e4e4', endColorstr='#dddcdc', GradientType=0) !important; }

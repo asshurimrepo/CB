@@ -44962,6 +44962,7 @@ exports.default = {
 
 	ready: function ready() {
 		this.addActionsToVideo();
+		// console.log(this.project);
 	},
 
 

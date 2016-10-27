@@ -29,7 +29,9 @@ new Vue({
 		active_project: {
 			options: {
 				stop_showing: {},
-				external_video: {}
+				external_video: {},
+				iframe_settings: {},
+				video_settings: {}
 			},
 
 			actions: {}
