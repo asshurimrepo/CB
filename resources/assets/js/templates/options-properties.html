@@ -222,6 +222,32 @@
            </label>
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="col-lg-12 col-md-12">
+            <div class="well">
+              <div class="clicktocall-container"
+              :style="{
+                textAlign: project.options.iframe_settings.buttonoverlay_alignment
+              }"
+            >
+              <button type="button" class="btn btn-default"
+                :style="{
+                  fontFamily: project.options.iframe_settings.buttonoverlay_fontfamily,
+                  fontSize: project.options.iframe_settings.buttonoverlay_fontsize + 'px',
+                  fontWeight: project.options.iframe_settings.buttonoverlay_bold ? 'bold' : null,
+                  fontStyle: project.options.iframe_settings.buttonoverlay_italic ? 'italic': null,
+                  color: project.options.iframe_settings.buttonoverlay_textcolor,
+                  backgroundColor: project.options.iframe_settings.buttonoverlay_backgroundcolor
+                }"
+              >
+                {{ project.options.iframe_settings.buttonoverlay_label ? project.options.iframe_settings.buttonoverlay_label: 'Default'}}
+              </button>
+            </div>
+            </div>
+          </div>
+      </div>
+  
       <div class="form-group">
                   <div class="col-lg-12 col-md-12 row">
               <label for="buttonlabel" class="control-label col-md-3 col-sm-3"><strong> Label: </strong></label>
@@ -238,7 +264,7 @@
                <strong> Vertical Alignment: </strong>
              </label>
              <div class="row m-bot15 col-md-3 col-sm-3">
-               <select id='textPosition' class="form-control m-bot15" v-model="project.options.iframe_settings.textoverlay_valignment">
+               <select id='textPosition' class="form-control m-bot15" v-model="project.options.iframe_settings.buttonoverlay_valignment">
                  <option value="bottom">Bottom</option>
                  <option value="middle">Middle</option>
                  <option value="top">Top</option>
@@ -268,50 +294,9 @@
           </div>
       </div>
 
-    <div class="form-group">
-    
-         <div class="form-overlay">
-            <div class="col-lg-12 col-md-12">
-              <div class="panel-group" id="accordion">
-                            <div class="panel advance-panel">
-                                <div class="panel-heading panel-inverse">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                          <div>
-                                            <i class="fa fa-pencil"></i>  Advance (Button Overlay)  <tooltip title="Button overlay appearance options" placement="right"></tooltip><i class="fa fa-caret-down pull-right"></i></span>
-                                          </div>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse collapse">
-                                  <div class="panel-body">
                                     <div class="form-group">
                                       <div class="col-lg-12 col-md-12">
-                                          <div class="well">
-                                            <div class="clicktocall-container"
-                                            :style="{
-                                              textAlign: project.options.iframe_settings.buttonoverlay_alignment
-                                            }"
-                                          >
-                                            <button type="button" class="btn btn-default"
-                                              :style="{
-                                                fontFamily: project.options.iframe_settings.buttonoverlay_fontfamily,
-                                                fontSize: project.options.iframe_settings.buttonoverlay_fontsize + 'px',
-                                                fontWeight: project.options.iframe_settings.buttonoverlay_bold ? 'bold' : null,
-                                                fontStyle: project.options.iframe_settings.buttonoverlay_italic ? 'italic': null,
-                                                color: project.options.iframe_settings.buttonoverlay_textcolor,
-                                                backgroundColor: project.options.iframe_settings.buttonoverlay_backgroundcolor
-                                              }"
-                                            >
-                                              {{ project.options.iframe_settings.buttonoverlay_label ? project.options.iframe_settings.buttonoverlay_label: 'Default'}}
-                                            </button>
-                                          </div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <div class="col-lg-12 col-md-12">
-                        <label for="fontstyle" class="control-label col-md-3 col-sm-3">
+                                          <label for="fontstyle" class="control-label col-md-3 col-sm-3">
                                                  <strong> Font Family: </strong>
                                           </label>
                                           <div class="row m-bot15 col-md-4 col-sm-4">
@@ -329,11 +314,11 @@
                                                   <option value="Lucida Console">Lucida Console</option>
                                                 </select>
                                               </div>
-                        <label for="fontsize" class="control-label col-md-3 col-sm-3">
+                                            <label for="fontsize" class="control-label col-md-3 col-sm-3">
                                               <strong> Font Size: </strong>
-                                        </label>
+                                            </label>
                                           <div class="row m-bot15 col-md-3 col-sm-3">
-                          <div class="spinner">
+                                            <div class="spinner">
                                                     <div class="input-group input-small">
                                                           <input type="text" class="spinner-input form-control fontsize" value="10"  v-model="project.options.iframe_settings.buttonoverlay_fontsize">
                                                           <div id='buttonoverlay_fontsize' class="spinner-buttons input-group-btn btn-group-vertical fontsize-buttons">
@@ -351,7 +336,7 @@
                                     </div>
                                     <div class="form-group">
                                       <div class="col-lg-12 col-md-12">
-                        <label for="boldtext" class="control-label col-md-2 col-sm-2">
+                                          <label for="boldtext" class="control-label col-md-2 col-sm-2">
                                                 <strong> Bold: </strong>
                                           </label>
                                           <div class="row m-bot15 col-md-4 col-sm-4">
@@ -415,14 +400,6 @@
                                          </div>
                                       </div>
                                     </div>
-                                  </div><!--  end of panel-body -->
-                                </div>
-                            </div>
-                          </div>
-
-          </div> <!-- 2nd form-group -->
-    </div>
-
 
 
     </form>

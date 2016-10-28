@@ -828,7 +828,8 @@ div.after-message > span {
   /*transform: translateY(-50%);*/ }
 
 #project-iframe-buttonoverlay.Buttonoverlay--bottom {
-  bottom: 0; }
+  bottom: 0;
+  top: auto; }
 
 #project-iframe-buttonoverlay.Buttonoverlay--left {
   text-align: left; }
